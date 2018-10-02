@@ -9,11 +9,15 @@ public class Robot1_TeleOp extends OpMode {
 
     Robot1_Hardware hardware;
 
-    //power variables
+    //Power variables
     private double leftPower,
         rightPower,
         boost,
         middlePower;
+    
+    // Power control variables
+    private double MAX_MIDDLE_POWER = 0.5;
+    private double MAX_DRIVE_POWER = 0.5;
 
     private int driveMode;
 
@@ -49,35 +53,35 @@ public class Robot1_TeleOp extends OpMode {
         if (driveMode == 1) {
             //drive1 controls (slide drive)
             if (gamepad1.left_trigger > 0) {
-                middlePower = -1; // strafe left
+                middlePower = -MAX_MIDDLE_POWER; // strafe left
                 leftPower = 0;
                 rightPower = 0;
             } else if (gamepad1.right_trigger > 0) {
-                middlePower = 1; // strafe right
+                middlePower = MAX_MIDDLE_POWER; // strafe right
                 leftPower = 0;
                 rightPower = 0;
             } else {
                 // motor power = joysticks
                 middlePower = 0;
-                leftPower = -gamepad1.left_stick_y;
-                rightPower = -gamepad1.right_stick_y;
+                leftPower = -gamepad1.left_stick_y * MAX_DRIVE_POWER;
+                rightPower = -gamepad1.right_stick_y * MAX_DRIVE_POWER;
             }
         } else {
             // drive2 controls (planetary drive)
             if (gamepad1.left_trigger == 0 && gamepad1.right_trigger == 0) {
                 //Moving forward, backward, left, right
-                leftPower = -gamepad1.left_stick_y;
-                rightPower = -gamepad1.left_stick_y;
-                middlePower = gamepad1.left_stick_x;
+                leftPower = -gamepad1.left_stick_y * MAX_DRIVE_POWER;
+                rightPower = -gamepad1.left_stick_y * MAX_DRIVE_POWER;
+                middlePower = gamepad1.left_stick_x * MAX_MIDDLE_POWER;
             } else {
                 // Turning
                 if (gamepad1.left_trigger > 0) {
                     middlePower = 0;
                     leftPower = 0;
-                    rightPower = 1;
+                    rightPower = MAX_DRIVE_POWER;
                 } else if (gamepad1.right_trigger > 0) {
                     middlePower = 0;
-                    leftPower = 1;
+                    leftPower = MAX_DRIVE_POWER;
                     rightPower = 0;
                 }
 
