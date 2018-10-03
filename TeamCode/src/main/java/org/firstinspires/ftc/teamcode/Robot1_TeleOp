@@ -14,10 +14,10 @@ public class Robot1_TeleOp extends OpMode {
         rightPower,
         boost,
         middlePower;
-    
-    // Power control variables
-    private double MAX_MIDDLE_POWER = 0.5;
-    private double MAX_DRIVE_POWER = 0.5;
+
+    // Max Power control variables
+    private double MAX_MIDDLE_POWER = 0.8;
+    private double MAX_DRIVE_POWER = 0.8;
 
     private int driveMode;
 
@@ -36,6 +36,9 @@ public class Robot1_TeleOp extends OpMode {
     public void loop() {
         manageDrivetrain();
         applyBoost();
+        /*telemetry.addData("Left Stick", gamepad1.left_stick_y);
+        telemetry.addData("Right Stick", gamepad1.right_stick_y);
+        telemetry.update();*/
     }
 
     private void applyBoost() {
@@ -43,54 +46,65 @@ public class Robot1_TeleOp extends OpMode {
             boost = 1;
     }
 
-    private void manageDrivetrain() {
-        // sets drive mode
+    // Shortcut method for setting the power of the left drive, right drive, and middle drive
+    private void setPowers(double lp, double rp, double mp) {
+        leftPower = lp;
+        rightPower = rp;
+        middlePower = mp;
+    }
+
+    private void basicDrive() {
+        //drive1 controls (slide drive)
+        if (gamepad1.left_trigger > 0) {
+            setPowers(0, 0, -MAX_MIDDLE_POWER); // strafe left
+        } else if (gamepad1.right_trigger > 0) {
+            setPowers(0, 0, MAX_MIDDLE_POWER); // strafe right
+        } else {
+            // motor power = joysticks
+            setPowers(-gamepad1.left_stick_y * MAX_DRIVE_POWER, -gamepad1.right_stick_y * MAX_DRIVE_POWER, 0);
+        }
+    }
+
+
+    private void planetaryDrive() {
+        // drive2 controls (planetary drive)
+        if (gamepad1.left_trigger == 0 && gamepad1.right_trigger == 0) {
+            //Moving forward, backward, left, right if not touching triggers
+            setPowers(-gamepad1.left_stick_y * MAX_DRIVE_POWER,
+                      -gamepad1.left_stick_y * MAX_DRIVE_POWER,
+                      gamepad1.left_stick_x * MAX_MIDDLE_POWER);
+        } else {
+            // Turning
+            if (gamepad1.left_trigger > 0) {
+                setPowers(-MAX_DRIVE_POWER, MAX_DRIVE_POWER, 0);
+            } else if (gamepad1.right_trigger > 0) {
+                setPowers(MAX_DRIVE_POWER, -MAX_DRIVE_POWER, 0);
+            }
+
+        }
+    }
+
+    private void manageMode() {
         if (gamepad1.left_bumper)
             driveMode = 1;
         if (gamepad1.right_bumper)
             driveMode = 2;
+    }
+
+    // MAIN DRIVETRAIN METHOD
+    private void manageDrivetrain() {
+        // sets drive mode
+        manageMode();
 
         if (driveMode == 1) {
-            //drive1 controls (slide drive)
-            if (gamepad1.left_trigger > 0) {
-                middlePower = -MAX_MIDDLE_POWER; // strafe left
-                leftPower = 0;
-                rightPower = 0;
-            } else if (gamepad1.right_trigger > 0) {
-                middlePower = MAX_MIDDLE_POWER; // strafe right
-                leftPower = 0;
-                rightPower = 0;
-            } else {
-                // motor power = joysticks
-                middlePower = 0;
-                leftPower = -gamepad1.left_stick_y * MAX_DRIVE_POWER;
-                rightPower = -gamepad1.right_stick_y * MAX_DRIVE_POWER;
-            }
+            basicDrive();
         } else {
-            // drive2 controls (planetary drive)
-            if (gamepad1.left_trigger == 0 && gamepad1.right_trigger == 0) {
-                //Moving forward, backward, left, right
-                leftPower = -gamepad1.left_stick_y * MAX_DRIVE_POWER;
-                rightPower = -gamepad1.left_stick_y * MAX_DRIVE_POWER;
-                middlePower = gamepad1.left_stick_x * MAX_MIDDLE_POWER;
-            } else {
-                // Turning
-                if (gamepad1.left_trigger > 0) {
-                    middlePower = 0;
-                    leftPower = 0;
-                    rightPower = MAX_DRIVE_POWER;
-                } else if (gamepad1.right_trigger > 0) {
-                    middlePower = 0;
-                    leftPower = MAX_DRIVE_POWER;
-                    rightPower = 0;
-                }
-
-            }
+            planetaryDrive();
         }
 
 
         hardware.leftDrive.setPower(boost * leftPower);
         hardware.rightDrive.setPower(boost * rightPower);
-        hardware.middleDrive.setPower(middlePower);
+        hardware.middleDrive.setPower(boost * middlePower);
     }
 }
