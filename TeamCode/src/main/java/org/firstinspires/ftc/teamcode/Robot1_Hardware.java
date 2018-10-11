@@ -11,6 +11,7 @@ public class Robot1_Hardware {
     DcMotor rightDrive = null;
     DcMotor middleDrive = null;
     DcMotor slideMotor = null;
+    DcMotor winchMotor = null;
     Servo linearActuator = null;
     //
     //
@@ -22,6 +23,7 @@ public class Robot1_Hardware {
         rightDrive = hardwareMap.get(DcMotor.class, "rd");
         middleDrive = hardwareMap.get(DcMotor.class, "md");
         slideMotor = hardwareMap.get(DcMotor.class, "sm");
+        winchMotor = hardwareMap.get(DcMotor.class, "wm");
         linearActuator = hardwareMap.get(Servo.class, "la");
     }
 
@@ -31,6 +33,7 @@ public class Robot1_Hardware {
         rightDrive.setDirection(DcMotor.Direction.REVERSE);
         middleDrive.setDirection(DcMotor.Direction.REVERSE);
         slideMotor.setDirection(DcMotor.Direction.FORWARD);
+        winchMotor.setDirection(DcMotor.Direction.FORWARD);
     }
 
 }
