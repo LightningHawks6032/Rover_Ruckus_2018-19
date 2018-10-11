@@ -13,7 +13,9 @@ public class Robot1_TeleOp extends OpMode {
     private double leftPower,
         rightPower,
         boost,
-        middlePower;
+        middlePower,
+        slidePower,
+        winchPower;
 
     // Max Power control variables
     private double MAX_MIDDLE_POWER = 0.8;
@@ -30,12 +32,16 @@ public class Robot1_TeleOp extends OpMode {
         boost = 0.7;
         rightPower = 0;
         leftPower = 0;
+        slidePower = 0;
+        winchPower = 0;
         driveMode = 1;
     }
 
     public void loop() {
         manageDrivetrain();
         applyBoost();
+        manageSlide();
+        manageWinch();
         /*telemetry.addData("Left Stick", gamepad1.left_stick_y);
         telemetry.addData("Right Stick", gamepad1.right_stick_y);
         telemetry.update();*/
@@ -106,5 +112,21 @@ public class Robot1_TeleOp extends OpMode {
         hardware.leftDrive.setPower(boost * leftPower);
         hardware.rightDrive.setPower(boost * rightPower);
         hardware.middleDrive.setPower(boost * middlePower);
+    }
+
+    // horizontal slide control
+    private void manageSlide() {
+        // could add a multiplier value
+        slidePower = -gamepad2.left_stick_y; // perhaps change to x rather than y
+
+        hardware.slideMotor.setPower(slidePower);
+    }
+
+    // vertical winch control
+    private void manageWinch() {
+        // could add a multiplier value
+        winchPower = -gamepad2.right_stick_y;
+
+        hardware.winchMotor.setPower(winchPower);
     }
 }
