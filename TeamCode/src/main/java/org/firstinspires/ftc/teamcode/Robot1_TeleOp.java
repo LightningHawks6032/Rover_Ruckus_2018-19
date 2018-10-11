@@ -16,6 +16,7 @@ public class Robot1_TeleOp extends OpMode {
         middlePower,
         slidePower,
         winchPower;
+        // actuPower;
 
     // Max Power control variables
     private double MAX_MIDDLE_POWER = 0.8;
@@ -129,4 +130,9 @@ public class Robot1_TeleOp extends OpMode {
 
         hardware.winchMotor.setPower(winchPower);
     }
+
+    /*// linear actuator control
+    private void manageActuator() {
+        
+    }*/
 }
