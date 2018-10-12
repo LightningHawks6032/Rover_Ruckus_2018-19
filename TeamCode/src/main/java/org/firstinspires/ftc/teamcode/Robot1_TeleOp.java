@@ -72,6 +72,7 @@ public class Robot1_TeleOp extends OpMode {
 
     private void planetaryDrive() {
         // drive2 controls (planetary drive)
+        // drive 2: electric boogaloo
         if (gamepad1.left_trigger == 0 && gamepad1.right_trigger == 0) {
             //Moving forward, backward, left, right if not touching triggers
             setPowers(-gamepad1.left_stick_y * MAX_DRIVE_POWER,
