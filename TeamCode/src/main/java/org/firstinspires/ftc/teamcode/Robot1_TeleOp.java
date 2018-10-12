@@ -43,9 +43,6 @@ public class Robot1_TeleOp extends OpMode {
         applyBoost();
         manageSlide();
         manageWinch();
-        /*telemetry.addData("Left Stick", gamepad1.left_stick_y);
-        telemetry.addData("Right Stick", gamepad1.right_stick_y);
-        telemetry.update();*/
     }
 
     private void applyBoost() {
