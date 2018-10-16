@@ -50,7 +50,7 @@ public class Vuforia extends OpMode {
     VuforiaLocalizer vuforia;
 
     ArrayList<VuforiaTrackable> navigationTargets = new ArrayList<VuforiaTrackable>();
-    
+
     public void init() {
         /*
          * Configure Vuforia by creating a Parameter object, and passing it to the Vuforia engine.
@@ -171,8 +171,8 @@ public class Vuforia extends OpMode {
          */
 
         // We need to change these depending on where the robot is (these are in mm)
-        final int CAMERA_FORWARD_DISPLACEMENT  = 110;   // eg: Camera is 110 mm in front of robot center
-        final int CAMERA_VERTICAL_DISPLACEMENT = 200;   // eg: Camera is 200 mm above ground
+        final int CAMERA_FORWARD_DISPLACEMENT  = 0;   // eg: Camera is 0 mm in front of robot center
+        final int CAMERA_VERTICAL_DISPLACEMENT = 0;   // eg: Camera is 0 mm above ground
         final int CAMERA_LEFT_DISPLACEMENT     = 0;     // eg: Camera is ON the robot's center line
 
         OpenGLMatrix phoneLocationOnRobot = OpenGLMatrix
@@ -220,7 +220,7 @@ public class Vuforia extends OpMode {
             telemetry.addData("Rot (deg)", "{Roll, Pitch, Heading} = %.0f, %.0f, %.0f", rotation.firstAngle, rotation.secondAngle, rotation.thirdAngle);
         }
         else {
-            telemetry.addData("Visible Target", "none");
+            //telemetry.addData("Visible Target", "none");
         }
         telemetry.update();
     }
