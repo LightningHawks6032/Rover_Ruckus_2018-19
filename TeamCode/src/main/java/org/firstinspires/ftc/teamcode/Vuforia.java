@@ -45,13 +45,12 @@ public class Vuforia extends OpMode {
     private static final float mmTargetHeight   = (6) * mmPerInch; // height of the center of the target image above the floor
 
     // The camera on the RC that we are using (FRONT or BACK)
-    private static final VuforiaLocalizer.CameraDirection CAMERA_CHOICE = FRONT;
+    private static final VuforiaLocalizer.CameraDirection CAMERA_CHOICE = BACK; // for now, for testing
 
     VuforiaLocalizer vuforia;
 
     ArrayList<VuforiaTrackable> navigationTargets = new ArrayList<VuforiaTrackable>();
-
-
+    
     public void init() {
         /*
          * Configure Vuforia by creating a Parameter object, and passing it to the Vuforia engine.
@@ -81,7 +80,6 @@ public class Vuforia extends OpMode {
         backSpace.setName("Back-Space");
 
         // Store the navigation targets in a list
-        List<VuforiaTrackable> navigationTargets = new ArrayList<VuforiaTrackable>();
         navigationTargets.addAll(targetsRoverRuckus);
 
         /**
@@ -190,11 +188,13 @@ public class Vuforia extends OpMode {
         targetsRoverRuckus.activate();
     }
 
-    public void loop() {
-        OpenGLMatrix lastLocation = null; // the last location of a nav target we've seen
 
-        // Loop through each target in the list of targets to check if they are visible
-        boolean targetVisible = false;
+    OpenGLMatrix lastLocation = null; // the last location of a nav target we've seen
+
+    // Loop through each target in the list of targets to check if they are visible
+    boolean targetVisible = false;
+
+    public void loop() {
         for (VuforiaTrackable trackable : navigationTargets) {
             if (targetIsVisible(trackable)) {
                 telemetry.addData("Visible Target", trackable.getName());
