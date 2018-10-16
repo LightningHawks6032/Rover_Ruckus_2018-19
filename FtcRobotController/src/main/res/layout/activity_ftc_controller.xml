@@ -31,8 +31,9 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 -->
 
-<!-- Added xlmnls:opencv link -->
-<LinearLayout xmlns:opencv="http://schemas.android.com/apk/res-auto"
+<!-- Added xlmnls:opencv link
+xmlns:opencv="http://schemas.android.com/apk/res-auto"-->
+<LinearLayout
               xmlns:android="http://schemas.android.com/apk/res/android"
               xmlns:tools="http://schemas.android.com/tools"
               android:layout_width="match_parent"
@@ -178,7 +179,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
       android:visibility="invisible"
       android:text="" />
 
-    <!-- Beginning of Added Camera Frame & Button Code -->
+    <!-- Beginning of Added Camera Frame & Button Code --><!--
     <FrameLayout
         android:layout_width="fill_parent"
         android:layout_height="350dp"
@@ -211,7 +212,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
           android:textColor="#ff0000" />
 
     </FrameLayout>
-    <!-- End of Added Camera Frame & Button Code -->
+    --><!-- End of Added Camera Frame & Button Code -->
 
   </RelativeLayout>
 
