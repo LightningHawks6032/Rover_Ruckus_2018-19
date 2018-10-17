@@ -43,6 +43,7 @@ public class Robot1_TeleOp extends OpMode {
         applyBoost();
         manageSlide();
         manageWinch();
+        manageClaws();
     }
 
     private void applyBoost() {
@@ -110,7 +111,7 @@ public class Robot1_TeleOp extends OpMode {
 
         hardware.leftDrive.setPower(boost * leftPower);
         hardware.rightDrive.setPower(boost * rightPower);
-        hardware.middleDrive.setPower(boost * middlePower);
+        hardware.middleDrive.setPower(boost * middlePower * 2);
     }
 
     // horizontal slide control
@@ -118,7 +119,8 @@ public class Robot1_TeleOp extends OpMode {
         // could add a multiplier value
         slidePower = -gamepad2.left_stick_y; // perhaps change to x rather than y
 
-        hardware.slideMotor.setPower(slidePower);
+        hardware.fastSlideMotor.setPower(slidePower);
+        hardware.slowSlideMotor.setPower(slidePower*0.25);
     }
 
     // vertical winch control
@@ -129,8 +131,26 @@ public class Robot1_TeleOp extends OpMode {
         hardware.winchMotor.setPower(winchPower);
     }
 
-    /*// linear actuator control
+    // left and right claw control
+    private void manageClaws() {
+        if(gamepad2.left_bumper){
+            hardware.leftClaw.setPosition(0);
+        }else{
+            hardware.leftClaw.setPosition(1);
+        }
+        if(gamepad2.right_bumper){
+            hardware.rightClaw.setPosition(0);
+        }else{
+            hardware.rightClaw.setPosition(1);
+        }
+    }
+
+    // linear actuator control
     private void manageActuator() {
-        
-    }*/
+        if(gamepad2.dpad_up){
+            hardware.linearActuator.setPosition(1);
+        }else if(gamepad2.dpad_down){
+            hardware.linearActuator.setPosition(0);
+        }
+    }
 }

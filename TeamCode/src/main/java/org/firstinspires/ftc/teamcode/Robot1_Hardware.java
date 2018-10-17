@@ -10,34 +10,38 @@ public class Robot1_Hardware {
     DcMotor leftDrive = null;
     DcMotor rightDrive = null;
     DcMotor middleDrive = null;
-    DcMotor slideMotor = null;
+    DcMotor fastSlideMotor = null;
     DcMotor winchMotor = null;
+    DcMotor slowSlideMotor = null;
     Servo linearActuator = null;
     Servo leftClaw = null;
     Servo rightClaw = null;
 
+    //change later according to how things go
 
     public Robot1_Hardware(HardwareMap hardwareMap) {
         //constructs hardware objects based on configuration
         leftDrive = hardwareMap.get(DcMotor.class, "ld");
         rightDrive = hardwareMap.get(DcMotor.class, "rd");
         middleDrive = hardwareMap.get(DcMotor.class, "md");
-        slideMotor = hardwareMap.get(DcMotor.class, "sm");
+        fastSlideMotor = hardwareMap.get(DcMotor.class, "fsm");
         winchMotor = hardwareMap.get(DcMotor.class, "wm");
         linearActuator = hardwareMap.get(Servo.class, "la");
         leftClaw = hardwareMap.get(Servo.class, "lc");
         rightClaw = hardwareMap.get(Servo.class, "rc");
+        slowSlideMotor = hardwareMap.get(DcMotor.class, "ssm");
+
     }
 
     public void initHardware() {
         // called during init() of opMode
-        leftDrive.setDirection(DcMotor.Direction.FORWARD);
-        rightDrive.setDirection(DcMotor.Direction.REVERSE);
-        middleDrive.setDirection(DcMotor.Direction.REVERSE);
-        slideMotor.setDirection(DcMotor.Direction.FORWARD);
+        leftDrive.setDirection(DcMotor.Direction.REVERSE);
+        rightDrive.setDirection(DcMotor.Direction.FORWARD);
+        middleDrive.setDirection(DcMotor.Direction.FORWARD);
+        fastSlideMotor.setDirection(DcMotor.Direction.FORWARD);
+        slowSlideMotor.setDirection(DcMotor.Direction.FORWARD);
         winchMotor.setDirection(DcMotor.Direction.FORWARD);
-        int servoClosed = 0;
-        int servoOpen = 1;
+
     }
 
 }
