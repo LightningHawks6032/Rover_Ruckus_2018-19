@@ -216,11 +216,12 @@ public class Vuforia extends OpMode {
                     translation.get(0) / mmPerInch, translation.get(1) / mmPerInch, translation.get(2) / mmPerInch);
 
             // express the rotation of the robot in degrees.
-            Orientation rotation = Orientation.getOrientation(lastLocation, EXTRINSIC, XYZ, DEGREES);
-            telemetry.addData("Rot (deg)", "{Roll, Pitch, Heading} = %.0f, %.0f, %.0f", rotation.firstAngle, rotation.secondAngle, rotation.thirdAngle);
+            Orientation rotation = Orientation.getOrientation(lastLocation, EXTRINSIC, XYZ, DEGREES); // Extrinsic = Roll, XYZ = Pitch, DEGREES = Yaw
+            // More info about Roll, Pitch, Yaw: https://www.novatel.com/assets/Web-Phase-2-2012/Solution-Pages/AttitudePlane.png
+            telemetry.addData("Rot (deg) Yaw = ", rotation.thirdAngle);
         }
         else {
-            //telemetry.addData("Visible Target", "none");
+            telemetry.addData("Visible Target", "none");
         }
         telemetry.update();
     }
