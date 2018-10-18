@@ -151,6 +151,8 @@ public class Robot1_TeleOp extends OpMode {
             hardware.linearActuator.setPosition(1);
         }else if(gamepad2.dpad_down){
             hardware.linearActuator.setPosition(0);
+        }else{
+            hardware.linearActuator.setPosition(0.5);
         }
     }
 }
