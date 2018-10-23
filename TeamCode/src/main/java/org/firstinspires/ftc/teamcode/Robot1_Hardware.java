@@ -35,8 +35,8 @@ public class Robot1_Hardware {
 
     public void initHardware() {
         // called during init() of opMode
-        leftDrive.setDirection(DcMotor.Direction.REVERSE);
-        rightDrive.setDirection(DcMotor.Direction.FORWARD);
+        leftDrive.setDirection(DcMotor.Direction.FORWARD);
+        rightDrive.setDirection(DcMotor.Direction.REVERSE);
         middleDrive.setDirection(DcMotor.Direction.FORWARD);
         fastSlideMotor.setDirection(DcMotor.Direction.FORWARD);
         slowSlideMotor.setDirection(DcMotor.Direction.FORWARD);
