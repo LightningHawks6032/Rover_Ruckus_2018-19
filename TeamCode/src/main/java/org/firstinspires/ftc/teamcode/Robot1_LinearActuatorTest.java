@@ -13,6 +13,9 @@ public class Robot1_LinearActuatorTest extends OpMode {
 
     public void loop() {
         testActuator();
+        telemetry.addLine("This program tests the linear actuator as a servo");
+        telemetry.addData("Linear actuator position: ",hardware.linearActuator.getPosition());
+        telemetry.update();
     }
 
     private void testActuator(){
@@ -21,5 +24,7 @@ public class Robot1_LinearActuatorTest extends OpMode {
         }else if(gamepad1.dpad_down){
             hardware.linearActuator.setPosition(0);
         }
+
+
     }
 }
