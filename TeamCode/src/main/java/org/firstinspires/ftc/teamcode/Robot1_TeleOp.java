@@ -44,6 +44,7 @@ public class Robot1_TeleOp extends OpMode {
         manageSlide();
         manageWinch();
         manageClaws();
+        manageActuator();
 
         telemetry.addData("left claw position", hardware.leftClaw.getPosition());
         telemetry.addData("right claw position", hardware.rightClaw.getPosition());
