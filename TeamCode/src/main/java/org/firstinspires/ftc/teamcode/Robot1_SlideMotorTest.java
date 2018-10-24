@@ -7,6 +7,8 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 public class Robot1_SlideMotorTest extends OpMode {
     Robot1_Hardware hardware;
 
+
+    // currently 1.0 is optimal
     double powerCoefficient = 0.3; // we're testing this value
 
     double redMotorPower = 1.0; // RED = FAST
