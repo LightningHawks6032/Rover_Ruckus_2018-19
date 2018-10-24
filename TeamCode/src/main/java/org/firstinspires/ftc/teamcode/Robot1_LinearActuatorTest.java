@@ -1,7 +1,9 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
+@TeleOp(name="Robot1 Linear Actuator Test", group="Iterative Opmode")
 public class Robot1_LinearActuatorTest extends OpMode {
     Robot1_Hardware hardware;
 
