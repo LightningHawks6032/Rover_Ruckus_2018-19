@@ -41,7 +41,8 @@ public class Robot1_Hardware {
         fastSlideMotor.setDirection(DcMotor.Direction.FORWARD);
         slowSlideMotor.setDirection(DcMotor.Direction.FORWARD);
         winchMotor.setDirection(DcMotor.Direction.FORWARD);
-
+        rightClaw.setPosition(0);
+        leftClaw.setPosition(0);
     }
 
 }

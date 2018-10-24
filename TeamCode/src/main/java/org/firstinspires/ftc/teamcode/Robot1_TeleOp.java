@@ -44,6 +44,10 @@ public class Robot1_TeleOp extends OpMode {
         manageSlide();
         manageWinch();
         manageClaws();
+
+        telemetry.addData("left claw position", hardware.leftClaw.getPosition());
+        telemetry.addData("right claw position", hardware.rightClaw.getPosition());
+        telemetry.update();
     }
 
     private void applyBoost() {
@@ -134,16 +138,16 @@ public class Robot1_TeleOp extends OpMode {
     // left and right claw control
     private void manageClaws() {
         // Left claw
-        if (gamepad2.left_trigger > 0){
+        if (gamepad2.a) {
             hardware.leftClaw.setPosition(0);
-        } else{
+        } else if (gamepad2.b) {
             hardware.leftClaw.setPosition(1);
         }
 
         // Right claw
-        if (gamepad2.right_trigger > 0){
+        if (gamepad2.x){
             hardware.rightClaw.setPosition(0);
-        } else{
+        } else if (gamepad2.y) {
             hardware.rightClaw.setPosition(1);
         }
     }
