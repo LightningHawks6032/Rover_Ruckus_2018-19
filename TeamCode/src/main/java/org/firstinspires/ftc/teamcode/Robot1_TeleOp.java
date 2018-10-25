@@ -157,11 +157,11 @@ public class Robot1_TeleOp extends OpMode {
     // linear actuator control
     private void manageActuator() {
         if(gamepad2.dpad_up){
-            hardware.linearActuator.setPosition(1);
+            hardware.linearActuator.setPosition(2);
         }else if(gamepad2.dpad_down){
-            hardware.linearActuator.setPosition(0);
+            hardware.linearActuator.setPosition(-2);
         }else{
-            hardware.linearActuator.setPosition(0.5);
+            hardware.linearActuator.setPosition(0);
         }
     }
 }
