@@ -148,9 +148,9 @@ public class Robot1_TeleOp extends OpMode {
 
         // Right claw
         if (gamepad2.x){
-            hardware.rightClaw.setPosition(0);
-        } else if (gamepad2.y) {
             hardware.rightClaw.setPosition(1);
+        } else if (gamepad2.y) {
+            hardware.rightClaw.setPosition(0);
         }
     }
 
@@ -159,9 +159,9 @@ public class Robot1_TeleOp extends OpMode {
         if(gamepad2.dpad_up){
             hardware.linearActuator.setPosition(2);
         }else if(gamepad2.dpad_down){
-            hardware.linearActuator.setPosition(-2);
+            hardware.linearActuator.setPosition(0.25);
         }else{
-            hardware.linearActuator.setPosition(0);
+            hardware.linearActuator.setPosition(-1);
         }
     }
 }
