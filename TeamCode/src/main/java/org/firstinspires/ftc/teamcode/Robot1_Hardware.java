@@ -43,9 +43,9 @@ public class Robot1_Hardware {
         winchMotor.setDirection(DcMotor.Direction.FORWARD);
         // linearActuator.setDirection(Servo.Direction.FORWARD); don't use this please
         rightClaw.setPosition(1);
-        rightClaw.setDirection(Servo.Direction.FORWARD);
+        //rightClaw.setDirection(Servo.Direction.FORWARD);
         leftClaw.setPosition(0);
-        leftClaw.setDirection(Servo.Direction.FORWARD);
+        //leftClaw.setDirection(Servo.Direction.FORWARD);
     }
 
 }

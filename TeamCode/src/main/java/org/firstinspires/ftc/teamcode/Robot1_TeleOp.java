@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.Servo;
 
 @TeleOp(name="Robot1 TeleOp", group="Iterative Opmode")
 public class Robot1_TeleOp extends OpMode {
@@ -36,7 +37,7 @@ public class Robot1_TeleOp extends OpMode {
         slidePower = 0;
         winchPower = 0;
         driveMode = 1;
-        actuPower = 0;
+        actuPower = 0.5;
     }
 
     public void loop() {
@@ -49,7 +50,7 @@ public class Robot1_TeleOp extends OpMode {
 
         telemetry.addData("left claw position", hardware.leftClaw.getPosition());
         telemetry.addData("right claw position", hardware.rightClaw.getPosition());
-        telemetry.addData("linear actuator pos", hardware.linearActuator.getPosition());
+        telemetry.addData("linear actuator direction", hardware.linearActuator.getDirection());
         telemetry.update();
     }
 
@@ -141,16 +142,16 @@ public class Robot1_TeleOp extends OpMode {
     // left and right claw control
     private void manageClaws() {
         // Left claw
-        if (gamepad2.a) {
+        if (gamepad2.left_trigger > 0.5) {
             hardware.leftClaw.setPosition(0);
-        } else if (gamepad2.b) {
+        } else{
             hardware.leftClaw.setPosition(1);
         }
 
         // Right claw
-        if (gamepad2.x){
+        if (gamepad2.right_trigger > 0.5){
             hardware.rightClaw.setPosition(1);
-        } else if (gamepad2.y) {
+        } else{
             hardware.rightClaw.setPosition(0);
         }
     }
@@ -158,9 +159,15 @@ public class Robot1_TeleOp extends OpMode {
     // linear actuator control
     private void manageActuator(){
         if(gamepad2.dpad_up) {
-            actuPower += 0.1;
+            actuPower += 0.25;
+            if(actuPower > 1){
+                actuPower = 1;
+            }
         }else if(gamepad2.dpad_down) {
-            actuPower -= 0.1;
+            actuPower -= 0.25;
+            if(actuPower < 0){
+                actuPower = 0;
+            }
         }
         hardware.linearActuator.setPosition(actuPower);
     }
