@@ -17,7 +17,7 @@ public class Robot1_TeleOp extends OpMode {
         middlePower,
         slidePower,
         winchPower,
-        actuPower;
+        actuPos;
 
     // Max Power control variables
     private double MAX_MIDDLE_POWER = 0.8;
@@ -37,7 +37,7 @@ public class Robot1_TeleOp extends OpMode {
         slidePower = 0;
         winchPower = 0;
         driveMode = 1;
-        actuPower = 0.5;
+        actuPos = 0.5;
     }
 
     public void loop() {
@@ -159,16 +159,16 @@ public class Robot1_TeleOp extends OpMode {
     // linear actuator control
     private void manageActuator(){
         if(gamepad2.dpad_up) {
-            actuPower += 0.25;
-            if(actuPower > 1){
-                actuPower = 1;
+            actuPos += 0.25;
+            if(actuPos > 1){
+                actuPos = 1;
             }
         }else if(gamepad2.dpad_down) {
-            actuPower -= 0.25;
-            if(actuPower < 0){
-                actuPower = 0;
+            actuPos -= 0.25;
+            if(actuPos < 0){
+                actuPos = 0;
             }
         }
-        hardware.linearActuator.setPosition(actuPower);
+        hardware.linearActuator.setPosition(actuPos);
     }
 }
