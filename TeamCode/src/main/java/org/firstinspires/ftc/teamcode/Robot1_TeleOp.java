@@ -36,6 +36,7 @@ public class Robot1_TeleOp extends OpMode {
         slidePower = 0;
         winchPower = 0;
         driveMode = 1;
+        actuPower = 0;
     }
 
     public void loop() {
@@ -156,11 +157,11 @@ public class Robot1_TeleOp extends OpMode {
 
     // linear actuator control
     private void manageActuator(){
-        if(gamepad2.dpad_up)
+        if(gamepad2.dpad_up) {
             actuPower += 0.1;
-        else if(gamepad2.dpad_down)
+        }else if(gamepad2.dpad_down) {
             actuPower -= 0.1;
-
-        hardware.linearActuator(actuPower);
+        }
+        hardware.linearActuator.setPosition(actuPower);
     }
 }
