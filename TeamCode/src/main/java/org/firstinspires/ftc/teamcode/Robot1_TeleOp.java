@@ -51,6 +51,7 @@ public class Robot1_TeleOp extends OpMode {
         telemetry.addData("left claw position", hardware.leftClaw.getPosition());
         telemetry.addData("right claw position", hardware.rightClaw.getPosition());
         telemetry.addData("linear actuator direction", hardware.linearActuator.getDirection());
+        telemetry.addData("linear actuator position", hardware.linearActuator.getPosition());
         telemetry.update();
     }
 
