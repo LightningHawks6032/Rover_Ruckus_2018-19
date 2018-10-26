@@ -194,6 +194,15 @@ public class Robot1_TeleOp extends OpMode {
             if(actuPos < 0){
                 actuPos = 0;
             }
+        }else{
+            // I'm hoping this will be able to make the linear actuator sit still - Mich
+            actuPos = hardware.linearActuator.getPosition();
+            if(actuPos < 0) {
+                actuPos = 0;
+            }
+            if(actuPos > 1){
+                actuPos = 1;
+            }
         }
         hardware.linearActuator.setPosition(actuPos);
     }
