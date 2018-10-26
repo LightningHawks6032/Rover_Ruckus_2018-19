@@ -160,6 +160,10 @@ public class Robot1_TeleOp extends OpMode {
          * This may be why the claws weren't working as of Wednesday
          * So, we could say (we'll test this next time if the claws still aren't working):
 
+         * Additional note for claw positioning:
+         * The claws were working as of Thursday (one day after). All it took was replugging
+         * It may still be beneficial to make ClawPos Variables though
+
          if (gamepad2.left_trigger > 0.5) {
             leftClawPos = 0;
          } else{
