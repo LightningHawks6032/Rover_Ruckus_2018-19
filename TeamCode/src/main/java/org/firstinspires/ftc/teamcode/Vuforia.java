@@ -195,6 +195,7 @@ public class Vuforia extends OpMode {
     boolean targetVisible = false;
 
     public void loop() {
+        targetVisible = false;
         for (VuforiaTrackable trackable : navigationTargets) {
             if (targetIsVisible(trackable)) {
                 telemetry.addData("Visible Target", trackable.getName());
