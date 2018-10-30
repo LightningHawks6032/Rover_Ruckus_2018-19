@@ -145,16 +145,16 @@ public class Robot1_TeleOp extends OpMode {
     private void manageClaws() {
         // Left claw
         if (gamepad2.left_trigger > 0.5) {
-            hardware.leftClaw.setPosition(0);
-        } else{
-            hardware.leftClaw.setPosition(1);
+            hardware.leftClaw.setPosition(hardware.LEFT_CLAW_OPEN);
+        } else {
+            hardware.leftClaw.setPosition(hardware.LEFT_CLAW_CLOSE);
         }
 
         // Right claw
-        if (gamepad2.right_trigger > 0.5){
-            hardware.rightClaw.setPosition(1);
-        } else{
-            hardware.rightClaw.setPosition(0);
+        if (gamepad2.right_trigger > 0.5) {
+            hardware.rightClaw.setPosition(hardware.RIGHT_CLAW_OPEN);
+        } else {
+            hardware.rightClaw.setPosition(hardware.RIGHT_CLAW_CLOSE);
         }
 
         /**

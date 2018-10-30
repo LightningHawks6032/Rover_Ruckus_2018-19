@@ -17,6 +17,12 @@ public class Robot1_Hardware {
     Servo leftClaw = null;
     Servo rightClaw = null;
 
+    // Constants for claws
+    double RIGHT_CLAW_CLOSE = 1,
+           RIGHT_CLAW_OPEN = 0,
+           LEFT_CLAW_CLOSE = 0,
+           LEFT_CLAW_OPEN = 1;
+
     //change later according to how things go
 
     public Robot1_Hardware(HardwareMap hardwareMap) {
@@ -42,9 +48,9 @@ public class Robot1_Hardware {
         slowSlideMotor.setDirection(DcMotor.Direction.FORWARD);
         winchMotor.setDirection(DcMotor.Direction.FORWARD);
         // linearActuator.setDirection(Servo.Direction.FORWARD); don't use this please
-        rightClaw.setPosition(1);
+        rightClaw.setPosition(RIGHT_CLAW_CLOSE);
         //rightClaw.setDirection(Servo.Direction.FORWARD);
-        leftClaw.setPosition(0);
+        leftClaw.setPosition(LEFT_CLAW_CLOSE);
         //leftClaw.setDirection(Servo.Direction.FORWARD);
     }
 
