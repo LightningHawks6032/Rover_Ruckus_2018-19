@@ -135,7 +135,8 @@ public class Robot1_TeleOp extends OpMode {
     // vertical winch control
     private void manageWinch() {
         // could add a multiplier value
-        winchPower = -gamepad2.right_stick_y;
+        //winchPower = -gamepad2.right_stick_y;
+        // winch might not work so comment it out
 
         hardware.winchMotor.setPower(winchPower);
     }
@@ -185,26 +186,8 @@ public class Robot1_TeleOp extends OpMode {
 
     // linear actuator control
     private void manageActuator(){
-        if(gamepad2.dpad_up) {
-            actuPos += 0.25;
-            if(actuPos > 1){
-                actuPos = 1;
-            }
-        }else if(gamepad2.dpad_down) {
-            actuPos -= 0.25;
-            if(actuPos < 0){
-                actuPos = 0;
-            }
-        }else{
-            // I'm hoping this will be able to make the linear actuator sit still - Mich
-            actuPos = hardware.linearActuator.getPosition();
-            if(actuPos < 0) {
-                actuPos = 0;
-            }
-            if(actuPos > 1){
-                actuPos = 1;
-            }
-        }
+        // This works
+        actuPos -= gamepad2.right_stick_y * 0.001;
         hardware.linearActuator.setPosition(actuPos);
     }
 }

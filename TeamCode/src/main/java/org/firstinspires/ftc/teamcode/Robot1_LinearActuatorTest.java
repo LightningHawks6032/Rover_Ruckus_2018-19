@@ -40,7 +40,7 @@ public class Robot1_LinearActuatorTest extends OpMode {
             }
         }*/
 
-        actuPos += gamepad2.right_stick_y * 0.01;
+        actuPos -= gamepad2.right_stick_y * 0.01;
 
         if(actuPos > 1){
             actuPos = 1;
