@@ -1,3 +1,10 @@
+/**
+ * This is an autonomous program that uses Vuforia Navigation Target tracking to (WIP) detect the gold mineral and then move to the
+ * alliance depot.
+ * For testing purposes, this program is being written for the red side, as if the robot started on the side of the lander
+ * closer to the red alliance depot.
+ */
+
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -21,7 +28,9 @@ import static org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocaliz
 import static org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer.CameraDirection.FRONT;
 
 public class Robot1_SimpleAuto extends LinearOpMode{
-    Robot1_Hardware hardware;
+    Robot1_Hardware hardware; // Robot hardware
+    OpenGLMatrix lastLocation = null; // Last location of robot based on nav targets
+    double[] positionVector = new double[4]; // x, y, z, yaw
 
     // Our Vuforia key
     private static final String VUFORIA_KEY = "AdwaKe7/////AAAAmVQWX/gUQE/gnK+olEmSWA5FCaxNrdY/EyKFLO2afR1IQD4gbnThc6LcCHIJ64hyC2i3n5VRiIRAMGxtKqjI7meHCphQAPrXpH9GomENr/fSXjVUhQao+Zw0/MLQEuTaqNYnp5EI/4oo6LTm/YPgYKOSPaP+tijaydiwNQn4A8zXPfDhkD/q6RTYMzS3UtpOR7WBZJPUBxW9XKim5ekHbYd1Hk2cFTTFAsL0XwycIWhuvHYpVlnZMqWwEnkTqp0o+5TE1FLkAfJ4OOUEfB8sP9kMEcged2/tczAh3GOcjOudp1S9F5xjPFZQX00OLV+QUCPzmT5kkqFBwiS30YR6L8urW2mJG4quq6NnrNYwzn47";
@@ -39,6 +48,7 @@ public class Robot1_SimpleAuto extends LinearOpMode{
     ArrayList<VuforiaTrackable> navigationTargets = new ArrayList<VuforiaTrackable>();
 
 
+
     public void runOpMode() {
         hardware = new Robot1_Hardware(hardwareMap);
         hardware.initHardware();
@@ -47,18 +57,32 @@ public class Robot1_SimpleAuto extends LinearOpMode{
         setupNavigationTracker();
 
 
-        while (checkForTargets() == null) {
-            hardware.leftDrive.setPower(1.0);
-            hardware.rightDrive.setPower(1.0);
+        while (!robotSeesTarget()) {
+            // do drive stuff
         }
-        currPos = checkForTargets();
+        updatePosVector();
 
-        // go to depot
+
+
+        // go to nav target
+        // strafe to red alliance depot
+        // strafe to crater
         // red alliance depot (x, y) = (60, -60)
         // blue alliance depot (x, y) = (-60, 60)
 
     }
 
+
+    private void goTo(double x, double y, double initX, double initY) {
+        // make angle zero
+
+        // strafeDistance(x-initX)
+        // driveDistance(y-initY)
+    }
+
+
+
+    /** VUFORIA METHODS **/
 
     // Sets up Vuforia for tracking navigation targets
     private void setupNavigationTracker() {
@@ -126,44 +150,30 @@ public class Robot1_SimpleAuto extends LinearOpMode{
         targetsRoverRuckus.activate();
     }
 
-
-    // Checks for targets, when a target is found, returns vector (x, y, z, angle (degrees))
-    private double[] checkForTargets() {
-        boolean targetVisible = false;
-        OpenGLMatrix lastLocation = null;
-
-        double[] positionVector = new double[4]; // x, y, z, yaw
-
-        for (VuforiaTrackable trackable : navigationTargets) {
-            if (targetIsVisible(trackable)) {
-                targetVisible = true;
-
-                OpenGLMatrix robotLocationTransform = ((VuforiaTrackableDefaultListener)trackable.getListener()).getUpdatedRobotLocation();
-                if (robotLocationTransform != null) {
-                    lastLocation = robotLocationTransform;
-                }
-                break; // Exit the for loop if we've found one of the nav targets
-            }
-        }
-
-        if (targetVisible && lastLocation != null) {
-            // express position (translation) of robot in inches.
-            VectorF translation = lastLocation.getTranslation();
-            Orientation rotation = Orientation.getOrientation(lastLocation, EXTRINSIC, XYZ, DEGREES);
-            positionVector[0] = translation.get(0) / mmPerInch;
-            positionVector[1] = translation.get(1) / mmPerInch;
-            positionVector[2] = translation.get(2) / mmPerInch;
-            positionVector[3] = rotation.thirdAngle;
-            return positionVector;
-        }
-
-        return null;
-
-    }
-
     // Checks if a specific target is visible
     private boolean targetIsVisible(VuforiaTrackable trackable) {
         return ((VuforiaTrackableDefaultListener) trackable.getListener()).isVisible();
+    }
+
+    // Checks if a robot sees any target
+    private boolean robotSeesTarget() {
+        for (VuforiaTrackable trackable : navigationTargets) {
+            if (targetIsVisible(trackable))
+                lastLocation = ((VuforiaTrackableDefaultListener)trackable.getListener()).getUpdatedRobotLocation();
+                return true;
+        }
+
+        return false;
+    }
+
+    // Updates positionVector with x, y, z, and rotation
+    public void updatePosVector() {
+        VectorF translation = lastLocation.getTranslation();
+        Orientation rotation = Orientation.getOrientation(lastLocation, EXTRINSIC, XYZ, DEGREES);
+        positionVector[0] = translation.get(0) / mmPerInch;
+        positionVector[1] = translation.get(1) / mmPerInch;
+        positionVector[2] = translation.get(2) / mmPerInch;
+        positionVector[3] = rotation.thirdAngle;
     }
 
 }
