@@ -21,6 +21,8 @@ import static org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocaliz
 import static org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer.CameraDirection.FRONT;
 
 public class Robot1_SimpleAuto extends LinearOpMode{
+    Robot1_Hardware hardware;
+
     // Our Vuforia key
     private static final String VUFORIA_KEY = "AdwaKe7/////AAAAmVQWX/gUQE/gnK+olEmSWA5FCaxNrdY/EyKFLO2afR1IQD4gbnThc6LcCHIJ64hyC2i3n5VRiIRAMGxtKqjI7meHCphQAPrXpH9GomENr/fSXjVUhQao+Zw0/MLQEuTaqNYnp5EI/4oo6LTm/YPgYKOSPaP+tijaydiwNQn4A8zXPfDhkD/q6RTYMzS3UtpOR7WBZJPUBxW9XKim5ekHbYd1Hk2cFTTFAsL0XwycIWhuvHYpVlnZMqWwEnkTqp0o+5TE1FLkAfJ4OOUEfB8sP9kMEcged2/tczAh3GOcjOudp1S9F5xjPFZQX00OLV+QUCPzmT5kkqFBwiS30YR6L8urW2mJG4quq6NnrNYwzn47";
 
@@ -38,11 +40,23 @@ public class Robot1_SimpleAuto extends LinearOpMode{
 
 
     public void runOpMode() {
+        hardware = new Robot1_Hardware(hardwareMap);
+        hardware.initHardware();
+
         double[] currPos;
         setupNavigationTracker();
 
+
+        while (checkForTargets() == null) {
+            hardware.leftDrive.setPower(1.0);
+            hardware.rightDrive.setPower(1.0);
+        }
         currPos = checkForTargets();
-        
+
+        // go to depot
+        // red alliance depot (x, y) = (60, -60)
+        // blue alliance depot (x, y) = (-60, 60)
+
     }
 
 
@@ -140,9 +154,10 @@ public class Robot1_SimpleAuto extends LinearOpMode{
             positionVector[1] = translation.get(1) / mmPerInch;
             positionVector[2] = translation.get(2) / mmPerInch;
             positionVector[3] = rotation.thirdAngle;
+            return positionVector;
         }
 
-        return positionVector;
+        return null;
 
     }
 
