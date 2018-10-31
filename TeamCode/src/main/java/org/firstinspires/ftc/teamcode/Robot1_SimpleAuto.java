@@ -1,8 +1,8 @@
 /**
- * This is an autonomous program that uses Vuforia Navigation Target tracking to (WIP) detect the gold mineral and then move to the
- * alliance depot.
+ * This is an autonomous program that uses Vuforia Navigation Target tracking to (WIP) detect the gold mineral, move to the
+ * alliance depot, and then move to park in the crater.
  * For testing purposes, this program is being written for the red side, as if the robot started on the side of the lander
- * closer to the red alliance depot.
+ * closer to the red alliance depot. Once this works, code will be written to apply for all 4 starting positions.
  */
 
 package org.firstinspires.ftc.teamcode;
@@ -54,19 +54,20 @@ public class Robot1_SimpleAuto extends LinearOpMode{
         hardware.initHardware();
 
         double[] currPos;
+
+        // knock mineral
+
+
         setupNavigationTracker();
-
-
         while (!robotSeesTarget()) {
-            // do drive stuff
+            // turn/swerve without hitting minerals
         }
         updatePosVector();
 
+        // go to alliance-neutral target
+        // strafe right to red alliance depot (avoiding minerals)
+        // strafe left to crater (avoiding minerals)
 
-
-        // go to nav target
-        // strafe to red alliance depot
-        // strafe to crater
         // red alliance depot (x, y) = (60, -60)
         // blue alliance depot (x, y) = (-60, 60)
 
