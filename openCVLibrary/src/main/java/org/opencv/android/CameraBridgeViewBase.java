@@ -29,16 +29,16 @@ import android.view.SurfaceView;
  */
 public abstract class CameraBridgeViewBase extends SurfaceView implements SurfaceHolder.Callback {
 
-    private static final String TAG = "CameraBridge";
-    private static final int MAX_UNSPECIFIED = -1;
-    private static final int STOPPED = 0;
-    private static final int STARTED = 1;
+    static final String TAG = "CameraBridge";
+    static final int MAX_UNSPECIFIED = -1;
+    static final int STOPPED = 0;
+    static final int STARTED = 1;
 
-    private int mState = STOPPED;
-    private Bitmap mCacheBitmap;
-    private CvCameraViewListener2 mListener;
-    private boolean mSurfaceExist;
-    private final Object mSyncObject = new Object();
+    int mState = STOPPED;
+    public Bitmap mCacheBitmap;
+    public CvCameraViewListener2 mListener;
+    boolean mSurfaceExist;
+    final Object mSyncObject = new Object();
 
     protected int mFrameWidth;
     protected int mFrameHeight;
