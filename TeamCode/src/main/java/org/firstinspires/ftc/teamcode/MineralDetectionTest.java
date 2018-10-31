@@ -8,7 +8,7 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 
-@TeleOp(name="Mineral Detection Test", group="Iterative Opmode")
+@TeleOp(name="Mineral Detection Test", group="DogeCV")
 public class MineralDetectionTest extends OpMode
 {
     // Detector object
@@ -32,9 +32,23 @@ public class MineralDetectionTest extends OpMode
         detector.ratioScorer.weight = 5; //
         detector.ratioScorer.perfectRatio = 1.0; // Ratio adjustment
 
+
+    }
+
+    /*
+     * Code to run REPEATEDLY when the driver hits INIT
+     */
+    @Override
+    public void init_loop() {
+
+    }
+
+    /*
+     * Code to run ONCE when the driver hits PLAY
+     */
+    @Override
+    public void start() {
         detector.enable(); // Start the detector!
-
-
     }
 
     @Override

@@ -110,9 +110,10 @@ public abstract class OpenCVPipeline implements CameraBridgeViewBase.CvCameraVie
     public void enable() {
         if (!initStarted) throw new IllegalStateException("init() needs to be called before an OpenCVPipeline can be enabled!");
         // this is an absolute hack
-        try {
+        /*try {
             while (!inited) Thread.sleep(10);
         } catch (InterruptedException e) { return; }
+        */
 
         if(isVuforia){
             viewDisplay.setCurrentView(context, rawView);
