@@ -32,7 +32,7 @@ public class MineralDetectionTest extends OpMode
         detector.ratioScorer.weight = 5; //
         detector.ratioScorer.perfectRatio = 1.0; // Ratio adjustment
 
-
+        detector.enable(); // Start the detector!
     }
 
     /*
@@ -48,7 +48,7 @@ public class MineralDetectionTest extends OpMode
      */
     @Override
     public void start() {
-        detector.enable(); // Start the detector!
+        
     }
 
     @Override
