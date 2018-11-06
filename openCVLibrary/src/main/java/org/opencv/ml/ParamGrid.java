@@ -1,10 +1,9 @@
-
 //
 // This file is auto-generated. Please don't modify it!
 //
 package org.opencv.ml;
 
-
+import org.opencv.ml.ParamGrid;
 
 // C++: class ParamGrid
 //javadoc: ParamGrid
@@ -16,15 +15,36 @@ public class ParamGrid {
 
     public long getNativeObjAddr() { return nativeObj; }
 
+    // internal usage only
+    public static ParamGrid __fromPtr__(long addr) { return new ParamGrid(addr); }
+
     //
-    // C++: static Ptr_ParamGrid create(double minVal = 0., double maxVal = 0., double logstep = 1.)
+    // C++: static Ptr_ParamGrid cv::ml::ParamGrid::create(double minVal = 0., double maxVal = 0., double logstep = 1.)
     //
 
     //javadoc: ParamGrid::create(minVal, maxVal, logstep)
     public static ParamGrid create(double minVal, double maxVal, double logstep)
     {
         
-        ParamGrid retVal = new ParamGrid(create_0(minVal, maxVal, logstep));
+        ParamGrid retVal = ParamGrid.__fromPtr__(create_0(minVal, maxVal, logstep));
+        
+        return retVal;
+    }
+
+    //javadoc: ParamGrid::create(minVal, maxVal)
+    public static ParamGrid create(double minVal, double maxVal)
+    {
+        
+        ParamGrid retVal = ParamGrid.__fromPtr__(create_1(minVal, maxVal));
+        
+        return retVal;
+    }
+
+    //javadoc: ParamGrid::create(minVal)
+    public static ParamGrid create(double minVal)
+    {
+        
+        ParamGrid retVal = ParamGrid.__fromPtr__(create_2(minVal));
         
         return retVal;
     }
@@ -33,7 +53,7 @@ public class ParamGrid {
     public static ParamGrid create()
     {
         
-        ParamGrid retVal = new ParamGrid(create_1());
+        ParamGrid retVal = ParamGrid.__fromPtr__(create_3());
         
         return retVal;
     }
@@ -130,9 +150,11 @@ public class ParamGrid {
 
 
 
-    // C++: static Ptr_ParamGrid create(double minVal = 0., double maxVal = 0., double logstep = 1.)
+    // C++: static Ptr_ParamGrid cv::ml::ParamGrid::create(double minVal = 0., double maxVal = 0., double logstep = 1.)
     private static native long create_0(double minVal, double maxVal, double logstep);
-    private static native long create_1();
+    private static native long create_1(double minVal, double maxVal);
+    private static native long create_2(double minVal);
+    private static native long create_3();
 
     // C++: double ParamGrid::minVal
     private static native double get_minVal_0(long nativeObj);

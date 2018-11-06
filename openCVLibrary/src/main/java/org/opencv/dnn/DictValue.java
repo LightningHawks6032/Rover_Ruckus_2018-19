@@ -1,4 +1,3 @@
-
 //
 // This file is auto-generated. Please don't modify it!
 //
@@ -16,8 +15,11 @@ public class DictValue {
 
     public long getNativeObjAddr() { return nativeObj; }
 
+    // internal usage only
+    public static DictValue __fromPtr__(long addr) { return new DictValue(addr); }
+
     //
-    // C++:   DictValue(String s)
+    // C++:   cv::dnn::DictValue::DictValue(String s)
     //
 
     //javadoc: DictValue::DictValue(s)
@@ -31,7 +33,7 @@ public class DictValue {
 
 
     //
-    // C++:   DictValue(double p)
+    // C++:   cv::dnn::DictValue::DictValue(double p)
     //
 
     //javadoc: DictValue::DictValue(p)
@@ -45,7 +47,7 @@ public class DictValue {
 
 
     //
-    // C++:   DictValue(int i)
+    // C++:   cv::dnn::DictValue::DictValue(int i)
     //
 
     //javadoc: DictValue::DictValue(i)
@@ -59,7 +61,7 @@ public class DictValue {
 
 
     //
-    // C++:  String getStringValue(int idx = -1)
+    // C++:  String cv::dnn::DictValue::getStringValue(int idx = -1)
     //
 
     //javadoc: DictValue::getStringValue(idx)
@@ -82,7 +84,7 @@ public class DictValue {
 
 
     //
-    // C++:  bool isInt()
+    // C++:  bool cv::dnn::DictValue::isInt()
     //
 
     //javadoc: DictValue::isInt()
@@ -96,7 +98,7 @@ public class DictValue {
 
 
     //
-    // C++:  bool isReal()
+    // C++:  bool cv::dnn::DictValue::isReal()
     //
 
     //javadoc: DictValue::isReal()
@@ -110,7 +112,7 @@ public class DictValue {
 
 
     //
-    // C++:  bool isString()
+    // C++:  bool cv::dnn::DictValue::isString()
     //
 
     //javadoc: DictValue::isString()
@@ -124,7 +126,7 @@ public class DictValue {
 
 
     //
-    // C++:  double getRealValue(int idx = -1)
+    // C++:  double cv::dnn::DictValue::getRealValue(int idx = -1)
     //
 
     //javadoc: DictValue::getRealValue(idx)
@@ -147,7 +149,7 @@ public class DictValue {
 
 
     //
-    // C++:  int getIntValue(int idx = -1)
+    // C++:  int cv::dnn::DictValue::getIntValue(int idx = -1)
     //
 
     //javadoc: DictValue::getIntValue(idx)
@@ -176,33 +178,33 @@ public class DictValue {
 
 
 
-    // C++:   DictValue(String s)
+    // C++:   cv::dnn::DictValue::DictValue(String s)
     private static native long DictValue_0(String s);
 
-    // C++:   DictValue(double p)
+    // C++:   cv::dnn::DictValue::DictValue(double p)
     private static native long DictValue_1(double p);
 
-    // C++:   DictValue(int i)
+    // C++:   cv::dnn::DictValue::DictValue(int i)
     private static native long DictValue_2(int i);
 
-    // C++:  String getStringValue(int idx = -1)
+    // C++:  String cv::dnn::DictValue::getStringValue(int idx = -1)
     private static native String getStringValue_0(long nativeObj, int idx);
     private static native String getStringValue_1(long nativeObj);
 
-    // C++:  bool isInt()
+    // C++:  bool cv::dnn::DictValue::isInt()
     private static native boolean isInt_0(long nativeObj);
 
-    // C++:  bool isReal()
+    // C++:  bool cv::dnn::DictValue::isReal()
     private static native boolean isReal_0(long nativeObj);
 
-    // C++:  bool isString()
+    // C++:  bool cv::dnn::DictValue::isString()
     private static native boolean isString_0(long nativeObj);
 
-    // C++:  double getRealValue(int idx = -1)
+    // C++:  double cv::dnn::DictValue::getRealValue(int idx = -1)
     private static native double getRealValue_0(long nativeObj, int idx);
     private static native double getRealValue_1(long nativeObj);
 
-    // C++:  int getIntValue(int idx = -1)
+    // C++:  int cv::dnn::DictValue::getIntValue(int idx = -1)
     private static native int getIntValue_0(long nativeObj, int idx);
     private static native int getIntValue_1(long nativeObj);
 

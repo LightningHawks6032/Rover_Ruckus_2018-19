@@ -1,10 +1,11 @@
-
 //
 // This file is auto-generated. Please don't modify it!
 //
 package org.opencv.features2d;
 
 import java.lang.String;
+import org.opencv.features2d.AgastFeatureDetector;
+import org.opencv.features2d.Feature2D;
 
 // C++: class AgastFeatureDetector
 //javadoc: AgastFeatureDetector
@@ -13,6 +14,8 @@ public class AgastFeatureDetector extends Feature2D {
 
     protected AgastFeatureDetector(long addr) { super(addr); }
 
+    // internal usage only
+    public static AgastFeatureDetector __fromPtr__(long addr) { return new AgastFeatureDetector(addr); }
 
     public static final int
             AGAST_5_8 = 0,
@@ -24,14 +27,32 @@ public class AgastFeatureDetector extends Feature2D {
 
 
     //
-    // C++: static Ptr_AgastFeatureDetector create(int threshold = 10, bool nonmaxSuppression = true, int type = AgastFeatureDetector::OAST_9_16)
+    // C++: static Ptr_AgastFeatureDetector cv::AgastFeatureDetector::create(int threshold = 10, bool nonmaxSuppression = true, int type = AgastFeatureDetector::OAST_9_16)
     //
 
     //javadoc: AgastFeatureDetector::create(threshold, nonmaxSuppression, type)
     public static AgastFeatureDetector create(int threshold, boolean nonmaxSuppression, int type)
     {
         
-        AgastFeatureDetector retVal = new AgastFeatureDetector(create_0(threshold, nonmaxSuppression, type));
+        AgastFeatureDetector retVal = AgastFeatureDetector.__fromPtr__(create_0(threshold, nonmaxSuppression, type));
+        
+        return retVal;
+    }
+
+    //javadoc: AgastFeatureDetector::create(threshold, nonmaxSuppression)
+    public static AgastFeatureDetector create(int threshold, boolean nonmaxSuppression)
+    {
+        
+        AgastFeatureDetector retVal = AgastFeatureDetector.__fromPtr__(create_1(threshold, nonmaxSuppression));
+        
+        return retVal;
+    }
+
+    //javadoc: AgastFeatureDetector::create(threshold)
+    public static AgastFeatureDetector create(int threshold)
+    {
+        
+        AgastFeatureDetector retVal = AgastFeatureDetector.__fromPtr__(create_2(threshold));
         
         return retVal;
     }
@@ -40,14 +61,14 @@ public class AgastFeatureDetector extends Feature2D {
     public static AgastFeatureDetector create()
     {
         
-        AgastFeatureDetector retVal = new AgastFeatureDetector(create_1());
+        AgastFeatureDetector retVal = AgastFeatureDetector.__fromPtr__(create_3());
         
         return retVal;
     }
 
 
     //
-    // C++:  String getDefaultName()
+    // C++:  String cv::AgastFeatureDetector::getDefaultName()
     //
 
     //javadoc: AgastFeatureDetector::getDefaultName()
@@ -61,7 +82,7 @@ public class AgastFeatureDetector extends Feature2D {
 
 
     //
-    // C++:  bool getNonmaxSuppression()
+    // C++:  bool cv::AgastFeatureDetector::getNonmaxSuppression()
     //
 
     //javadoc: AgastFeatureDetector::getNonmaxSuppression()
@@ -75,7 +96,7 @@ public class AgastFeatureDetector extends Feature2D {
 
 
     //
-    // C++:  int getThreshold()
+    // C++:  int cv::AgastFeatureDetector::getThreshold()
     //
 
     //javadoc: AgastFeatureDetector::getThreshold()
@@ -89,7 +110,7 @@ public class AgastFeatureDetector extends Feature2D {
 
 
     //
-    // C++:  int getType()
+    // C++:  int cv::AgastFeatureDetector::getType()
     //
 
     //javadoc: AgastFeatureDetector::getType()
@@ -103,7 +124,7 @@ public class AgastFeatureDetector extends Feature2D {
 
 
     //
-    // C++:  void setNonmaxSuppression(bool f)
+    // C++:  void cv::AgastFeatureDetector::setNonmaxSuppression(bool f)
     //
 
     //javadoc: AgastFeatureDetector::setNonmaxSuppression(f)
@@ -117,7 +138,7 @@ public class AgastFeatureDetector extends Feature2D {
 
 
     //
-    // C++:  void setThreshold(int threshold)
+    // C++:  void cv::AgastFeatureDetector::setThreshold(int threshold)
     //
 
     //javadoc: AgastFeatureDetector::setThreshold(threshold)
@@ -131,7 +152,7 @@ public class AgastFeatureDetector extends Feature2D {
 
 
     //
-    // C++:  void setType(int type)
+    // C++:  void cv::AgastFeatureDetector::setType(int type)
     //
 
     //javadoc: AgastFeatureDetector::setType(type)
@@ -151,29 +172,31 @@ public class AgastFeatureDetector extends Feature2D {
 
 
 
-    // C++: static Ptr_AgastFeatureDetector create(int threshold = 10, bool nonmaxSuppression = true, int type = AgastFeatureDetector::OAST_9_16)
+    // C++: static Ptr_AgastFeatureDetector cv::AgastFeatureDetector::create(int threshold = 10, bool nonmaxSuppression = true, int type = AgastFeatureDetector::OAST_9_16)
     private static native long create_0(int threshold, boolean nonmaxSuppression, int type);
-    private static native long create_1();
+    private static native long create_1(int threshold, boolean nonmaxSuppression);
+    private static native long create_2(int threshold);
+    private static native long create_3();
 
-    // C++:  String getDefaultName()
+    // C++:  String cv::AgastFeatureDetector::getDefaultName()
     private static native String getDefaultName_0(long nativeObj);
 
-    // C++:  bool getNonmaxSuppression()
+    // C++:  bool cv::AgastFeatureDetector::getNonmaxSuppression()
     private static native boolean getNonmaxSuppression_0(long nativeObj);
 
-    // C++:  int getThreshold()
+    // C++:  int cv::AgastFeatureDetector::getThreshold()
     private static native int getThreshold_0(long nativeObj);
 
-    // C++:  int getType()
+    // C++:  int cv::AgastFeatureDetector::getType()
     private static native int getType_0(long nativeObj);
 
-    // C++:  void setNonmaxSuppression(bool f)
+    // C++:  void cv::AgastFeatureDetector::setNonmaxSuppression(bool f)
     private static native void setNonmaxSuppression_0(long nativeObj, boolean f);
 
-    // C++:  void setThreshold(int threshold)
+    // C++:  void cv::AgastFeatureDetector::setThreshold(int threshold)
     private static native void setThreshold_0(long nativeObj, int threshold);
 
-    // C++:  void setType(int type)
+    // C++:  void cv::AgastFeatureDetector::setType(int type)
     private static native void setType_0(long nativeObj, int type);
 
     // native support for java finalize()

@@ -1,4 +1,3 @@
-
 //
 // This file is auto-generated. Please don't modify it!
 //
@@ -7,6 +6,7 @@ package org.opencv.photo;
 import java.util.ArrayList;
 import java.util.List;
 import org.opencv.core.Mat;
+import org.opencv.photo.MergeExposures;
 import org.opencv.utils.Converters;
 
 // C++: class MergeRobertson
@@ -16,9 +16,11 @@ public class MergeRobertson extends MergeExposures {
 
     protected MergeRobertson(long addr) { super(addr); }
 
+    // internal usage only
+    public static MergeRobertson __fromPtr__(long addr) { return new MergeRobertson(addr); }
 
     //
-    // C++:  void process(vector_Mat src, Mat& dst, Mat times, Mat response)
+    // C++:  void cv::MergeRobertson::process(vector_Mat src, Mat& dst, Mat times, Mat response)
     //
 
     //javadoc: MergeRobertson::process(src, dst, times, response)
@@ -32,7 +34,7 @@ public class MergeRobertson extends MergeExposures {
 
 
     //
-    // C++:  void process(vector_Mat src, Mat& dst, Mat times)
+    // C++:  void cv::MergeRobertson::process(vector_Mat src, Mat& dst, Mat times)
     //
 
     //javadoc: MergeRobertson::process(src, dst, times)
@@ -52,10 +54,10 @@ public class MergeRobertson extends MergeExposures {
 
 
 
-    // C++:  void process(vector_Mat src, Mat& dst, Mat times, Mat response)
+    // C++:  void cv::MergeRobertson::process(vector_Mat src, Mat& dst, Mat times, Mat response)
     private static native void process_0(long nativeObj, long src_mat_nativeObj, long dst_nativeObj, long times_nativeObj, long response_nativeObj);
 
-    // C++:  void process(vector_Mat src, Mat& dst, Mat times)
+    // C++:  void cv::MergeRobertson::process(vector_Mat src, Mat& dst, Mat times)
     private static native void process_1(long nativeObj, long src_mat_nativeObj, long dst_nativeObj, long times_nativeObj);
 
     // native support for java finalize()

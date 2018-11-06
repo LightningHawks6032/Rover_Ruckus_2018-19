@@ -1,10 +1,9 @@
-
 //
 // This file is auto-generated. Please don't modify it!
 //
 package org.opencv.photo;
 
-
+import org.opencv.photo.Tonemap;
 
 // C++: class TonemapDrago
 //javadoc: TonemapDrago
@@ -13,9 +12,11 @@ public class TonemapDrago extends Tonemap {
 
     protected TonemapDrago(long addr) { super(addr); }
 
+    // internal usage only
+    public static TonemapDrago __fromPtr__(long addr) { return new TonemapDrago(addr); }
 
     //
-    // C++:  float getBias()
+    // C++:  float cv::TonemapDrago::getBias()
     //
 
     //javadoc: TonemapDrago::getBias()
@@ -29,7 +30,7 @@ public class TonemapDrago extends Tonemap {
 
 
     //
-    // C++:  float getSaturation()
+    // C++:  float cv::TonemapDrago::getSaturation()
     //
 
     //javadoc: TonemapDrago::getSaturation()
@@ -43,7 +44,7 @@ public class TonemapDrago extends Tonemap {
 
 
     //
-    // C++:  void setBias(float bias)
+    // C++:  void cv::TonemapDrago::setBias(float bias)
     //
 
     //javadoc: TonemapDrago::setBias(bias)
@@ -57,7 +58,7 @@ public class TonemapDrago extends Tonemap {
 
 
     //
-    // C++:  void setSaturation(float saturation)
+    // C++:  void cv::TonemapDrago::setSaturation(float saturation)
     //
 
     //javadoc: TonemapDrago::setSaturation(saturation)
@@ -77,16 +78,16 @@ public class TonemapDrago extends Tonemap {
 
 
 
-    // C++:  float getBias()
+    // C++:  float cv::TonemapDrago::getBias()
     private static native float getBias_0(long nativeObj);
 
-    // C++:  float getSaturation()
+    // C++:  float cv::TonemapDrago::getSaturation()
     private static native float getSaturation_0(long nativeObj);
 
-    // C++:  void setBias(float bias)
+    // C++:  void cv::TonemapDrago::setBias(float bias)
     private static native void setBias_0(long nativeObj, float bias);
 
-    // C++:  void setSaturation(float saturation)
+    // C++:  void cv::TonemapDrago::setSaturation(float saturation)
     private static native void setSaturation_0(long nativeObj, float saturation);
 
     // native support for java finalize()

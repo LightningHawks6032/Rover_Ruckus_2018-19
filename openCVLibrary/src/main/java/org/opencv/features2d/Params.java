@@ -1,4 +1,3 @@
-
 //
 // This file is auto-generated. Please don't modify it!
 //
@@ -16,8 +15,11 @@ public class Params {
 
     public long getNativeObjAddr() { return nativeObj; }
 
+    // internal usage only
+    public static Params __fromPtr__(long addr) { return new Params(addr); }
+
     //
-    // C++:   Params()
+    // C++:   cv::SimpleBlobDetector::Params::Params()
     //
 
     //javadoc: Params::Params()
@@ -555,7 +557,7 @@ public class Params {
 
 
 
-    // C++:   Params()
+    // C++:   cv::SimpleBlobDetector::Params::Params()
     private static native long Params_0();
 
     // C++: float Params::thresholdStep

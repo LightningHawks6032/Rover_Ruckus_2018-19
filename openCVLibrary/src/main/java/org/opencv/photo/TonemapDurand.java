@@ -1,10 +1,9 @@
-
 //
 // This file is auto-generated. Please don't modify it!
 //
 package org.opencv.photo;
 
-
+import org.opencv.photo.Tonemap;
 
 // C++: class TonemapDurand
 //javadoc: TonemapDurand
@@ -13,9 +12,11 @@ public class TonemapDurand extends Tonemap {
 
     protected TonemapDurand(long addr) { super(addr); }
 
+    // internal usage only
+    public static TonemapDurand __fromPtr__(long addr) { return new TonemapDurand(addr); }
 
     //
-    // C++:  float getContrast()
+    // C++:  float cv::TonemapDurand::getContrast()
     //
 
     //javadoc: TonemapDurand::getContrast()
@@ -29,7 +30,7 @@ public class TonemapDurand extends Tonemap {
 
 
     //
-    // C++:  float getSaturation()
+    // C++:  float cv::TonemapDurand::getSaturation()
     //
 
     //javadoc: TonemapDurand::getSaturation()
@@ -43,7 +44,7 @@ public class TonemapDurand extends Tonemap {
 
 
     //
-    // C++:  float getSigmaColor()
+    // C++:  float cv::TonemapDurand::getSigmaColor()
     //
 
     //javadoc: TonemapDurand::getSigmaColor()
@@ -57,7 +58,7 @@ public class TonemapDurand extends Tonemap {
 
 
     //
-    // C++:  float getSigmaSpace()
+    // C++:  float cv::TonemapDurand::getSigmaSpace()
     //
 
     //javadoc: TonemapDurand::getSigmaSpace()
@@ -71,7 +72,7 @@ public class TonemapDurand extends Tonemap {
 
 
     //
-    // C++:  void setContrast(float contrast)
+    // C++:  void cv::TonemapDurand::setContrast(float contrast)
     //
 
     //javadoc: TonemapDurand::setContrast(contrast)
@@ -85,7 +86,7 @@ public class TonemapDurand extends Tonemap {
 
 
     //
-    // C++:  void setSaturation(float saturation)
+    // C++:  void cv::TonemapDurand::setSaturation(float saturation)
     //
 
     //javadoc: TonemapDurand::setSaturation(saturation)
@@ -99,7 +100,7 @@ public class TonemapDurand extends Tonemap {
 
 
     //
-    // C++:  void setSigmaColor(float sigma_color)
+    // C++:  void cv::TonemapDurand::setSigmaColor(float sigma_color)
     //
 
     //javadoc: TonemapDurand::setSigmaColor(sigma_color)
@@ -113,7 +114,7 @@ public class TonemapDurand extends Tonemap {
 
 
     //
-    // C++:  void setSigmaSpace(float sigma_space)
+    // C++:  void cv::TonemapDurand::setSigmaSpace(float sigma_space)
     //
 
     //javadoc: TonemapDurand::setSigmaSpace(sigma_space)
@@ -133,28 +134,28 @@ public class TonemapDurand extends Tonemap {
 
 
 
-    // C++:  float getContrast()
+    // C++:  float cv::TonemapDurand::getContrast()
     private static native float getContrast_0(long nativeObj);
 
-    // C++:  float getSaturation()
+    // C++:  float cv::TonemapDurand::getSaturation()
     private static native float getSaturation_0(long nativeObj);
 
-    // C++:  float getSigmaColor()
+    // C++:  float cv::TonemapDurand::getSigmaColor()
     private static native float getSigmaColor_0(long nativeObj);
 
-    // C++:  float getSigmaSpace()
+    // C++:  float cv::TonemapDurand::getSigmaSpace()
     private static native float getSigmaSpace_0(long nativeObj);
 
-    // C++:  void setContrast(float contrast)
+    // C++:  void cv::TonemapDurand::setContrast(float contrast)
     private static native void setContrast_0(long nativeObj, float contrast);
 
-    // C++:  void setSaturation(float saturation)
+    // C++:  void cv::TonemapDurand::setSaturation(float saturation)
     private static native void setSaturation_0(long nativeObj, float saturation);
 
-    // C++:  void setSigmaColor(float sigma_color)
+    // C++:  void cv::TonemapDurand::setSigmaColor(float sigma_color)
     private static native void setSigmaColor_0(long nativeObj, float sigma_color);
 
-    // C++:  void setSigmaSpace(float sigma_space)
+    // C++:  void cv::TonemapDurand::setSigmaSpace(float sigma_space)
     private static native void setSigmaSpace_0(long nativeObj, float sigma_space);
 
     // native support for java finalize()

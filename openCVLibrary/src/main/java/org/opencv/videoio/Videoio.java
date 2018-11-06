@@ -1,4 +1,3 @@
-
 //
 // This file is auto-generated. Please don't modify it!
 //
@@ -373,6 +372,7 @@ public class Videoio {
             CAP_ARAVIS = 2100,
             CAP_OPENCV_MJPEG = 2200,
             CAP_INTEL_MFX = 2300,
+            CAP_XINE = 2400,
             CAP_PROP_POS_MSEC = 0,
             CAP_PROP_POS_FRAMES = 1,
             CAP_PROP_POS_AVI_RATIO = 2,
@@ -412,6 +412,8 @@ public class Videoio {
             CAP_PROP_SETTINGS = 37,
             CAP_PROP_BUFFERSIZE = 38,
             CAP_PROP_AUTOFOCUS = 39,
+            CAP_PROP_SAR_NUM = 40,
+            CAP_PROP_SAR_DEN = 41,
             CAP_MODE_BGR = 0,
             CAP_MODE_RGB = 1,
             CAP_MODE_GRAY = 2,
@@ -674,6 +676,41 @@ public class Videoio {
             CAP_PROP_VIEWFINDER = 17010,
             CAP_PROP_IMAGES_BASE = 18000,
             CAP_PROP_IMAGES_LAST = 19000;
+
+
+    //
+    // C++:  String cv::videoio_registry::getBackendName(VideoCaptureAPIs api)
+    //
+
+    // Unknown type 'VideoCaptureAPIs' (I), skipping the function
+
+
+    //
+    // C++:  vector_VideoCaptureAPIs cv::videoio_registry::getBackends()
+    //
+
+    // Return type 'vector_VideoCaptureAPIs' is not supported, skipping the function
+
+
+    //
+    // C++:  vector_VideoCaptureAPIs cv::videoio_registry::getCameraBackends()
+    //
+
+    // Return type 'vector_VideoCaptureAPIs' is not supported, skipping the function
+
+
+    //
+    // C++:  vector_VideoCaptureAPIs cv::videoio_registry::getStreamBackends()
+    //
+
+    // Return type 'vector_VideoCaptureAPIs' is not supported, skipping the function
+
+
+    //
+    // C++:  vector_VideoCaptureAPIs cv::videoio_registry::getWriterBackends()
+    //
+
+    // Return type 'vector_VideoCaptureAPIs' is not supported, skipping the function
 
 
 

@@ -1,4 +1,3 @@
-
 //
 // This file is auto-generated. Please don't modify it!
 //
@@ -17,9 +16,11 @@ public class MergeExposures extends Algorithm {
 
     protected MergeExposures(long addr) { super(addr); }
 
+    // internal usage only
+    public static MergeExposures __fromPtr__(long addr) { return new MergeExposures(addr); }
 
     //
-    // C++:  void process(vector_Mat src, Mat& dst, Mat times, Mat response)
+    // C++:  void cv::MergeExposures::process(vector_Mat src, Mat& dst, Mat times, Mat response)
     //
 
     //javadoc: MergeExposures::process(src, dst, times, response)
@@ -39,7 +40,7 @@ public class MergeExposures extends Algorithm {
 
 
 
-    // C++:  void process(vector_Mat src, Mat& dst, Mat times, Mat response)
+    // C++:  void cv::MergeExposures::process(vector_Mat src, Mat& dst, Mat times, Mat response)
     private static native void process_0(long nativeObj, long src_mat_nativeObj, long dst_nativeObj, long times_nativeObj, long response_nativeObj);
 
     // native support for java finalize()

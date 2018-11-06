@@ -1,4 +1,3 @@
-
 //
 // This file is auto-generated. Please don't modify it!
 //
@@ -7,6 +6,8 @@ package org.opencv.ml;
 import java.lang.String;
 import org.opencv.core.Mat;
 import org.opencv.core.TermCriteria;
+import org.opencv.ml.ANN_MLP;
+import org.opencv.ml.StatModel;
 
 // C++: class ANN_MLP
 //javadoc: ANN_MLP
@@ -15,6 +16,8 @@ public class ANN_MLP extends StatModel {
 
     protected ANN_MLP(long addr) { super(addr); }
 
+    // internal usage only
+    public static ANN_MLP __fromPtr__(long addr) { return new ANN_MLP(addr); }
 
     public static final int
             BACKPROP = 0,
@@ -31,7 +34,7 @@ public class ANN_MLP extends StatModel {
 
 
     //
-    // C++:  Mat getLayerSizes()
+    // C++:  Mat cv::ml::ANN_MLP::getLayerSizes()
     //
 
     //javadoc: ANN_MLP::getLayerSizes()
@@ -45,7 +48,7 @@ public class ANN_MLP extends StatModel {
 
 
     //
-    // C++:  Mat getWeights(int layerIdx)
+    // C++:  Mat cv::ml::ANN_MLP::getWeights(int layerIdx)
     //
 
     //javadoc: ANN_MLP::getWeights(layerIdx)
@@ -59,35 +62,35 @@ public class ANN_MLP extends StatModel {
 
 
     //
-    // C++: static Ptr_ANN_MLP create()
+    // C++: static Ptr_ANN_MLP cv::ml::ANN_MLP::create()
     //
 
     //javadoc: ANN_MLP::create()
     public static ANN_MLP create()
     {
         
-        ANN_MLP retVal = new ANN_MLP(create_0());
+        ANN_MLP retVal = ANN_MLP.__fromPtr__(create_0());
         
         return retVal;
     }
 
 
     //
-    // C++: static Ptr_ANN_MLP load(String filepath)
+    // C++: static Ptr_ANN_MLP cv::ml::ANN_MLP::load(String filepath)
     //
 
     //javadoc: ANN_MLP::load(filepath)
     public static ANN_MLP load(String filepath)
     {
         
-        ANN_MLP retVal = new ANN_MLP(load_0(filepath));
+        ANN_MLP retVal = ANN_MLP.__fromPtr__(load_0(filepath));
         
         return retVal;
     }
 
 
     //
-    // C++:  TermCriteria getTermCriteria()
+    // C++:  TermCriteria cv::ml::ANN_MLP::getTermCriteria()
     //
 
     //javadoc: ANN_MLP::getTermCriteria()
@@ -101,7 +104,7 @@ public class ANN_MLP extends StatModel {
 
 
     //
-    // C++:  double getAnnealCoolingRatio()
+    // C++:  double cv::ml::ANN_MLP::getAnnealCoolingRatio()
     //
 
     //javadoc: ANN_MLP::getAnnealCoolingRatio()
@@ -115,7 +118,7 @@ public class ANN_MLP extends StatModel {
 
 
     //
-    // C++:  double getAnnealFinalT()
+    // C++:  double cv::ml::ANN_MLP::getAnnealFinalT()
     //
 
     //javadoc: ANN_MLP::getAnnealFinalT()
@@ -129,7 +132,7 @@ public class ANN_MLP extends StatModel {
 
 
     //
-    // C++:  double getAnnealInitialT()
+    // C++:  double cv::ml::ANN_MLP::getAnnealInitialT()
     //
 
     //javadoc: ANN_MLP::getAnnealInitialT()
@@ -143,7 +146,7 @@ public class ANN_MLP extends StatModel {
 
 
     //
-    // C++:  double getBackpropMomentumScale()
+    // C++:  double cv::ml::ANN_MLP::getBackpropMomentumScale()
     //
 
     //javadoc: ANN_MLP::getBackpropMomentumScale()
@@ -157,7 +160,7 @@ public class ANN_MLP extends StatModel {
 
 
     //
-    // C++:  double getBackpropWeightScale()
+    // C++:  double cv::ml::ANN_MLP::getBackpropWeightScale()
     //
 
     //javadoc: ANN_MLP::getBackpropWeightScale()
@@ -171,7 +174,7 @@ public class ANN_MLP extends StatModel {
 
 
     //
-    // C++:  double getRpropDW0()
+    // C++:  double cv::ml::ANN_MLP::getRpropDW0()
     //
 
     //javadoc: ANN_MLP::getRpropDW0()
@@ -185,7 +188,7 @@ public class ANN_MLP extends StatModel {
 
 
     //
-    // C++:  double getRpropDWMax()
+    // C++:  double cv::ml::ANN_MLP::getRpropDWMax()
     //
 
     //javadoc: ANN_MLP::getRpropDWMax()
@@ -199,7 +202,7 @@ public class ANN_MLP extends StatModel {
 
 
     //
-    // C++:  double getRpropDWMin()
+    // C++:  double cv::ml::ANN_MLP::getRpropDWMin()
     //
 
     //javadoc: ANN_MLP::getRpropDWMin()
@@ -213,7 +216,7 @@ public class ANN_MLP extends StatModel {
 
 
     //
-    // C++:  double getRpropDWMinus()
+    // C++:  double cv::ml::ANN_MLP::getRpropDWMinus()
     //
 
     //javadoc: ANN_MLP::getRpropDWMinus()
@@ -227,7 +230,7 @@ public class ANN_MLP extends StatModel {
 
 
     //
-    // C++:  double getRpropDWPlus()
+    // C++:  double cv::ml::ANN_MLP::getRpropDWPlus()
     //
 
     //javadoc: ANN_MLP::getRpropDWPlus()
@@ -241,7 +244,7 @@ public class ANN_MLP extends StatModel {
 
 
     //
-    // C++:  int getAnnealItePerStep()
+    // C++:  int cv::ml::ANN_MLP::getAnnealItePerStep()
     //
 
     //javadoc: ANN_MLP::getAnnealItePerStep()
@@ -255,7 +258,7 @@ public class ANN_MLP extends StatModel {
 
 
     //
-    // C++:  int getTrainMethod()
+    // C++:  int cv::ml::ANN_MLP::getTrainMethod()
     //
 
     //javadoc: ANN_MLP::getTrainMethod()
@@ -269,7 +272,7 @@ public class ANN_MLP extends StatModel {
 
 
     //
-    // C++:  void setActivationFunction(int type, double param1 = 0, double param2 = 0)
+    // C++:  void cv::ml::ANN_MLP::setActivationFunction(int type, double param1 = 0, double param2 = 0)
     //
 
     //javadoc: ANN_MLP::setActivationFunction(type, param1, param2)
@@ -281,18 +284,27 @@ public class ANN_MLP extends StatModel {
         return;
     }
 
+    //javadoc: ANN_MLP::setActivationFunction(type, param1)
+    public  void setActivationFunction(int type, double param1)
+    {
+        
+        setActivationFunction_1(nativeObj, type, param1);
+        
+        return;
+    }
+
     //javadoc: ANN_MLP::setActivationFunction(type)
     public  void setActivationFunction(int type)
     {
         
-        setActivationFunction_1(nativeObj, type);
+        setActivationFunction_2(nativeObj, type);
         
         return;
     }
 
 
     //
-    // C++:  void setAnnealCoolingRatio(double val)
+    // C++:  void cv::ml::ANN_MLP::setAnnealCoolingRatio(double val)
     //
 
     //javadoc: ANN_MLP::setAnnealCoolingRatio(val)
@@ -306,7 +318,7 @@ public class ANN_MLP extends StatModel {
 
 
     //
-    // C++:  void setAnnealFinalT(double val)
+    // C++:  void cv::ml::ANN_MLP::setAnnealFinalT(double val)
     //
 
     //javadoc: ANN_MLP::setAnnealFinalT(val)
@@ -320,7 +332,7 @@ public class ANN_MLP extends StatModel {
 
 
     //
-    // C++:  void setAnnealInitialT(double val)
+    // C++:  void cv::ml::ANN_MLP::setAnnealInitialT(double val)
     //
 
     //javadoc: ANN_MLP::setAnnealInitialT(val)
@@ -334,7 +346,7 @@ public class ANN_MLP extends StatModel {
 
 
     //
-    // C++:  void setAnnealItePerStep(int val)
+    // C++:  void cv::ml::ANN_MLP::setAnnealItePerStep(int val)
     //
 
     //javadoc: ANN_MLP::setAnnealItePerStep(val)
@@ -348,7 +360,7 @@ public class ANN_MLP extends StatModel {
 
 
     //
-    // C++:  void setBackpropMomentumScale(double val)
+    // C++:  void cv::ml::ANN_MLP::setBackpropMomentumScale(double val)
     //
 
     //javadoc: ANN_MLP::setBackpropMomentumScale(val)
@@ -362,7 +374,7 @@ public class ANN_MLP extends StatModel {
 
 
     //
-    // C++:  void setBackpropWeightScale(double val)
+    // C++:  void cv::ml::ANN_MLP::setBackpropWeightScale(double val)
     //
 
     //javadoc: ANN_MLP::setBackpropWeightScale(val)
@@ -376,7 +388,7 @@ public class ANN_MLP extends StatModel {
 
 
     //
-    // C++:  void setLayerSizes(Mat _layer_sizes)
+    // C++:  void cv::ml::ANN_MLP::setLayerSizes(Mat _layer_sizes)
     //
 
     //javadoc: ANN_MLP::setLayerSizes(_layer_sizes)
@@ -390,7 +402,7 @@ public class ANN_MLP extends StatModel {
 
 
     //
-    // C++:  void setRpropDW0(double val)
+    // C++:  void cv::ml::ANN_MLP::setRpropDW0(double val)
     //
 
     //javadoc: ANN_MLP::setRpropDW0(val)
@@ -404,7 +416,7 @@ public class ANN_MLP extends StatModel {
 
 
     //
-    // C++:  void setRpropDWMax(double val)
+    // C++:  void cv::ml::ANN_MLP::setRpropDWMax(double val)
     //
 
     //javadoc: ANN_MLP::setRpropDWMax(val)
@@ -418,7 +430,7 @@ public class ANN_MLP extends StatModel {
 
 
     //
-    // C++:  void setRpropDWMin(double val)
+    // C++:  void cv::ml::ANN_MLP::setRpropDWMin(double val)
     //
 
     //javadoc: ANN_MLP::setRpropDWMin(val)
@@ -432,7 +444,7 @@ public class ANN_MLP extends StatModel {
 
 
     //
-    // C++:  void setRpropDWMinus(double val)
+    // C++:  void cv::ml::ANN_MLP::setRpropDWMinus(double val)
     //
 
     //javadoc: ANN_MLP::setRpropDWMinus(val)
@@ -446,7 +458,7 @@ public class ANN_MLP extends StatModel {
 
 
     //
-    // C++:  void setRpropDWPlus(double val)
+    // C++:  void cv::ml::ANN_MLP::setRpropDWPlus(double val)
     //
 
     //javadoc: ANN_MLP::setRpropDWPlus(val)
@@ -460,7 +472,7 @@ public class ANN_MLP extends StatModel {
 
 
     //
-    // C++:  void setTermCriteria(TermCriteria val)
+    // C++:  void cv::ml::ANN_MLP::setTermCriteria(TermCriteria val)
     //
 
     //javadoc: ANN_MLP::setTermCriteria(val)
@@ -474,7 +486,7 @@ public class ANN_MLP extends StatModel {
 
 
     //
-    // C++:  void setTrainMethod(int method, double param1 = 0, double param2 = 0)
+    // C++:  void cv::ml::ANN_MLP::setTrainMethod(int method, double param1 = 0, double param2 = 0)
     //
 
     //javadoc: ANN_MLP::setTrainMethod(method, param1, param2)
@@ -486,11 +498,20 @@ public class ANN_MLP extends StatModel {
         return;
     }
 
+    //javadoc: ANN_MLP::setTrainMethod(method, param1)
+    public  void setTrainMethod(int method, double param1)
+    {
+        
+        setTrainMethod_1(nativeObj, method, param1);
+        
+        return;
+    }
+
     //javadoc: ANN_MLP::setTrainMethod(method)
     public  void setTrainMethod(int method)
     {
         
-        setTrainMethod_1(nativeObj, method);
+        setTrainMethod_2(nativeObj, method);
         
         return;
     }
@@ -503,103 +524,105 @@ public class ANN_MLP extends StatModel {
 
 
 
-    // C++:  Mat getLayerSizes()
+    // C++:  Mat cv::ml::ANN_MLP::getLayerSizes()
     private static native long getLayerSizes_0(long nativeObj);
 
-    // C++:  Mat getWeights(int layerIdx)
+    // C++:  Mat cv::ml::ANN_MLP::getWeights(int layerIdx)
     private static native long getWeights_0(long nativeObj, int layerIdx);
 
-    // C++: static Ptr_ANN_MLP create()
+    // C++: static Ptr_ANN_MLP cv::ml::ANN_MLP::create()
     private static native long create_0();
 
-    // C++: static Ptr_ANN_MLP load(String filepath)
+    // C++: static Ptr_ANN_MLP cv::ml::ANN_MLP::load(String filepath)
     private static native long load_0(String filepath);
 
-    // C++:  TermCriteria getTermCriteria()
+    // C++:  TermCriteria cv::ml::ANN_MLP::getTermCriteria()
     private static native double[] getTermCriteria_0(long nativeObj);
 
-    // C++:  double getAnnealCoolingRatio()
+    // C++:  double cv::ml::ANN_MLP::getAnnealCoolingRatio()
     private static native double getAnnealCoolingRatio_0(long nativeObj);
 
-    // C++:  double getAnnealFinalT()
+    // C++:  double cv::ml::ANN_MLP::getAnnealFinalT()
     private static native double getAnnealFinalT_0(long nativeObj);
 
-    // C++:  double getAnnealInitialT()
+    // C++:  double cv::ml::ANN_MLP::getAnnealInitialT()
     private static native double getAnnealInitialT_0(long nativeObj);
 
-    // C++:  double getBackpropMomentumScale()
+    // C++:  double cv::ml::ANN_MLP::getBackpropMomentumScale()
     private static native double getBackpropMomentumScale_0(long nativeObj);
 
-    // C++:  double getBackpropWeightScale()
+    // C++:  double cv::ml::ANN_MLP::getBackpropWeightScale()
     private static native double getBackpropWeightScale_0(long nativeObj);
 
-    // C++:  double getRpropDW0()
+    // C++:  double cv::ml::ANN_MLP::getRpropDW0()
     private static native double getRpropDW0_0(long nativeObj);
 
-    // C++:  double getRpropDWMax()
+    // C++:  double cv::ml::ANN_MLP::getRpropDWMax()
     private static native double getRpropDWMax_0(long nativeObj);
 
-    // C++:  double getRpropDWMin()
+    // C++:  double cv::ml::ANN_MLP::getRpropDWMin()
     private static native double getRpropDWMin_0(long nativeObj);
 
-    // C++:  double getRpropDWMinus()
+    // C++:  double cv::ml::ANN_MLP::getRpropDWMinus()
     private static native double getRpropDWMinus_0(long nativeObj);
 
-    // C++:  double getRpropDWPlus()
+    // C++:  double cv::ml::ANN_MLP::getRpropDWPlus()
     private static native double getRpropDWPlus_0(long nativeObj);
 
-    // C++:  int getAnnealItePerStep()
+    // C++:  int cv::ml::ANN_MLP::getAnnealItePerStep()
     private static native int getAnnealItePerStep_0(long nativeObj);
 
-    // C++:  int getTrainMethod()
+    // C++:  int cv::ml::ANN_MLP::getTrainMethod()
     private static native int getTrainMethod_0(long nativeObj);
 
-    // C++:  void setActivationFunction(int type, double param1 = 0, double param2 = 0)
+    // C++:  void cv::ml::ANN_MLP::setActivationFunction(int type, double param1 = 0, double param2 = 0)
     private static native void setActivationFunction_0(long nativeObj, int type, double param1, double param2);
-    private static native void setActivationFunction_1(long nativeObj, int type);
+    private static native void setActivationFunction_1(long nativeObj, int type, double param1);
+    private static native void setActivationFunction_2(long nativeObj, int type);
 
-    // C++:  void setAnnealCoolingRatio(double val)
+    // C++:  void cv::ml::ANN_MLP::setAnnealCoolingRatio(double val)
     private static native void setAnnealCoolingRatio_0(long nativeObj, double val);
 
-    // C++:  void setAnnealFinalT(double val)
+    // C++:  void cv::ml::ANN_MLP::setAnnealFinalT(double val)
     private static native void setAnnealFinalT_0(long nativeObj, double val);
 
-    // C++:  void setAnnealInitialT(double val)
+    // C++:  void cv::ml::ANN_MLP::setAnnealInitialT(double val)
     private static native void setAnnealInitialT_0(long nativeObj, double val);
 
-    // C++:  void setAnnealItePerStep(int val)
+    // C++:  void cv::ml::ANN_MLP::setAnnealItePerStep(int val)
     private static native void setAnnealItePerStep_0(long nativeObj, int val);
 
-    // C++:  void setBackpropMomentumScale(double val)
+    // C++:  void cv::ml::ANN_MLP::setBackpropMomentumScale(double val)
     private static native void setBackpropMomentumScale_0(long nativeObj, double val);
 
-    // C++:  void setBackpropWeightScale(double val)
+    // C++:  void cv::ml::ANN_MLP::setBackpropWeightScale(double val)
     private static native void setBackpropWeightScale_0(long nativeObj, double val);
 
-    // C++:  void setLayerSizes(Mat _layer_sizes)
+    // C++:  void cv::ml::ANN_MLP::setLayerSizes(Mat _layer_sizes)
     private static native void setLayerSizes_0(long nativeObj, long _layer_sizes_nativeObj);
 
-    // C++:  void setRpropDW0(double val)
+    // C++:  void cv::ml::ANN_MLP::setRpropDW0(double val)
     private static native void setRpropDW0_0(long nativeObj, double val);
 
-    // C++:  void setRpropDWMax(double val)
+    // C++:  void cv::ml::ANN_MLP::setRpropDWMax(double val)
     private static native void setRpropDWMax_0(long nativeObj, double val);
 
-    // C++:  void setRpropDWMin(double val)
+    // C++:  void cv::ml::ANN_MLP::setRpropDWMin(double val)
     private static native void setRpropDWMin_0(long nativeObj, double val);
 
-    // C++:  void setRpropDWMinus(double val)
+    // C++:  void cv::ml::ANN_MLP::setRpropDWMinus(double val)
     private static native void setRpropDWMinus_0(long nativeObj, double val);
 
-    // C++:  void setRpropDWPlus(double val)
+    // C++:  void cv::ml::ANN_MLP::setRpropDWPlus(double val)
     private static native void setRpropDWPlus_0(long nativeObj, double val);
 
-    // C++:  void setTermCriteria(TermCriteria val)
+    // C++:  void cv::ml::ANN_MLP::setTermCriteria(TermCriteria val)
     private static native void setTermCriteria_0(long nativeObj, int val_type, int val_maxCount, double val_epsilon);
 
-    // C++:  void setTrainMethod(int method, double param1 = 0, double param2 = 0)
+    // C++:  void cv::ml::ANN_MLP::setTrainMethod(int method, double param1 = 0, double param2 = 0)
     private static native void setTrainMethod_0(long nativeObj, int method, double param1, double param2);
-    private static native void setTrainMethod_1(long nativeObj, int method);
+    private static native void setTrainMethod_1(long nativeObj, int method, double param1);
+    private static native void setTrainMethod_2(long nativeObj, int method);
 
     // native support for java finalize()
     private static native void delete(long nativeObj);
