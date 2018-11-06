@@ -48,7 +48,7 @@ public class MineralDetectionTest extends OpMode
      */
     @Override
     public void start() {
-        
+
     }
 
     @Override
