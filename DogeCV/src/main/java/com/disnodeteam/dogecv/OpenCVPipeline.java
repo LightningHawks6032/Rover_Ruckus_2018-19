@@ -106,14 +106,14 @@ public abstract class OpenCVPipeline implements CameraBridgeViewBase.CvCameraVie
      * Attaches the underlying JavaCameraView to the screen and the camera using the set {@link ViewDisplay} to do so, essentially starting OpenCV processing.
      * This function must be called after init().
      * @throws IllegalStateException if enable() is called before init()
-     */
+    **/
     public void enable() {
         if (!initStarted) throw new IllegalStateException("init() needs to be called before an OpenCVPipeline can be enabled!");
         // this is an absolute hack
-        /*try {
+        try {
             while (!inited) Thread.sleep(10);
         } catch (InterruptedException e) { return; }
-        */
+
 
         if(isVuforia){
             viewDisplay.setCurrentView(context, rawView);
