@@ -19,17 +19,13 @@ import org.opencv.imgproc.Imgproc;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by Victo on 9/10/2018.
- */
-
 public class HoughSilverDetector extends DogeCVDetector {
 
     //The scorer used for this class. Based upon minimizing the standard deviation of color within each mineral,
     //I.e, if the region is actually a mineral it should be fairly flat. (Levi is op AF - Alex)
     public DogeCVScorer stdDevScorer = new ColorDevScorer();
 
-    public double sensitivity = 1.4; //Sensitivity of circle detector; between about 1.2 and 2.1;
+    public double sensitivity; //Sensitivity of circle detector; between about 1.2 and 2.1;
     public double minDistance = 60; //Adjust with frame size! This is the minimum distance between circles
 
     private Mat workingMat = new Mat(); //The working mat used for internal calculations, single object to avoid memory leak
@@ -39,11 +35,13 @@ public class HoughSilverDetector extends DogeCVDetector {
     private boolean isFound = false; //Whether a circle has been found at all
 
     /**
-     * Simple constructor.
+     * Added sensitivity as parameter -Owen (11/8/18)
      */
-    public HoughSilverDetector() {
+    public HoughSilverDetector(double sensitivity) {
         super();
         this.detectorName = "Hough Silver Detector";
+
+        this.sensitivity = sensitivity;
     }
 
     @Override

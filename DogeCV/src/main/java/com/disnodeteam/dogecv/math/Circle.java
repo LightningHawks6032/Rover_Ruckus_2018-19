@@ -22,4 +22,10 @@ public class Circle {
         this.radius = radius;
     }
 
+
+    // Added method for telemetry -Owen (11/8/18)
+    public String toString() {
+        return "Center: (" + x + ", " + y + "), Radius: " + radius;
+    }
+
 }
