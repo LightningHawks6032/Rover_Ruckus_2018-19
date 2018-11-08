@@ -6,6 +6,7 @@
 
 package org.firstinspires.ftc.teamcode.Vision;
 
+import com.disnodeteam.dogecv.CameraViewDisplay;
 import com.disnodeteam.dogecv.DogeCV;
 import com.disnodeteam.dogecv.detectors.DogeCVDetector;
 import com.disnodeteam.dogecv.filters.DogeCVColorFilter;
@@ -13,6 +14,7 @@ import com.disnodeteam.dogecv.filters.LeviColorFilter;
 import com.disnodeteam.dogecv.scoring.MaxAreaScorer;
 import com.disnodeteam.dogecv.scoring.PerfectAreaScorer;
 import com.disnodeteam.dogecv.scoring.RatioScorer;
+import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.opencv.core.Mat;
 import org.opencv.core.MatOfPoint;
@@ -156,5 +158,22 @@ public class MineralDetector extends DogeCVDetector {
     // Return color we're currently trying to find
     public String getColor() {
         return color;
+    }
+
+    public void setupDetector(HardwareMap hwMap) {
+        init(hwMap.appContext, CameraViewDisplay.getInstance()); // Initialize it with the app context and camera
+        useDefaults(); // Set detector to use default settings
+
+        // Optional tuning
+        downscale = 0.4; // How much to downscale the input frames
+
+        areaScoringMethod = DogeCV.AreaScoringMethod.MAX_AREA; // Can also be PERFECT_AREA
+        //detector.perfectAreaScorer.perfectArea = 10000; // if using PERFECT_AREA scoring
+        maxAreaScorer.weight = 0.005; //
+
+        ratioScorer.weight = 5; //
+        ratioScorer.perfectRatio = 1.0; // Ratio adjustment
+
+        enable(); // Start the detector!
     }
 }

@@ -17,6 +17,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackable;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackableDefaultListener;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackables;
+import org.firstinspires.ftc.teamcode.Vision.MineralDetector;
 
 import java.util.ArrayList;
 
@@ -28,9 +29,9 @@ import static org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocaliz
 import static org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer.CameraDirection.FRONT;
 
 public class Robot1_SimpleAuto extends LinearOpMode{
-    Robot1_Hardware hardware; // Robot hardware
-    OpenGLMatrix lastLocation = null; // Last location of robot based on nav targets
-    double[] positionVector = new double[4]; // x, y, z, yaw
+    private Robot1_Hardware hardware; // Robot hardware
+    private OpenGLMatrix lastLocation = null; // Last location of robot based on nav targets
+    private double[] positionVector = new double[4]; // x, y, z, yaw
 
     // Our Vuforia key
     private static final String VUFORIA_KEY = "AdwaKe7/////AAAAmVQWX/gUQE/gnK+olEmSWA5FCaxNrdY/EyKFLO2afR1IQD4gbnThc6LcCHIJ64hyC2i3n5VRiIRAMGxtKqjI7meHCphQAPrXpH9GomENr/fSXjVUhQao+Zw0/MLQEuTaqNYnp5EI/4oo6LTm/YPgYKOSPaP+tijaydiwNQn4A8zXPfDhkD/q6RTYMzS3UtpOR7WBZJPUBxW9XKim5ekHbYd1Hk2cFTTFAsL0XwycIWhuvHYpVlnZMqWwEnkTqp0o+5TE1FLkAfJ4OOUEfB8sP9kMEcged2/tczAh3GOcjOudp1S9F5xjPFZQX00OLV+QUCPzmT5kkqFBwiS30YR6L8urW2mJG4quq6NnrNYwzn47";
@@ -43,11 +44,10 @@ public class Robot1_SimpleAuto extends LinearOpMode{
     // The camera on the RC that we are using (FRONT or BACK)
     private static final VuforiaLocalizer.CameraDirection CAMERA_CHOICE = BACK; // for now, for testing
 
-    VuforiaLocalizer vuforia;
+    private VuforiaLocalizer vuforia;
+    private MineralDetector detector;
 
-    ArrayList<VuforiaTrackable> navigationTargets = new ArrayList<VuforiaTrackable>();
-
-
+    private ArrayList<VuforiaTrackable> navigationTargets = new ArrayList<VuforiaTrackable>();
 
     public void runOpMode() {
         hardware = new Robot1_Hardware(hardwareMap);
@@ -55,8 +55,11 @@ public class Robot1_SimpleAuto extends LinearOpMode{
 
         double[] currPos;
 
-        // knock mineral
+        // Set up dogecv gold mineral detector
+        detector = new MineralDetector("gold");
+        detector.setupDetector(hardwareMap);
 
+        // knock mineral
 
         setupNavigationTracker();
         while (!robotSeesTarget()) {
