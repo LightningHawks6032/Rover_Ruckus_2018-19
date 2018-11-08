@@ -7,15 +7,15 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 public class Robot1_Hardware {
     // Declaring the motors
-    DcMotor leftDrive = null;
-    DcMotor rightDrive = null;
-    DcMotor middleDrive = null;
-    DcMotor fastSlideMotor = null;
-    DcMotor winchMotor = null;
-    DcMotor slowSlideMotor = null;
-    Servo linearActuator = null;
-    Servo leftClaw = null;
-    Servo rightClaw = null;
+    public DcMotor leftDrive = null;
+    public DcMotor rightDrive = null;
+    public DcMotor middleDrive = null;
+    public DcMotor fastSlideMotor = null;
+    public DcMotor winchMotor = null;
+    public DcMotor slowSlideMotor = null;
+    public Servo linearActuator = null;
+    public Servo leftClaw = null;
+    public Servo rightClaw = null;
 
     // Constants for claws
     double RIGHT_CLAW_CLOSE = 1,
