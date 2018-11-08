@@ -59,6 +59,7 @@ public class Robot1_SimpleAuto extends LinearOpMode{
         detector = new MineralDetector("gold");
         detector.setupDetector(hardwareMap);
 
+
         // knock mineral
 
         setupNavigationTracker();

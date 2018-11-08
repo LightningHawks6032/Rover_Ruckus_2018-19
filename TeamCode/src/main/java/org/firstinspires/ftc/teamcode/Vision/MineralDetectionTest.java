@@ -7,6 +7,9 @@ import com.disnodeteam.dogecv.detectors.roverrukus.SamplingOrderDetector;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
+import org.firstinspires.ftc.teamcode.Robot1_Hardware;
+import org.firstinspires.ftc.teamcode.Robot1_TeleOp;
+
 
 @TeleOp(name="Mineral Detection Test", group="DogeCV")
 public class MineralDetectionTest extends OpMode
