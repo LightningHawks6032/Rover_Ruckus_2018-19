@@ -50,6 +50,7 @@ public class NavTargetDetector {
 
     // For returning to telemetry
     private boolean targetVisible;
+    private String whichTargetVisible;
     private static final String[] targetNames = {"Blue-Rover", "Red-Footprint", "Front-Craters", "Back-Space"};
     private OpenGLMatrix lastLocation = null; // the last location of a nav target we've seen
     private VectorF robotPos;
@@ -63,6 +64,7 @@ public class NavTargetDetector {
         this.camLeftDisplacement = camLeftDisplacement;
 
         targetVisible = false; // by default, we assume we don't see a target
+        whichTargetVisible = null; // by default, we assume we don't see a target
         robotPos = null;
         robotRotation = null;
     }
@@ -132,6 +134,7 @@ public class NavTargetDetector {
         for (VuforiaTrackable trackable : navigationTargets) {
             if (((VuforiaTrackableDefaultListener) trackable.getListener()).isVisible()) {
                 targetVisible = true;
+                whichTargetVisible = trackable.getName();
 
                 OpenGLMatrix robotLocationTransform = ((VuforiaTrackableDefaultListener)trackable.getListener()).getUpdatedRobotLocation();
                 if (robotLocationTransform != null) {
@@ -163,6 +166,11 @@ public class NavTargetDetector {
     // Return true if the robot sees any target at all
     public boolean isTargetVisible() {
         return targetVisible;
+    }
+
+    // Return which target the robot sees
+    public String visibleTarget() {
+        return whichTargetVisible;
     }
 
     // Returns vector of robot's position in inches

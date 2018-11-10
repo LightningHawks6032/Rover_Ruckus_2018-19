@@ -18,10 +18,15 @@ public class Robot1_Hardware {
     public Servo rightClaw = null;
 
     // Constants for claws
-    double RIGHT_CLAW_CLOSE = 1,
+    final double RIGHT_CLAW_CLOSE = 1,
            RIGHT_CLAW_OPEN = 0,
            LEFT_CLAW_CLOSE = 0,
            LEFT_CLAW_OPEN = 1;
+
+    // Constants for phone position
+    public final static int CAMERA_FORWARD_POSITION = 0, // eg: Camera is 0 mm in front of robot center
+                 CAMERA_VERTICAL_POSITION = 0, // eg: Camera is 0 mm above ground
+                 CAMERA_LEFT_POSITION = 0; // eg: Camera is 0 mm left of the robot's center line
 
     //change later according to how things go
 
