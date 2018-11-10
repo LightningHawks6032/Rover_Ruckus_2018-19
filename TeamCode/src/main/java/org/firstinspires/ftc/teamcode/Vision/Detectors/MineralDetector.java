@@ -4,7 +4,7 @@
  * the mineral is in the camera's frame and if so, what the x-position is in pixels on the screen is.
  */
 
-package org.firstinspires.ftc.teamcode.Vision;
+package org.firstinspires.ftc.teamcode.Vision.Detectors;
 
 import com.disnodeteam.dogecv.CameraViewDisplay;
 import com.disnodeteam.dogecv.DogeCV;

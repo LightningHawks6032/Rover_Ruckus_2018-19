@@ -4,7 +4,7 @@
  * simple opmode for me to print out vuforia return values to telemetry.
  */
 
-package org.firstinspires.ftc.teamcode.Vision;
+package org.firstinspires.ftc.teamcode.Vision.Detectors;
 
 import com.qualcomm.robotcore.hardware.HardwareMap;
 

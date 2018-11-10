@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.Vision;
+package org.firstinspires.ftc.teamcode.Vision.DetectorTests;
 
 import com.disnodeteam.dogecv.CameraViewDisplay;
 import com.disnodeteam.dogecv.DogeCV;
@@ -9,22 +9,21 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.Robot1_Hardware;
 import org.firstinspires.ftc.teamcode.Robot1_TeleOp;
+import org.firstinspires.ftc.teamcode.Vision.Detectors.MineralDetector;
 
 
-@TeleOp(name="Nav Target Detection Test", group="Iterative OpMode")
-public class NavTargetDetectorTest extends OpMode
+@TeleOp(name="Mineral Detection Test", group="DogeCV")
+public class MineralDetectionTest extends OpMode
 {
     // Detector object
-    private NavTargetDetector detector;
+    private MineralDetector detector;
 
-    // Hardware object
-    Robot1_Hardware hardware = new Robot1_Hardware(hardwareMap);
 
     @Override
     public void init() {
         // Set up detector
-        detector = new NavTargetDetector(hardwareMap, hardware.CAMERA_FORWARD_POSITION, hardware.CAMERA_VERTICAL_POSITION, hardware.CAMERA_LEFT_POSITION); // Create detector
-        detector.setupTracker();
+        detector = new MineralDetector("gold"); // Create detector
+        detector.setupDetector(hardwareMap);
     }
 
     /*
@@ -45,15 +44,9 @@ public class NavTargetDetectorTest extends OpMode
 
     @Override
     public void loop() {
-        detector.lookForDetectors();
-
-        telemetry.addData("Target Visible: ", detector.isTargetVisible());
-        if (detector.isTargetVisible())
-            telemetry.addData("The robot sees", detector.visibleTarget());
-        else
-            telemetry.addLine("The robot sees: No Target");
-        telemetry.addData("Robot Pos" , detector.getRobotPosition());
-        telemetry.addData("Robot rotation", detector.getRobotRotation());
+        telemetry.addLine("We are testing sight of the " + detector.getColor() + " mineral.");
+        telemetry.addData("Sees Mineral?", detector.isFound());
+        telemetry.addData("X Pos" , detector.getScreenPosition().x); // Mineral X position
         telemetry.update();
     }
 
@@ -62,7 +55,8 @@ public class NavTargetDetectorTest extends OpMode
      */
     @Override
     public void stop() {
-
+        // Disable the detector
+        detector.disable();
     }
 
 }
