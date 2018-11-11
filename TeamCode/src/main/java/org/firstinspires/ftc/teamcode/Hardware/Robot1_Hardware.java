@@ -1,11 +1,13 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.Hardware;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
-public class Robot1_Hardware {
+import org.firstinspires.ftc.teamcode.Hardware.HardwareInterface;
+
+public class Robot1_Hardware implements HardwareInterface {
     // Declaring the motors
     public DcMotor leftDrive = null;
     public DcMotor rightDrive = null;
@@ -18,7 +20,7 @@ public class Robot1_Hardware {
     public Servo rightClaw = null;
 
     // Constants for claws
-    final double RIGHT_CLAW_CLOSE = 1,
+    public final double RIGHT_CLAW_CLOSE = 1,
            RIGHT_CLAW_OPEN = 0,
            LEFT_CLAW_CLOSE = 0,
            LEFT_CLAW_OPEN = 1;
@@ -28,7 +30,6 @@ public class Robot1_Hardware {
                  CAMERA_VERTICAL_POSITION = 0, // eg: Camera is 0 mm above ground
                  CAMERA_LEFT_POSITION = 0; // eg: Camera is 0 mm left of the robot's center line
 
-    //change later according to how things go
 
     public Robot1_Hardware(HardwareMap hardwareMap) {
         //constructs hardware objects based on configuration
@@ -52,7 +53,6 @@ public class Robot1_Hardware {
         fastSlideMotor.setDirection(DcMotor.Direction.FORWARD);
         slowSlideMotor.setDirection(DcMotor.Direction.FORWARD);
         winchMotor.setDirection(DcMotor.Direction.FORWARD);
-        // linearActuator.setDirection(Servo.Direction.FORWARD); don't use this please
         rightClaw.setPosition(RIGHT_CLAW_CLOSE);
         //rightClaw.setDirection(Servo.Direction.FORWARD);
         leftClaw.setPosition(LEFT_CLAW_CLOSE);

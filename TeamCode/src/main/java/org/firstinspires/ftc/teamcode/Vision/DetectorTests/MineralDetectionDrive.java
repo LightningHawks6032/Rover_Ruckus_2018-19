@@ -3,7 +3,7 @@ package org.firstinspires.ftc.teamcode.Vision.DetectorTests;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.Hardware;
 
-import org.firstinspires.ftc.teamcode.Robot1_Hardware;
+import org.firstinspires.ftc.teamcode.Hardware.Robot1_Hardware;
 import org.firstinspires.ftc.teamcode.Vision.DetectorTests.MineralDetectionTest;
 
 @TeleOp(name="Mineral Detection Tele-Op", group="DogeCV")
