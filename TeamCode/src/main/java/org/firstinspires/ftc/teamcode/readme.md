@@ -1,10 +1,15 @@
 ## TeamCode Module
+## TeamCode Folders w/ Descriptions:
+AutoTesting: A collection of linear opmodes that test some part of autonomous for any of the robots
+Hardware: Each robot's hardware class, including some other classes for specific hardware components)
+HardwateTesting: A collection of tele-op modes that test specific components of the robot's hardware for correct functionality
+Vision: Anything concerning the computer vision systems on our robots
+    Detectors: Detector classes that can be instantiated in autonomous or tele-op
+    DetectorTests: A collection of tele-op modes that instantiate a detector and test its methods
+Robots: Robot classes containing specific methods for each robot's individual use in opmodes
+Robot1-Opmodes: All OFFICIAL opmodes for Robot 1 for use in competition
+Robot2-Opmodes: All OFFICIAL opmodes for Robot 2 for use in competition
 
-Welcome!
-
-This module, TeamCode, is the place where you will write/paste the code for your team's
-robot controller App. This module is currently empty (a clean slate) but the
-process for adding OpModes is straightforward.
 
 ## Creating your own OpModes
 
