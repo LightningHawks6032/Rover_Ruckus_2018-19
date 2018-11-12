@@ -9,9 +9,9 @@ HardwareTesting: A collection of tele-op modes that test specific components of 
 
 Vision: Anything concerning the computer vision systems on our robots
 
-  Detectors: Detector classes that can be instantiated in autonomous or tele-op
+    Detectors: Detector classes that can be instantiated in autonomous or tele-op
 
-  DetectorTests: A collection of tele-op modes that instantiate a detector and test its methods
+    DetectorTests: A collection of tele-op modes that instantiate a detector and test its methods
 
 Robots: Robot classes containing specific methods for each robot's individual use in opmodes
 
