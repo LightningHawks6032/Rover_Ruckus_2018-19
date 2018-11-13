@@ -17,10 +17,10 @@ public class Encoder {
     final static int NEVEREST_TICKS_PER_REV = 1120;
     final static int TETRIX_TICKS_PER_REV = 1440;
 
-    public Encoder(DcMotor motor, String type, double diam) {
+    public Encoder() {
         this.motor = motor;
         this.type = type;
-        wheelDiameter = diam;
+        wheelDiameter = 4;
     }
 
     public int ticksPerRev() {
