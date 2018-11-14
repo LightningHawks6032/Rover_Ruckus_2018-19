@@ -37,7 +37,7 @@ public class Encoder {
     }
 
     public double motorRotations() {
-        return getEncoderCount() / ticksPerRev();
+        return (double) getEncoderCount() / ticksPerRev();
     }
 
     public double linDistance() {
@@ -48,6 +48,9 @@ public class Encoder {
     // Shortcut methods for resetting, run without, run to position, and setting target position
     public void reset() {
         motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+    }
+    public void runWith() {
+        motor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
     public void runWithout() {
         motor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);

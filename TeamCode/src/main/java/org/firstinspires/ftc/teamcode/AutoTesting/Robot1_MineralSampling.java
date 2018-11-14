@@ -18,6 +18,8 @@ public class Robot1_MineralSampling extends LinearOpMode {
         hardware.initHardware();
         leftDriveEncoder = new Encoder(hardware.leftDrive, "Neverest", 4);
         rightDriveEncoder = new Encoder(hardware.leftDrive, "Neverest", 4);
+        leftDriveEncoder.reset();
+        rightDriveEncoder.reset();
 
         telemetry.addLine("Driving Forward");
         telemetry.update();

@@ -20,6 +20,10 @@ public class Robot1_EncoderTest extends OpMode {
 
         leftDriveEncoder = new Encoder(hardware.leftDrive, "Neverest", 4);
         rightDriveEncoder = new Encoder(hardware.rightDrive, "Neverest", 4);
+        leftDriveEncoder.reset();
+        rightDriveEncoder.reset();
+        leftDriveEncoder.runWith();
+        rightDriveEncoder.runWith();
     }
 
     public void loop() {
