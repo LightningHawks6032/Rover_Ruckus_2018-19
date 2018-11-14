@@ -16,7 +16,7 @@ public class Encoder {
 
     final static int NEVEREST_TICKS_PER_REV = 1120;
     final static int TETRIX_TICKS_PER_REV = 1440;
-    final int DIAM = 4;
+    final static int DIAM = 4;
 
     public Encoder() {
         this.motor = motor;
