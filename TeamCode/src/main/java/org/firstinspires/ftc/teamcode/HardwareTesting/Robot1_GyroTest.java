@@ -18,6 +18,7 @@ public class Robot1_GyroTest extends OpMode {
         hardware = new Robot1_Hardware(hardwareMap);
         hardware.initHardware();
 
+        hardware.gyroSensor.resetZAxisIntegrator();
         hardware.gyroSensor.calibrate();
         while(hardware.gyroSensor.isCalibrating()){
             // nothing here
