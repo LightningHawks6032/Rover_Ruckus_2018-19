@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.Hardware;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.hardware.GyroSensor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
@@ -18,6 +19,8 @@ public class Robot1_Hardware implements HardwareInterface {
     public Servo linearActuator = null;
     public Servo leftClaw = null;
     public Servo rightClaw = null;
+    public Servo markerArm = null;
+    public GyroSensor gyroSensor = null;
 
     // Constants for claws
     public final double RIGHT_CLAW_CLOSE = 1,
@@ -42,6 +45,8 @@ public class Robot1_Hardware implements HardwareInterface {
         leftClaw = hardwareMap.get(Servo.class, "lc");
         rightClaw = hardwareMap.get(Servo.class, "rc");
         slowSlideMotor = hardwareMap.get(DcMotor.class, "ssm");
+        markerArm = hardwareMap.get(Servo.class, "ma");
+        gyroSensor = hardwareMap.get(GyroSensor.class, "gs");
 
     }
 
