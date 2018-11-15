@@ -5,6 +5,7 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.GyroSensor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
+import com.sun.tools.javac.util.ForwardingDiagnosticFormatter;
 
 import org.firstinspires.ftc.teamcode.Hardware.HardwareInterface;
 
@@ -26,7 +27,9 @@ public class Robot1_Hardware implements HardwareInterface {
     public final double RIGHT_CLAW_CLOSE = 1,
            RIGHT_CLAW_OPEN = 0,
            LEFT_CLAW_CLOSE = 0,
-           LEFT_CLAW_OPEN = 1;
+           LEFT_CLAW_OPEN = 1,
+           MARKER_ARM_OPEN = 0,
+           MARKER_ARM_CLOSE = 1;
 
     // Constants for phone position
     public final static int CAMERA_FORWARD_POSITION = 0, // eg: Camera is 0 mm in front of robot center
@@ -62,6 +65,8 @@ public class Robot1_Hardware implements HardwareInterface {
         //rightClaw.setDirection(Servo.Direction.FORWARD);
         leftClaw.setPosition(LEFT_CLAW_CLOSE);
         //leftClaw.setDirection(Servo.Direction.FORWARD);
+        markerArm.setPosition(MARKER_ARM_CLOSE);
+        //markerArm.setDirection(Servo.Direction.FORWARD);
     }
 
 }

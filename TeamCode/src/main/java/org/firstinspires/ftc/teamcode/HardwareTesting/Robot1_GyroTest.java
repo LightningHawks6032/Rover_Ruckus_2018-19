@@ -14,6 +14,7 @@ public class Robot1_GyroTest extends OpMode {
     Robot1_Hardware hardware;
 
     public void init(){
+        // hardware init
         hardware = new Robot1_Hardware(hardwareMap);
         hardware.initHardware();
 
