@@ -13,6 +13,12 @@ public class Robot2_Hardware implements HardwareInterface {
     public DcMotor rightDrive = null;
     public DcMotor middleDrive = null;
     public DcMotor winchMotor = null;
+    public DcMotor hangUMotor = null;
+    public DcMotor hangDMotor = null;
+    public Servo clawServo = null;
+
+    public final double CLAW_CLOSE = 0,
+                        CLAW_OPEN = 1;
 
     public Robot2_Hardware(HardwareMap hardwareMap){
         leftDrive = hardwareMap.get(DcMotor.class, "ld");
@@ -20,6 +26,10 @@ public class Robot2_Hardware implements HardwareInterface {
         middleDrive = hardwareMap.get(DcMotor.class, "md");
 
         winchMotor = hardwareMap.get(DcMotor.class, "wm");
+        hangUMotor = hardwareMap.get(DcMotor.class, "um"); // may be a vex motor
+        hangDMotor = hardwareMap.get(DcMotor.class, "dm"); // possibly this one
+
+        clawServo = hardwareMap.get(Servo.class, "cs");
     }
 
     public void initHardware(){
@@ -28,5 +38,9 @@ public class Robot2_Hardware implements HardwareInterface {
         middleDrive.setDirection(DcMotor.Direction.REVERSE);
 
         winchMotor.setDirection(DcMotor.Direction.FORWARD);
+        hangUMotor.setDirection(DcMotor.Direction.FORWARD);
+        hangDMotor.setDirection(DcMotor.Direction.FORWARD);
+
+        clawServo.setPosition(CLAW_OPEN);
     }
 }
