@@ -81,6 +81,28 @@ public class OmniSlideDrive {
         setPowers(0, 0, 0);
     }
 
+    /**
+     * Robot strafes left or right a set amount of linear distance using encoders
+     * @param direction : right (1) or left (-1)
+     * @param distance : linear distance in inches for the robot to strafe over
+     * @param pow : constant power at which the robot strafes
+     */
+    public void strafeDistance(int direction, double distance, double pow) {
+        middleEncoder.reset();
+
+        middleEncoder.runToPosition();
+
+        middleEncoder.setTarget(direction * distance);
+
+        setPowers(0, 0, direction * pow);
+
+        while (middleMotor.isBusy()) {
+            // WAIT - Motor is busy
+        }
+
+        setPowers(0, 0, 0);
+    }
+
 
     // Accessor methods
     public double getLeftPow() {
