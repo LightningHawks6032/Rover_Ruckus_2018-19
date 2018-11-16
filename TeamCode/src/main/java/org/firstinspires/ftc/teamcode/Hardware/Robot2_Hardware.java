@@ -17,6 +17,7 @@ public class Robot2_Hardware implements HardwareInterface {
     public DcMotor hangDMotor = null;
     public Servo clawServo = null;
 
+    // variable declaration
     public final double CLAW_CLOSE = 0,
                         CLAW_OPEN = 1;
 
