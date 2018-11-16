@@ -6,12 +6,12 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import org.firstinspires.ftc.teamcode.Hardware.Robot1_Hardware;
 
 @TeleOp(name="Robot 1 Marker Arm Test", group="Iterative Opmode")
-public class Robot1_MarkArmTest extends OpMode{
+public class Robot1_MarkerArmTest extends OpMode{
     Robot1_Hardware hardware;
 
     double servoPos;
 
-    public void init(){
+    public void init() {
         // hardware init
         hardware = new Robot1_Hardware(hardwareMap);
         hardware.initHardware();
@@ -19,13 +19,13 @@ public class Robot1_MarkArmTest extends OpMode{
         servoPos = 0;
     }
 
-    public void loop(){
+    public void loop() {
         testServo();
         telemetry.addData("Servo Position: ", hardware.markerArm.getPosition());
         telemetry.update();
     }
 
-    private void testServo(){
+    private void testServo() {
         if(gamepad1.a)
             servoPos = 1;
         else if(gamepad1.b)
