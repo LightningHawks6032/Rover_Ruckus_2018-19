@@ -19,10 +19,7 @@ public class Robot1_GyroTest extends OpMode {
         hardware.initHardware();
 
         hardware.gyroSensor.resetZAxisIntegrator();
-        hardware.gyroSensor.calibrate();
-        while(hardware.gyroSensor.isCalibrating()){
-            // nothing here
-        }
+        calibrateGyro();
     }
 
     public void loop(){
@@ -32,5 +29,12 @@ public class Robot1_GyroTest extends OpMode {
         telemetry.addData("Cartesian Z Heading: ", hardware.gyroSensor.getHeading());
 
         telemetry.update();
+    }
+
+    private void calibrateGyro() {
+        hardware.gyroSensor.calibrate();
+        while(hardware.gyroSensor.isCalibrating()) {
+            // WAIT - Gyro Sensor is Calibrating
+        }
     }
 }
