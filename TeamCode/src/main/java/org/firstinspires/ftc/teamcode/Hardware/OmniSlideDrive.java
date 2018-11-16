@@ -56,7 +56,30 @@ public class OmniSlideDrive {
     }
 
 
-    // Use ENCODERS for autonomous modes here...
+    /**
+     * Robot drives forward or backward a set amount of linear distance using encoders
+     * @param direction : forward (1) or backward (-1)
+     * @param distance : linear distance in inches for the robot to drive over
+     * @param pow : constant power at which the robot drives
+     */
+    public void driveDistance(int direction, double distance, double pow) {
+        leftEncoder.reset();
+        rightEncoder.reset();
+
+        leftEncoder.runToPosition();
+        rightEncoder.runToPosition();
+
+        leftEncoder.setTarget(direction * distance);
+        rightEncoder.setTarget(direction * distance);
+
+        setPowers(direction * pow, direction * pow, 0);
+
+        while (leftMotor.isBusy() && rightMotor.isBusy()) {
+            // WAIT - Motors are busy
+        }
+
+        setPowers(0, 0, 0);
+    }
 
 
     // Accessor methods
