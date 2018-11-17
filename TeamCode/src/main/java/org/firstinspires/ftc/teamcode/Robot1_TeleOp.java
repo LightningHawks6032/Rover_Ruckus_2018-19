@@ -29,7 +29,7 @@ public class Robot1_TeleOp extends OpMode {
 
     public void init() {
         //Initialize hardware
-        hardware = new Robot1_Hardware(hardwareMap);
+        hardware = new Robot1_Hardware(hardwareMap, gamepad1);
         hardware.initHardware();
 
         //Assign variables
@@ -43,8 +43,9 @@ public class Robot1_TeleOp extends OpMode {
     }
 
     public void loop() {
-        manageDrivetrain();
-        applyBoost();
+        hardware.drivetrain.manageTeleOp();
+        //manageDrivetrain();
+        //applyBoost();
         manageSlide();
         manageWinch();
         manageClaws();
@@ -57,6 +58,7 @@ public class Robot1_TeleOp extends OpMode {
         telemetry.update();
     }
 
+    /*
     private void applyBoost() {
         if (gamepad1.x)
             boost = 1;
@@ -123,7 +125,7 @@ public class Robot1_TeleOp extends OpMode {
         hardware.leftDrive.setPower(boost * leftPower);
         hardware.rightDrive.setPower(boost * rightPower);
         hardware.middleDrive.setPower(boost * middlePower * 2);
-    }
+    }*/
 
     // horizontal slide control
     private void manageSlide() {
@@ -158,32 +160,6 @@ public class Robot1_TeleOp extends OpMode {
         } else {
             hardware.rightClaw.setPosition(hardware.RIGHT_CLAW_CLOSE);
         }
-
-        /**
-         * Note: may be beneficial to add a variable for claw position and then say claw.setPosition(clawPos)
-         * This may be why the claws weren't working as of Wednesday
-         * So, we could say (we'll test this next time if the claws still aren't working):
-
-         * Additional note for claw positioning:
-         * The claws were working as of Thursday (one day after). All it took was replugging
-         * It may still be beneficial to make ClawPos Variables though
-
-         if (gamepad2.left_trigger > 0.5) {
-            leftClawPos = 0;
-         } else{
-            leftClawPos = 1;
-         }
-
-         // Right claw
-         if (gamepad2.right_trigger > 0.5){
-            rightClawPos = 1;
-         } else{
-            rightClawPos = 0;
-         }
-
-         hardware.leftClaw.setPosition(leftClawPos);
-         hardware.rightClaw.setPosition(rightClawPos);
-         */
     }
 
     // linear actuator control

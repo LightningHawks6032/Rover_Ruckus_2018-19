@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.Hardware;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.GyroSensor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
@@ -11,9 +12,10 @@ import org.firstinspires.ftc.teamcode.Hardware.HardwareInterface;
 
 public class Robot1_Hardware implements HardwareInterface {
     // Declaring the motors
-    public DcMotor leftDrive = null;
+    public OmniSlideDrive drivetrain;
+    /*public DcMotor leftDrive = null;
     public DcMotor rightDrive = null;
-    public DcMotor middleDrive = null;
+    public DcMotor middleDrive = null;*/
     public DcMotor fastSlideMotor = null;
     public DcMotor winchMotor = null;
     public DcMotor slowSlideMotor = null;
@@ -23,7 +25,7 @@ public class Robot1_Hardware implements HardwareInterface {
     public Servo markerArm = null;
     public GyroSensor gyroSensor = null;
 
-    // Constants for claws
+    // Servo constants
     public final double RIGHT_CLAW_CLOSE = 1,
            RIGHT_CLAW_OPEN = 0,
            LEFT_CLAW_CLOSE = 0,
@@ -31,17 +33,27 @@ public class Robot1_Hardware implements HardwareInterface {
            MARKER_ARM_OPEN = 0,
            MARKER_ARM_CLOSE = 1;
 
+    public double wheelDiameter = 4.0;
+
     // Constants for phone position
     public final static int CAMERA_FORWARD_POSITION = 0, // eg: Camera is 0 mm in front of robot center
                  CAMERA_VERTICAL_POSITION = 0, // eg: Camera is 0 mm above ground
                  CAMERA_LEFT_POSITION = 0; // eg: Camera is 0 mm left of the robot's center line
 
 
-    public Robot1_Hardware(HardwareMap hardwareMap) {
+    public Robot1_Hardware(HardwareMap hardwareMap, Gamepad driveGamepad) {
         //constructs hardware objects based on configuration
-        leftDrive = hardwareMap.get(DcMotor.class, "ld");
+        drivetrain = new OmniSlideDrive(
+                hardwareMap.get(DcMotor.class, "ld"), // left drive motor
+                hardwareMap.get(DcMotor.class, "rd"), // right drive motor
+                hardwareMap.get(DcMotor.class, "md"), // middle drive motor
+                driveGamepad,
+                wheelDiameter
+        );
+
+        /*leftDrive = hardwareMap.get(DcMotor.class, "ld");
         rightDrive = hardwareMap.get(DcMotor.class, "rd");
-        middleDrive = hardwareMap.get(DcMotor.class, "md");
+        middleDrive = hardwareMap.get(DcMotor.class, "md");*/
         fastSlideMotor = hardwareMap.get(DcMotor.class, "fsm");
         winchMotor = hardwareMap.get(DcMotor.class, "wm");
         linearActuator = hardwareMap.get(Servo.class, "la");
@@ -55,9 +67,10 @@ public class Robot1_Hardware implements HardwareInterface {
 
     public void initHardware() {
         // called during init() of opMode
-        leftDrive.setDirection(DcMotor.Direction.FORWARD);
+        drivetrain.setupMotors();
+        /*leftDrive.setDirection(DcMotor.Direction.FORWARD);
         rightDrive.setDirection(DcMotor.Direction.REVERSE);
-        middleDrive.setDirection(DcMotor.Direction.REVERSE);
+        middleDrive.setDirection(DcMotor.Direction.REVERSE);*/
         fastSlideMotor.setDirection(DcMotor.Direction.FORWARD);
         slowSlideMotor.setDirection(DcMotor.Direction.FORWARD);
         winchMotor.setDirection(DcMotor.Direction.FORWARD);

@@ -18,7 +18,7 @@ public class Robot1_SlideMotorTest extends OpMode {
 
     public void init() {
         //Initialize hardware
-        hardware = new Robot1_Hardware(hardwareMap);
+        hardware = new Robot1_Hardware(hardwareMap, gamepad1);
         hardware.initHardware();
     }
 

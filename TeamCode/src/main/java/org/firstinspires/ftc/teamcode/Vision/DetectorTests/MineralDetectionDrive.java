@@ -12,7 +12,7 @@ public class MineralDetectionDrive extends MineralDetectionTest {
 
     public void init() {
 
-        hardware = new Robot1_Hardware(hardwareMap);
+        hardware = new Robot1_Hardware(hardwareMap, gamepad1);
         hardware.initHardware();
         super.init();
     }
@@ -20,18 +20,6 @@ public class MineralDetectionDrive extends MineralDetectionTest {
     public void loop() {
         super.loop();
 
-        if (gamepad1.left_trigger > 0) {
-            hardware.leftDrive.setPower(0);
-            hardware.rightDrive.setPower(0);
-            hardware.middleDrive.setPower(-0.8);
-        } else if (gamepad1.right_trigger > 0) {
-            hardware.leftDrive.setPower(0);
-            hardware.rightDrive.setPower(0);
-            hardware.middleDrive.setPower(0.8);
-        } else {
-            hardware.leftDrive.setPower(-gamepad1.left_stick_y);
-            hardware.rightDrive.setPower(-gamepad1.right_stick_y);
-            hardware.middleDrive.setPower(0);
-        }
+        hardware.drivetrain.manageTeleOp();
     }
 }

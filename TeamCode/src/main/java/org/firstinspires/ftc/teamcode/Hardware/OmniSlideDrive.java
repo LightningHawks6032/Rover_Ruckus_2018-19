@@ -29,8 +29,14 @@ public class OmniSlideDrive {
         boost = 0.7;
     }
 
+    public void setupMotors() {
+        leftMotor.setDirection(DcMotor.Direction.FORWARD);
+        rightMotor.setDirection(DcMotor.Direction.REVERSE);
+        middleMotor.setDirection(DcMotor.Direction.REVERSE);
+    }
+
     // Shortcut method for setting the power of the left drive, right drive, and middle drive
-    private void setPowers(double lp, double rp, double mp) {
+    public void setPowers(double lp, double rp, double mp) {
         leftMotor.setPower(lp);
         rightMotor.setPower(rp);
         middleMotor.setPower(mp);
@@ -113,6 +119,15 @@ public class OmniSlideDrive {
     }
     public double getMiddlePow() {
         return middleMotor.getPower();
+    }
+    public Encoder getLeftEncoder() {
+        return leftEncoder;
+    }
+    public Encoder getRightEncoder() {
+        return rightEncoder;
+    }
+    public Encoder getMiddleEncoder() {
+        return middleEncoder;
     }
     public double getBoost() {
         return boost;

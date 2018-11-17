@@ -15,11 +15,13 @@ public class Robot1_EncoderTest extends OpMode {
 
     public void init() {
         //Initialize Hardware
-        hardware = new Robot1_Hardware(hardwareMap);
+        hardware = new Robot1_Hardware(hardwareMap, gamepad1);
         hardware.initHardware();
 
-        leftDriveEncoder = new Encoder(hardware.leftDrive, "Neverest", 4);
-        rightDriveEncoder = new Encoder(hardware.rightDrive, "Neverest", 4);
+        leftDriveEncoder = hardware.drivetrain.getLeftEncoder();
+        rightDriveEncoder = hardware.drivetrain.getRightEncoder();
+        /*leftDriveEncoder = new Encoder(hardware.leftDrive, "Neverest", 4);
+        rightDriveEncoder = new Encoder(hardware.rightDrive, "Neverest", 4);*/
         leftDriveEncoder.reset();
         rightDriveEncoder.reset();
         leftDriveEncoder.runWith();
@@ -27,7 +29,7 @@ public class Robot1_EncoderTest extends OpMode {
     }
 
     public void loop() {
-        basicDrive();
+        hardware.drivetrain.manageTeleOp();
         double avg = (leftDriveEncoder.linDistance() + rightDriveEncoder.linDistance())/2;
         telemetry.addData("Left Encoder count: ", leftDriveEncoder.getEncoderCount());
         telemetry.addData("Left Motor rotations: ", leftDriveEncoder.motorRotations());
@@ -38,24 +40,5 @@ public class Robot1_EncoderTest extends OpMode {
         telemetry.addData("Distance: ", avg);
         telemetry.update();
 
-    }
-
-    // Shortcut method for setting the power of the left drive, right drive, and middle drive
-    private void setPowers(double lp, double rp, double mp) {
-        hardware.leftDrive.setPower(lp);
-        hardware.rightDrive.setPower(rp);
-        hardware.middleDrive.setPower(mp);
-    }
-
-    private void basicDrive() {
-        //drive1 controls (slide drive)
-        if (gamepad1.left_trigger > 0) {
-            setPowers(0, 0, -1); // strafe left
-        } else if (gamepad1.right_trigger > 0) {
-            setPowers(0, 0, 1); // strafe right
-        } else {
-            // motor power = joysticks
-            setPowers(-gamepad1.left_stick_y, -gamepad1.right_stick_y, 0);
-        }
     }
 }

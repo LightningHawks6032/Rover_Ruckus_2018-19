@@ -13,7 +13,7 @@ public class Robot1_MarkerArmTest extends OpMode{
 
     public void init() {
         // hardware init
-        hardware = new Robot1_Hardware(hardwareMap);
+        hardware = new Robot1_Hardware(hardwareMap, gamepad1);
         hardware.initHardware();
 
         servoPos = 0;

@@ -14,7 +14,7 @@ public class Robot1_MineralSampling extends LinearOpMode {
     Encoder rightDriveEncoder;
 
     public void runOpMode() {
-        hardware = new Robot1_Hardware(hardwareMap);
+        hardware = new Robot1_Hardware(hardwareMap, gamepad1);
         hardware.initHardware();
         leftDriveEncoder = new Encoder(hardware.leftDrive, "Neverest", 4);
         rightDriveEncoder = new Encoder(hardware.leftDrive, "Neverest", 4);
