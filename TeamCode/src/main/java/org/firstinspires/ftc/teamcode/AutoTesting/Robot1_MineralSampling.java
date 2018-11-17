@@ -16,41 +16,11 @@ public class Robot1_MineralSampling extends LinearOpMode {
     public void runOpMode() {
         hardware = new Robot1_Hardware(hardwareMap, gamepad1);
         hardware.initHardware();
-        leftDriveEncoder = new Encoder(hardware.leftDrive, "Neverest", 4);
-        rightDriveEncoder = new Encoder(hardware.leftDrive, "Neverest", 4);
-        leftDriveEncoder.reset();
-        rightDriveEncoder.reset();
+
 
         telemetry.addLine("Driving Forward");
         telemetry.update();
-        driveDistance(1, 0.4, 5);
+        hardware.drivetrain.driveDistance(1, 5, 0.4);
 
-    }
-
-    // @param direction: 1 is right, -1 is left
-    // @param distance: distance we want robot to travel (inches)
-    public void driveDistance(int direction, double power, int distance) {
-        leftDriveEncoder.reset();
-        rightDriveEncoder.reset();
-
-        // Set mode to RUN_TO_POSITION
-        leftDriveEncoder.runToPosition();
-        rightDriveEncoder.runToPosition();
-
-        // Set target position for encoders to run to
-        leftDriveEncoder.setTarget(distance);
-        rightDriveEncoder.setTarget(distance);
-
-        // Apply power to motors
-        hardware.leftDrive.setPower(direction * power);
-        hardware.rightDrive.setPower(direction * power);
-
-        while (hardware.leftDrive.isBusy() && hardware.rightDrive.isBusy()) {
-            // Wait - MOTORS ARE BUSY
-        }
-
-        // Reset power
-        hardware.leftDrive.setPower(0);
-        hardware.rightDrive.setPower(0);
     }
 }

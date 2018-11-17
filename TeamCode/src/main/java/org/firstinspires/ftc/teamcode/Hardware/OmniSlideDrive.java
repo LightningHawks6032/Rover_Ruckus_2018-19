@@ -33,6 +33,9 @@ public class OmniSlideDrive {
         leftMotor.setDirection(DcMotor.Direction.FORWARD);
         rightMotor.setDirection(DcMotor.Direction.REVERSE);
         middleMotor.setDirection(DcMotor.Direction.REVERSE);
+        leftEncoder.reset();
+        rightEncoder.reset();
+        middleEncoder.reset();
     }
 
     // Shortcut method for setting the power of the left drive, right drive, and middle drive
