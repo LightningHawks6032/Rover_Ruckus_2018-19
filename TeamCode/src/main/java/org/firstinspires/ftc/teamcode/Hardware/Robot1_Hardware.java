@@ -30,8 +30,8 @@ public class Robot1_Hardware implements HardwareInterface {
            RIGHT_CLAW_OPEN = 0,
            LEFT_CLAW_CLOSE = 0,
            LEFT_CLAW_OPEN = 1,
-           MARKER_ARM_OPEN = 0,
-           MARKER_ARM_CLOSE = 1;
+           MARKER_ARM_UP = 1,
+           MARKER_ARM_DOWN = 0;
 
     public double wheelDiameter = 4.0;
 
@@ -78,7 +78,7 @@ public class Robot1_Hardware implements HardwareInterface {
         //rightClaw.setDirection(Servo.Direction.FORWARD);
         leftClaw.setPosition(LEFT_CLAW_CLOSE);
         //leftClaw.setDirection(Servo.Direction.FORWARD);
-        markerArm.setPosition(MARKER_ARM_CLOSE);
+        markerArm.setPosition(MARKER_ARM_UP);
         //markerArm.setDirection(Servo.Direction.FORWARD);
     }
 
