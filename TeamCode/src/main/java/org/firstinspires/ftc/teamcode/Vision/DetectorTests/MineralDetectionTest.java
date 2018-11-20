@@ -23,7 +23,7 @@ public class MineralDetectionTest extends OpMode
     public void init() {
         // Set up detector
         detector = new MineralDetector("gold"); // Create detector
-        detector.setupDetector(hardwareMap);
+        detector.setupDetector(hardwareMap, 1);
     }
 
     /*

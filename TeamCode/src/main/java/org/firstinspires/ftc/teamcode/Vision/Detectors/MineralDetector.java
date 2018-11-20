@@ -160,8 +160,9 @@ public class MineralDetector extends DogeCVDetector {
         return color;
     }
 
-    public void setupDetector(HardwareMap hwMap) {
-        init(hwMap.appContext, CameraViewDisplay.getInstance()); // Initialize it with the app context and camera
+    public void setupDetector(HardwareMap hwMap, int cameraIndex) {
+        // Camera Index: 0 for back camera, 1 for front camera
+        init(hwMap.appContext, CameraViewDisplay.getInstance(), cameraIndex, false); // Initialize it with the app context and camera
         useDefaults(); // Set detector to use default settings
 
         // Optional tuning

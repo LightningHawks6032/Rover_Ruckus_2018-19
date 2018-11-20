@@ -27,7 +27,7 @@ public class MultipleMineralDetectionTest extends OpMode
         detectors.add(new MineralDetector("silver"));
 
         for (MineralDetector d : detectors)
-            d.setupDetector(hardwareMap);
+            d.setupDetector(hardwareMap, 1);
     }
 
     /*

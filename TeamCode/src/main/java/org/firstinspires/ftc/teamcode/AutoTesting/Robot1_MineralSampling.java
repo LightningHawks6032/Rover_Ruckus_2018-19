@@ -10,8 +10,6 @@ import org.firstinspires.ftc.teamcode.Hardware.Robot1_Hardware;
 public class Robot1_MineralSampling extends LinearOpMode {
     // Declare hardware and encoders
     Robot1_Hardware hardware;
-    Encoder leftDriveEncoder;
-    Encoder rightDriveEncoder;
 
     public void runOpMode() {
         hardware = new Robot1_Hardware(hardwareMap, gamepad1);

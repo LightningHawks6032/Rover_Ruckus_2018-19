@@ -2,6 +2,7 @@ package com.disnodeteam.dogecv.detectors.roverrukus;
 
 import android.util.Log;
 
+import com.disnodeteam.dogecv.CameraViewDisplay;
 import com.disnodeteam.dogecv.DogeCV;
 import com.disnodeteam.dogecv.detectors.DogeCVDetector;
 import com.disnodeteam.dogecv.filters.DogeCVColorFilter;
@@ -9,6 +10,7 @@ import com.disnodeteam.dogecv.filters.LeviColorFilter;
 import com.disnodeteam.dogecv.scoring.MaxAreaScorer;
 import com.disnodeteam.dogecv.scoring.PerfectAreaScorer;
 import com.disnodeteam.dogecv.scoring.RatioScorer;
+import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.opencv.core.Mat;
 import org.opencv.core.MatOfPoint;
@@ -198,5 +200,25 @@ public class GoldAlignDetector extends DogeCVDetector {
      */
     public boolean isFound() {
         return found;
+    }
+
+    public void setupDetector(HardwareMap hwMap, int cameraIndex) {
+        // Camera Index: 0 for back camera, 1 for front camera
+        init(hwMap.appContext, CameraViewDisplay.getInstance(), cameraIndex, false); // Initialize it with the app context and camera
+        useDefaults(); // Set detector to use default settings
+
+        // Optional tuning
+        alignSize = 100; // How wide (in pixels) is the range in which the gold object will be aligned. (Represented by green bars in the preview)
+        alignPosOffset = 0; // How far from center frame to offset this alignment zone.
+        downscale = 0.4; // How much to downscale the input frames
+
+        areaScoringMethod = DogeCV.AreaScoringMethod.MAX_AREA; // Can also be PERFECT_AREA
+        //detector.perfectAreaScorer.perfectArea = 10000; // if using PERFECT_AREA scoring
+        maxAreaScorer.weight = 0.005; //
+
+        ratioScorer.weight = 5; //
+        ratioScorer.perfectRatio = 1.0; // Ratio adjustment
+
+        enable(); // Start the detector!
     }
 }
