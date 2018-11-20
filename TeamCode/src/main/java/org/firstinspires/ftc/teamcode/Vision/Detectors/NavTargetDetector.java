@@ -130,7 +130,7 @@ public class NavTargetDetector {
         targetsRoverRuckus.activate();
     }
 
-    public void lookForDetectors() {
+    public void lookForTargets() {
         for (VuforiaTrackable trackable : navigationTargets) {
             if (((VuforiaTrackableDefaultListener) trackable.getListener()).isVisible()) {
                 targetVisible = true;
