@@ -19,7 +19,7 @@ public class NavTargetDetectorTest extends OpMode
     private NavTargetDetector detector;
 
     // Hardware object
-    Robot1_Hardware hardware = new Robot1_Hardware(hardwareMap);
+    Robot1_Hardware hardware = new Robot1_Hardware(hardwareMap, gamepad1);
 
     @Override
     public void init() {
