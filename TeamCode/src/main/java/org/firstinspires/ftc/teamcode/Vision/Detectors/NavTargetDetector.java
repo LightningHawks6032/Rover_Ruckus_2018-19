@@ -183,6 +183,16 @@ public class NavTargetDetector {
         return pos;
     }
 
+    // For debugging purposes
+    public String positionToString() {
+        String output = "(";
+        for (double num : getRobotPosition()) {
+            output += num + ", ";
+        }
+
+        return output + ")";
+    }
+
     // Returns robot's "yaw" rotation in degrees --> only rotational component we care about
     public double getRobotRotation() {
         return robotRotation.thirdAngle;
