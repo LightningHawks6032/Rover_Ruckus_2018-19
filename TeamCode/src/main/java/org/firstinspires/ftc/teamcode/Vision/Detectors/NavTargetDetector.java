@@ -187,7 +187,7 @@ public class NavTargetDetector {
     public String positionToString() {
         String output = "(";
         for (double num : getRobotPosition()) {
-            output += num + ", ";
+            output += (int) num + ", ";
         }
 
         return output + ")";
