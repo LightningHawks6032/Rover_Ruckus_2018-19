@@ -44,6 +44,8 @@ public class GoldAlignDetectorTest extends OpMode
     public void loop() {
         telemetry.addData("IsAligned" , detector.getAligned()); // Is the bot aligned with the gold mineral?
         telemetry.addData("X Pos" , detector.getXPosition()); // Gold X position.
+        telemetry.addData("Is found?", detector.isFound()); // Gold mineral found?
+        telemetry.update();
     }
 
     /*

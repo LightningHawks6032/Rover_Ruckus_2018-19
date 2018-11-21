@@ -9,16 +9,21 @@ import org.firstinspires.ftc.teamcode.Hardware.Robot1_Hardware;
 @Autonomous(name="Mineral Sampling", group="Linear Opmode")
 public class Robot1_MineralSampling extends LinearOpMode {
     // Declare hardware and encoders
-    Robot1_Hardware hardware;
+    private Robot1_Hardware hardware;
+
+    private boolean encoders = false; // Do we or do we not have encoders working?
 
     public void runOpMode() {
         hardware = new Robot1_Hardware(hardwareMap, gamepad1);
         hardware.initHardware();
 
-
         telemetry.addLine("Driving Forward");
         telemetry.update();
-        hardware.drivetrain.driveDistance(1, 5, 0.4);
-
+        if (encoders) {
+            hardware.drivetrain.driveDistance(1, 5, 0.4);
+        } else {
+            hardware.drivetrain.setPowers(0.5, 0.5, 0);
+            sleep(1000);
+        }
     }
 }
