@@ -11,7 +11,7 @@ public class Robot1_MineralSampling extends LinearOpMode {
     // Declare hardware and encoders
     private Robot1_Hardware hardware;
 
-    private boolean encoders = false; // Do we or do we not have encoders working?
+    private boolean encoders = true; // Do we or do we not have encoders working?
 
     public void runOpMode() throws InterruptedException {
         hardware = new Robot1_Hardware(hardwareMap, gamepad1);

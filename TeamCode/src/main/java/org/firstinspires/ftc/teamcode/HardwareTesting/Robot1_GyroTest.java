@@ -18,15 +18,15 @@ public class Robot1_GyroTest extends OpMode {
         hardware = new Robot1_Hardware(hardwareMap, gamepad1);
         hardware.initHardware();
 
-        hardware.gyroSensor.resetZAxisIntegrator();
         calibrateGyro();
+        hardware.gyroSensor.resetZAxisIntegrator();
     }
 
     public void loop(){
         hardware.drivetrain.manageTeleOp();
-        telemetry.addData("Gyro X :", hardware.gyroSensor.rawX());
-        telemetry.addData("Gyro Y: ", hardware.gyroSensor.rawY());
-        telemetry.addData("Gyro Z: ", hardware.gyroSensor.rawZ());
+        //telemetry.addData("Gyro X :", hardware.gyroSensor.rawX());
+        //telemetry.addData("Gyro Y: ", hardware.gyroSensor.rawY());
+        //telemetry.addData("Gyro Z: ", hardware.gyroSensor.rawZ());
         telemetry.addData("Cartesian Z Heading: ", hardware.gyroSensor.getHeading());
         telemetry.update();
 
@@ -36,7 +36,7 @@ public class Robot1_GyroTest extends OpMode {
 
     private void calibrateGyro() {
         hardware.gyroSensor.calibrate();
-        while(hardware.gyroSensor.isCalibrating()) {
+        while (hardware.gyroSensor.isCalibrating()) {
             // WAIT - Gyro Sensor is Calibrating
         }
     }

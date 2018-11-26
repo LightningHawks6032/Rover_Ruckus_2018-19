@@ -20,6 +20,7 @@ public class Robot1_MarkerArmTest extends OpMode{
     }
 
     public void loop() {
+        hardware.drivetrain.manageTeleOp();
         testServo();
         telemetry.addData("Servo Position: ", hardware.markerArm.getPosition());
         telemetry.update();
