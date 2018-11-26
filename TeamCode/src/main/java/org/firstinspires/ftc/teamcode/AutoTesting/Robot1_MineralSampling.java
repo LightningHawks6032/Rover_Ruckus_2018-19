@@ -17,12 +17,16 @@ public class Robot1_MineralSampling extends LinearOpMode {
         hardware = new Robot1_Hardware(hardwareMap, gamepad1);
         hardware.initHardware();
 
+        waitForStart();
+
         telemetry.addLine("Driving Forward");
         telemetry.update();
         if (encoders) {
-            hardware.drivetrain.driveDistance(1, 5, 0.4);
+            hardware.drivetrain.driveDistance(1, 5, 0.6);
         } else {
-            hardware.drivetrain.driveForTime(0.4, 2);
+            hardware.drivetrain.driveForTime(0.6, 2);
         }
+
+
     }
 }

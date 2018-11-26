@@ -23,6 +23,7 @@ public class Robot1_GyroTest extends OpMode {
     }
 
     public void loop(){
+        hardware.drivetrain.manageTeleOp();
         telemetry.addData("Gyro X :", hardware.gyroSensor.rawX());
         telemetry.addData("Gyro Y: ", hardware.gyroSensor.rawY());
         telemetry.addData("Gyro Z: ", hardware.gyroSensor.rawZ());

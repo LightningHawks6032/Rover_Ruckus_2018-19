@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.Hardware;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Gamepad;
 
 public class OmniSlideDrive {
@@ -30,9 +31,13 @@ public class OmniSlideDrive {
     }
 
     public void setupMotors() {
-        leftMotor.setDirection(DcMotor.Direction.FORWARD);
-        rightMotor.setDirection(DcMotor.Direction.REVERSE);
+        leftMotor.setDirection(DcMotor.Direction.REVERSE);
+        rightMotor.setDirection(DcMotor.Direction.FORWARD);
         middleMotor.setDirection(DcMotor.Direction.REVERSE);
+        encoderReset();
+    }
+
+    private void encoderReset() {
         leftEncoder.reset();
         rightEncoder.reset();
         middleEncoder.reset();
@@ -122,11 +127,13 @@ public class OmniSlideDrive {
      * @throws InterruptedException
      */
     public void driveForTime(double pow, long seconds) throws InterruptedException {
+        encoderReset();
         setPowers(pow, pow, 0);
         Thread.sleep(seconds * 1000);
         setPowers(0, 0, 0);
     }
     public void strafeForTime(double pow, long seconds) throws InterruptedException {
+        encoderReset();
         setPowers(0, 0, pow);
         Thread.sleep(seconds * 1000);
         setPowers(0, 0, 0);

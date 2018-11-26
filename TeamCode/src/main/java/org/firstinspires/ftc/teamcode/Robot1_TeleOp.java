@@ -13,11 +13,7 @@ public class Robot1_TeleOp extends OpMode {
     Robot1_Hardware hardware;
 
     //Power variables
-    private double leftPower,
-        rightPower,
-        boost,
-        middlePower,
-        slidePower,
+    private double slidePower,
         winchPower,
         actuPos;
 
@@ -33,9 +29,6 @@ public class Robot1_TeleOp extends OpMode {
         hardware.initHardware();
 
         //Assign variables
-        boost = 0.7;
-        rightPower = 0;
-        leftPower = 0;
         slidePower = 0;
         winchPower = 0;
         driveMode = 1;
