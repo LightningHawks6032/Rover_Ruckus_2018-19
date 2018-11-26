@@ -140,6 +140,10 @@ public class OmniSlideDrive {
     }
 
 
+    public void turn(double degrees) {
+
+    }
+
     // Accessor methods
     public double getLeftPow() {
         return leftMotor.getPower();
