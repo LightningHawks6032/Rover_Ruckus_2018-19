@@ -13,7 +13,7 @@ public class Robot1_MineralSampling extends LinearOpMode {
 
     private boolean encoders = false; // Do we or do we not have encoders working?
 
-    public void runOpMode() {
+    public void runOpMode() throws InterruptedException {
         hardware = new Robot1_Hardware(hardwareMap, gamepad1);
         hardware.initHardware();
 
@@ -22,8 +22,7 @@ public class Robot1_MineralSampling extends LinearOpMode {
         if (encoders) {
             hardware.drivetrain.driveDistance(1, 5, 0.4);
         } else {
-            hardware.drivetrain.setPowers(0.5, 0.5, 0);
-            sleep(1000);
+            hardware.drivetrain.driveForTime(0.4, 2);
         }
     }
 }

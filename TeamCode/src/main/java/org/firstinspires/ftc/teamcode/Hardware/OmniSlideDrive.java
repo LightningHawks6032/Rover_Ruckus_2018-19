@@ -26,7 +26,7 @@ public class OmniSlideDrive {
         rightEncoder = new Encoder(rm, "Neverest", wheelDiam);
         middleEncoder = new Encoder(mm, "Neverest", wheelDiam);
 
-        boost = 0.7;
+        boost = 1;
     }
 
     public void setupMotors() {
@@ -36,6 +36,9 @@ public class OmniSlideDrive {
         leftEncoder.reset();
         rightEncoder.reset();
         middleEncoder.reset();
+        leftEncoder.runWith();
+        rightEncoder.runWith();
+        middleEncoder.runWith();
     }
 
     // Shortcut method for setting the power of the left drive, right drive, and middle drive
@@ -109,6 +112,23 @@ public class OmniSlideDrive {
             // WAIT - Motor is busy
         }
 
+        setPowers(0, 0, 0);
+    }
+
+    /**
+     * Robot drives/strafes forward for a set amount of time
+     * @param pow : constant power at which the robot drives (positive power equals forward/right, negative power equals backward/left)
+     * @param seconds : seconds during which the robot drives
+     * @throws InterruptedException
+     */
+    public void driveForTime(double pow, long seconds) throws InterruptedException {
+        setPowers(pow, pow, 0);
+        Thread.sleep(seconds * 1000);
+        setPowers(0, 0, 0);
+    }
+    public void strafeForTime(double pow, long seconds) throws InterruptedException {
+        setPowers(0, 0, pow);
+        Thread.sleep(seconds * 1000);
         setPowers(0, 0, 0);
     }
 
