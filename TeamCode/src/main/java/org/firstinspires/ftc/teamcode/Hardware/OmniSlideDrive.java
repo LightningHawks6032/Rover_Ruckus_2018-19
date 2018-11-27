@@ -148,7 +148,7 @@ public class OmniSlideDrive {
      * @param gyro : the GyroSensor object we are using
      * @param targetAngle : the target angle in degrees
      */
-    public void turn(GyroSensor gyro, double targetAngle) {
+    public void turn(GyroSensor gyro, int targetAngle) {
         gyro.resetZAxisIntegrator(); // reset angle
         int currAngle = gyro.getHeading();
         double pow = 1; // power applied to motors
