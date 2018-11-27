@@ -18,26 +18,21 @@ public class Robot1_GyroTest extends OpMode {
         hardware = new Robot1_Hardware(hardwareMap, gamepad1);
         hardware.initHardware();
 
-        calibrateGyro();
-        hardware.gyroSensor.resetZAxisIntegrator();
+        hardware.drivetrain.calibrateGyro();
+        hardware.drivetrain.getGyro().resetZAxisIntegrator();
     }
 
-    public void loop(){
+    public void loop() {
         hardware.drivetrain.manageTeleOp();
         //telemetry.addData("Gyro X :", hardware.gyroSensor.rawX());
         //telemetry.addData("Gyro Y: ", hardware.gyroSensor.rawY());
         //telemetry.addData("Gyro Z: ", hardware.gyroSensor.rawZ());
-        telemetry.addData("Cartesian Z Heading: ", hardware.gyroSensor.getHeading());
+        telemetry.addData("Cartesian Z Heading: ", hardware.drivetrain.getGyro().getHeading());
         telemetry.update();
 
-        if (gamepad1.x)
-            hardware.gyroSensor.resetZAxisIntegrator();
-    }
-
-    private void calibrateGyro() {
-        hardware.gyroSensor.calibrate();
-        while (hardware.gyroSensor.isCalibrating()) {
-            // WAIT - Gyro Sensor is Calibrating
+        if (gamepad1.x) {
+            hardware.drivetrain.getGyro().resetZAxisIntegrator();
+            //hardware.gyroSensor.resetZAxisIntegrator();
         }
     }
 }

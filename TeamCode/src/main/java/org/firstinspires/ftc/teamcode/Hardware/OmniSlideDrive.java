@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.Hardware;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Gamepad;
+import com.qualcomm.robotcore.hardware.GyroSensor;
 
 public class OmniSlideDrive {
     private DcMotor leftMotor;
@@ -11,6 +12,7 @@ public class OmniSlideDrive {
     private Encoder leftEncoder;
     private Encoder rightEncoder;
     private Encoder middleEncoder;
+    private GyroSensor gyroSensor;
     private Gamepad gamepad;
     private double boost;
 
@@ -18,10 +20,11 @@ public class OmniSlideDrive {
     private final double MAX_DRIVE_POWER = 1;
     private final double MAX_MIDDLE_POWER = 1;
 
-    public OmniSlideDrive(DcMotor lm, DcMotor rm, DcMotor mm, Gamepad gamepad, double wheelDiam) {
+    public OmniSlideDrive(DcMotor lm, DcMotor rm, DcMotor mm, GyroSensor gyro, Gamepad gamepad, double wheelDiam) {
         leftMotor = lm;
         rightMotor = rm;
         middleMotor = mm;
+        gyroSensor = gyro;
         this.gamepad = gamepad;
         leftEncoder = new Encoder(lm, "Neverest", wheelDiam);
         rightEncoder = new Encoder(rm, "Neverest", wheelDiam);
@@ -140,8 +143,33 @@ public class OmniSlideDrive {
     }
 
 
-    public void turn(double degrees) {
+    /**
+     * Turns right a specific angle in degrees
+     * @param gyro : the GyroSensor object we are using
+     * @param targetAngle : the target angle in degrees
+     */
+    public void turn(GyroSensor gyro, double targetAngle) {
+        gyro.resetZAxisIntegrator(); // reset angle
+        int currAngle = gyro.getHeading();
+        double pow = 1; // power applied to motors
 
+        while (currAngle < targetAngle) {
+            pow = (double) (targetAngle - currAngle) / targetAngle + 0.1;
+
+            // Apply power to motors and update currAngle
+            setPowers(pow, -pow, 0);
+            currAngle = gyro.getHeading();
+        }
+
+        setPowers(0, 0, 0);
+
+    }
+
+    public void calibrateGyro() {
+        gyroSensor.calibrate();
+        while (gyroSensor.isCalibrating()) {
+            // WAIT - Gyro Sensor is Calibrating
+        }
     }
 
     // Accessor methods
@@ -162,6 +190,9 @@ public class OmniSlideDrive {
     }
     public Encoder getMiddleEncoder() {
         return middleEncoder;
+    }
+    public GyroSensor getGyro() {
+        return gyroSensor;
     }
     public double getBoost() {
         return boost;

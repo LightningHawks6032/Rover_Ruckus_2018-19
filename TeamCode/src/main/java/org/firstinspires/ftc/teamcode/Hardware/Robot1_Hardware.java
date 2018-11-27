@@ -23,7 +23,7 @@ public class Robot1_Hardware implements HardwareInterface {
     public Servo leftClaw = null;
     public Servo rightClaw = null;
     public Servo markerArm = null;
-    public GyroSensor gyroSensor = null;
+    //public GyroSensor gyroSensor = null;
 
     // Servo constants
     public final double RIGHT_CLAW_CLOSE = 1,
@@ -47,6 +47,7 @@ public class Robot1_Hardware implements HardwareInterface {
                 hardwareMap.get(DcMotor.class, "ld"), // left drive motor
                 hardwareMap.get(DcMotor.class, "rd"), // right drive motor
                 hardwareMap.get(DcMotor.class, "md"), // middle drive motor
+                hardwareMap.get(GyroSensor.class, "gs"), // gyro sensor
                 driveGamepad,
                 wheelDiameter
         );
@@ -61,7 +62,7 @@ public class Robot1_Hardware implements HardwareInterface {
         rightClaw = hardwareMap.get(Servo.class, "rc");
         slowSlideMotor = hardwareMap.get(DcMotor.class, "ssm");
         markerArm = hardwareMap.get(Servo.class, "ma");
-        gyroSensor = hardwareMap.get(GyroSensor.class, "gs");
+        //gyroSensor = hardwareMap.get(GyroSensor.class, "gs");
 
     }
 
