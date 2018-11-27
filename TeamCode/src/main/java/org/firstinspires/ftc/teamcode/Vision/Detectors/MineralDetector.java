@@ -110,7 +110,7 @@ public class MineralDetector extends DogeCVDetector {
             Imgproc.rectangle(displayMat, bestRect.tl(), bestRect.br(), new Scalar(255,0,0),4);
             Imgproc.putText(displayMat, "Chosen", bestRect.tl(),0,1,new Scalar(255,255,255));
 
-            screenPosition = new Point(bestRect.x, bestRect.y);
+            screenPosition = new Point(bestRect.y, bestRect.x); // THIS WAS CHANGED TO ACCOUNT FOR LANDSCAPE MODE
             foundRect = bestRect;
             found = true;
         } else {

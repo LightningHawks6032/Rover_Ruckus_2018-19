@@ -47,6 +47,7 @@ public class MineralDetectionTest extends OpMode
         telemetry.addLine("We are testing sight of the " + detector.getColor() + " mineral.");
         telemetry.addData("Sees Mineral?", detector.isFound());
         telemetry.addData("X Pos" , detector.getScreenPosition().x); // Mineral X position
+        telemetry.addData("Y Pos" , detector.getScreenPosition().y); // Mineral Y position
         telemetry.update();
     }
 

@@ -40,7 +40,7 @@ public class GoldAlignDetector extends DogeCVDetector {
 
     // Detector settings
     public boolean debugAlignment = true; // Show debug lines to show alignment settings
-    public double alignPosOffset  = 0;    // How far from center frame is aligned
+    public double alignPosOffset  = -20;    // How far from center frame is aligned (CENTER FRAME IS 270 px)
     public double alignSize       = 100;  // How wide is the margin of error for alignment
 
     public DogeCV.AreaScoringMethod areaScoringMethod = DogeCV.AreaScoringMethod.MAX_AREA; // Setting to decide to use MaxAreaScorer or PerfectAreaScorer
@@ -112,7 +112,7 @@ public class GoldAlignDetector extends DogeCVDetector {
             Imgproc.putText(displayMat, "Chosen", bestRect.tl(),0,1,new Scalar(255,255,255));
 
             // Set align X pos
-            xPos = bestRect.x + (bestRect.width / 2);
+            xPos = bestRect.y + (bestRect.width / 2); // THIS WAS CHANGED TO ACCOUNT FOR LANDSCAPE MODE
             goldXPos = xPos;
 
             // Draw center point
