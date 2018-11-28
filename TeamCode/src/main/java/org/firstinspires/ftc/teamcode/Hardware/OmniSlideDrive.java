@@ -12,7 +12,7 @@ public class OmniSlideDrive {
     private Encoder leftEncoder;
     private Encoder rightEncoder;
     private Encoder middleEncoder;
-    private GyroSensor gyroSensor;
+    private MRGyro gyroSensor;
     private Gamepad gamepad;
     private double boost;
 
@@ -20,7 +20,7 @@ public class OmniSlideDrive {
     private final double MAX_DRIVE_POWER = 1;
     private final double MAX_MIDDLE_POWER = 1;
 
-    public OmniSlideDrive(DcMotor lm, DcMotor rm, DcMotor mm, GyroSensor gyro, Gamepad gamepad, double wheelDiam) {
+    public OmniSlideDrive(DcMotor lm, DcMotor rm, DcMotor mm, MRGyro gyro, Gamepad gamepad, double wheelDiam) {
         leftMotor = lm;
         rightMotor = rm;
         middleMotor = mm;
@@ -142,35 +142,37 @@ public class OmniSlideDrive {
         setPowers(0, 0, 0);
     }
 
-
     /**
-     * Turns right a specific angle in degrees
-     * @param gyro : the GyroSensor object we are using
-     * @param targetAngle : the target angle in degrees
+     * Turns a specific amount of degrees using an MRGyro
+     * @param degrees : the amount of degrees to turn
+     * @param right : if true, we turn right; if false, we turn left
      */
-    public void turn(GyroSensor gyro, int targetAngle) {
-        gyro.resetZAxisIntegrator(); // reset angle
-        int currAngle = gyro.getHeading();
+    public void turn(int degrees, boolean right) {
+        gyroSensor.zero();
+
+        int currAngle = Math.abs(gyroSensor.getAngle()); // Use getAngle() because it returns angle robot has turned from origin
         double pow = 1; // power applied to motors
 
-        while (currAngle < targetAngle) {
-            pow = (double) (targetAngle - currAngle) / targetAngle + 0.1;
+        while (currAngle < degrees) {
+            pow = (double) (degrees - currAngle) / degrees + 0.1;
 
             // Apply power to motors and update currAngle
-            setPowers(pow, -pow, 0);
-            currAngle = gyro.getHeading();
+            if (right)
+                setPowers(pow, -pow, 0);
+            else
+                setPowers(-pow, pow, 0);
+            currAngle = Math.abs(gyroSensor.getAngle());
         }
 
         setPowers(0, 0, 0);
-
     }
 
-    public void calibrateGyro() {
+    /** public void calibrateGyro() {
         gyroSensor.calibrate();
         while (gyroSensor.isCalibrating()) {
             // WAIT - Gyro Sensor is Calibrating
         }
-    }
+    } **/
 
     // Accessor methods
     public double getLeftPow() {
@@ -191,7 +193,7 @@ public class OmniSlideDrive {
     public Encoder getMiddleEncoder() {
         return middleEncoder;
     }
-    public GyroSensor getGyro() {
+    public MRGyro getGyro() {
         return gyroSensor;
     }
     public double getBoost() {

@@ -47,7 +47,7 @@ public class Robot1_Hardware implements HardwareInterface {
                 hardwareMap.get(DcMotor.class, "ld"), // left drive motor
                 hardwareMap.get(DcMotor.class, "rd"), // right drive motor
                 hardwareMap.get(DcMotor.class, "md"), // middle drive motor
-                hardwareMap.get(GyroSensor.class, "gs"), // gyro sensor
+                new MRGyro(hardwareMap.get(GyroSensor.class, "gs")), // gyro sensor
                 driveGamepad,
                 wheelDiameter
         );

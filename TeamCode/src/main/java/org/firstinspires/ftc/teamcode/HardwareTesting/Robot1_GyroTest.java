@@ -14,12 +14,9 @@ public class Robot1_GyroTest extends OpMode {
     Robot1_Hardware hardware;
 
     public void init(){
-        // hardware init
+        // hardware init (inits the gyro by calibrating and zeroing)
         hardware = new Robot1_Hardware(hardwareMap, gamepad1);
         hardware.initHardware();
-
-        hardware.drivetrain.calibrateGyro();
-        hardware.drivetrain.getGyro().resetZAxisIntegrator();
     }
 
     public void loop() {
@@ -31,8 +28,7 @@ public class Robot1_GyroTest extends OpMode {
         telemetry.update();
 
         if (gamepad1.x) {
-            hardware.drivetrain.getGyro().resetZAxisIntegrator();
-            //hardware.gyroSensor.resetZAxisIntegrator();
+            hardware.drivetrain.getGyro().zero();
         }
     }
 }
