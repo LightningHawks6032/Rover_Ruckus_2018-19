@@ -35,10 +35,7 @@ public class MRGyro {
 
     // Returns the angle the robot has turned from the origin, negative for anything left and positive for anything right
     public int getAngle() {
-        if (getHeading() > 180) {
-            return -(360 - getHeading());
-        } else
-            return getHeading();
+        return convertToAngleFromOrigin(getHeading());
     }
 
     // Returns the heading last time we zero'd the sensor
@@ -48,10 +45,7 @@ public class MRGyro {
 
     // Returns the angle the robot had turned from the origin last time we zero'd the sensor
     public int getPreviousAngle() {
-        if (getPreviousHeading() > 180) {
-            return -(360 - getPreviousHeading());
-        } else
-            return getPreviousHeading();
+        return convertToAngleFromOrigin(getPreviousHeading());
     }
 
     // Returns the net heading since calibration
@@ -68,9 +62,14 @@ public class MRGyro {
 
     // Returns the net angle the robot has turned from the origin since calibration
     public int angleSinceCalibration() {
-        if (headingSinceCalibration() > 180) {
-            return -(360 - headingSinceCalibration());
+        return convertToAngleFromOrigin(headingSinceCalibration());
+    }
+
+    // We convert from gyro heading to angle turned from origin a lot in this class, so this helper method makes things easier to read
+    private int convertToAngleFromOrigin(int heading) {
+        if (heading > 180) {
+            return -(360 - heading);
         } else
-            return headingSinceCalibration();
+            return heading;
     }
 }
