@@ -22,7 +22,7 @@ public class MineralDetectionTest extends OpMode
     @Override
     public void init() {
         // Set up detector
-        detector = new MineralDetector("gold"); // Create detector
+        detector = new MineralDetector("gold", true); // Create detector
         detector.setupDetector(hardwareMap, 1); // Camera Index: 0 for back camera, 1 for front camera
     }
 
