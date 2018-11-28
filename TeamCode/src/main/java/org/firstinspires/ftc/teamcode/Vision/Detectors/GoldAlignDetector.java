@@ -1,3 +1,11 @@
+/**
+ * This class is a subclass of DogeCVDetector (a generic detector class), which I've written to take in the robot's center
+ * x position based on the camera footage (essentially the x position of the mineral that causes x-alignment), as well as a
+ * margin of error. Then isFound() returns true if a gold mineral is in the camera's frame. The method getXPosition()
+ * returns what the x-position is in pixels on the screen is and getAligned() returns true if the robot is aligned with the
+ * mineral based on the parameters specified.
+ */
+
 package org.firstinspires.ftc.teamcode.Vision.Detectors;
 
 import android.util.Log;
@@ -39,9 +47,11 @@ public class GoldAlignDetector extends DogeCVDetector {
     private double  goldXPos = 0;     // X Position (in pixels) of the gold element
 
     // Detector settings
-    public boolean debugAlignment = true; // Show debug lines to show alignment settings
-    public double alignPosOffset  = -20;    // How far from center frame is aligned (CENTER FRAME IS 270 px)
-    public double alignSize       = 100;  // How wide is the margin of error for alignment
+    public final int CAMERA_CENTER_FRAME = 270; // X-Center of frame in pixels
+    private boolean debugAlignment = true; // Show debug lines to show alignment settings
+    private double alignPosOffset; // How far from center frame is aligned
+    private double alignSize = 100; // How wide is the margin of error for alignment
+    private boolean landscapeMode; // Is the phone using landscape mode
 
     public DogeCV.AreaScoringMethod areaScoringMethod = DogeCV.AreaScoringMethod.MAX_AREA; // Setting to decide to use MaxAreaScorer or PerfectAreaScorer
 
@@ -54,11 +64,18 @@ public class GoldAlignDetector extends DogeCVDetector {
     public PerfectAreaScorer perfectAreaScorer = new PerfectAreaScorer(5000,0.05); // Used to find objects near a tuned area value
 
     /**
-     * Simple constructor
+     * Constructor builds a GoldAlignDetector by using the superclass
+     * @param robotCenterX : the x position of the center of the robot
+     * @param marginOfError : wideness of margin of error for alignment
+     * @param landscape : boolean for whether we are using landscape mode
      */
-    public GoldAlignDetector() {
+    public GoldAlignDetector(double robotCenterX, double marginOfError, boolean landscape) {
         super();
         detectorName = "Gold Align Detector"; // Set the detector name
+
+        alignPosOffset = robotCenterX - CAMERA_CENTER_FRAME;
+        alignSize = marginOfError;
+        landscapeMode = landscape;
     }
 
 
@@ -112,7 +129,10 @@ public class GoldAlignDetector extends DogeCVDetector {
             Imgproc.putText(displayMat, "Chosen", bestRect.tl(),0,1,new Scalar(255,255,255));
 
             // Set align X pos
-            xPos = bestRect.y + (bestRect.width / 2); // THIS WAS CHANGED TO ACCOUNT FOR LANDSCAPE MODE
+            if (landscapeMode)
+                xPos = bestRect.y + (bestRect.width / 2);
+            else
+                xPos = bestRect.x + (bestRect.width / 2);
             goldXPos = xPos;
 
             // Draw center point

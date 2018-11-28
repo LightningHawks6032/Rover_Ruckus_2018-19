@@ -30,6 +30,7 @@ import java.util.List;
 public class MineralDetector extends DogeCVDetector {
 
     private String color; // color mineral we're trying to detect
+    private boolean lanscapeMode; // Is the phone using landscape mode
 
     // Defining Mats to be used
     private Mat displayMat = new Mat(); // Display debug info to the screen (this is what is returned)
@@ -53,7 +54,7 @@ public class MineralDetector extends DogeCVDetector {
     public PerfectAreaScorer perfectAreaScorer = new PerfectAreaScorer(5000,0.05); // Used to find objects near a tuned area value
 
     // Constructor takes in color as a string
-    public MineralDetector(String color) {
+    public MineralDetector(String color, boolean landscape) {
         super(); // Call constructor of general detector class (which this is a subclass of)
         detectorName = "Mineral Detector"; // Set the detector name
         this.color = color;
@@ -65,6 +66,7 @@ public class MineralDetector extends DogeCVDetector {
         else // DEFAULT: RED
             colorFilter = new LeviColorFilter(LeviColorFilter.ColorPreset.RED);
 
+        lanscapeMode = landscape;
 
     }
 
@@ -110,7 +112,10 @@ public class MineralDetector extends DogeCVDetector {
             Imgproc.rectangle(displayMat, bestRect.tl(), bestRect.br(), new Scalar(255,0,0),4);
             Imgproc.putText(displayMat, "Chosen", bestRect.tl(),0,1,new Scalar(255,255,255));
 
-            screenPosition = new Point(bestRect.y, bestRect.x); // THIS WAS CHANGED TO ACCOUNT FOR LANDSCAPE MODE
+            if (lanscapeMode)
+                screenPosition = new Point(bestRect.y, bestRect.x);
+            else
+                screenPosition = new Point(bestRect.x, bestRect.y);
             foundRect = bestRect;
             found = true;
         } else {
