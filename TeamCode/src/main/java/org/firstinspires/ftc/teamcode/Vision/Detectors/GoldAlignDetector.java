@@ -47,10 +47,11 @@ public class GoldAlignDetector extends DogeCVDetector {
     private double  goldXPos = 0;     // X Position (in pixels) of the gold element
 
     // Detector settings
-    public final int CAMERA_CENTER_FRAME = 270; // X-Center of frame in pixels
+    public int robotCenterX; // The x position in pixels of the center of the robot (find by placing gold mineral in front of robot at its center)
+    //public final int CAMERA_CENTER_FRAME = 340; // X-Center of frame in pixels
     private boolean debugAlignment = true; // Show debug lines to show alignment settings
-    private double alignPosOffset; // How far from center frame is aligned
-    private double alignSize = 100; // How wide is the margin of error for alignment
+    //private double alignPosOffset; // How far from center frame is aligned
+    private double alignSize; // How wide is the margin of error for alignment
     private boolean landscapeMode; // Is the phone using landscape mode
 
     public DogeCV.AreaScoringMethod areaScoringMethod = DogeCV.AreaScoringMethod.MAX_AREA; // Setting to decide to use MaxAreaScorer or PerfectAreaScorer
@@ -69,11 +70,11 @@ public class GoldAlignDetector extends DogeCVDetector {
      * @param marginOfError : wideness of margin of error for alignment
      * @param landscape : boolean for whether we are using landscape mode
      */
-    public GoldAlignDetector(double robotCenterX, double marginOfError, boolean landscape) {
+    public GoldAlignDetector(int robotCenterX, double marginOfError, boolean landscape) {
         super();
         detectorName = "Gold Align Detector"; // Set the detector name
 
-        alignPosOffset = robotCenterX - CAMERA_CENTER_FRAME;
+        this.robotCenterX = robotCenterX;
         alignSize = marginOfError;
         landscapeMode = landscape;
     }
@@ -118,7 +119,8 @@ public class GoldAlignDetector extends DogeCVDetector {
         }
 
         // Vars to calculate the alignment logic.
-        double alignX    = (getAdjustedSize().width / 2) + alignPosOffset; // Center point in X Pixels
+        double alignX = robotCenterX;
+        //double alignX    = (getAdjustedSize().width / 2) + alignPosOffset; // Center point in X Pixels
         double alignXMin = alignX - (alignSize / 2); // Min X Pos in pixels
         double alignXMax = alignX +(alignSize / 2); // Max X pos in pixels
         double xPos; // Current Gold X Pos
@@ -191,10 +193,10 @@ public class GoldAlignDetector extends DogeCVDetector {
      * @param offset - How far from center frame (in pixels)
      * @param width - How wide the margin is (in pixels, on each side of offset)
      */
-    public void setAlignSettings(int offset, int width){
+    /*public void setAlignSettings(int offset, int width){
         alignPosOffset = offset;
         alignSize = width;
-    }
+    }*/
 
     /**
      * Returns if the gold element is aligned
@@ -226,8 +228,8 @@ public class GoldAlignDetector extends DogeCVDetector {
         useDefaults(); // Set detector to use default settings
 
         // Optional tuning
-        alignSize = 100; // How wide (in pixels) is the range in which the gold object will be aligned. (Represented by green bars in the preview)
-        alignPosOffset = 0; // How far from center frame to offset this alignment zone.
+        //alignSize = 100; // How wide (in pixels) is the range in which the gold object will be aligned. (Represented by green bars in the preview)
+        //alignPosOffset = 0; // How far from center frame to offset this alignment zone.
         downscale = 0.4; // How much to downscale the input frames
 
         areaScoringMethod = DogeCV.AreaScoringMethod.MAX_AREA; // Can also be PERFECT_AREA
@@ -239,7 +241,7 @@ public class GoldAlignDetector extends DogeCVDetector {
 
         enable(); // Start the detector!
     }
-    public double getAlignPosOffset(){
-        return alignPosOffset;
+    public double getRobotCenterX(){
+        return robotCenterX;
     }
 }

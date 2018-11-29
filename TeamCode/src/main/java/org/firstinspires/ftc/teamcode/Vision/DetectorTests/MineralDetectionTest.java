@@ -12,7 +12,7 @@ import org.firstinspires.ftc.teamcode.Robot1_TeleOp;
 import org.firstinspires.ftc.teamcode.Vision.Detectors.MineralDetector;
 
 
-@TeleOp(name="Mineral Detection Test", group="DogeCV")
+// @TeleOp(name="Mineral Detection Test", group="DogeCV")
 public class MineralDetectionTest extends OpMode
 {
     // Detector object

@@ -8,7 +8,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import org.opencv.core.Size;
 
 
-@TeleOp(name="Hough Silver Detector Test", group="DogeCV")
+// @TeleOp(name="Hough Silver Detector Test", group="DogeCV")
 public class HoughSilverDetectorTest extends OpMode
 {
     //Detector object

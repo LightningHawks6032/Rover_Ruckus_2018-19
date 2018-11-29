@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.util.Hardware;
 import org.firstinspires.ftc.teamcode.Hardware.Robot1_Hardware;
 import org.firstinspires.ftc.teamcode.Vision.DetectorTests.MineralDetectionTest;
 
-@TeleOp(name="Mineral Detection Tele-Op", group="DogeCV")
+// @TeleOp(name="Mineral Detection Tele-Op", group="DogeCV")
 public class MineralDetectionDrive extends MineralDetectionTest {
     Robot1_Hardware hardware;
 

@@ -29,18 +29,26 @@ public class Robot1_MineralSampling extends LinearOpMode {
         hardware = new Robot1_Hardware(hardwareMap, gamepad1);
         hardware.initHardware();
 
-        detector = new GoldAlignDetector(250, 100, true); // Create detector
+        detector = new GoldAlignDetector(230, 100, true); // Create detector
         detector.setupDetector(hardwareMap, 1); // Camera Index: 0 for back camera, 1 for front camera
 
         waitForStart();
 
-        telemetry.addLine("Driving Forward");
+        /*telemetry.addLine("Driving Forward");
         telemetry.update();
         if (encoders) {
             hardware.drivetrain.driveDistance(1, 5, 0.6);
         } else {
             hardware.drivetrain.driveForTime(0.6, 2);
-        }
+        }*/
+
+        telemetry.addLine("Mineral Sampling");
+        telemetry.update();
+        turnToGold();
+
+        telemetry.addLine("Moving to hit mineral");
+        telemetry.update();
+        hardware.drivetrain.driveDistance(1, 20, 0.6);
 
 
     }
@@ -48,9 +56,11 @@ public class Robot1_MineralSampling extends LinearOpMode {
     private void turnToGold(){
         //
         if(detector.isFound()) {
+            double startX = detector.getXPosition();
+
             while (!detector.getAligned()) {
                 //turn towards gold
-                turningPower = detector.getXPosition() - detector.getAlignPosOffset();
+                turningPower = (detector.getXPosition() - detector.getRobotCenterX()/(startX - detector.getRobotCenterX() + 0.1));
 
                 hardware.drivetrain.setPowers(turningPower, -turningPower, 0);
             }
