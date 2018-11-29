@@ -60,7 +60,7 @@ public class Robot1_MineralSampling extends LinearOpMode {
 
             while (!detector.getAligned()) {
                 //turn towards gold
-                turningPower = (detector.getXPosition() - detector.getRobotCenterX()/(startX - detector.getRobotCenterX() + 0.1));
+                turningPower = (detector.getXPosition() - detector.getRobotCenterX()/(startX - detector.getRobotCenterX())) + 0.1;
 
                 hardware.drivetrain.setPowers(turningPower, -turningPower, 0);
             }
