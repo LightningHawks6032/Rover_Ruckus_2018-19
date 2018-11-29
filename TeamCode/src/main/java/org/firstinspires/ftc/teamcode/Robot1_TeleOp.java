@@ -32,7 +32,7 @@ public class Robot1_TeleOp extends OpMode {
         slidePower = 0;
         winchPower = 0;
         driveMode = 1;
-        actuPos = 0.5;
+        actuPos = 0.3;
     }
 
     public void loop() {

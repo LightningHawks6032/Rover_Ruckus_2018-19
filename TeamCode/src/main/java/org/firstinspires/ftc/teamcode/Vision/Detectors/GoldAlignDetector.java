@@ -239,4 +239,7 @@ public class GoldAlignDetector extends DogeCVDetector {
 
         enable(); // Start the detector!
     }
+    public double getAlignPosOffset(){
+        return alignPosOffset;
+    }
 }
