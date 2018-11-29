@@ -5,9 +5,21 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.Hardware.Encoder;
 import org.firstinspires.ftc.teamcode.Hardware.Robot1_Hardware;
+import org.firstinspires.ftc.teamcode.Vision.Detectors.GoldAlignDetector;
+import org.firstinspires.ftc.teamcode.Vision.Detectors.MineralDetector;
 
 @Autonomous(name="Mineral Sampling", group="Linear Opmode")
 public class Robot1_MineralSampling extends LinearOpMode {
+
+    // Detector object
+    private GoldAlignDetector detector;
+
+    private double turningPower;
+
+
+    // Set up detector
+
+
     // Declare hardware and encoders
     private Robot1_Hardware hardware;
 
@@ -16,6 +28,9 @@ public class Robot1_MineralSampling extends LinearOpMode {
     public void runOpMode() throws InterruptedException {
         hardware = new Robot1_Hardware(hardwareMap, gamepad1);
         hardware.initHardware();
+
+        detector = new GoldAlignDetector(250, 100, true); // Create detector
+        detector.setupDetector(hardwareMap, 1); // Camera Index: 0 for back camera, 1 for front camera
 
         waitForStart();
 
@@ -29,4 +44,19 @@ public class Robot1_MineralSampling extends LinearOpMode {
 
 
     }
+
+    private void turnToGold(){
+        //
+        if(detector.isFound()) {
+            while (!detector.getAligned()) {
+                //turn towards gold
+                turningPower = detector.getXPosition() - detector.getAlignPosOffset();
+
+                hardware.drivetrain.setPowers(turningPower, -turningPower, 0);
+            }
+        } else {
+            //do something to get it into vision
+        }
+    }
+
 }
