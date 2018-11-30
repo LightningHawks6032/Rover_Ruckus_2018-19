@@ -46,9 +46,9 @@ public class Robot1_MineralSampling extends LinearOpMode {
         telemetry.update();
         turnToGold();
 
-        //telemetry.addLine("Moving to hit mineral");
-        //telemetry.update();
-        //hardware.drivetrain.driveDistance(1, 20, 0.6);
+        telemetry.addLine("Moving to hit mineral");
+        telemetry.update();
+        hardware.drivetrain.driveDistance(1, 30, 0.6);
 
 
     }
@@ -60,10 +60,11 @@ public class Robot1_MineralSampling extends LinearOpMode {
 
             while (!detector.getAligned()) { // robot center x is less than x position = turn right
                 //turn towards gold
-                turningPower = (detector.getXPosition() - detector.getRobotCenterX()/(startX - detector.getRobotCenterX())) * 0.4 + 0.1;
+                turningPower = Math.abs(detector.getXPosition() - detector.getRobotCenterX()) / (startX - detector.getRobotCenterX()) * 0.4 + 0.1;
 
-                hardware.drivetrain.setPowers(turningPower, -turningPower, 0);
+                hardware.drivetrain.setPowers(turningPower, -turningPower*0.5, 0);
             }
+            turningPower = 0;
         } else {
             //do something to get it into vision
         }
