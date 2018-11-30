@@ -15,7 +15,6 @@ public class Robot1_DepotSide extends LinearOpMode {
 
         waitForStart();
 
-        hardware.drivetrain.turn(90, true);
-        hardware.drivetrain.turn(90, false);
+
     }
 }

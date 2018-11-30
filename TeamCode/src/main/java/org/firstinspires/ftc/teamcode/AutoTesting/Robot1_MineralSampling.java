@@ -46,21 +46,21 @@ public class Robot1_MineralSampling extends LinearOpMode {
         telemetry.update();
         turnToGold();
 
-        telemetry.addLine("Moving to hit mineral");
-        telemetry.update();
-        hardware.drivetrain.driveDistance(1, 20, 0.6);
+        //telemetry.addLine("Moving to hit mineral");
+        //telemetry.update();
+        //hardware.drivetrain.driveDistance(1, 20, 0.6);
 
 
     }
 
     private void turnToGold(){
-        //
+        sleep(2000);
         if(detector.isFound()) {
             double startX = detector.getXPosition();
 
-            while (!detector.getAligned()) {
+            while (!detector.getAligned()) { // robot center x is less than x position = turn right
                 //turn towards gold
-                turningPower = (detector.getXPosition() - detector.getRobotCenterX()/(startX - detector.getRobotCenterX())) + 0.1;
+                turningPower = (detector.getXPosition() - detector.getRobotCenterX()/(startX - detector.getRobotCenterX())) * 0.4 + 0.1;
 
                 hardware.drivetrain.setPowers(turningPower, -turningPower, 0);
             }

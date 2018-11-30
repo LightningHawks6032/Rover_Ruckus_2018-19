@@ -47,7 +47,7 @@ public class GoldAlignDetectorTest extends OpMode
         telemetry.addData("Is found?", detector.isFound()); // Gold mineral found?
         if (detector.getXPosition() > detector.getRobotCenterX()) {
             telemetry.addLine("Robot Center X is less than Mineral Position ");
-        } else if (detector.getXPosition() > detector.getRobotCenterX()) {
+        } else if (detector.getXPosition() < detector.getRobotCenterX()) {
             telemetry.addLine("Robot Center X is greater than Mineral Position ");
         }
         telemetry.addData("Robot Center X", detector.getRobotCenterX());
