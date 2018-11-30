@@ -15,7 +15,12 @@ public class Robot1_CraterSide extends LinearOpMode {
 
         waitForStart();
 
+        telemetry.addLine("Turning right 90 degrees");
+        telemetry.update();
         hardware.drivetrain.turn(90, true);
+
+        telemetry.addLine("Turning left 90 degrees");
+        telemetry.update();
         hardware.drivetrain.turn(90, false);
     }
 }
