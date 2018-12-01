@@ -3,9 +3,11 @@
 
 AutoTesting: A collection of linear opmodes that test some part of autonomous for any of the robots
 
+FieldMapping: A collection of classes for generating a map of the match field for position tracking
+
 Hardware: Each robot's hardware class, including some other classes for specific hardware components
 
-HardwareTesting: A collection of tele-op modes that test specific components of the robot's hardware for correct functionality
+HardwareTesting: A collection of tele-op modes that test specific components of a robot's hardware for correct functionality
 
 Vision: Anything concerning the computer vision systems on our robots
 
@@ -13,9 +15,9 @@ Vision: Anything concerning the computer vision systems on our robots
 
     DetectorTests: A collection of tele-op modes that instantiate a detector and test its methods
 
-Robot1-Opmodes: All OFFICIAL opmodes for Robot 1 for use in competition
+Robot1: All OFFICIAL opmodes for Robot 1 for use in competition
 
-Robot2-Opmodes: All OFFICIAL opmodes for Robot 2 for use in competition
+Robot2: All OFFICIAL opmodes for Robot 2 for use in competition
 
 
 ## Creating your own OpModes
