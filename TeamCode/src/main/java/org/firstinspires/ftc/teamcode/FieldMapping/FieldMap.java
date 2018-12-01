@@ -12,7 +12,7 @@ public class FieldMap {
         generate();
     }
 
-    public void generate() {
+    private void generate() {
         // Quadrant 1 Minerals
         addElement(1, "Left Mineral", new Vector(23.33, 46.67));
         addElement(1, "Middle Mineral", new Vector(35, 35));
