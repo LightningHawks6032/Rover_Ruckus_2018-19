@@ -29,7 +29,7 @@ public class Robot1_DepotSide extends LinearOpMode {
 
         telemetry.addLine("Moving to hit mineral");
         telemetry.update();
-        hardware.drivetrain.driveDistance(1, 20, 0.6);
+        hardware.drivetrain.driveDistance(1, 30, 0.6);
 
         telemetry.addLine("Turning");
         telemetry.update();
@@ -39,7 +39,10 @@ public class Robot1_DepotSide extends LinearOpMode {
         else
             hardware.drivetrain.turn(2*currAngle, true);
 
+        hardware.drivetrain.driveDistance(1, 10, 0.6);
+        hardware.markerArm.setPosition(hardware.MARKER_ARM_DOWN);
 
+        detector.disable();
     }
 
     private void turnToGold(){
@@ -49,7 +52,7 @@ public class Robot1_DepotSide extends LinearOpMode {
 
             while (!detector.getAligned()) { // robot center x is less than x position = turn right
                 //turn towards gold
-                turningPower = Math.abs(detector.getXPosition() - detector.getRobotCenterX()) / (startX - detector.getRobotCenterX()) * 0.4 + 0.1;
+                turningPower = Math.abs(detector.getXPosition() - detector.getRobotCenterX()) / (startX - detector.getRobotCenterX()) * 0.2 + 0.1;
 
                 hardware.drivetrain.setPowers(turningPower, -turningPower*0.5, 0);
             }

@@ -50,7 +50,7 @@ public class Robot1_MineralSampling extends LinearOpMode {
         telemetry.update();
         hardware.drivetrain.driveDistance(1, 30, 0.6);
 
-
+        detector.disable();
     }
 
     private void turnToGold(){

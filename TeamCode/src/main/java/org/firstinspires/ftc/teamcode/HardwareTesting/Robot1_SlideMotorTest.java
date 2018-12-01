@@ -46,7 +46,7 @@ public class Robot1_SlideMotorTest extends OpMode {
 
         // Print to telemetry
         telemetry.addLine("Up/down on dpad for 0.05 increase/decrease in power coefficient");
-        telemetry.addData("Fast (Red) Motor", hardware.slowSlideMotor.getPower());
+        telemetry.addData("Fast (Red) Motor", hardware.fastSlideMotor.getPower());
         telemetry.addData("Slow (Blue) Motor", hardware.slowSlideMotor.getPower());
         telemetry.addData("Power Coefficient (Ratio between slow and fast power)", powerCoefficient);
         telemetry.update();

@@ -42,6 +42,13 @@ public class Robot1_TeleOp extends OpMode {
         manageClaws();
         manageActuator();
 
+        if(gamepad2.a)
+            hardware.markerArm.setPosition(hardware.MARKER_ARM_UP);
+        else if(gamepad2.b)
+            hardware.markerArm.setPosition(0.5);
+        else if(gamepad2.x)
+            hardware.markerArm.setPosition(hardware.MARKER_ARM_DOWN);
+
         telemetry.addData("left claw position", hardware.leftClaw.getPosition());
         telemetry.addData("right claw position", hardware.rightClaw.getPosition());
         telemetry.addData("linear actuator direction", hardware.linearActuator.getDirection());

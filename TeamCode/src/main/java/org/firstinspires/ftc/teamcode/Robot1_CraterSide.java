@@ -32,6 +32,8 @@ public class Robot1_CraterSide extends LinearOpMode {
         hardware.drivetrain.driveDistance(1, 40, 0.6);
         telemetry.update();
 
+        detector.disable();
+
     }
 
     private void turnToGold(){
@@ -41,7 +43,7 @@ public class Robot1_CraterSide extends LinearOpMode {
 
             while (!detector.getAligned()) { // robot center x is less than x position = turn right
                 //turn towards gold
-                turningPower = Math.abs(detector.getXPosition() - detector.getRobotCenterX()) / (startX - detector.getRobotCenterX()) * 0.4 + 0.1;
+                turningPower = Math.abs(detector.getXPosition() - detector.getRobotCenterX()) / (startX - detector.getRobotCenterX()) * 0.2 + 0.1;
 
                 hardware.drivetrain.setPowers(turningPower, -turningPower*0.5, 0);
             }

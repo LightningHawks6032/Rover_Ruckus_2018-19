@@ -23,6 +23,8 @@ public class Robot1_Hardware implements HardwareInterface {
     public Servo leftClaw = null;
     public Servo rightClaw = null;
     public Servo markerArm = null;
+    public Encoder slowSlideEncoder = null;
+    private Encoder fastSlideEncoder = null;
     //public GyroSensor gyroSensor = null;
 
     // Servo constants
