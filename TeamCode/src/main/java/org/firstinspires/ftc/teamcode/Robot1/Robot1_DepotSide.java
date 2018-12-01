@@ -15,7 +15,7 @@ public class Robot1_DepotSide extends LinearOpMode {
     private double turningPower;
 
     public void runOpMode() {
-        hardware = new Robot1_Hardware(hardwareMap, gamepad1);
+        hardware = new Robot1_Hardware(hardwareMap, gamepad1, true);
         hardware.initHardware();
 
         detector = new GoldAlignDetector(230, 100, true); // Create detector

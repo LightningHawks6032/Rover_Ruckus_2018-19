@@ -14,7 +14,7 @@ public class Robot1_Turning extends LinearOpMode {
     private Robot1_Hardware hardware;
 
     public void runOpMode() {
-        hardware = new Robot1_Hardware(hardwareMap, gamepad1);
+        hardware = new Robot1_Hardware(hardwareMap, gamepad1, true);
         hardware.initHardware();
 
         waitForStart();

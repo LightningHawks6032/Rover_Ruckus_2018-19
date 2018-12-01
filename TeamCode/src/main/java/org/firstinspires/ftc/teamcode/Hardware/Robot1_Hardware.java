@@ -42,16 +42,27 @@ public class Robot1_Hardware implements HardwareInterface {
     // X-position pixel value for center of robot
     public final static int ROBOT_CENTER_X = 230;
 
-    public Robot1_Hardware(HardwareMap hardwareMap, Gamepad driveGamepad) {
+    public Robot1_Hardware(HardwareMap hardwareMap, Gamepad driveGamepad, boolean gyro) {
         //constructs hardware objects based on configuration
-        drivetrain = new OmniSlideDrive(
-                hardwareMap.get(DcMotor.class, "ld"), // left drive motor
-                hardwareMap.get(DcMotor.class, "rd"), // right drive motor
-                hardwareMap.get(DcMotor.class, "md"), // middle drive motor
-                new MRGyro(hardwareMap.get(GyroSensor.class, "gs")), // gyro sensor
-                driveGamepad,
-                wheelDiameter
-        );
+        if (gyro) {
+            drivetrain = new OmniSlideDrive(
+                    hardwareMap.get(DcMotor.class, "ld"), // left drive motor
+                    hardwareMap.get(DcMotor.class, "rd"), // right drive motor
+                    hardwareMap.get(DcMotor.class, "md"), // middle drive motor
+                    new MRGyro(hardwareMap.get(GyroSensor.class, "gs"), true), // gyro sensor calibrated
+                    driveGamepad,
+                    wheelDiameter
+            );
+        } else {
+            drivetrain = new OmniSlideDrive(
+                    hardwareMap.get(DcMotor.class, "ld"), // left drive motor
+                    hardwareMap.get(DcMotor.class, "rd"), // right drive motor
+                    hardwareMap.get(DcMotor.class, "md"), // middle drive motor
+                    new MRGyro(hardwareMap.get(GyroSensor.class, "gs"), false), // gyro sensor not calibrated
+                    driveGamepad,
+                    wheelDiameter
+            );
+        }
 
         fastSlideMotor = hardwareMap.get(DcMotor.class, "fsm");
         winchMotor = hardwareMap.get(DcMotor.class, "wm");

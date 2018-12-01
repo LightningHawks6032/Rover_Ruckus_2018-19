@@ -8,11 +8,13 @@ public class MRGyro {
     private GyroSensor gyroSensor; // Hardware Device Object
     private ArrayList<Integer> previousHeadings; // A list of the previous gyro headings each time we zero'd the gyro
 
-    public MRGyro(GyroSensor gyro) {
+    public MRGyro(GyroSensor gyro, boolean calibrate) {
         previousHeadings = new ArrayList<Integer>();
 
         gyroSensor = gyro;
-        calibrate();
+
+        if (calibrate)
+            calibrate();
         zero();
     }
 

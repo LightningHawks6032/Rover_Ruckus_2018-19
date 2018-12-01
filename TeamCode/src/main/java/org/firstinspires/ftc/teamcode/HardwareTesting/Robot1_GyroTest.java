@@ -15,7 +15,7 @@ public class Robot1_GyroTest extends OpMode {
 
     public void init(){
         // hardware init (inits the gyro by calibrating and zeroing)
-        hardware = new Robot1_Hardware(hardwareMap, gamepad1);
+        hardware = new Robot1_Hardware(hardwareMap, gamepad1, true);
         hardware.initHardware();
     }
 

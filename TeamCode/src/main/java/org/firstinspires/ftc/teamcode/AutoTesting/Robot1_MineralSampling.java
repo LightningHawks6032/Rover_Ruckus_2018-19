@@ -26,7 +26,7 @@ public class Robot1_MineralSampling extends LinearOpMode {
     private boolean encoders = true; // Do we or do we not have encoders working?
 
     public void runOpMode() throws InterruptedException {
-        hardware = new Robot1_Hardware(hardwareMap, gamepad1);
+        hardware = new Robot1_Hardware(hardwareMap, gamepad1, true);
         hardware.initHardware();
 
         detector = new GoldAlignDetector(230, 100, true); // Create detector

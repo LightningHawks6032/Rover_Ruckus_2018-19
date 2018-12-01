@@ -15,7 +15,7 @@ public class Robot1_EncoderTest extends OpMode {
 
     public void init() {
         //Initialize Hardware
-        hardware = new Robot1_Hardware(hardwareMap, gamepad1);
+        hardware = new Robot1_Hardware(hardwareMap, gamepad1, false);
         hardware.initHardware();
 
         leftDriveEncoder = hardware.drivetrain.getLeftEncoder();
