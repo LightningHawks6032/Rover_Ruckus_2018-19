@@ -9,10 +9,12 @@ import com.qualcomm.robotcore.hardware.Servo;
 import com.sun.tools.javac.util.ForwardingDiagnosticFormatter;
 
 import org.firstinspires.ftc.teamcode.Hardware.HardwareInterface;
+import org.firstinspires.ftc.teamcode.Vision.Detectors.GoldAlignDetector;
 
 public class Robot1_Hardware implements HardwareInterface {
     // Declaring the motors
     public OmniSlideDrive drivetrain;
+    public GoldAlignDetector mineralDetector;
     public DcMotor fastSlideMotor = null;
     public DcMotor winchMotor = null;
     public DcMotor slowSlideMotor = null;
@@ -21,7 +23,7 @@ public class Robot1_Hardware implements HardwareInterface {
     public Servo rightClaw = null;
     public Servo markerArm = null;
     public Encoder slowSlideEncoder = null;
-    private Encoder fastSlideEncoder = null;
+    public Encoder fastSlideEncoder = null;
 
     // Servo constants
     public final double RIGHT_CLAW_CLOSE = 1,
@@ -29,6 +31,7 @@ public class Robot1_Hardware implements HardwareInterface {
            LEFT_CLAW_CLOSE = 0,
            LEFT_CLAW_OPEN = 1,
            MARKER_ARM_UP = 1,
+           MARKER_ARM_MIDDLE = 0.5,
            MARKER_ARM_DOWN = 0;
 
     public double wheelDiameter = 4.0;
@@ -64,12 +67,18 @@ public class Robot1_Hardware implements HardwareInterface {
             );
         }
 
+        mineralDetector = new GoldAlignDetector(ROBOT_CENTER_X, 100, true);
+
         fastSlideMotor = hardwareMap.get(DcMotor.class, "fsm");
+        slowSlideMotor = hardwareMap.get(DcMotor.class, "ssm");
+        fastSlideEncoder = new Encoder(fastSlideMotor, "neverest", 0);
+        slowSlideEncoder = new Encoder(slowSlideMotor, "neverest", 0);
+
+
         winchMotor = hardwareMap.get(DcMotor.class, "wm");
         linearActuator = hardwareMap.get(Servo.class, "la");
         leftClaw = hardwareMap.get(Servo.class, "lc");
         rightClaw = hardwareMap.get(Servo.class, "rc");
-        slowSlideMotor = hardwareMap.get(DcMotor.class, "ssm");
         markerArm = hardwareMap.get(Servo.class, "ma");
 
     }
