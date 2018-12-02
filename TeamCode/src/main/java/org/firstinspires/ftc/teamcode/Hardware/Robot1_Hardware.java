@@ -45,6 +45,12 @@ public class Robot1_Hardware implements HardwareInterface {
     // X-position pixel value for center of robot
     public final static int ROBOT_CENTER_X = 230;
 
+    /**
+     * Constructs each hardware object
+     * @param hardwareMap : hardwareMap given in any LinearOpMode or OpMode
+     * @param driveGamepad : gamepad (either gamepad1 or gamepad2 used for the drivetrain)
+     * @param gyro : whether or not we want to calibrate the gyro (true in autonomous, typically false in tele-op modes)
+     */
     public Robot1_Hardware(HardwareMap hardwareMap, Gamepad driveGamepad, boolean gyro) {
         //constructs hardware objects based on configuration
         if (gyro) {

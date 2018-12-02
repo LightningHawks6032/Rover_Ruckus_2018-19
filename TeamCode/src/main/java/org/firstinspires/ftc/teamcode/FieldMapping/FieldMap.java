@@ -26,8 +26,6 @@ public class FieldMap {
 
     // Accesses the position of a specific element based on quadrant and name
     public Vector get(int quadrant, String element) {
-        if (quadrant == 0)
-            return map.get(element);
         return map.get(quadrant + ": " + element);
     }
 

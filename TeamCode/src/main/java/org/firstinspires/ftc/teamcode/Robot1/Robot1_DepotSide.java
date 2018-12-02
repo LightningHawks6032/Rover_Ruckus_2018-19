@@ -15,7 +15,8 @@ public class Robot1_DepotSide extends LinearOpMode {
         // Setup auto
         hardware = new Robot1_Hardware(hardwareMap, gamepad1, true);
         hardware.initHardware();
-        auto = new Robot1_Auto(hardware, hardwareMap);
+        auto = new Robot1_Auto(hardware);
+        auto.setupMineralDetector(hardwareMap);
         waitForStart();
 
         telemetry.addLine("Turn to gold");

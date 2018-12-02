@@ -11,9 +11,12 @@ public class Robot1_Auto {
     private GoldAlignDetector mineralDetector;
 
     // Constructor instantiates hardware and setups mineral detector
-    public Robot1_Auto(Robot1_Hardware hardware, HardwareMap hwMap) {
+    public Robot1_Auto(Robot1_Hardware hardware) {
         this.hardware = hardware;
         mineralDetector = hardware.mineralDetector;
+    }
+
+    public void setupMineralDetector(HardwareMap hwMap) {
         mineralDetector.setupDetector(hwMap, 1);
     }
 
