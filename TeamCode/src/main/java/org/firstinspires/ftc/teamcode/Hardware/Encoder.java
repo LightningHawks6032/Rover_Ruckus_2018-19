@@ -52,6 +52,10 @@ public class Encoder {
     public void runWith() {
         motor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
+    public void setup() {
+        reset();
+        runWith();
+    }
     public void runWithout() {
         motor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
     }

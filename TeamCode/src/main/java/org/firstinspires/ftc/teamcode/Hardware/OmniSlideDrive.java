@@ -37,16 +37,13 @@ public class OmniSlideDrive {
         leftMotor.setDirection(DcMotor.Direction.REVERSE);
         rightMotor.setDirection(DcMotor.Direction.FORWARD);
         middleMotor.setDirection(DcMotor.Direction.REVERSE);
-        encoderReset();
+        encoderSetup();
     }
 
-    private void encoderReset() {
-        leftEncoder.reset();
-        rightEncoder.reset();
-        middleEncoder.reset();
-        leftEncoder.runWith();
-        rightEncoder.runWith();
-        middleEncoder.runWith();
+    private void encoderSetup() {
+        leftEncoder.setup();
+        rightEncoder.setup();
+        middleEncoder.setup();
     }
 
     // Shortcut method for setting the power of the left drive, right drive, and middle drive
@@ -130,13 +127,13 @@ public class OmniSlideDrive {
      * @throws InterruptedException
      */
     public void driveForTime(double pow, long seconds) throws InterruptedException {
-        encoderReset();
+        encoderSetup();
         setPowers(pow, pow, 0);
         Thread.sleep(seconds * 1000);
         setPowers(0, 0, 0);
     }
     public void strafeForTime(double pow, long seconds) throws InterruptedException {
-        encoderReset();
+        encoderSetup();
         setPowers(0, 0, pow);
         Thread.sleep(seconds * 1000);
         setPowers(0, 0, 0);
