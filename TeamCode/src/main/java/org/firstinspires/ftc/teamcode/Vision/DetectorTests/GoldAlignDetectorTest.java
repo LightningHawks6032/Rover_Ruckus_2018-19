@@ -51,6 +51,7 @@ public class GoldAlignDetectorTest extends OpMode
             telemetry.addLine("Robot Center X is greater than Mineral Position ");
         }
         telemetry.addData("Robot Center X", detector.getRobotCenterX());
+        telemetry.addData("Gold Mineral Location", detector.mineralLocation());
         telemetry.update();
     }
 

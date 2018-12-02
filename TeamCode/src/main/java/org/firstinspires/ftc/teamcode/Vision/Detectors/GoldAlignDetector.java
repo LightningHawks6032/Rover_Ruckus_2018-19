@@ -37,32 +37,29 @@ public class GoldAlignDetector extends DogeCVDetector {
 
     // Defining Mats to be used.
     private Mat displayMat = new Mat(); // Display debug info to the screen (this is what is returned)
-    private Mat workingMat = new Mat(); // Used for preprocessing and working with (blurring as an example)
+    private Mat workingMat = new Mat(); // Used for pre-processing and working with (blurring as an example)
     private Mat maskYellow = new Mat(); // Yellow Mask returned by color filter
-    private Mat hierarchy  = new Mat(); // hierarchy used by coutnours
+    private Mat hierarchy  = new Mat(); // hierarchy used by countours
 
     // Results of the detector
-    private boolean found    = false; // Is the gold mineral found
-    private boolean aligned  = false; // Is the gold mineral aligned
-    private double  goldXPos = 0;     // X Position (in pixels) of the gold element
+    private boolean found = false; // Is the gold mineral found
+    private boolean aligned = false; // Is the gold mineral aligned
+    private double goldXPos = 0; // X Position (in pixels) of the gold element
 
     // Detector settings
-    public int robotCenterX; // The x position in pixels of the center of the robot (find by placing gold mineral in front of robot at its center)
-    //public final int CAMERA_CENTER_FRAME = 340; // X-Center of frame in pixels
+    private int robotCenterX; // The x position in pixels of the center of the robot (find by placing gold mineral in front of robot at its center)
     private boolean debugAlignment = true; // Show debug lines to show alignment settings
-    //private double alignPosOffset; // How far from center frame is aligned
     private double alignSize; // How wide is the margin of error for alignment
     private boolean landscapeMode; // Is the phone using landscape mode
 
-    public DogeCV.AreaScoringMethod areaScoringMethod = DogeCV.AreaScoringMethod.MAX_AREA; // Setting to decide to use MaxAreaScorer or PerfectAreaScorer
+    private DogeCV.AreaScoringMethod areaScoringMethod = DogeCV.AreaScoringMethod.MAX_AREA; // Setting to decide to use MaxAreaScorer or PerfectAreaScorer
 
 
     //Create the default filters and scorers
-    public DogeCVColorFilter yellowFilter      = new LeviColorFilter(LeviColorFilter.ColorPreset.YELLOW); //Default Yellow filter
-
-    public RatioScorer       ratioScorer       = new RatioScorer(1.0, 3);          // Used to find perfect squares
-    public MaxAreaScorer     maxAreaScorer     = new MaxAreaScorer( 0.01);                    // Used to find largest objects
-    public PerfectAreaScorer perfectAreaScorer = new PerfectAreaScorer(5000,0.05); // Used to find objects near a tuned area value
+    private DogeCVColorFilter yellowFilter = new LeviColorFilter(LeviColorFilter.ColorPreset.YELLOW); // Default Yellow filter
+    private RatioScorer ratioScorer = new RatioScorer(1.0, 3); // Used to find perfect squares
+    private MaxAreaScorer maxAreaScorer = new MaxAreaScorer( 0.01); // Used to find largest objects
+    private PerfectAreaScorer perfectAreaScorer = new PerfectAreaScorer(5000,0.05); // Used to find objects near a tuned area value
 
     /**
      * Constructor builds a GoldAlignDetector by using the superclass
@@ -220,6 +217,22 @@ public class GoldAlignDetector extends DogeCVDetector {
      */
     public boolean isFound() {
         return found;
+    }
+
+    /**
+     * @return location of gold mineral (1 = left, 2 = center, 3 = right); default is center
+     */
+    public int mineralLocation() {
+        if (getAligned())
+            return 2;
+        else {
+            if (robotCenterX < getXPosition())
+                return 3;
+            else if (robotCenterX > getXPosition())
+                return 1;
+        }
+
+        return 2;
     }
 
     public void setupDetector(HardwareMap hwMap, int cameraIndex) {
