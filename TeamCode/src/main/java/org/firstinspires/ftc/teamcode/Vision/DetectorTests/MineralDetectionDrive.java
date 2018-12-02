@@ -12,7 +12,7 @@ public class MineralDetectionDrive extends MineralDetectionTest {
 
     public void init() {
 
-        hardware = new Robot1_Hardware(hardwareMap, gamepad1);
+        hardware = new Robot1_Hardware(hardwareMap, gamepad1, false);
         hardware.initHardware();
         super.init();
     }
