@@ -5,6 +5,8 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.GyroSensor;
 
+import org.firstinspires.ftc.teamcode.FieldMapping.Vector;
+
 public class OmniSlideDrive {
     private DcMotor leftMotor;
     private DcMotor rightMotor;
@@ -137,6 +139,19 @@ public class OmniSlideDrive {
         setPowers(0, 0, pow);
         Thread.sleep(seconds * 1000);
         setPowers(0, 0, 0);
+    }
+
+    public void goTo(Vector robotPos, int robotAngle, Vector location, double pow) {
+        int theta1 = robotAngle;
+        int theta2 = (int) Math.atan2(location.getY() - robotPos.getY(), location.getX() - robotPos.getX());
+
+        if (theta1 + theta2 <= 180) {
+            turn(theta1 + theta2, true);
+        } else {
+            turn(360 - theta1 - theta2, false);
+        }
+
+        driveDistance(1, location.distanceFrom(robotPos), pow);
     }
 
     /**
