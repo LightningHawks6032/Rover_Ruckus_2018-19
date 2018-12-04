@@ -7,31 +7,54 @@ public class FieldMap {
     // Creates a map: each Vector position is mapped to a string identifier
     private Map<String, Vector> map = new HashMap<>();
 
+    public final double FULL_FIELD_LENGTH = 140;
+    public final double QUADRANT_LENGTH = FULL_FIELD_LENGTH/2;
+    public final double SQUARE_LENGTH = FULL_FIELD_LENGTH/6;
+    public final double HALF_SQUARE_LENGTH = SQUARE_LENGTH/2;
+    public final double MID_QUADRANT = QUADRANT_LENGTH/2;
+
     // Constructor generates the map
     public FieldMap() {
         generate();
     }
 
     private void generate() {
-        // Quadrant 1 Minerals
-        addElement(1, "Left Mineral", new Vector(23.33, 46.67));
-        addElement(1, "Middle Mineral", new Vector(35, 35));
-        addElement(1, "Right Mineral", new Vector(46.67, 23.33));
 
-        // Quadrant 2 Minerals
-        addElement(2, "Left Mineral", new Vector(-46.67, 23.33));
-        addElement(2, "Middle Mineral", new Vector(-35, 35));
-        addElement(2, "Right Mineral", new Vector(-23.33, 46.67));
+        // Quadrant 1
+        // Minerals
+        addElement(1, "Left Mineral", new Vector(SQUARE_LENGTH, 2*SQUARE_LENGTH));
+        addElement(1, "Middle Mineral", new Vector(MID_QUADRANT, MID_QUADRANT));
+        addElement(1, "Right Mineral", new Vector(2*SQUARE_LENGTH, SQUARE_LENGTH));
+        // Blue Depot
+        addElement(1, "Blue Depot", new Vector(5*HALF_SQUARE_LENGTH,5*HALF_SQUARE_LENGTH));
 
-        // Quadrant 3 Minerals
-        addElement(3, "Left Mineral", new Vector(-23.33, -46.67));
-        addElement(3, "Middle Mineral", new Vector(-35, -35));
-        addElement(3, "Right Mineral", new Vector(-46.67, -23.33));
+        // Quadrant 2
+        // Minerals
+        addElement(2, "Left Mineral", new Vector(-2*SQUARE_LENGTH, SQUARE_LENGTH));
+        addElement(2, "Middle Mineral", new Vector(-MID_QUADRANT, MID_QUADRANT));
+        addElement(2, "Right Mineral", new Vector(-SQUARE_LENGTH, 2*SQUARE_LENGTH));
+        // Crater Positions
+        addElement(2,"Crater Left Edge", new Vector(-5*HALF_SQUARE_LENGTH,SQUARE_LENGTH));
+        addElement(2,"Crater Right Edge", new Vector(-SQUARE_LENGTH,5*HALF_SQUARE_LENGTH));
+        addElement(2,"Crater Center", new Vector(-5*HALF_SQUARE_LENGTH,5*HALF_SQUARE_LENGTH));
 
-        // Quadrant 4 Minerals
-        addElement(4, "Left Mineral", new Vector(46.67, -23.33));
-        addElement(4, "Middle Mineral", new Vector(35, -35));
-        addElement(4, "Right Mineral", new Vector(23.33, -46.67));
+        // Quadrant 3
+        // Minerals
+        addElement(3, "Left Mineral", new Vector(-SQUARE_LENGTH, -2*SQUARE_LENGTH));
+        addElement(3, "Middle Mineral", new Vector(-MID_QUADRANT, -MID_QUADRANT));
+        addElement(3, "Right Mineral", new Vector(-2*SQUARE_LENGTH, -SQUARE_LENGTH));
+        // Red Depot
+        addElement(3, "Red Depot", new Vector(-5*HALF_SQUARE_LENGTH,-5*HALF_SQUARE_LENGTH));
+
+        // Quadrant 4
+        // Minerals
+        addElement(4, "Left Mineral", new Vector(2*SQUARE_LENGTH, -SQUARE_LENGTH));
+        addElement(4, "Middle Mineral", new Vector(MID_QUADRANT, -MID_QUADRANT));
+        addElement(4, "Right Mineral", new Vector(SQUARE_LENGTH, -2*SQUARE_LENGTH));
+        // Crater Positions
+        addElement(4,"Crater Left Edge", new Vector(5*HALF_SQUARE_LENGTH,-SQUARE_LENGTH));
+        addElement(4,"Crater Right Edge", new Vector(SQUARE_LENGTH,-5*HALF_SQUARE_LENGTH));
+        addElement(4,"Crater Center", new Vector(5*HALF_SQUARE_LENGTH,-5*HALF_SQUARE_LENGTH));
     }
 
     // Accesses the position of a specific element based on quadrant and name
