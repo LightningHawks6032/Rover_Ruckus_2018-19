@@ -164,12 +164,7 @@ public class OmniSlideDrive {
         setPowers(0, 0, 0);
     }
 
-    /** public void calibrateGyro() {
-        gyroSensor.calibrate();
-        while (gyroSensor.isCalibrating()) {
-            // WAIT - Gyro Sensor is Calibrating
-        }
-    } **/
+
 
     // Accessor methods
     public double getLeftPow() {
