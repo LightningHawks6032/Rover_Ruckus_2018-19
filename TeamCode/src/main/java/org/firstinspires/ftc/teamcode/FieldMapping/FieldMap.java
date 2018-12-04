@@ -55,6 +55,12 @@ public class FieldMap {
         addElement(4,"Crater Left Edge", new Vector(5*HALF_SQUARE_LENGTH,-SQUARE_LENGTH));
         addElement(4,"Crater Right Edge", new Vector(SQUARE_LENGTH,-5*HALF_SQUARE_LENGTH));
         addElement(4,"Crater Center", new Vector(5*HALF_SQUARE_LENGTH,-5*HALF_SQUARE_LENGTH));
+
+        // Nav Targets
+        addElement(0, "Blue Rover", new Vector(QUADRANT_LENGTH,0));
+        addElement(0, "Front Craters", new Vector(0,-QUADRANT_LENGTH));
+        addElement(0, "Back Space", new Vector(0,QUADRANT_LENGTH));
+        addElement(0, "Red Footprint", new Vector(-QUADRANT_LENGTH,0));
     }
 
     // Accesses the position of a specific element based on quadrant and name
