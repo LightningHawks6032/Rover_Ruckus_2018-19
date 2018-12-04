@@ -25,8 +25,7 @@ public class Robot1_TeleOp extends OpMode {
         actuPos = 0.3;
 
         // Run encoders on horizontal slide motors
-        hardware.fastSlideEncoder.setup();
-        hardware.slowSlideEncoder.setup();
+        hardware.slideEncoder.setup();
     }
 
     public void loop() {
@@ -61,8 +60,7 @@ public class Robot1_TeleOp extends OpMode {
         // could add a multiplier value
         slidePower = -gamepad2.left_stick_y; // perhaps change to x rather than y
 
-        hardware.fastSlideMotor.setPower(slidePower);
-        hardware.slowSlideMotor.setPower(slidePower*0.25);
+        hardware.slideMotor.setPower(slidePower);
     }
 
     // left and right claw control

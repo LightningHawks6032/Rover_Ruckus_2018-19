@@ -15,15 +15,13 @@ public class Robot1_Hardware implements HardwareInterface {
     // Declaring the motors
     public OmniSlideDrive drivetrain;
     public GoldAlignDetector mineralDetector;
-    public DcMotor fastSlideMotor = null;
-    public DcMotor winchMotor = null;
-    public DcMotor slowSlideMotor = null;
+    public DcMotor slideMotor = null;
     public Servo linearActuator = null;
     public Servo leftClaw = null;
     public Servo rightClaw = null;
     public Servo markerArm = null;
-    public Encoder slowSlideEncoder = null;
-    public Encoder fastSlideEncoder = null;
+    public Encoder slideEncoder = null;
+;
 
     // Servo constants
     public final double RIGHT_CLAW_CLOSE = 1,
@@ -75,13 +73,10 @@ public class Robot1_Hardware implements HardwareInterface {
 
         mineralDetector = new GoldAlignDetector(ROBOT_CENTER_X, 100, true);
 
-        fastSlideMotor = hardwareMap.get(DcMotor.class, "fsm");
-        slowSlideMotor = hardwareMap.get(DcMotor.class, "ssm");
-        fastSlideEncoder = new Encoder(fastSlideMotor, "neverest", 0);
-        slowSlideEncoder = new Encoder(slowSlideMotor, "neverest", 0);
+        slideMotor = hardwareMap.get(DcMotor.class, "sm");
+        slideEncoder = new Encoder(slideMotor, "neverest", 0);
 
 
-        winchMotor = hardwareMap.get(DcMotor.class, "wm");
         linearActuator = hardwareMap.get(Servo.class, "la");
         leftClaw = hardwareMap.get(Servo.class, "lc");
         rightClaw = hardwareMap.get(Servo.class, "rc");
@@ -92,9 +87,7 @@ public class Robot1_Hardware implements HardwareInterface {
     public void initHardware() {
         // called during init() of opMode
         drivetrain.setupMotors();
-        fastSlideMotor.setDirection(DcMotor.Direction.FORWARD);
-        slowSlideMotor.setDirection(DcMotor.Direction.FORWARD);
-        winchMotor.setDirection(DcMotor.Direction.FORWARD);
+        slideMotor.setDirection(DcMotor.Direction.FORWARD);
         rightClaw.setPosition(RIGHT_CLAW_CLOSE);
         leftClaw.setPosition(LEFT_CLAW_CLOSE);
         markerArm.setPosition(MARKER_ARM_UP);
