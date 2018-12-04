@@ -19,7 +19,12 @@ public class Robot1_Turning extends LinearOpMode {
 
         waitForStart();
 
+        telemetry.addLine("Turning right 90deg");
+        telemetry.update();
         hardware.drivetrain.turn(90, true);
+
+        telemetry.addLine("Turning left 90deg");
+        telemetry.update();
         hardware.drivetrain.turn(90, false);
     }
 }
