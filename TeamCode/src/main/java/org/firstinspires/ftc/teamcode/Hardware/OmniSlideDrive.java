@@ -166,6 +166,7 @@ public class OmniSlideDrive {
             turn(robotAngle - theta, false);
 
         driveDistance(1, location.distanceFrom(robotPos), pow);
+        robotPos = location;
     }
 
     /**
