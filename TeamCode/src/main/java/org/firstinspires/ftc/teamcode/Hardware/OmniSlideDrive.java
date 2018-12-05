@@ -156,6 +156,11 @@ public class OmniSlideDrive {
         setPowers(0, 0, 0);
     }
 
+    /**
+     * Goes to a specific position on the field by turning first and then driving straight
+     * @param location : Vector position of the location, use field map
+     * @param pow : power at which we drive
+     */
     public void goTo(Vector location, double pow) {
         double radiansToTurn = Math.atan2(location.getY() - robotPos.getY(), location.getX() - robotPos.getX());
         int theta = gyroSensor.convertToDegrees(radiansToTurn);
