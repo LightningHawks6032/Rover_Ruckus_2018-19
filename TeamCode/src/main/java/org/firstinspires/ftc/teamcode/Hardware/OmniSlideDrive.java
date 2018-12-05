@@ -8,6 +8,10 @@ import com.qualcomm.robotcore.hardware.GyroSensor;
 import org.firstinspires.ftc.teamcode.FieldMapping.Vector;
 
 public class OmniSlideDrive {
+    private Vector robotPos; // Position on field
+    private int robotAngle; // Angle relative to (0, 0) on field
+
+    // Motors
     private DcMotor leftMotor;
     private DcMotor rightMotor;
     private DcMotor middleMotor;
@@ -16,13 +20,16 @@ public class OmniSlideDrive {
     private Encoder middleEncoder;
     private MRGyro gyroSensor;
     private Gamepad gamepad;
-    private double boost;
 
     // Constants to regulate maximum power
     private final double MAX_DRIVE_POWER = 1;
     private final double MAX_MIDDLE_POWER = 1;
+    private double boost;
 
     public OmniSlideDrive(DcMotor lm, DcMotor rm, DcMotor mm, MRGyro gyro, Gamepad gamepad, double wheelDiam) {
+        robotPos = null;
+        robotAngle = 0;
+
         leftMotor = lm;
         rightMotor = rm;
         middleMotor = mm;
@@ -33,6 +40,14 @@ public class OmniSlideDrive {
         middleEncoder = new Encoder(mm, "Neverest", wheelDiam);
 
         boost = 1;
+    }
+
+    public void setRobotPos(double x, double y) {
+        robotPos.setX(x);
+        robotPos.setY(y);
+    }
+    public void setRobotAngle(int angle) {
+        robotAngle = angle;
     }
 
     public void setupMotors() {
@@ -141,15 +156,14 @@ public class OmniSlideDrive {
         setPowers(0, 0, 0);
     }
 
-    public void goTo(Vector robotPos, int robotAngle, Vector location, double pow) {
-        int theta1 = robotAngle;
-        int theta2 = (int) Math.atan2(location.getY() - robotPos.getY(), location.getX() - robotPos.getX());
+    public void goTo(Vector location, double pow) {
+        double radiansToTurn = Math.atan2(location.getY() - robotPos.getY(), location.getX() - robotPos.getX());
+        int theta = gyroSensor.convertToDegrees(radiansToTurn);
 
-        if (theta1 + theta2 <= 180) {
-            turn(theta1 + theta2, true);
-        } else {
-            turn(360 - theta1 - theta2, false);
-        }
+        if (robotAngle - theta > 0)
+            turn(robotAngle - theta, true);
+        else
+            turn(robotAngle - theta, false);
 
         driveDistance(1, location.distanceFrom(robotPos), pow);
     }

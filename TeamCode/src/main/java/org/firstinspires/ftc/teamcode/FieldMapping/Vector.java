@@ -9,6 +9,13 @@ public class Vector {
         this.y = y;
     }
 
+    public void setX(double newX) {
+        x = newX;
+    }
+    public void setY(double newY) {
+        y = newY;
+    }
+
     public double getX() {
         return x;
     }

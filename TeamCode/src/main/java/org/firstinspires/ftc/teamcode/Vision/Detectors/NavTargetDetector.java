@@ -16,6 +16,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackable;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackableDefaultListener;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackables;
+import org.firstinspires.ftc.teamcode.FieldMapping.Vector;
 
 import java.util.ArrayList;
 
@@ -174,23 +175,8 @@ public class NavTargetDetector {
     }
 
     // Returns vector of robot's position in inches
-    public double[] getRobotPosition() {
-        double[] pos = new double[3];
-        pos[0] = robotPos.get(0) / mmPerInch;
-        pos[1] = robotPos.get(1) / mmPerInch;
-        pos[2] = robotPos.get(2) / mmPerInch;
-
-        return pos;
-    }
-
-    // For debugging purposes
-    public String positionToString() {
-        String output = "(";
-        for (double num : getRobotPosition()) {
-            output += (int) num + ", ";
-        }
-
-        return output + ")";
+    public Vector getRobotPosition() {
+        return new Vector(robotPos.get(0) / mmPerInch, robotPos.get(1) / mmPerInch);
     }
 
     // Returns robot's "yaw" rotation in degrees --> only rotational component we care about

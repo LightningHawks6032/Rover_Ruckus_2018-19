@@ -74,4 +74,8 @@ public class MRGyro {
         } else
             return heading;
     }
+
+    public int convertToDegrees(double radians) {
+        return (int) (radians * 180 / Math.PI);
+    }
 }

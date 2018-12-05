@@ -10,11 +10,13 @@ import com.sun.tools.javac.util.ForwardingDiagnosticFormatter;
 
 import org.firstinspires.ftc.teamcode.Hardware.HardwareInterface;
 import org.firstinspires.ftc.teamcode.Vision.Detectors.GoldAlignDetector;
+import org.firstinspires.ftc.teamcode.Vision.Detectors.NavTargetDetector;
 
 public class Robot1_Hardware implements HardwareInterface {
     // Declaring the motors
     public OmniSlideDrive drivetrain;
     public GoldAlignDetector mineralDetector;
+    public NavTargetDetector navTargetDetector;
     public DcMotor slideMotor = null;
     public Servo linearActuator = null;
     public Servo leftClaw = null;
@@ -72,6 +74,7 @@ public class Robot1_Hardware implements HardwareInterface {
         }
 
         mineralDetector = new GoldAlignDetector(ROBOT_CENTER_X, 100, true);
+        navTargetDetector = new NavTargetDetector(hardwareMap, CAMERA_FORWARD_POSITION, CAMERA_VERTICAL_POSITION, CAMERA_LEFT_POSITION);
 
         slideMotor = hardwareMap.get(DcMotor.class, "sm");
         slideEncoder = new Encoder(slideMotor, "neverest", 0);
