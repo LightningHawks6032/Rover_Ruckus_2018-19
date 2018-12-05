@@ -86,4 +86,9 @@ public class Robot1_TeleOp extends OpMode {
         actuPos -= gamepad2.right_stick_y * 0.001;
         hardware.linearActuator.setPosition(actuPos);
     }
+
+    // lander latch control
+    private void manageLatch() {
+
+    }
 }

@@ -18,6 +18,8 @@ public class Robot1_Hardware implements HardwareInterface {
     public GoldAlignDetector mineralDetector;
     public NavTargetDetector navTargetDetector;
     public DcMotor slideMotor = null;
+    public DcMotor hangVex = null;
+    public DcMotor hangNvst = null;
     public Servo linearActuator = null;
     public Servo leftClaw = null;
     public Servo rightClaw = null;
@@ -40,7 +42,6 @@ public class Robot1_Hardware implements HardwareInterface {
     public final static int CAMERA_FORWARD_POSITION = 0, // eg: Camera is 0 mm in front of robot center
                  CAMERA_VERTICAL_POSITION = 0, // eg: Camera is 0 mm above ground
                  CAMERA_LEFT_POSITION = 0; // eg: Camera is 0 mm left of the robot's center line
-
 
     // X-position pixel value for center of robot
     public final static int ROBOT_CENTER_X = 230;
@@ -85,6 +86,8 @@ public class Robot1_Hardware implements HardwareInterface {
         rightClaw = hardwareMap.get(Servo.class, "rc");
         markerArm = hardwareMap.get(Servo.class, "ma");
 
+        hangVex = hardwareMap.get(DcMotor.class, "hv");
+        hangNvst = hardwareMap.get(DcMotor.class, "hn")
     }
 
     public void initHardware() {
