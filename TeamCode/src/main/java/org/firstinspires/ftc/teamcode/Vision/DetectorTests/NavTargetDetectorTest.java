@@ -53,7 +53,7 @@ public class NavTargetDetectorTest extends OpMode
         telemetry.addData("Target Visible: ", detector.isTargetVisible());
         if (detector.isTargetVisible()) {
             telemetry.addData("The robot sees", detector.visibleTarget());
-            telemetry.addData("Robot Pos", detector.positionToString());
+            telemetry.addData("Robot Pos", detector.getRobotPosition().toString());
             telemetry.addData("Robot rotation", detector.getRobotRotation());
         } else
             telemetry.addLine("The robot sees: No Target");

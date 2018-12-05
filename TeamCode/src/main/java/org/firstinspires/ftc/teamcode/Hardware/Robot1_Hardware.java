@@ -25,7 +25,7 @@ public class Robot1_Hardware implements HardwareInterface {
     public Servo rightClaw = null;
     public Servo markerArm = null;
     public Encoder slideEncoder = null;
-;
+
 
     // Servo constants
     public final double RIGHT_CLAW_CLOSE = 1,
@@ -87,13 +87,15 @@ public class Robot1_Hardware implements HardwareInterface {
         markerArm = hardwareMap.get(Servo.class, "ma");
 
         hangVex = hardwareMap.get(DcMotor.class, "hv");
-        hangNvst = hardwareMap.get(DcMotor.class, "hn")
+        hangNvst = hardwareMap.get(DcMotor.class, "hn");
     }
 
     public void initHardware() {
         // called during init() of opMode
         drivetrain.setupMotors();
         slideMotor.setDirection(DcMotor.Direction.FORWARD);
+        hangVex.setDirection(DcMotor.Direction.FORWARD);
+        hangNvst.setDirection(DcMotor.Direction.FORWARD);
         rightClaw.setPosition(RIGHT_CLAW_CLOSE);
         leftClaw.setPosition(LEFT_CLAW_CLOSE);
         markerArm.setPosition(MARKER_ARM_UP);

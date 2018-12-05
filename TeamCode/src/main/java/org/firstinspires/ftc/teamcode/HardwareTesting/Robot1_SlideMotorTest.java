@@ -7,14 +7,9 @@ import org.firstinspires.ftc.teamcode.Hardware.Robot1_Hardware;
 
 @TeleOp(name="Robot1 Slide Test", group="Iterative Opmode")
 public class Robot1_SlideMotorTest extends OpMode {
-    Robot1_Hardware hardware;
+    private Robot1_Hardware hardware;
 
-
-    // currently 1.0 is optimal
-    double powerCoefficient = 0.3; // we're testing this value
-
-    double redMotorPower = 1.0; // RED = FAST
-    double blueMotorPower = redMotorPower * powerCoefficient;
+    double motorPower;
 
     public void init() {
         //Initialize hardware
@@ -23,32 +18,15 @@ public class Robot1_SlideMotorTest extends OpMode {
     }
 
     public void loop() {
-        redMotorPower = -gamepad1.left_stick_y;
-        blueMotorPower = redMotorPower * powerCoefficient;
-
-        if (gamepad1.dpad_down)
-            powerCoefficient -= 0.005;
-        else if (gamepad1.dpad_up)
-            powerCoefficient += 0.005;
-
-        if (powerCoefficient <= 0) {
-            powerCoefficient = 0;
-        }
-        if (powerCoefficient >= 1) {
-            powerCoefficient = 1;
-        }
+        motorPower = gamepad2.left_stick_y;
 
 
         // Update motor power
-        hardware.fastSlideMotor.setPower(redMotorPower);
-        hardware.slowSlideMotor.setPower(blueMotorPower);
-
+        hardware.slideMotor.setPower(motorPower);
 
         // Print to telemetry
-        telemetry.addLine("Up/down on dpad for 0.05 increase/decrease in power coefficient");
-        telemetry.addData("Fast (Red) Motor", hardware.fastSlideMotor.getPower());
-        telemetry.addData("Slow (Blue) Motor", hardware.slowSlideMotor.getPower());
-        telemetry.addData("Power Coefficient (Ratio between slow and fast power)", powerCoefficient);
+        telemetry.addLine("Use left joy stick Y for motor power");
+        telemetry.addData("Horizontal Slide Motor Power", hardware.slideMotor.getPower());
         telemetry.update();
     }
 }

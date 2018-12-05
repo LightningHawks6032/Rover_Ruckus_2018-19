@@ -37,7 +37,7 @@ public class NavTargetDetector {
     private static final float mmTargetHeight   = (6) * mmPerInch; // height of the center of the target image above the floor
 
     // The camera on the RC that we are using (FRONT or BACK)
-    private static final VuforiaLocalizer.CameraDirection CAMERA_CHOICE = BACK; // for now, for testing
+    private static final VuforiaLocalizer.CameraDirection CAMERA_CHOICE = FRONT;
 
     // Setup tracking data
     private VuforiaLocalizer vuforia;
