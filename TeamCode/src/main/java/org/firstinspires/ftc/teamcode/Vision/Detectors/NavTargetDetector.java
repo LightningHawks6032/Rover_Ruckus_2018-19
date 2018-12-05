@@ -176,7 +176,7 @@ public class NavTargetDetector {
 
     // Returns vector of robot's position in inches
     public Vector getRobotPosition() {
-        return new Vector(robotPos.get(0) / mmPerInch, robotPos.get(1) / mmPerInch);
+        return new Vector(-robotPos.get(0) / mmPerInch, robotPos.get(1) / mmPerInch);
     }
 
     // Returns robot's "yaw" rotation in degrees --> only rotational component we care about
