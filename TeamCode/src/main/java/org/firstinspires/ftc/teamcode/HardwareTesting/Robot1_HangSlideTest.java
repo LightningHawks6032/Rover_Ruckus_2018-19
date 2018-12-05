@@ -1,9 +1,11 @@
 package org.firstinspires.ftc.teamcode.HardwareTesting;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.Hardware.Robot1_Hardware;
 
+@TeleOp(name="Robot 1 Hanging Test", group="Iterative Opmode")
 public class Robot1_HangSlideTest extends OpMode {
     private Robot1_Hardware hardware;
     private double vexPow = 0, neverestPow = 0;
