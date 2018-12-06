@@ -165,10 +165,11 @@ public class OmniSlideDrive {
         double radiansToTurn = Math.atan2(location.getY() - robotPos.getY(), location.getX() - robotPos.getX());
         int theta = gyroSensor.convertToDegrees(radiansToTurn);
 
-        if (robotAngle - theta > 0)
+        // if 270 - 80 < 360 + 80 - 270
+        if (robotAngle - theta < 360 + theta - robotAngle)
             turn(robotAngle - theta, true);
         else
-            turn(robotAngle - theta, false);
+            turn(360 + theta - robotAngle, false);
 
         driveDistance(1, location.distanceFrom(robotPos), pow);
         robotPos = location;

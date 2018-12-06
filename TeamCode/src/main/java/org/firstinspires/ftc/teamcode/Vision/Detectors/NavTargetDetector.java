@@ -91,28 +91,33 @@ public class NavTargetDetector {
         VuforiaTrackable backSpace = targetsRoverRuckus.get(3);
         backSpace.setName(targetNames[3]);
 
+        // Because of landscape mode:
+        // New roll = previous roll
+        // New pitch = previous yaw
+        // New yaw = previous pitch
+
         /** Blue Rover Target, Middle of Blue Perimeter Wall **/
         OpenGLMatrix blueRoverLocationOnField = OpenGLMatrix
                 .translation(0, mmFTCFieldWidth, mmTargetHeight)
-                .multiplied(Orientation.getRotationMatrix(EXTRINSIC, XYZ, DEGREES, 90, 0, 0));
+                .multiplied(Orientation.getRotationMatrix(EXTRINSIC, XYZ, DEGREES, 90, 0, 90));
         blueRover.setLocation(blueRoverLocationOnField);
 
         /** Red Footprint Target, Middle of Red Perimeter Wall **/
         OpenGLMatrix redFootprintLocationOnField = OpenGLMatrix
                 .translation(0, -mmFTCFieldWidth, mmTargetHeight)
-                .multiplied(Orientation.getRotationMatrix(EXTRINSIC, XYZ, DEGREES, 90, 0, 180));
+                .multiplied(Orientation.getRotationMatrix(EXTRINSIC, XYZ, DEGREES, 90, 0, 270));
         redFootprint.setLocation(redFootprintLocationOnField);
 
         /** Front Craters Target, Middle of Front Perimeter Wall **/
         OpenGLMatrix frontCratersLocationOnField = OpenGLMatrix
-                .translation(-mmFTCFieldWidth, 0, mmTargetHeight)
-                .multiplied(Orientation.getRotationMatrix(EXTRINSIC, XYZ, DEGREES, 90, 0 , 90));
+                .translation(mmFTCFieldWidth, 0, mmTargetHeight)
+                .multiplied(Orientation.getRotationMatrix(EXTRINSIC, XYZ, DEGREES, 90, 0 , 0));
         frontCraters.setLocation(frontCratersLocationOnField);
 
         /** Back Space Target, Middle of Back Perimeter Wall **/
         OpenGLMatrix backSpaceLocationOnField = OpenGLMatrix
-                .translation(mmFTCFieldWidth, 0, mmTargetHeight)
-                .multiplied(Orientation.getRotationMatrix(EXTRINSIC, XYZ, DEGREES, 90, 0, -90));
+                .translation(-mmFTCFieldWidth, 0, mmTargetHeight)
+                .multiplied(Orientation.getRotationMatrix(EXTRINSIC, XYZ, DEGREES, 90, 0, 180));
         backSpace.setLocation(backSpaceLocationOnField);
 
         // Store the navigation targets in the navigationTargets ArrayList
@@ -176,7 +181,15 @@ public class NavTargetDetector {
 
     // Returns vector of robot's position in inches
     public Vector getRobotPosition() {
-        return new Vector(-robotPos.get(0) / mmPerInch, robotPos.get(1) / mmPerInch);
+        return new Vector(robotPos.get(0) / mmPerInch, robotPos.get(1) / mmPerInch);
+    }
+
+    public double getRobotRoll() {
+        return robotRotation.firstAngle;
+    }
+
+    public double getRobotPitch() {
+        return robotRotation.secondAngle;
     }
 
     // Returns robot's "yaw" rotation in degrees --> only rotational component we care about
