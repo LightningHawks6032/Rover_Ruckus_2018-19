@@ -26,7 +26,7 @@ public class NavTargetDetectorTest extends OpMode
     @Override
     public void init() {
         // Set up detector
-        detector = new NavTargetDetector(hardwareMap, CAMERA_FORWARD_POSITION, CAMERA_VERTICAL_POSITION, CAMERA_LEFT_POSITION); // Create detector
+        detector = new NavTargetDetector(hardwareMap, CAMERA_FORWARD_POSITION, CAMERA_VERTICAL_POSITION, CAMERA_LEFT_POSITION, true); // Create detector
         detector.setupTracker();
     }
 
