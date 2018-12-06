@@ -54,6 +54,19 @@ public class NavTargetDetectorTest extends OpMode
         if (detector.isTargetVisible()) {
             telemetry.addData("The robot sees", detector.visibleTarget());
             telemetry.addData("Robot Pos", detector.getRobotPosition().toString());
+            if (detector.getX() > 0 && detector.getY() > 0){
+                //Q1
+                telemetry.addLine("Quadrant 1");
+            }else if (detector.getX() < 0 && detector.getY() > 0){
+                //Q2
+                telemetry.addLine("Quadrant 2");
+            }else if (detector.getX() < 0 && detector.getY() < 0){
+                //Q3
+                telemetry.addLine("Quadrant 3");
+            }else if (detector.getX() > 0 && detector.getY() > 0){
+                //Q4
+                telemetry.addLine("Quadrant 4");
+            }
             telemetry.addData("Robot roll", detector.getRobotRoll());
             telemetry.addData("Robot pitch", detector.getRobotPitch());
             telemetry.addData("Robot rotation", detector.getRobotRotation());
