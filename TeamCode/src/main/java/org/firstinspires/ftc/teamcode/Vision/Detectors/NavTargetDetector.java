@@ -101,25 +101,25 @@ public class NavTargetDetector {
         /** Blue Rover Target, Middle of Blue Perimeter Wall **/
         OpenGLMatrix blueRoverLocationOnField = OpenGLMatrix
                 .translation(0, mmFTCFieldWidth, mmTargetHeight)
-                .multiplied(Orientation.getRotationMatrix(EXTRINSIC, XYZ, DEGREES, landscapeMode ? 0 : 90, landscapeMode ? 90 : 0, landscapeMode ? 0 : 90));
+                .multiplied(Orientation.getRotationMatrix(EXTRINSIC, XYZ, DEGREES, 90, 0, 90));
         blueRover.setLocation(blueRoverLocationOnField);
 
         /** Red Footprint Target, Middle of Red Perimeter Wall **/
         OpenGLMatrix redFootprintLocationOnField = OpenGLMatrix
                 .translation(0, -mmFTCFieldWidth, mmTargetHeight)
-                .multiplied(Orientation.getRotationMatrix(EXTRINSIC, XYZ, DEGREES, landscapeMode ? 0 : 90, landscapeMode ? 270 : 0, landscapeMode ? 0 : 270));
+                .multiplied(Orientation.getRotationMatrix(EXTRINSIC, XYZ, DEGREES, 90, 0, 270));
         redFootprint.setLocation(redFootprintLocationOnField);
 
         /** Front Craters Target, Middle of Front Perimeter Wall **/
         OpenGLMatrix frontCratersLocationOnField = OpenGLMatrix
                 .translation(mmFTCFieldWidth, 0, mmTargetHeight)
-                .multiplied(Orientation.getRotationMatrix(EXTRINSIC, XYZ, DEGREES, landscapeMode ? 0 : 90, landscapeMode ? 0 : 0, landscapeMode ? 0 : 0));
+                .multiplied(Orientation.getRotationMatrix(EXTRINSIC, XYZ, DEGREES, 90, 0, 0));
         frontCraters.setLocation(frontCratersLocationOnField);
 
         /** Back Space Target, Middle of Back Perimeter Wall **/
         OpenGLMatrix backSpaceLocationOnField = OpenGLMatrix
                 .translation(-mmFTCFieldWidth, 0, mmTargetHeight)
-                .multiplied(Orientation.getRotationMatrix(EXTRINSIC, XYZ, DEGREES, landscapeMode ? 0 : 90, landscapeMode ? 180 : 0, landscapeMode ? 0 : 180));
+                .multiplied(Orientation.getRotationMatrix(EXTRINSIC, XYZ, DEGREES, 90, 0, 180));
         backSpace.setLocation(backSpaceLocationOnField);
 
         // Store the navigation targets in the navigationTargets ArrayList
