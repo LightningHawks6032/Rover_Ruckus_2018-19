@@ -186,6 +186,16 @@ public class NavTargetDetector {
         return new Vector(robotPos.get(0) / mmPerInch, robotPos.get(1) / mmPerInch);
     }
 
+    // Returns X coordinate
+    public double getX(){
+        return robotPos.get(0);
+    }
+
+    // Returns Y coordinate
+    public double getY(){
+        return robotPos.get(1);
+    }
+
     public double getRobotRoll() {
         return robotRotation.firstAngle;
     }
