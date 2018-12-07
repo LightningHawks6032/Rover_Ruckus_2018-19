@@ -10,6 +10,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import org.firstinspires.ftc.teamcode.Hardware.Robot1_Hardware;
 import org.firstinspires.ftc.teamcode.Robot1.Robot1_TeleOp;
 import org.firstinspires.ftc.teamcode.Vision.Detectors.NavTargetDetector;
+import java.lang.Math;
 
 
 @TeleOp(name="Nav Target Detection Test", group="Iterative OpMode")
@@ -54,22 +55,10 @@ public class NavTargetDetectorTest extends OpMode
         if (detector.isTargetVisible()) {
             telemetry.addData("The robot sees", detector.visibleTarget());
             telemetry.addData("Robot Pos", detector.getRobotPosition().toString());
-            if (detector.getX() > 0 && detector.getY() > 0){
-                //Q1
-                telemetry.addLine("Quadrant 1");
-            }else if (detector.getX() < 0 && detector.getY() > 0){
-                //Q2
-                telemetry.addLine("Quadrant 2");
-            }else if (detector.getX() < 0 && detector.getY() < 0){
-                //Q3
-                telemetry.addLine("Quadrant 3");
-            }else if (detector.getX() > 0 && detector.getY() > 0){
-                //Q4
-                telemetry.addLine("Quadrant 4");
-            }
-            telemetry.addData("Robot roll", detector.getRobotRoll());
-            telemetry.addData("Robot pitch", detector.getRobotPitch());
-            telemetry.addData("Robot rotation", detector.getRobotRotation());
+            telemetry.addData("Cam roll", Math.round(detector.getCamRoll()));
+            telemetry.addData("Cam pitch", Math.round(detector.getCamPitch()));
+            telemetry.addData("Cam yaw", Math.round(detector.getCamYaw()));
+            telemetry.addData("Robot rotation", Math.round(detector.getRobotRotation()));
         } else
             telemetry.addLine("The robot sees: No Target");
         telemetry.update();
