@@ -40,6 +40,19 @@ public class Vector {
         return new Vector(x - other.getX(), y - other.getY());
     }
 
+    public int quadrant() {
+        if (x > 0 && y > 0)
+            return 1;
+        else if (x < 0 && y > 0)
+            return 2;
+        else if (x < 0 && y < 0)
+            return 3;
+        else if (x > 0 && y < 0)
+            return 4;
+
+        return 0;
+    }
+
     public String toString() {
         return "(" + Math.round(x) + ", " + Math.round(y) + ")";
     }
