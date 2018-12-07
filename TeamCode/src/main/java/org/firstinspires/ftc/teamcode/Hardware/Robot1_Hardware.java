@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.Hardware;
 
+import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Gamepad;
@@ -18,7 +19,7 @@ public class Robot1_Hardware implements HardwareInterface {
     public GoldAlignDetector mineralDetector;
     public NavTargetDetector navTargetDetector;
     public DcMotor slideMotor = null;
-    public DcMotor hangVex = null;
+    public CRServo hangVex = null;
     public DcMotor hangNvst = null;
     public Servo linearActuator = null;
     public Servo leftClaw = null;
@@ -86,7 +87,7 @@ public class Robot1_Hardware implements HardwareInterface {
         rightClaw = hardwareMap.get(Servo.class, "rc");
         markerArm = hardwareMap.get(Servo.class, "ma");
 
-        hangVex = hardwareMap.get(DcMotor.class, "hv");
+        hangVex = hardwareMap.get(CRServo.class, "hv");
         hangNvst = hardwareMap.get(DcMotor.class, "hn");
     }
 
@@ -94,7 +95,7 @@ public class Robot1_Hardware implements HardwareInterface {
         // called during init() of opMode
         drivetrain.setupMotors();
         slideMotor.setDirection(DcMotor.Direction.FORWARD);
-        hangVex.setDirection(DcMotor.Direction.FORWARD);
+        hangVex.setDirection(CRServo.Direction.FORWARD);
         hangNvst.setDirection(DcMotor.Direction.FORWARD);
         rightClaw.setPosition(RIGHT_CLAW_CLOSE);
         leftClaw.setPosition(LEFT_CLAW_CLOSE);

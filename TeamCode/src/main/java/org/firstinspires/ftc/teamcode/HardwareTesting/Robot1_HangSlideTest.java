@@ -17,8 +17,8 @@ public class Robot1_HangSlideTest extends OpMode {
 
     public void loop() {
 
-        vexPow = -gamepad2.left_stick_y;
-        neverestPow = -gamepad2.right_stick_y;
+        vexPow = -gamepad1.left_stick_y*0.4;
+        neverestPow = -gamepad1.right_stick_y;
 
         hardware.hangVex.setPower(vexPow);
         hardware.hangNvst.setPower(neverestPow);

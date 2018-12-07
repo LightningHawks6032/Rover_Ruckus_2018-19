@@ -53,7 +53,7 @@ public class OmniSlideDrive {
     public void setupMotors() {
         leftMotor.setDirection(DcMotor.Direction.REVERSE);
         rightMotor.setDirection(DcMotor.Direction.FORWARD);
-        middleMotor.setDirection(DcMotor.Direction.REVERSE);
+        middleMotor.setDirection(DcMotor.Direction.FORWARD);
         encoderSetup();
     }
 

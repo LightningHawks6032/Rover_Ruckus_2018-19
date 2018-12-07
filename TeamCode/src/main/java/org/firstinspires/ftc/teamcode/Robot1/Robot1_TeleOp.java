@@ -13,7 +13,7 @@ public class Robot1_TeleOp extends OpMode {
     Robot1_Hardware hardware;
 
     //Power variables
-    private double slidePower, actuPos;
+    private double slidePower, hangPow, actuPos;
 
     public void init() {
         //Initialize hardware
@@ -22,6 +22,7 @@ public class Robot1_TeleOp extends OpMode {
 
         //Assign variables
         slidePower = 0;
+        hangPow = 0;
         actuPos = 0.3;
 
         // Run encoders on horizontal slide motors
@@ -34,6 +35,7 @@ public class Robot1_TeleOp extends OpMode {
         manageClaws();
         manageActuator();
         manageMarker();
+        manageLatch();
 
         debug();
     }
@@ -83,12 +85,18 @@ public class Robot1_TeleOp extends OpMode {
     // linear actuator control
     private void manageActuator() {
         // This works
-        actuPos -= gamepad2.right_stick_y * 0.001;
+        if (gamepad2.dpad_down)
+            actuPos -= 0.001;
+        else if (gamepad2.dpad_up)
+            actuPos += 0.001;
         hardware.linearActuator.setPosition(actuPos);
     }
 
     // lander latch control
     private void manageLatch() {
+        hangPow = -gamepad2.right_stick_y;
 
+        hardware.hangVex.setPower(hangPow *0.4);
+        hardware.hangNvst.setPower(-hangPow);
     }
 }
