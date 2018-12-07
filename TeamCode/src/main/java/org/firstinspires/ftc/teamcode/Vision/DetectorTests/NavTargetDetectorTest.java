@@ -18,7 +18,7 @@ public class NavTargetDetectorTest extends OpMode
 {
     // Detector object
     private NavTargetDetector detector;
-
+    private Robot1_Hardware hardware;
 
     private final static int CAMERA_FORWARD_POSITION = 0, // eg: Camera is 0 mm in front of robot center
             CAMERA_VERTICAL_POSITION = 0, // eg: Camera is 0 mm above ground
@@ -27,6 +27,8 @@ public class NavTargetDetectorTest extends OpMode
     @Override
     public void init() {
         // Set up detector
+        hardware = new Robot1_Hardware(hardwareMap, gamepad1, false);
+        hardware.initHardware();
         detector = new NavTargetDetector(hardwareMap, CAMERA_FORWARD_POSITION, CAMERA_VERTICAL_POSITION, CAMERA_LEFT_POSITION, true); // Create detector
         detector.setupTracker();
     }
@@ -49,6 +51,7 @@ public class NavTargetDetectorTest extends OpMode
 
     @Override
     public void loop() {
+        hardware.drivetrain.manageTeleOp();
         detector.lookForTargets();
 
         telemetry.addData("Target Visible: ", detector.isTargetVisible());
