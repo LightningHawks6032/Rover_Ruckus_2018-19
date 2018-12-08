@@ -25,6 +25,7 @@ public class Robot1_GyroTest extends OpMode {
         //telemetry.addData("Gyro Y: ", hardware.gyroSensor.rawY());
         //telemetry.addData("Gyro Z: ", hardware.gyroSensor.rawZ());
         telemetry.addData("Cartesian Z Heading: ", hardware.drivetrain.getGyro().getHeading());
+        telemetry.addData("getAngle()", hardware.drivetrain.getGyro().getAngle());
         telemetry.update();
 
         if (gamepad1.x) {
