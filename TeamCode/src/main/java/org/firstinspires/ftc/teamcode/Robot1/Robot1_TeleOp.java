@@ -89,6 +89,13 @@ public class Robot1_TeleOp extends OpMode {
             actuPos -= 0.001;
         else if (gamepad2.dpad_up)
             actuPos += 0.001;
+
+        // Put limit on linear actuator position
+        if (actuPos > 1)
+            actuPos = 1;
+        if (actuPos < 0)
+            actuPos = 0;
+
         hardware.linearActuator.setPosition(actuPos);
     }
 
@@ -96,7 +103,7 @@ public class Robot1_TeleOp extends OpMode {
     private void manageLatch() {
         hangPow = -gamepad2.right_stick_y;
 
-        hardware.hangVex.setPower(hangPow *0.4);
+        hardware.hangVex.setPower(hangPow * 0.1);
         hardware.hangNvst.setPower(-hangPow);
     }
 }
