@@ -37,38 +37,84 @@ public class Robot1_MineralSampling extends LinearOpMode {
 
         telemetry.addLine("Mineral Sampling");
         telemetry.update();
-        int goldPos = findGold();
         //turnToGold();
+
+        nonPositionalMineralSampling();
+
+        detector.disable();
+    }
+
+    private void nonPositionalMineralSampling() {
+        int goldPos = findGold();
 
         telemetry.addLine("Moving to hit mineral");
         telemetry.update();
         if (goldPos == 1) {
             telemetry.addLine("Driving to left mineral");
             telemetry.update();
-            //hardware.drivetrain.driveDistance(1, 30, 0.6);
-            //hardware.drivetrain.turn(30, true);
-            //hardware.drivetrain.driveDistance(1, 20, 0.6);
+            hardware.drivetrain.driveDistance(1, 30, 0.6);
+            //hardware.drivetrain.goTo(fieldMap.get(FieldElement.RED_DEPOT_LEFT_MINERAL), 0.6);
+        } else if (goldPos == 2) {
+            telemetry.addLine("Driving to middle mineral");
+            telemetry.update();
+            hardware.drivetrain.driveDistance(1, 30, 0.6);
+        } else if (goldPos == 3) {
+            telemetry.addLine("Driving to right mineral");
+            telemetry.update();
+            hardware.drivetrain.driveDistance(1, 30, 0.6);
+        }
+    }
+
+    private void positionalMineralSampling() {
+        int goldPos = findGoldForPosition();
+
+        telemetry.addLine("Moving to hit mineral");
+        telemetry.update();
+        if (goldPos == 1) {
+            telemetry.addLine("Driving to left mineral");
+            telemetry.update();
             hardware.drivetrain.goTo(fieldMap.get(FieldElement.RED_DEPOT_LEFT_MINERAL), 0.6);
         } else if (goldPos == 2) {
             telemetry.addLine("Driving to middle mineral");
             telemetry.update();
-            //hardware.drivetrain.driveDistance(1, 30, 0.6);
-            //hardware.drivetrain.driveDistance(1, 20, 0.6);
             hardware.drivetrain.goTo(fieldMap.get(FieldElement.RED_DEPOT_MIDDLE_MINERAL), 0.6);
         } else if (goldPos == 3) {
             telemetry.addLine("Driving to right mineral");
             telemetry.update();
-            //hardware.drivetrain.driveDistance(1, 30, 0.6);
-            //hardware.drivetrain.turn(30, false);
-            //hardware.drivetrain.driveDistance(1, 20, 0.6);
             hardware.drivetrain.goTo(fieldMap.get(FieldElement.RED_DEPOT_RIGHT_MINERAL), 0.6);
         }
-        //hardware.drivetrain.driveDistance(1, 30, 0.6);
-
-        detector.disable();
     }
 
     private int findGold() {
+        sleep(1000);
+        if (detector.getAligned()) {
+            telemetry.addLine("Aligned with middle mineral");
+            telemetry.update();
+            return 2;
+        }
+
+        hardware.drivetrain.turn(30, false);
+        sleep(200);
+        if (detector.getAligned()) {
+            telemetry.addLine("Aligned with left mineral");
+            telemetry.update();
+            return 1;
+        }
+
+        hardware.drivetrain.turn(60, true);
+        sleep(200);
+        if (detector.getAligned()) {
+            telemetry.addLine("Aligned with right mineral");
+            telemetry.update();
+            return 3;
+        }
+
+        hardware.drivetrain.turn(30, false);
+
+        return 2;
+    }
+
+    private int findGoldForPosition() {
         sleep(1000);
         if (detector.getAligned()) {
             telemetry.addLine("Aligned with middle mineral");
