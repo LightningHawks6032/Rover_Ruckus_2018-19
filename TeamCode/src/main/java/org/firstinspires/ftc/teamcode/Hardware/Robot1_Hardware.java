@@ -76,7 +76,7 @@ public class Robot1_Hardware implements HardwareInterface {
         }
 
         mineralDetector = new GoldAlignDetector(ROBOT_CENTER_X, 100, true);
-        navTargetDetector = new NavTargetDetector(hardwareMap, CAMERA_FORWARD_POSITION, CAMERA_VERTICAL_POSITION, CAMERA_LEFT_POSITION, true);
+        navTargetDetector = new NavTargetDetector(hardwareMap, CAMERA_FORWARD_POSITION, CAMERA_VERTICAL_POSITION, CAMERA_LEFT_POSITION);
 
         slideMotor = hardwareMap.get(DcMotor.class, "sm");
         slideEncoder = new Encoder(slideMotor, "neverest", 0);

@@ -187,7 +187,7 @@ public class OmniSlideDrive {
         double pow = 1; // power applied to motors
 
         while (currAngle < degrees) {
-            pow = (double) (degrees - currAngle) / degrees + 0.1;
+            pow = (double) (degrees - currAngle) / degrees * 0.6 + 0.1;
 
             // Apply power to motors and update currAngle
             if (right)
@@ -197,7 +197,7 @@ public class OmniSlideDrive {
             currAngle = Math.abs(gyroSensor.getAngle());
         }
 
-        robotAngle = (robotAngle - gyroSensor.getAngle()) % 360; // updates the robot angle based on turn
+        robotAngle = (360 + robotAngle - gyroSensor.getAngle()) % 360; // updates the robot angle based on turn
         setPowers(0, 0, 0);
     }
 

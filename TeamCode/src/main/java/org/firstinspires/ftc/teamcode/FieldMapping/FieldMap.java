@@ -18,6 +18,7 @@ public class FieldMap {
         generate();
     }
 
+    // maybe use enum instead of strings 
     private void generate() {
 
         // Quadrant 2

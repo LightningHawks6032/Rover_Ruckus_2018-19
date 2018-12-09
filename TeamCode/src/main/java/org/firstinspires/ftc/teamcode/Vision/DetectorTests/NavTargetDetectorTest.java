@@ -29,7 +29,7 @@ public class NavTargetDetectorTest extends OpMode
         // Set up detector
         hardware = new Robot1_Hardware(hardwareMap, gamepad1, false);
         hardware.initHardware();
-        detector = new NavTargetDetector(hardwareMap, CAMERA_FORWARD_POSITION, CAMERA_VERTICAL_POSITION, CAMERA_LEFT_POSITION, true); // Create detector
+        detector = new NavTargetDetector(hardwareMap, CAMERA_FORWARD_POSITION, CAMERA_VERTICAL_POSITION, CAMERA_LEFT_POSITION); // Create detector
         detector.setupTracker();
     }
 

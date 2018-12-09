@@ -30,6 +30,14 @@ public class MRGyro {
         gyroSensor.resetZAxisIntegrator();
     }
 
+    // Deletes all previousHeadings
+    public void reset() {
+        zero();
+        for (Integer heading : previousHeadings) {
+            previousHeadings.remove(heading);
+        }
+    }
+
     // Returns heading -- adjusted for the fact that its reading backwards values
     public int getHeading() {
         return 360 - gyroSensor.getHeading();

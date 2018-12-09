@@ -48,7 +48,6 @@ public class NavTargetDetector {
     private int camForwardDisplacement; // eg: Camera is 0 mm in front of robot center
     private int camVerticalDisplacement; // eg: Camera is 0 mm above ground
     private int camLeftDisplacement; // eg: Camera is ON the robot's center line
-    private boolean landscapeMode;
 
     // For returning to telemetry
     private boolean targetVisible;
@@ -58,13 +57,12 @@ public class NavTargetDetector {
     private VectorF robotPos;
     private Orientation robotRotation;
 
-    public NavTargetDetector(HardwareMap hwMap, int camForwardDisplacement, int camVerticalDisplacement, int camLeftDisplacement, boolean landscape) {
+    public NavTargetDetector(HardwareMap hwMap, int camForwardDisplacement, int camVerticalDisplacement, int camLeftDisplacement) {
         this.hwMap = hwMap;
         navigationTargets = new ArrayList<VuforiaTrackable>();
         this.camForwardDisplacement = camForwardDisplacement;
         this.camVerticalDisplacement = camVerticalDisplacement;
         this.camLeftDisplacement = camLeftDisplacement;
-        landscapeMode = landscape;
 
         targetVisible = false; // by default, we assume we don't see a target
         whichTargetVisible = null; // by default, we assume we don't see a target
