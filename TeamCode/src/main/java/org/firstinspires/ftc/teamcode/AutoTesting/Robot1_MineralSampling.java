@@ -9,6 +9,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.FieldMapping.FieldElement;
 import org.firstinspires.ftc.teamcode.FieldMapping.FieldMap;
+import org.firstinspires.ftc.teamcode.FieldMapping.Vector;
 import org.firstinspires.ftc.teamcode.Hardware.Encoder;
 import org.firstinspires.ftc.teamcode.Hardware.Robot1_Hardware;
 import org.firstinspires.ftc.teamcode.Vision.Detectors.GoldAlignDetector;
@@ -39,7 +40,7 @@ public class Robot1_MineralSampling extends LinearOpMode {
         telemetry.update();
         //turnToGold();
 
-        nonPositionalMineralSampling();
+        positionalMineralSampling();
 
         detector.disable();
     }
@@ -68,20 +69,23 @@ public class Robot1_MineralSampling extends LinearOpMode {
     private void positionalMineralSampling() {
         int goldPos = findGoldForPosition();
 
-        telemetry.addLine("Moving to hit mineral");
+        telemetry.addData("gyro", hardware.drivetrain.getGyro().getAngle());
         telemetry.update();
+
+        //telemetry.addLine("Moving to hit mineral");
+        //telemetry.update();
         if (goldPos == 1) {
-            telemetry.addLine("Driving to left mineral");
-            telemetry.update();
-            hardware.drivetrain.goTo(fieldMap.get(FieldElement.RED_DEPOT_LEFT_MINERAL), 0.6);
+            //telemetry.addLine("Driving to left mineral");
+            //telemetry.update();
+            goTo(fieldMap.get(FieldElement.RED_DEPOT_LEFT_MINERAL), 0.6);
         } else if (goldPos == 2) {
-            telemetry.addLine("Driving to middle mineral");
-            telemetry.update();
-            hardware.drivetrain.goTo(fieldMap.get(FieldElement.RED_DEPOT_MIDDLE_MINERAL), 0.6);
+            //telemetry.addLine("Driving to middle mineral");
+            //telemetry.update();
+            goTo(fieldMap.get(FieldElement.RED_DEPOT_MIDDLE_MINERAL), 0.6);
         } else if (goldPos == 3) {
-            telemetry.addLine("Driving to right mineral");
-            telemetry.update();
-            hardware.drivetrain.goTo(fieldMap.get(FieldElement.RED_DEPOT_RIGHT_MINERAL), 0.6);
+            //telemetry.addLine("Driving to right mineral");
+            //telemetry.update();
+            goTo(fieldMap.get(FieldElement.RED_DEPOT_RIGHT_MINERAL), 0.6);
         }
     }
 
@@ -94,7 +98,7 @@ public class Robot1_MineralSampling extends LinearOpMode {
         }
 
         hardware.drivetrain.turn(30, false);
-        sleep(200);
+        sleep(500);
         if (detector.getAligned()) {
             telemetry.addLine("Aligned with left mineral");
             telemetry.update();
@@ -102,7 +106,7 @@ public class Robot1_MineralSampling extends LinearOpMode {
         }
 
         hardware.drivetrain.turn(60, true);
-        sleep(200);
+        sleep(500);
         if (detector.getAligned()) {
             telemetry.addLine("Aligned with right mineral");
             telemetry.update();
@@ -163,6 +167,41 @@ public class Robot1_MineralSampling extends LinearOpMode {
         } else {
             //do something to get it into vision
         }
+    }
+
+
+    private void goTo(Vector location, double pow) {
+        double radiansToTurn = Math.atan2(location.getY() - hardware.drivetrain.robotPos.getY(), location.getX() - hardware.drivetrain.robotPos.getX());
+        int theta = hardware.drivetrain.getGyro().convertToDegrees(radiansToTurn);
+        telemetry.addData("theta", theta);
+        telemetry.update();
+
+
+        // Determine what angle to turn
+        int tempRobotAngle = -45;
+        if (tempRobotAngle * theta < 0) {
+            if (Math.abs(tempRobotAngle) + Math.abs(theta) < 180) {
+                if (tempRobotAngle > theta)
+                    hardware.drivetrain.turn(Math.abs(tempRobotAngle) + Math.abs(theta), true);
+                else
+                    hardware.drivetrain.turn(Math.abs(tempRobotAngle) + Math.abs(theta), false);
+            }
+            else {
+                if (tempRobotAngle > theta)
+                    hardware.drivetrain.turn(360 - (Math.abs(theta) + Math.abs(tempRobotAngle)), false);
+                else
+                    hardware.drivetrain.turn(360 - (Math.abs(theta) + Math.abs(tempRobotAngle)), true);
+            }
+        }
+        else if (tempRobotAngle != theta) {
+            if (tempRobotAngle < theta)
+                hardware.drivetrain.turn(theta - tempRobotAngle, false);
+            else
+                hardware.drivetrain.turn(tempRobotAngle - theta, true);
+        }
+
+        hardware.drivetrain.driveDistance(1, location.distanceFrom(hardware.drivetrain.robotPos), pow);
+        hardware.drivetrain.robotPos = location;
     }
 
 }

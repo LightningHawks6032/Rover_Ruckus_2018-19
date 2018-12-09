@@ -8,8 +8,8 @@ import com.qualcomm.robotcore.hardware.GyroSensor;
 import org.firstinspires.ftc.teamcode.FieldMapping.Vector;
 
 public class OmniSlideDrive {
-    private Vector robotPos; // Position on field
-    private int robotAngle; // Angle relative to (0, 0) on field
+    public Vector robotPos; // Position on field
+    public int robotAngle; // Angle relative to (0, 0) on field
 
     // Motors
     private DcMotor leftMotor;
