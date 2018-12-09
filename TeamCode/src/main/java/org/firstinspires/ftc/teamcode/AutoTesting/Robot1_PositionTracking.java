@@ -30,12 +30,16 @@ public class Robot1_PositionTracking extends LinearOpMode {
         telemetry.addLine("Robot updating position");
         telemetry.update();
         updatePosition();
+        //hardware.drivetrain.setRobotPos(fieldMap.HALF_SQUARE_LENGTH, -fieldMap.HALF_SQUARE_LENGTH);
+        //hardware.drivetrain.setRobotAngle(315);
 
-        telemetry.addLine("Driving to Q3 Right Mineral");
+        telemetry.addLine("Driving to Q4 Left Mineral");
         telemetry.update();
-        hardware.drivetrain.goTo(fieldMap.get(FieldElement.RED_DEPOT_MIDDLE_MINERAL), 0.6);
+        hardware.drivetrain.goTo(fieldMap.get(FieldElement.RED_DEPOT_LEFT_MINERAL), 0.6);
 
-        telemetry.addLine("Driving to Q3 Depot");
+        sleep(1000);
+
+        telemetry.addLine("Driving to Q4 Depot");
         telemetry.update();
         hardware.drivetrain.goTo(fieldMap.get(FieldElement.RED_DEPOT), 0.8);
     }

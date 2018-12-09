@@ -27,8 +27,8 @@ public class OmniSlideDrive {
     private double boost;
 
     public OmniSlideDrive(DcMotor lm, DcMotor rm, DcMotor mm, MRGyro gyro, Gamepad gamepad, double wheelDiam) {
-        robotPos = null;
-        robotAngle = 0;
+        robotPos = new Vector(0, 0); // set default position later in auto
+        robotAngle = 0; // set default angle later in auto
 
         leftMotor = lm;
         rightMotor = rm;
@@ -165,11 +165,28 @@ public class OmniSlideDrive {
         double radiansToTurn = Math.atan2(location.getY() - robotPos.getY(), location.getX() - robotPos.getX());
         int theta = gyroSensor.convertToDegrees(radiansToTurn);
 
-        // if 270 - 80 < 360 + 80 - 270
-        if (robotAngle - theta < 360 + theta - robotAngle)
-            turn(robotAngle - theta, true);
-        else
-            turn(360 + theta - robotAngle, false);
+        // Determine what angle to turn
+        int tempRobotAngle = robotAngle > 180 ? 360 - robotAngle : robotAngle;
+        if (tempRobotAngle * theta < 0) {
+            if (Math.abs(tempRobotAngle) + Math.abs(theta) < 180) {
+                if (tempRobotAngle > theta)
+                    turn(Math.abs(tempRobotAngle) + Math.abs(theta), true);
+                else
+                    turn(Math.abs(tempRobotAngle) + Math.abs(theta), false);
+            }
+            else {
+                if (tempRobotAngle > theta)
+                    turn(360 - (Math.abs(theta) + Math.abs(tempRobotAngle)), false);
+                else
+                    turn(360 - (Math.abs(theta) + Math.abs(tempRobotAngle)), true);
+            }
+        }
+        else if (tempRobotAngle != theta) {
+            if (tempRobotAngle < theta)
+                turn(theta - tempRobotAngle, false);
+            else
+                turn(tempRobotAngle - theta, true);
+        }
 
         driveDistance(1, location.distanceFrom(robotPos), pow);
         robotPos = location;
@@ -196,9 +213,8 @@ public class OmniSlideDrive {
                 setPowers(-pow, pow, 0);
             currAngle = Math.abs(gyroSensor.getAngle());
         }
-
-        robotAngle = (360 + robotAngle - gyroSensor.getAngle()) % 360; // updates the robot angle based on turn
         setPowers(0, 0, 0);
+        robotAngle = (360 + robotAngle - gyroSensor.getAngle()) % 360; // updates the robot angle based on turn
     }
 
 

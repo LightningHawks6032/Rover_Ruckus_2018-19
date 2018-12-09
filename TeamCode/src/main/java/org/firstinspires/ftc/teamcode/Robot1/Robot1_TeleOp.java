@@ -102,8 +102,10 @@ public class Robot1_TeleOp extends OpMode {
     // lander latch control
     private void manageLatch() {
         hangPow = -gamepad2.right_stick_y;
-
-        hardware.hangVex.setPower(hangPow * 0.1);
+        if (gamepad2.right_stick_y < 0)
+            hardware.hangVex.setPower(hangPow * 0.3);
+        else
+            hardware.hangVex.setPower(hangPow * 0.1);
         hardware.hangNvst.setPower(-hangPow);
     }
 }

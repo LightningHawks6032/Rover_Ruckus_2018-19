@@ -18,7 +18,7 @@ public class GoldAlignDetectorTest extends OpMode
     @Override
     public void init() {
         // Set up detector
-        detector = new GoldAlignDetector(230, 100,true); // Create detector
+        detector = new GoldAlignDetector(285, 100,true); // Create detector
         detector.setupDetector(hardwareMap, 1); // Camera Index: 0 for back camera, 1 for front camera
     }
 

@@ -45,7 +45,7 @@ public class Robot1_Hardware implements HardwareInterface {
                  CAMERA_LEFT_POSITION = 0; // eg: Camera is 0 mm left of the robot's center line
 
     // X-position pixel value for center of robot
-    public final static int ROBOT_CENTER_X = 230;
+    public final static int ROBOT_CENTER_X = 285;
 
     /**
      * Constructs each hardware object
