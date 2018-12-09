@@ -7,6 +7,7 @@ package org.firstinspires.ftc.teamcode.AutoTesting;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
+import org.firstinspires.ftc.teamcode.FieldMapping.FieldElement;
 import org.firstinspires.ftc.teamcode.FieldMapping.FieldMap;
 import org.firstinspires.ftc.teamcode.Hardware.Encoder;
 import org.firstinspires.ftc.teamcode.Hardware.Robot1_Hardware;
@@ -41,11 +42,11 @@ public class Robot1_MineralSampling extends LinearOpMode {
         telemetry.addLine("Moving to hit mineral");
         telemetry.update();
         if (goldPos == 1)
-            hardware.drivetrain.goTo(fieldMap.get(4, "Left Mineral"), 0.6);
+            hardware.drivetrain.goTo(fieldMap.get(FieldElement.RED_DEPOT_LEFT_MINERAL), 0.6);
         else if (goldPos == 2)
-            hardware.drivetrain.goTo(fieldMap.get(4, "Middle Mineral"), 0.6);
+            hardware.drivetrain.goTo(fieldMap.get(FieldElement.RED_DEPOT_MIDDLE_MINERAL), 0.6);
         else if (goldPos == 3)
-            hardware.drivetrain.goTo(fieldMap.get(4, "Right Mineral"), 0.6);
+            hardware.drivetrain.goTo(fieldMap.get(FieldElement.RED_DEPOT_RIGHT_MINERAL), 0.6);
         //hardware.drivetrain.driveDistance(1, 30, 0.6);
 
         detector.disable();

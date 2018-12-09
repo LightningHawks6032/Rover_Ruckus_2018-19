@@ -7,6 +7,7 @@ package org.firstinspires.ftc.teamcode.AutoTesting;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
+import org.firstinspires.ftc.teamcode.FieldMapping.FieldElement;
 import org.firstinspires.ftc.teamcode.FieldMapping.FieldMap;
 import org.firstinspires.ftc.teamcode.Hardware.Robot1_Hardware;
 @Autonomous(name="Position Tracking Test", group="Linear Opmode")
@@ -32,11 +33,11 @@ public class Robot1_PositionTracking extends LinearOpMode {
 
         telemetry.addLine("Driving to Q3 Right Mineral");
         telemetry.update();
-        hardware.drivetrain.goTo(fieldMap.get(4, "Left Mineral"), 0.6);
+        hardware.drivetrain.goTo(fieldMap.get(FieldElement.RED_DEPOT_MIDDLE_MINERAL), 0.6);
 
         telemetry.addLine("Driving to Q3 Depot");
         telemetry.update();
-        hardware.drivetrain.goTo(fieldMap.get(4, "Red Depot"), 0.8);
+        hardware.drivetrain.goTo(fieldMap.get(FieldElement.RED_DEPOT), 0.8);
     }
 
     private void updatePosition() {
