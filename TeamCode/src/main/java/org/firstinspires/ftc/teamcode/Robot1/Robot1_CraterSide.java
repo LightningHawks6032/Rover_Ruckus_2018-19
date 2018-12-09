@@ -6,6 +6,8 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import org.firstinspires.ftc.teamcode.Hardware.Robot1_Hardware;
 import org.firstinspires.ftc.teamcode.Vision.Detectors.GoldAlignDetector;
 
+// Will delete eventually
+
 @Autonomous(name="Robot 1 Crater Side", group="Linear Opmode")
 public class Robot1_CraterSide extends LinearOpMode {
     private Robot1_Hardware hardware;
