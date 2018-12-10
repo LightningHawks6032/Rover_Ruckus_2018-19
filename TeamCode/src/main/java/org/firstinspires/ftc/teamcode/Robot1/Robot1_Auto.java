@@ -5,19 +5,26 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.teamcode.Hardware.Robot1_Hardware;
 import org.firstinspires.ftc.teamcode.Vision.Detectors.GoldAlignDetector;
+import org.firstinspires.ftc.teamcode.Vision.Detectors.NavTargetDetector;
 
 public class Robot1_Auto {
     private Robot1_Hardware hardware;
     private GoldAlignDetector mineralDetector;
+    private NavTargetDetector navTargetDetector;
 
     // Constructor instantiates hardware and setups mineral detector
     public Robot1_Auto(Robot1_Hardware hardware) {
         this.hardware = hardware;
         mineralDetector = hardware.mineralDetector;
+        navTargetDetector = hardware.navTargetDetector;
     }
 
     public void setupMineralDetector(HardwareMap hwMap) {
         mineralDetector.setupDetector(hwMap, 1);
+    }
+
+    public void setupNavigationDetector(HardwareMap hwMap) {
+        navTargetDetector.setupTracker();
     }
 
     // Turn until gold mineral is aligned with robot center
