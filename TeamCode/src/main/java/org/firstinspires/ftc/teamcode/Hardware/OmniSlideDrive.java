@@ -162,6 +162,16 @@ public class OmniSlideDrive {
      * @param pow : power at which we drive
      */
     public void goTo(Vector location, double pow) {
+        face(location); // Turn to face location
+        driveDistance(1, location.distanceFrom(robotPos), pow); // Drive to location
+        robotPos = location; // Update robot position
+    }
+
+    /**
+     * Robot turns to face certain location on field
+     * @param location : Vector position of the location, use field map
+     */
+    public void face(Vector location) {
         double radiansToTurn = Math.atan2(location.getY() - robotPos.getY(), location.getX() - robotPos.getX());
         int theta = gyroSensor.convertToDegrees(radiansToTurn);
 
@@ -187,9 +197,6 @@ public class OmniSlideDrive {
             else
                 turn(tempRobotAngle - theta, true);
         }
-
-        driveDistance(1, location.distanceFrom(robotPos), pow);
-        robotPos = location;
     }
 
     /**
