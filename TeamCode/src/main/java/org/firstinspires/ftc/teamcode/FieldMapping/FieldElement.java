@@ -40,5 +40,11 @@ public enum FieldElement {
     BLUE_ROVER,
     FRONT_CRATERS,
     BACK_SPACE,
-    RED_FOOTPRINT
+    RED_FOOTPRINT,
+
+    // Front of Navigation Targets
+    FRONT_OF_BLUE_ROVER,
+    FRONT_OF_FRONT_CRATERS,
+    FRONT_OF_BACK_SPACE,
+    FRONT_OF_RED_FOOTPRINT
 }

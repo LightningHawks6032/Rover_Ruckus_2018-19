@@ -59,9 +59,16 @@ public class FieldMap {
 
         // Nav Targets
         add(FieldElement.BLUE_ROVER, new Vector(0,QUADRANT_LENGTH));
+        add(FieldElement.FRONT_OF_BLUE_ROVER, new Vector(0, 5*HALF_SQUARE_LENGTH));
+
         add(FieldElement.FRONT_CRATERS, new Vector(QUADRANT_LENGTH,0));
+        add(FieldElement.FRONT_OF_FRONT_CRATERS, new Vector(5*HALF_SQUARE_LENGTH, 0));
+
         add(FieldElement.BACK_SPACE, new Vector(-QUADRANT_LENGTH,0));
+        add(FieldElement.FRONT_OF_BACK_SPACE, new Vector(-5*HALF_SQUARE_LENGTH, 0));
+
         add(FieldElement.RED_FOOTPRINT, new Vector(0,-QUADRANT_LENGTH));
+        add(FieldElement.FRONT_OF_RED_FOOTPRINT, new Vector(0, -5*HALF_SQUARE_LENGTH));
     }
 
     // Accesses the position of a specific element based on quadrant and name
