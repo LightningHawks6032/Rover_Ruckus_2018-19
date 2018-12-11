@@ -29,7 +29,7 @@ public class Robot1_MineralSampling extends LinearOpMode {
         hardware = new Robot1_Hardware(hardwareMap, gamepad1, true);
         hardware.initHardware();
 
-        detector = new GoldAlignDetector(hardware.ROBOT_CENTER_X, 250, true); // Create detector
+        detector = hardware.mineralDetector;
         detector.setupDetector(hardwareMap, 1); // Camera Index: 0 for back camera, 1 for front camera
         hardware.drivetrain.setRobotPos(fieldMap.HALF_SQUARE_LENGTH, -fieldMap.HALF_SQUARE_LENGTH); // We aren't testing nav target detection here, so assume this position
         hardware.drivetrain.setRobotAngle(315);

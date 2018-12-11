@@ -27,7 +27,24 @@ public class Robot1_Auto {
         navTargetDetector.setupTracker();
     }
 
-    // Turn until gold mineral is aligned with robot center
+    // Updates Robot Position and Angle with Navigation Targets
+    public void updateWithNavTarget() {
+        double startTime = System.currentTimeMillis();
+
+        while (!hardware.navTargetDetector.isTargetVisible() || System.currentTimeMillis() - startTime < 3) {
+            hardware.navTargetDetector.lookForTargets();
+        }
+        hardware.drivetrain.setRobotPos(hardware.navTargetDetector.getRobotPosition().getX(), hardware.navTargetDetector.getRobotPosition().getY());
+        hardware.drivetrain.setRobotAngle((int) hardware.navTargetDetector.getRobotRotation());
+    }
+
+    public void releaseMarker() throws InterruptedException {
+        hardware.markerArm.setPosition(hardware.MARKER_ARM_DOWN);
+        Thread.sleep(200);
+        hardware.markerArm.setPosition(hardware.MARKER_ARM_UP);
+    }
+
+    // Turn until gold mineral is aligned with robot center (NO LONGER USED)
     public void turnToGold() throws InterruptedException {
         double turningPower;
 
