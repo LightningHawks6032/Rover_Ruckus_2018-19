@@ -178,7 +178,7 @@ public class Robot1_MineralSampling extends LinearOpMode {
 
 
         // Determine what angle to turn
-        int tempRobotAngle = -45;
+        int tempRobotAngle = hardware.drivetrain.robotAngle > 180 ? 360 - hardware.drivetrain.robotAngle : hardware.drivetrain.robotAngle;
         if (tempRobotAngle * theta < 0) {
             if (Math.abs(tempRobotAngle) + Math.abs(theta) < 180) {
                 if (tempRobotAngle > theta)
