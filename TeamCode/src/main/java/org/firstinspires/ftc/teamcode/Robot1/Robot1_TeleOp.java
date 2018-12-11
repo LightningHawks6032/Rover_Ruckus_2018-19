@@ -24,9 +24,6 @@ public class Robot1_TeleOp extends OpMode {
         slidePower = 0;
         hangPow = 0;
         actuPos = 0.3;
-
-        // Run encoders on horizontal slide motors
-        hardware.slideEncoder.setup();
     }
 
     public void loop() {
@@ -41,8 +38,8 @@ public class Robot1_TeleOp extends OpMode {
     }
 
     private void debug() {
-        telemetry.addData("left claw position", hardware.leftClaw.getPosition());
-        telemetry.addData("right claw position", hardware.rightClaw.getPosition());
+        telemetry.addData("Hang Motor Encoder Val", hardware.hangEncoder.getEncoderCount());
+        telemetry.addData("Hang Motor Power", hardware.hangNvst.getPower());
         telemetry.addData("linear actuator direction", hardware.linearActuator.getDirection());
         telemetry.addData("linear actuator position", hardware.linearActuator.getPosition());
         telemetry.update();

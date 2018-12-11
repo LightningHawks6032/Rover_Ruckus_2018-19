@@ -31,7 +31,7 @@ public class Robot1_MineralSampling extends LinearOpMode {
 
         detector = hardware.mineralDetector;
         detector.setupDetector(hardwareMap, 1); // Camera Index: 0 for back camera, 1 for front camera
-        hardware.drivetrain.setRobotPos(fieldMap.HALF_SQUARE_LENGTH, -fieldMap.HALF_SQUARE_LENGTH); // We aren't testing nav target detection here, so assume this position
+        hardware.drivetrain.setRobotPos(fieldMap.SQUARE_LENGTH, -fieldMap.SQUARE_LENGTH); // We aren't testing nav target detection here, so assume this position
         hardware.drivetrain.setRobotAngle(315);
 
         waitForStart();
@@ -121,30 +121,35 @@ public class Robot1_MineralSampling extends LinearOpMode {
     private int findGoldForPosition() {
         sleep(1000);
         if (detector.getAligned()) {
-            telemetry.addLine("Aligned with middle mineral");
-            telemetry.update();
+            //telemetry.addLine("Aligned with middle mineral");
+            //telemetry.addData("ra", hardware.drivetrain.robotAngle);
+            //telemetry.update();
             return 2;
         }
 
         hardware.drivetrain.turn(30, false);
-        sleep(200);
+        sleep(500);
         if (detector.getAligned()) {
-            telemetry.addLine("Aligned with left mineral");
-            telemetry.update();
+            //telemetry.addLine("Aligned with left mineral");
+            //telemetry.addData("ra", hardware.drivetrain.robotAngle);
+            //telemetry.update();
             hardware.drivetrain.turn(30, true);
             return 1;
         }
 
         hardware.drivetrain.turn(60, true);
-        sleep(200);
+        sleep(500);
         if (detector.getAligned()) {
-            telemetry.addLine("Aligned with right mineral");
-            telemetry.update();
+            //telemetry.addLine("Aligned with right mineral");
+            //telemetry.addData("ra", hardware.drivetrain.robotAngle);
+            //telemetry.update();
             hardware.drivetrain.turn(30, false);
             return 3;
         }
 
         hardware.drivetrain.turn(30, false);
+        //telemetry.addData("ra", hardware.drivetrain.robotAngle);
+
 
         return 2;
 
@@ -178,7 +183,7 @@ public class Robot1_MineralSampling extends LinearOpMode {
 
 
         // Determine what angle to turn
-        int tempRobotAngle = hardware.drivetrain.robotAngle > 180 ? 360 - hardware.drivetrain.robotAngle : hardware.drivetrain.robotAngle;
+        int tempRobotAngle = -45;
         if (tempRobotAngle * theta < 0) {
             if (Math.abs(tempRobotAngle) + Math.abs(theta) < 180) {
                 if (tempRobotAngle > theta)

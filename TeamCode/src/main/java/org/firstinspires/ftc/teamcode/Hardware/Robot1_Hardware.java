@@ -21,17 +21,18 @@ public class Robot1_Hardware implements HardwareInterface {
     public DcMotor slideMotor = null;
     //public CRServo hangVex = null;
     public DcMotor hangNvst = null;
+    public Encoder hangEncoder = null;
     public Servo linearActuator = null;
     public Servo leftClaw = null;
     public Servo rightClaw = null;
     public Servo markerArm = null;
-    public Encoder slideEncoder = null;
+    //public Encoder slideEncoder = null;
 
 
     // Servo constants
-    public final double RIGHT_CLAW_CLOSE = 1,
+    public final double RIGHT_CLAW_CLOSE = 0.7,
            RIGHT_CLAW_OPEN = 0,
-           LEFT_CLAW_CLOSE = 0,
+           LEFT_CLAW_CLOSE = 0.3,
            LEFT_CLAW_OPEN = 1,
            MARKER_ARM_UP = 1,
            MARKER_ARM_MIDDLE = 0.5,
@@ -75,11 +76,11 @@ public class Robot1_Hardware implements HardwareInterface {
             );
         }
 
-        mineralDetector = new GoldAlignDetector(ROBOT_CENTER_X, 100, true);
+        mineralDetector = new GoldAlignDetector(ROBOT_CENTER_X, 300, true);
         navTargetDetector = new NavTargetDetector(hardwareMap, CAMERA_FORWARD_POSITION, CAMERA_VERTICAL_POSITION, CAMERA_LEFT_POSITION);
 
         slideMotor = hardwareMap.get(DcMotor.class, "sm");
-        slideEncoder = new Encoder(slideMotor, "neverest", 0);
+        //slideEncoder = new Encoder(slideMotor, "neverest", 0);
 
 
         linearActuator = hardwareMap.get(Servo.class, "la");
@@ -89,6 +90,8 @@ public class Robot1_Hardware implements HardwareInterface {
 
         //hangVex = hardwareMap.get(CRServo.class, "hv");
         hangNvst = hardwareMap.get(DcMotor.class, "hn");
+        hangEncoder = new Encoder(hangNvst, "neverest", 0);
+
     }
 
     public void initHardware() {
@@ -96,10 +99,13 @@ public class Robot1_Hardware implements HardwareInterface {
         drivetrain.setupMotors();
         slideMotor.setDirection(DcMotor.Direction.FORWARD);
         //hangVex.setDirection(CRServo.Direction.FORWARD);
-        hangNvst.setDirection(DcMotor.Direction.FORWARD);
+        hangNvst.setDirection(DcMotor.Direction.REVERSE);
         rightClaw.setPosition(RIGHT_CLAW_CLOSE);
         leftClaw.setPosition(LEFT_CLAW_CLOSE);
         markerArm.setPosition(MARKER_ARM_UP);
+
+        //slideEncoder.setup();
+        hangEncoder.setup();
     }
 
 }
