@@ -69,9 +69,6 @@ public class Robot1_MineralSampling extends LinearOpMode {
     private void positionalMineralSampling() {
         int goldPos = findGoldForPosition();
 
-        telemetry.addData("gyro", hardware.drivetrain.getGyro().getAngle());
-        telemetry.update();
-
         //telemetry.addLine("Moving to hit mineral");
         //telemetry.update();
         if (goldPos == 1) {
@@ -178,12 +175,12 @@ public class Robot1_MineralSampling extends LinearOpMode {
     private void goTo(Vector location, double pow) {
         double radiansToTurn = Math.atan2(location.getY() - hardware.drivetrain.robotPos.getY(), location.getX() - hardware.drivetrain.robotPos.getX());
         int theta = hardware.drivetrain.getGyro().convertToDegrees(radiansToTurn);
-        telemetry.addData("theta", theta);
-        telemetry.update();
 
 
         // Determine what angle to turn
-        int tempRobotAngle = -45;
+        int tempRobotAngle = hardware.drivetrain.robotAngle > 180 ? -(360 - hardware.drivetrain.robotAngle) : hardware.drivetrain.robotAngle;
+        telemetry.addData("temp angle", tempRobotAngle);
+        telemetry.update();
         if (tempRobotAngle * theta < 0) {
             if (Math.abs(tempRobotAngle) + Math.abs(theta) < 180) {
                 if (tempRobotAngle > theta)

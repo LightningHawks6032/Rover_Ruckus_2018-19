@@ -176,7 +176,7 @@ public class OmniSlideDrive {
         int theta = gyroSensor.convertToDegrees(radiansToTurn);
 
         // Determine what angle to turn
-        int tempRobotAngle = robotAngle > 180 ? 360 - robotAngle : robotAngle;
+        int tempRobotAngle = robotAngle > 180 ? -(360 - robotAngle) : robotAngle;
         if (tempRobotAngle * theta < 0) {
             if (Math.abs(tempRobotAngle) + Math.abs(theta) < 180) {
                 if (tempRobotAngle > theta)
