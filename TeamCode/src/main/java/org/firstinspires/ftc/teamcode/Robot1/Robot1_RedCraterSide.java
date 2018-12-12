@@ -19,6 +19,7 @@ public class Robot1_RedCraterSide extends LinearOpMode {
         hardware.initHardware();
         auto = new Robot1_Auto(hardware);
         waitForStart();
+        auto.setStartPosition(3);
 
         // Look to navigation targets for position
         auto.setupNavigationDetector(hardwareMap);

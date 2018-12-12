@@ -33,6 +33,27 @@ public class Robot1_Auto {
         navTargetDetector.setupTracker();
     }
 
+    public void setStartPosition(int quadrant) {
+        switch (quadrant) {
+            case 1:
+                hardware.drivetrain.setRobotPos(fieldMap.SQUARE_LENGTH, fieldMap.SQUARE_LENGTH);
+                hardware.drivetrain.setRobotAngle(45);
+                break;
+            case 2:
+                hardware.drivetrain.setRobotPos(-fieldMap.SQUARE_LENGTH, fieldMap.SQUARE_LENGTH);
+                hardware.drivetrain.setRobotAngle(135);
+                break;
+            case 3:
+                hardware.drivetrain.setRobotPos(-fieldMap.SQUARE_LENGTH, -fieldMap.SQUARE_LENGTH);
+                hardware.drivetrain.setRobotAngle(225);
+                break;
+            case 4:
+                hardware.drivetrain.setRobotPos(fieldMap.SQUARE_LENGTH, -fieldMap.SQUARE_LENGTH);
+                hardware.drivetrain.setRobotAngle(315);
+                break;
+        }
+    }
+
     // Updates Robot Position and Angle with Navigation Targets
     public void updateWithNavTarget() {
         double startTime = System.currentTimeMillis();

@@ -20,7 +20,7 @@ public class Robot1_RedDepotSide extends LinearOpMode {
         auto = new Robot1_Auto(hardware);
 
         waitForStart();
-
+        auto.setStartPosition(4);
 
         // Look to navigation targets for position
         auto.setupNavigationDetector(hardwareMap);
