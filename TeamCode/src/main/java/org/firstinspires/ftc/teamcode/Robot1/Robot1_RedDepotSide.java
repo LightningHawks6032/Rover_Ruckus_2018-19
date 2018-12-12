@@ -16,16 +16,30 @@ public class Robot1_RedDepotSide extends LinearOpMode {
         hardware = new Robot1_Hardware(hardwareMap, gamepad1, true);
         hardware.initHardware();
         auto = new Robot1_Auto(hardware);
+
         waitForStart();
 
-        // Sample code for how auto should look like
+
+        // Look to navigation targets for position
+        auto.setupNavigationDetector(hardwareMap);
         hardware.drivetrain.face(fieldMap.get(FieldElement.FRONT_CRATERS));
         auto.updateWithNavTarget();
+
+        // Face minerals
         hardware.drivetrain.face(fieldMap.get(FieldElement.RED_DEPOT_MIDDLE_MINERAL));
-        //auto.performMineralSampling();
+
+        // Sample minerals
+        auto.setupMineralDetector(hardwareMap);
+        auto.performMineralSampling(4, false, false);
+        hardware.mineralDetector.disable();
+
+        // Go to depot
         hardware.drivetrain.goTo(fieldMap.get(FieldElement.RED_DEPOT), 0.6);
-        hardware.drivetrain.face(fieldMap.get(FieldElement.RED_CRATER_LEFT_EDGE));
-        auto.releaseMarker();
+
+        // Dropping off marker
+        auto.releaseMarker("red");
+
+        // Returning to crater
         hardware.drivetrain.goTo(fieldMap.get(FieldElement.RED_CRATER_LEFT_EDGE), 0.6);
     }
 }

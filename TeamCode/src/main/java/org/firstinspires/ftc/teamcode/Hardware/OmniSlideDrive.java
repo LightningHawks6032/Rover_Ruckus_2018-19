@@ -223,10 +223,7 @@ public class OmniSlideDrive {
         setPowers(0, 0, 0);
 
         // Updates the robot angle based on turn
-        if (right)
-            setRobotAngle((360 + robotAngle - Math.abs(degrees)) % 360);
-        else
-            setRobotAngle((360 + robotAngle + Math.abs(degrees)) % 360);
+        setRobotAngle((360 + robotAngle - gyroSensor.getAngle()) % 360);
     }
 
 

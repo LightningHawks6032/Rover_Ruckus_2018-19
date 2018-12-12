@@ -18,23 +18,34 @@ public class Robot1_RedCraterSide extends LinearOpMode {
         auto = new Robot1_Auto(hardware);
         waitForStart();
 
-        // Sample code for how auto should look like
+        // Look to navigation targets for position
+        auto.setupNavigationDetector(hardwareMap);
         hardware.drivetrain.face(fieldMap.get(FieldElement.BACK_SPACE));
         auto.updateWithNavTarget();
+
+        // Face minerals
         hardware.drivetrain.face(fieldMap.get(FieldElement.RED_CRATER_MIDDLE_MINERAL));
-        //auto.performMineralSampling();
-        // Back up
-        hardware.drivetrain.face(fieldMap.get(FieldElement.RED_FOOTPRINT));
-        auto.updateWithNavTarget();
+
+        // Sample minerals
+        auto.setupMineralDetector(hardwareMap);
+        auto.performMineralSampling(3, false, true);
+        hardware.mineralDetector.disable();
+
+        // Go to navigation target
         hardware.drivetrain.goTo(fieldMap.get(FieldElement.FRONT_OF_RED_FOOTPRINT), 0.6);
+        auto.updateWithNavTarget();
+
+        // Go to depot
         hardware.drivetrain.goTo(fieldMap.get(FieldElement.RED_DEPOT), 0.6);
-        hardware.drivetrain.face(fieldMap.get(FieldElement.RED_CRATER_LEFT_EDGE));
-        auto.releaseMarker();
-        /* if completing mineral sampling for partner
+
+        // Dropping off marker
+        auto.releaseMarker("red");
+
+        // If completing mineral sampling for partner, sample minerals
         hardware.drivetrain.face(fieldMap.get(FieldElement.RED_DEPOT_MIDDLE_MINERAL));
-        auto.performMineralSampling();
-        back up
-         */
+        auto.performMineralSampling(4, true, true);
+
+        // Returning to crater
         hardware.drivetrain.goTo(fieldMap.get(FieldElement.RED_CRATER_LEFT_EDGE), 0.6);
     }
 }

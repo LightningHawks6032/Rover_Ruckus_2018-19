@@ -91,11 +91,6 @@ public class NavTargetDetector {
         VuforiaTrackable backSpace = targetsRoverRuckus.get(3);
         backSpace.setName(targetNames[3]);
 
-        // Because of landscape mode:
-        // New roll = previous roll
-        // New pitch = previous yaw
-        // New yaw = previous pitch
-
         /** Blue Rover Target, Middle of Blue Perimeter Wall **/
         OpenGLMatrix blueRoverLocationOnField = OpenGLMatrix
                 .translation(0, mmFTCFieldWidth, mmTargetHeight)
