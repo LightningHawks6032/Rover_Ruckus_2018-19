@@ -143,9 +143,9 @@ public class Robot1_Auto {
 
     public void releaseMarker(String alliance) throws InterruptedException {
         if (alliance.equals("red"))
-            hardware.drivetrain.face(fieldMap.get(FieldElement.BLUE_CRATER_RIGHT_EDGE));
+            hardware.drivetrain.face(fieldMap.get(FieldElement.RED_CRATER_LEFT_EDGE));
         else if (alliance.equals("blue"))
-            hardware.drivetrain.face(fieldMap.get(FieldElement.RED_CRATER_RIGHT_EDGE));
+            hardware.drivetrain.face(fieldMap.get(FieldElement.BLUE_CRATER_LEFT_EDGE));
 
         hardware.markerArm.setPosition(hardware.MARKER_ARM_DOWN);
         Thread.sleep(200);

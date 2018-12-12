@@ -103,6 +103,7 @@ public class Robot1_Hardware implements HardwareInterface {
         rightClaw.setPosition(RIGHT_CLAW_CLOSE);
         leftClaw.setPosition(LEFT_CLAW_CLOSE);
         markerArm.setPosition(MARKER_ARM_UP);
+        linearActuator.setPosition(0.5);
 
         //slideEncoder.setup();
         hangEncoder.setup();

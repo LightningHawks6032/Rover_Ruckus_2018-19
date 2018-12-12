@@ -12,13 +12,13 @@ public class OmniSlideDrive {
     public int robotAngle; // Angle relative to (0, 0) on field
 
     // Motors
-    private DcMotor leftMotor;
-    private DcMotor rightMotor;
+    public DcMotor leftMotor;
+    public DcMotor rightMotor;
     private DcMotor middleMotor;
     private Encoder leftEncoder;
     private Encoder rightEncoder;
     private Encoder middleEncoder;
-    private MRGyro gyroSensor;
+    public MRGyro gyroSensor;
     private Gamepad gamepad;
 
     // Constants to regulate maximum power
@@ -113,6 +113,9 @@ public class OmniSlideDrive {
         }
 
         setPowers(0, 0, 0);
+
+        leftEncoder.runWithout();
+        rightEncoder.runWithout();
     }
 
     /**
@@ -135,6 +138,8 @@ public class OmniSlideDrive {
         }
 
         setPowers(0, 0, 0);
+
+        middleEncoder.runWithout();
     }
 
     /**
@@ -224,6 +229,11 @@ public class OmniSlideDrive {
 
         // Updates the robot angle based on turn
         setRobotAngle((360 + robotAngle - gyroSensor.getAngle()) % 360);
+
+        /*if (right)
+            setRobotAngle((360 + robotAngle - Math.abs(degrees)) % 360);
+        else
+            setRobotAngle((360 + robotAngle + Math.abs(degrees)) % 360);*/
     }
 
 

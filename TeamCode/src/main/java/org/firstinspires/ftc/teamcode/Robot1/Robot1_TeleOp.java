@@ -23,7 +23,7 @@ public class Robot1_TeleOp extends OpMode {
         //Assign variables
         slidePower = 0;
         hangPow = 0;
-        actuPos = 0.3;
+        actuPos = hardware.linearActuator.getPosition();
     }
 
     public void loop() {

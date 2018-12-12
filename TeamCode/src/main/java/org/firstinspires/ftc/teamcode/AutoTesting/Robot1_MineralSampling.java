@@ -41,6 +41,7 @@ public class Robot1_MineralSampling extends LinearOpMode {
         //turnToGold();
 
         positionalMineralSampling();
+        goTo(fieldMap.get(FieldElement.RED_DEPOT), 0.8);
 
         detector.disable();
     }
@@ -184,26 +185,60 @@ public class Robot1_MineralSampling extends LinearOpMode {
         if (tempRobotAngle * theta < 0) {
             if (Math.abs(tempRobotAngle) + Math.abs(theta) < 180) {
                 if (tempRobotAngle > theta)
-                    hardware.drivetrain.turn(Math.abs(tempRobotAngle) + Math.abs(theta), true);
+                    turn(Math.abs(tempRobotAngle) + Math.abs(theta), true);
                 else
-                    hardware.drivetrain.turn(Math.abs(tempRobotAngle) + Math.abs(theta), false);
+                    turn(Math.abs(tempRobotAngle) + Math.abs(theta), false);
             }
             else {
                 if (tempRobotAngle > theta)
-                    hardware.drivetrain.turn(360 - (Math.abs(theta) + Math.abs(tempRobotAngle)), false);
+                    turn(360 - (Math.abs(theta) + Math.abs(tempRobotAngle)), false);
                 else
-                    hardware.drivetrain.turn(360 - (Math.abs(theta) + Math.abs(tempRobotAngle)), true);
+                    turn(360 - (Math.abs(theta) + Math.abs(tempRobotAngle)), true);
             }
         }
         else if (tempRobotAngle != theta) {
             if (tempRobotAngle < theta)
-                hardware.drivetrain.turn(theta - tempRobotAngle, false);
+                turn(theta - tempRobotAngle, false);
             else
-                hardware.drivetrain.turn(tempRobotAngle - theta, true);
+                turn(tempRobotAngle - theta, true);
         }
 
         hardware.drivetrain.driveDistance(1, location.distanceFrom(hardware.drivetrain.robotPos), pow);
         hardware.drivetrain.robotPos = location;
+    }
+
+    public void turn(int degrees, boolean right) {
+        hardware.drivetrain.gyroSensor.zero();
+
+        int currAngle = Math.abs(hardware.drivetrain.gyroSensor.getAngle()); // Use getAngle() because it returns angle robot has turned from origin
+        double pow = 1; // power applied to motors
+
+        while (currAngle < degrees) {
+            pow = (double) (degrees - currAngle) / degrees * 0.6 + 0.1;
+
+            // Apply power to motors and update currAngle
+            if (right) {
+                hardware.drivetrain.setPowers(pow, -pow, 0);
+            } else {
+                hardware.drivetrain.setPowers(-pow, pow, 0);
+            }
+            currAngle = Math.abs(hardware.drivetrain.gyroSensor.getAngle());
+
+            telemetry.addData("curr angle", currAngle);
+            telemetry.addData("degree", degrees);
+            telemetry.addData("power left", hardware.drivetrain.leftMotor.getPower());
+            telemetry.addData("power right", hardware.drivetrain.rightMotor.getPower());
+            telemetry.update();
+        }
+        hardware.drivetrain.setPowers(0, 0, 0);
+
+        // Updates the robot angle based on turn
+        hardware.drivetrain.setRobotAngle((360 + hardware.drivetrain.robotAngle - hardware.drivetrain.gyroSensor.getAngle()) % 360);
+
+        /*if (right)
+            setRobotAngle((360 + robotAngle - Math.abs(degrees)) % 360);
+        else
+            setRobotAngle((360 + robotAngle + Math.abs(degrees)) % 360);*/
     }
 
 }

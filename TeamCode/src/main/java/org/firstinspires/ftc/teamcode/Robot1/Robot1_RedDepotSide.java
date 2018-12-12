@@ -23,25 +23,33 @@ public class Robot1_RedDepotSide extends LinearOpMode {
         auto.setStartPosition(4);
 
         // Look to navigation targets for position
-        auto.setupNavigationDetector(hardwareMap);
-        hardware.drivetrain.face(fieldMap.get(FieldElement.FRONT_CRATERS));
-        auto.updateWithNavTarget();
+        //auto.setupNavigationDetector(hardwareMap);
+        //hardware.drivetrain.face(fieldMap.get(FieldElement.RED_FOOTPRINT));
+        //auto.updateWithNavTarget();
 
         // Face minerals
-        hardware.drivetrain.face(fieldMap.get(FieldElement.RED_DEPOT_MIDDLE_MINERAL));
+        //hardware.drivetrain.face(fieldMap.get(FieldElement.RED_DEPOT_MIDDLE_MINERAL));
 
         // Sample minerals
+        telemetry.addLine("Sampling Minerals");
+        telemetry.update();
         auto.setupMineralDetector(hardwareMap);
         auto.performMineralSampling(4, false, false);
         hardware.mineralDetector.disable();
 
         // Go to depot
+        telemetry.addLine("Going to Depot");
+        telemetry.update();
         hardware.drivetrain.goTo(fieldMap.get(FieldElement.RED_DEPOT), 0.6);
 
         // Dropping off marker
+        telemetry.addLine("Releasing Marker");
+        telemetry.update();
         auto.releaseMarker("red");
 
         // Returning to crater
+        telemetry.addLine("Driving to Crater");
+        telemetry.update();
         hardware.drivetrain.goTo(fieldMap.get(FieldElement.RED_CRATER_LEFT_EDGE), 0.6);
     }
 }
