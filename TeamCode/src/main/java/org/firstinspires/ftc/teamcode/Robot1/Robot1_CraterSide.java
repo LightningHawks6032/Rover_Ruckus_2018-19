@@ -8,7 +8,7 @@ import org.firstinspires.ftc.teamcode.Vision.Detectors.GoldAlignDetector;
 
 // Will delete eventually
 
-@Autonomous(name="Robot 1 Crater Side", group="Linear Opmode")
+// @Autonomous(name="Robot 1 Crater Side", group="Linear Opmode")
 public class Robot1_CraterSide extends LinearOpMode {
     private Robot1_Hardware hardware;
     private Robot1_Auto auto;
