@@ -207,6 +207,7 @@ public class Robot1_MineralSampling extends LinearOpMode {
 
     public void turn(int degrees, boolean right) {
         hardware.drivetrain.gyroSensor.zero();
+        hardware.drivetrain.encoderSetup();
 
         int currAngle = Math.abs(hardware.drivetrain.gyroSensor.getAngle()); // Use getAngle() because it returns angle robot has turned from origin
         double pow = 1; // power applied to motors

@@ -18,7 +18,11 @@ public class Robot1_LandOnField extends LinearOpMode {
 
         waitForStart();
         land();
-
+        hardware.drivetrain.strafeDistance(-1, 5, 0.5);
+        hardware.drivetrain.driveDistance(1, 5, 0.5);
+        hardware.drivetrain.strafeDistance(1, 5, 0.5);
+        hardware.drivetrain.driveDistance(1, 5, 0.5);
+        //hardware.drivetrain.strafeForTime(-0.5, 1);
 
     }
 
@@ -27,9 +31,9 @@ public class Robot1_LandOnField extends LinearOpMode {
 
         hardware.hangEncoder.runToPosition();
 
-        hardware.hangEncoder.setTarget(20000);
+        hardware.hangEncoder.setEncoderTarget(16500);
 
-        hardware.hangNvst.setPower(1);
+        hardware.hangNvst.setPower(-1);
 
         while (hardware.hangNvst.isBusy()) {
             // WAIT - Motor is busy

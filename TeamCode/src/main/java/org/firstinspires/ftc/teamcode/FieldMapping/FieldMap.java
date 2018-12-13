@@ -31,11 +31,11 @@ public class FieldMap {
 
         // Quadrant 3
         // Minerals
-        add(FieldElement.RED_CRATER_LEFT_MINERAL, new Vector(-SQUARE_LENGTH, -2*SQUARE_LENGTH));
+        add(FieldElement.RED_CRATER_LEFT_MINERAL, new Vector(-SQUARE_LENGTH, -5*HALF_SQUARE_LENGTH));
         add(FieldElement.RED_CRATER_MIDDLE_MINERAL, new Vector(-MID_QUADRANT, -MID_QUADRANT));
-        add(FieldElement.RED_CRATER_RIGHT_MINERAL, new Vector(-2*SQUARE_LENGTH, -SQUARE_LENGTH));
+        add(FieldElement.RED_CRATER_RIGHT_MINERAL, new Vector(-5*HALF_SQUARE_LENGTH, -SQUARE_LENGTH));
         // Crater Position
-        add(FieldElement.RED_CRATER_LEFT_EDGE, new Vector(-SQUARE_LENGTH,-5*HALF_SQUARE_LENGTH));
+        add(FieldElement.RED_CRATER_LEFT_EDGE, new Vector(-SQUARE_LENGTH,-11/2*HALF_SQUARE_LENGTH));
         add(FieldElement.RED_CRATER_CENTER_EDGE, new Vector(-5*HALF_SQUARE_LENGTH,-SQUARE_LENGTH));
         add(FieldElement.RED_CRATER_RIGHT_EDGE, new Vector(-5*HALF_SQUARE_LENGTH,-5*HALF_SQUARE_LENGTH));
 
@@ -53,9 +53,9 @@ public class FieldMap {
         add(FieldElement.BLUE_CRATER_MIDDLE_MINERAL, new Vector(MID_QUADRANT, MID_QUADRANT));
         add(FieldElement.BLUE_CRATER_RIGHT_MINERAL, new Vector(2*SQUARE_LENGTH, SQUARE_LENGTH));
         // Crater Positions
-        add(FieldElement.BLUE_CRATER_LEFT_EDGE, new Vector(SQUARE_LENGTH,5*HALF_SQUARE_LENGTH));
+        add(FieldElement.BLUE_CRATER_LEFT_EDGE, new Vector(SQUARE_LENGTH,11/2*HALF_SQUARE_LENGTH));
         add(FieldElement.BLUE_CRATER_CENTER_EDGE, new Vector(5*HALF_SQUARE_LENGTH,SQUARE_LENGTH));
-        add(FieldElement.BLUE_CRATER_RIGHT_EDGE, new Vector(5*HALF_SQUARE_LENGTH,5*HALF_SQUARE_LENGTH));
+        add(FieldElement.BLUE_CRATER_RIGHT_EDGE, new Vector(5*HALF_SQUARE_LENGTH, SQUARE_LENGTH));
 
         // Nav Targets
         add(FieldElement.BLUE_ROVER, new Vector(0,QUADRANT_LENGTH));

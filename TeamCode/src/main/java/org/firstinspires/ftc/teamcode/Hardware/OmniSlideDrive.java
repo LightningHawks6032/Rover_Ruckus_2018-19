@@ -57,7 +57,7 @@ public class OmniSlideDrive {
         encoderSetup();
     }
 
-    private void encoderSetup() {
+    public void encoderSetup() {
         leftEncoder.setup();
         rightEncoder.setup();
         middleEncoder.setup();
@@ -180,6 +180,10 @@ public class OmniSlideDrive {
         double radiansToTurn = Math.atan2(location.getY() - robotPos.getY(), location.getX() - robotPos.getX());
         int theta = gyroSensor.convertToDegrees(radiansToTurn);
 
+        faceAngle(theta);
+    }
+
+    public void faceAngle(int theta) {
         // Determine what angle to turn
         int tempRobotAngle = robotAngle > 180 ? -(360 - robotAngle) : robotAngle;
         if (tempRobotAngle * theta < 0) {
@@ -211,6 +215,7 @@ public class OmniSlideDrive {
      */
     public void turn(int degrees, boolean right) {
         gyroSensor.zero();
+        encoderSetup();
 
         int currAngle = Math.abs(gyroSensor.getAngle()); // Use getAngle() because it returns angle robot has turned from origin
         double pow = 1; // power applied to motors

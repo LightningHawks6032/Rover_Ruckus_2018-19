@@ -69,6 +69,22 @@ public class Robot1_Auto {
         }
     }
 
+    public void landOnField() throws InterruptedException {
+        hardware.hangEncoder.reset();
+        hardware.hangEncoder.runToPosition();
+        hardware.hangEncoder.setEncoderTarget(16500);
+        hardware.hangNvst.setPower(-1);
+        while (hardware.hangNvst.isBusy()) {
+            // WAIT - Motor is busy
+        }
+        hardware.hangNvst.setPower(0);
+
+        hardware.drivetrain.strafeDistance(-1, 5, 0.5);
+        hardware.drivetrain.driveDistance(1, 5, 0.5);
+        hardware.drivetrain.strafeDistance(1, 5, 0.5);
+        hardware.drivetrain.driveDistance(1, 8, 0.5);
+    }
+
     /**
      * Robot performs mineral sampling by moving the gold mineral off of its starting position
      * @param quadrant : the quadrant where the mineral sampling happens (1-4)
@@ -146,14 +162,33 @@ public class Robot1_Auto {
 
 
     public void releaseMarker(String alliance) throws InterruptedException {
+        hardware.drivetrain.strafeForTime(0.8, 1);
         if (alliance.equals("red"))
-            hardware.drivetrain.face(fieldMap.get(FieldElement.RED_CRATER_LEFT_EDGE));
+            hardware.drivetrain.faceAngle(270);
         else if (alliance.equals("blue"))
-            hardware.drivetrain.face(fieldMap.get(FieldElement.BLUE_CRATER_LEFT_EDGE));
+            hardware.drivetrain.faceAngle(90);
 
         hardware.markerArm.setPosition(hardware.MARKER_ARM_DOWN);
-        Thread.sleep(200);
+        Thread.sleep(1000);
         hardware.markerArm.setPosition(hardware.MARKER_ARM_UP);
+    }
+
+    public void driveToCrater(String alliance) throws InterruptedException {
+        if (alliance.equals("red")) {
+            //hardware.drivetrain.goTo(fieldMap.get(FieldElement.RED_CRATER_LEFT_EDGE), 0.6);
+            hardware.drivetrain.faceAngle(180);
+            hardware.drivetrain.strafeForTime(-0.8, 2);
+            hardware.drivetrain.driveDistance(1, fieldMap.SQUARE_LENGTH * 4, 0.6);
+            //extendHorizontalSlide(0.3, 1);
+        } else if (alliance.equals("blue")) {
+
+        }
+    }
+
+    public void extendHorizontalSlide(double power, long seconds) throws InterruptedException {
+        hardware.slideMotor.setPower(power);
+        Thread.sleep(seconds*1000);
+        hardware.slideMotor.setPower(0);
     }
 
     // Turn until gold mineral is aligned with robot center (NO LONGER USED)

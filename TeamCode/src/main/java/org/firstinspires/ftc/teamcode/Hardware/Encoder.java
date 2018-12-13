@@ -66,6 +66,9 @@ public class Encoder {
         int encoderPos = (int) (linDistance * ticksPerRev() / getWheelCircumference());
         motor.setTargetPosition(encoderPos);
     }
+    public void setEncoderTarget(int encoderTicks) {
+        motor.setTargetPosition(encoderTicks);
+    }
 
 
     // Accessor methods
