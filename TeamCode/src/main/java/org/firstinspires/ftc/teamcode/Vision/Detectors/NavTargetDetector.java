@@ -160,9 +160,6 @@ public class NavTargetDetector {
     public boolean specificTargetVisible(int targetIndex) {
         return ((VuforiaTrackableDefaultListener) navigationTargets.get(targetIndex).getListener()).isVisible();
     }
-    /*public boolean specificTargetVisible(String targetName) {
-        return ((VuforiaTrackableDefaultListener) navigationTargets.get(navigationTargets.indexOf(targetName)).getListener()).isVisible();
-    }*/
 
     // Return true if the robot sees any target at all
     public boolean isTargetVisible() {

@@ -57,7 +57,7 @@ public class Robot1_TeleOp extends OpMode {
     // horizontal slide control
     private void manageSlide() {
         // could add a multiplier value
-        slidePower = -gamepad2.left_stick_y*0.6; // perhaps change to x rather than y
+        slidePower = -gamepad2.left_stick_y * 0.6;
 
         hardware.slideMotor.setPower(slidePower);
     }
@@ -99,10 +99,6 @@ public class Robot1_TeleOp extends OpMode {
     // lander latch control
     private void manageLatch() {
         hangPow = -gamepad2.right_stick_y;
-        /*if (gamepad2.right_stick_y < 0)
-            hardware.hangVex.setPower(hangPow * 0.3);
-        else
-            hardware.hangVex.setPower(hangPow * 0.1);*/
         hardware.hangNvst.setPower(hangPow);
     }
 }

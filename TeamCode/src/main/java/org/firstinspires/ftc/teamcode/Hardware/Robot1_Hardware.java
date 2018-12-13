@@ -19,14 +19,12 @@ public class Robot1_Hardware implements HardwareInterface {
     public GoldAlignDetector mineralDetector;
     public NavTargetDetector navTargetDetector;
     public DcMotor slideMotor = null;
-    //public CRServo hangVex = null;
     public DcMotor hangNvst = null;
     public Encoder hangEncoder = null;
     public Servo linearActuator = null;
     public Servo leftClaw = null;
     public Servo rightClaw = null;
     public Servo markerArm = null;
-    //public Encoder slideEncoder = null;
 
 
     // Servo constants
@@ -80,15 +78,12 @@ public class Robot1_Hardware implements HardwareInterface {
         navTargetDetector = new NavTargetDetector(hardwareMap, CAMERA_FORWARD_POSITION, CAMERA_VERTICAL_POSITION, CAMERA_LEFT_POSITION);
 
         slideMotor = hardwareMap.get(DcMotor.class, "sm");
-        //slideEncoder = new Encoder(slideMotor, "neverest", 0);
-
 
         linearActuator = hardwareMap.get(Servo.class, "la");
         leftClaw = hardwareMap.get(Servo.class, "lc");
         rightClaw = hardwareMap.get(Servo.class, "rc");
         markerArm = hardwareMap.get(Servo.class, "ma");
 
-        //hangVex = hardwareMap.get(CRServo.class, "hv");
         hangNvst = hardwareMap.get(DcMotor.class, "hn");
         hangEncoder = new Encoder(hangNvst, "neverest", 0);
 
@@ -98,14 +93,13 @@ public class Robot1_Hardware implements HardwareInterface {
         // called during init() of opMode
         drivetrain.setupMotors();
         slideMotor.setDirection(DcMotor.Direction.FORWARD);
-        //hangVex.setDirection(CRServo.Direction.FORWARD);
         hangNvst.setDirection(DcMotor.Direction.REVERSE);
+
         rightClaw.setPosition(RIGHT_CLAW_CLOSE);
         leftClaw.setPosition(LEFT_CLAW_CLOSE);
         markerArm.setPosition(MARKER_ARM_UP);
         linearActuator.setPosition(0.5);
 
-        //slideEncoder.setup();
         hangEncoder.setup();
     }
 

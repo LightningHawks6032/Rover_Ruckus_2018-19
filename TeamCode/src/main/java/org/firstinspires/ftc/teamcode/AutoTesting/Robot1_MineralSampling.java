@@ -1,5 +1,5 @@
 /**
- * This tests mineral sampling in the fourth quadrant (red depot side)
+ * This tests mineral sampling in the fourth quadrant (red depot side). For TESTING purposes ONLY.
  */
 
 package org.firstinspires.ftc.teamcode.AutoTesting;
@@ -22,8 +22,6 @@ public class Robot1_MineralSampling extends LinearOpMode {
     private GoldAlignDetector detector;
     private FieldMap fieldMap = new FieldMap();
 
-
-    private boolean encoders = true; // Do we or do we not have encoders working?
 
     public void runOpMode() throws InterruptedException {
         hardware = new Robot1_Hardware(hardwareMap, gamepad1, true);

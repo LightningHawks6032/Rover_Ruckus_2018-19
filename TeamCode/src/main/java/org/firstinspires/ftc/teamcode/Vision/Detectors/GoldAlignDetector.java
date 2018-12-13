@@ -186,16 +186,6 @@ public class GoldAlignDetector extends DogeCVDetector {
     }
 
     /**
-     * Set the alignment settings for GoldAlign
-     * @param offset - How far from center frame (in pixels)
-     * @param width - How wide the margin is (in pixels, on each side of offset)
-     */
-    /*public void setAlignSettings(int offset, int width){
-        alignPosOffset = offset;
-        alignSize = width;
-    }*/
-
-    /**
      * Returns if the gold element is aligned
      * @return if the gold element is alined
      */
@@ -241,8 +231,6 @@ public class GoldAlignDetector extends DogeCVDetector {
         useDefaults(); // Set detector to use default settings
 
         // Optional tuning
-        //alignSize = 100; // How wide (in pixels) is the range in which the gold object will be aligned. (Represented by green bars in the preview)
-        //alignPosOffset = 0; // How far from center frame to offset this alignment zone.
         downscale = 0.4; // How much to downscale the input frames
 
         areaScoringMethod = DogeCV.AreaScoringMethod.MAX_AREA; // Can also be PERFECT_AREA
