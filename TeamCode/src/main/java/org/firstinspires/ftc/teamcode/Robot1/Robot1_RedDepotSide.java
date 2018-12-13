@@ -19,16 +19,14 @@ public class Robot1_RedDepotSide extends LinearOpMode {
         hardware.initHardware();
         auto = new Robot1_Auto(hardware);
 
+        auto.setupNavigationDetector(hardwareMap);
         waitForStart();
         auto.setStartPosition(4);
 
         // Look to navigation targets for position
-        //auto.setupNavigationDetector(hardwareMap);
-        //hardware.drivetrain.face(fieldMap.get(FieldElement.RED_FOOTPRINT));
-        //auto.updateWithNavTarget();
-
-        // Face minerals
-        //hardware.drivetrain.face(fieldMap.get(FieldElement.RED_DEPOT_MIDDLE_MINERAL));
+        hardware.drivetrain.face(fieldMap.get(FieldElement.RED_FOOTPRINT));
+        auto.updateWithNavTarget();
+        hardware.drivetrain.face(fieldMap.get(FieldElement.RED_DEPOT_MIDDLE_MINERAL));
 
         // Sample minerals
         telemetry.addLine("Sampling Minerals");

@@ -18,15 +18,14 @@ public class Robot1_RedCraterSide extends LinearOpMode {
         hardware = new Robot1_Hardware(hardwareMap, gamepad1, true);
         hardware.initHardware();
         auto = new Robot1_Auto(hardware);
+
+        auto.setupNavigationDetector(hardwareMap);
         waitForStart();
         auto.setStartPosition(3);
 
         // Look to navigation targets for position
-        auto.setupNavigationDetector(hardwareMap);
         hardware.drivetrain.face(fieldMap.get(FieldElement.BACK_SPACE));
         auto.updateWithNavTarget();
-
-        // Face minerals
         hardware.drivetrain.face(fieldMap.get(FieldElement.RED_CRATER_MIDDLE_MINERAL));
 
         // Sample minerals

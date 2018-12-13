@@ -56,13 +56,17 @@ public class Robot1_Auto {
 
     // Updates Robot Position and Angle with Navigation Targets
     public void updateWithNavTarget() {
-        double startTime = System.currentTimeMillis();
+        long startTime = System.currentTimeMillis();
 
-        while (!hardware.navTargetDetector.isTargetVisible() || System.currentTimeMillis() - startTime < 3) {
+        // Wait for 3 seconds or until found
+        while (!navTargetDetector.isTargetVisible() || System.currentTimeMillis() - startTime < 3000) {
             hardware.navTargetDetector.lookForTargets();
         }
-        hardware.drivetrain.setRobotPos(hardware.navTargetDetector.getRobotPosition().getX(), hardware.navTargetDetector.getRobotPosition().getY());
-        hardware.drivetrain.setRobotAngle((int) hardware.navTargetDetector.getRobotRotation());
+
+        if (navTargetDetector.isTargetVisible()) {
+            hardware.drivetrain.setRobotPos(hardware.navTargetDetector.getRobotPosition().getX(), hardware.navTargetDetector.getRobotPosition().getY());
+            hardware.drivetrain.setRobotAngle((int) hardware.navTargetDetector.getRobotRotation());
+        }
     }
 
     /**
