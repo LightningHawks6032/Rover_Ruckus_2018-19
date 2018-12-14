@@ -26,29 +26,14 @@ public class Robot1_BlueCraterSide extends LinearOpMode {
         // Sample minerals
         telemetry.addLine("Sampling Minerals");
         telemetry.update();
-        auto.performMineralSampling(1, false, true);
+        auto.performMineralSampling(1, false, false);
         hardware.mineralDetector.disable();
 
-        // Go to navigation target
-        hardware.drivetrain.goTo(fieldMap.get(FieldElement.FRONT_OF_BLUE_ROVER), 0.6);
-        auto.updateWithNavTarget();
-
-        // Go to depot
-        telemetry.addLine("Going to Depot");
-        telemetry.update();
-        hardware.drivetrain.goTo(fieldMap.get(FieldElement.BLUE_DEPOT), 0.6);
-
-        // Dropping off marker
-        telemetry.addLine("Releasing Marker");
-        telemetry.update();
-        auto.releaseMarker("blue");
-
+        // Driving to Crater
         telemetry.addLine("Driving to Crater");
         telemetry.update();
-        auto.driveToCrater("blue");
-
-        // If completing mineral sampling for partner, sample minerals
-        //hardware.drivetrain.face(fieldMap.get(FieldElement.RED_DEPOT_MIDDLE_MINERAL));
-        //auto.performMineralSampling(4, true, true);
+        hardware.drivetrain.faceAngle(45);
+        hardware.drivetrain.driveDistance(1, 5, 0.5);
+        auto.extendHorizontalSlide(0.3, 1);
     }
 }
