@@ -17,35 +17,38 @@ public class Robot1_BlueCraterSide extends LinearOpMode {
         hardware.initHardware();
         auto = new Robot1_Auto(hardware);
 
-        auto.setupNavigationDetector(hardwareMap);
+        auto.setupMineralDetector(hardwareMap);
         waitForStart();
+
+        auto.landOnField();
         auto.setStartPosition(1);
 
-        // Look to navigation targets for position
-        hardware.drivetrain.face(fieldMap.get(FieldElement.BACK_SPACE));
-        auto.updateWithNavTarget();
-        hardware.drivetrain.face(fieldMap.get(FieldElement.BLUE_CRATER_MIDDLE_MINERAL));
-
         // Sample minerals
-        auto.setupMineralDetector(hardwareMap);
+        telemetry.addLine("Sampling Minerals");
+        telemetry.update();
         auto.performMineralSampling(1, false, true);
         hardware.mineralDetector.disable();
 
         // Go to navigation target
-        hardware.drivetrain.goTo(fieldMap.get(FieldElement.FRONT_OF_BACK_SPACE), 0.6);
+        hardware.drivetrain.goTo(fieldMap.get(FieldElement.FRONT_OF_BLUE_ROVER), 0.6);
         auto.updateWithNavTarget();
 
         // Go to depot
+        telemetry.addLine("Going to Depot");
+        telemetry.update();
         hardware.drivetrain.goTo(fieldMap.get(FieldElement.BLUE_DEPOT), 0.6);
 
         // Dropping off marker
+        telemetry.addLine("Releasing Marker");
+        telemetry.update();
         auto.releaseMarker("blue");
 
-        // If completing mineral sampling for partner, sample minerals
-        hardware.drivetrain.face(fieldMap.get(FieldElement.BLUE_DEPOT_MIDDLE_MINERAL));
-        auto.performMineralSampling(2, true, true);
+        telemetry.addLine("Driving to Crater");
+        telemetry.update();
+        auto.driveToCrater("blue");
 
-        // Returning to crater
-        hardware.drivetrain.goTo(fieldMap.get(FieldElement.BLUE_CRATER_LEFT_EDGE), 0.6);
+        // If completing mineral sampling for partner, sample minerals
+        //hardware.drivetrain.face(fieldMap.get(FieldElement.RED_DEPOT_MIDDLE_MINERAL));
+        //auto.performMineralSampling(4, true, true);
     }
 }

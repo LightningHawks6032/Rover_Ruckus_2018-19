@@ -123,18 +123,18 @@ public class Robot1_Auto {
         Vector startPos = hardware.drivetrain.robotPos;
 
         if (goldPos == 1)
-            hardware.drivetrain.goTo(fieldMap.get(minerals[0]), 0.6);
+            hardware.drivetrain.goTo(fieldMap.get(minerals[0]), 0.8);
         else if (goldPos == 2)
-            hardware.drivetrain.goTo(fieldMap.get(minerals[1]), 0.6);
+            hardware.drivetrain.goTo(fieldMap.get(minerals[1]), 0.8);
         else if (goldPos == 3)
-            hardware.drivetrain.goTo(fieldMap.get(minerals[2]), 0.6);
+            hardware.drivetrain.goTo(fieldMap.get(minerals[2]), 0.8);
 
         if (backup)
             hardware.drivetrain.driveDistance(-1, hardware.drivetrain.robotPos.distanceFrom(startPos), 0.6);
 
     }
 
-    public int findGold() throws InterruptedException {
+    private int findGold() throws InterruptedException {
         Thread.sleep(1000);
         if (mineralDetector.getAligned()) {
             return 2;
@@ -162,11 +162,11 @@ public class Robot1_Auto {
 
 
     public void releaseMarker(String alliance) throws InterruptedException {
-        hardware.drivetrain.strafeForTime(0.8, 1);
         if (alliance.equals("red"))
             hardware.drivetrain.faceAngle(270);
         else if (alliance.equals("blue"))
             hardware.drivetrain.faceAngle(90);
+        hardware.drivetrain.strafeForTime(0.8, 1); // used to be BEFORE the above if statements
 
         hardware.markerArm.setPosition(hardware.MARKER_ARM_DOWN);
         Thread.sleep(1000);
@@ -175,14 +175,14 @@ public class Robot1_Auto {
 
     public void driveToCrater(String alliance) throws InterruptedException {
         if (alliance.equals("red")) {
-            //hardware.drivetrain.goTo(fieldMap.get(FieldElement.RED_CRATER_LEFT_EDGE), 0.6);
             hardware.drivetrain.faceAngle(180);
-            hardware.drivetrain.strafeForTime(-0.8, 2);
-            hardware.drivetrain.driveDistance(1, fieldMap.SQUARE_LENGTH * 4, 0.6);
-            //extendHorizontalSlide(0.3, 1);
         } else if (alliance.equals("blue")) {
-
+            hardware.drivetrain.faceAngle(0);
         }
+
+        hardware.drivetrain.strafeForTime(-0.8, 3/2);
+        hardware.drivetrain.driveDistance(1, fieldMap.SQUARE_LENGTH * 4, 0.8);
+        //extendHorizontalSlide(0.3, 1);
     }
 
     public void extendHorizontalSlide(double power, long seconds) throws InterruptedException {

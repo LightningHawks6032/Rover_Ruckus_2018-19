@@ -19,7 +19,6 @@ public class Robot1_RedDepotSide extends LinearOpMode {
         hardware.initHardware();
         auto = new Robot1_Auto(hardware);
 
-        //auto.setupNavigationDetector(hardwareMap);
         auto.setupMineralDetector(hardwareMap);
         waitForStart();
 
@@ -29,14 +28,13 @@ public class Robot1_RedDepotSide extends LinearOpMode {
         // Sample minerals
         telemetry.addLine("Sampling Minerals");
         telemetry.update();
-        sleep(1000);
         auto.performMineralSampling(4, false, false);
         hardware.mineralDetector.disable();
 
         // Go to depot
         telemetry.addLine("Going to Depot");
         telemetry.update();
-        hardware.drivetrain.goTo(fieldMap.get(FieldElement.RED_DEPOT), 0.6);
+        hardware.drivetrain.goTo(fieldMap.get(FieldElement.RED_DEPOT), 0.8);
 
         // Dropping off marker
         telemetry.addLine("Releasing Marker");

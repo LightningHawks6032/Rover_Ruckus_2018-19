@@ -26,8 +26,8 @@ public class Robot1_RedCraterSide extends LinearOpMode {
         auto.setStartPosition(3);
 
         // Sample minerals
-        auto.setupMineralDetector(hardwareMap);
-        sleep(1000);
+        telemetry.addLine("Sampling Minerals");
+        telemetry.update();
         auto.performMineralSampling(3, false, true);
         hardware.mineralDetector.disable();
 
@@ -36,9 +36,13 @@ public class Robot1_RedCraterSide extends LinearOpMode {
         auto.updateWithNavTarget();
 
         // Go to depot
+        telemetry.addLine("Going to Depot");
+        telemetry.update();
         hardware.drivetrain.goTo(fieldMap.get(FieldElement.RED_DEPOT), 0.6);
 
         // Dropping off marker
+        telemetry.addLine("Releasing Marker");
+        telemetry.update();
         auto.releaseMarker("red");
 
         telemetry.addLine("Driving to Crater");
@@ -48,8 +52,5 @@ public class Robot1_RedCraterSide extends LinearOpMode {
         // If completing mineral sampling for partner, sample minerals
         //hardware.drivetrain.face(fieldMap.get(FieldElement.RED_DEPOT_MIDDLE_MINERAL));
         //auto.performMineralSampling(4, true, true);
-
-        // Returning to crater
-        //hardware.drivetrain.goTo(fieldMap.get(FieldElement.RED_CRATER_LEFT_EDGE), 0.6);
     }
 }
