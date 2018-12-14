@@ -13,7 +13,7 @@ public class Encoder {
     private String type; // Either "Neverest" or "Tetrix"
     private double wheelDiameter; // wheel diameter in inches
 
-
+    // Constants for ticks per revolution of motors we use
     final static int NEVEREST_TICKS_PER_REV = 1120;
     final static int TETRIX_TICKS_PER_REV = 1440;
 
@@ -82,7 +82,7 @@ public class Encoder {
         return wheelDiameter;
     }
     public double getWheelCircumference() {
-        return 3.14159 * wheelDiameter;
+        return Math.PI * wheelDiameter;
     }
 
 }

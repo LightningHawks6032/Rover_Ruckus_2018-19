@@ -85,7 +85,7 @@ public class Robot1_Hardware implements HardwareInterface {
         markerArm = hardwareMap.get(Servo.class, "ma");
 
         hangNvst = hardwareMap.get(DcMotor.class, "hn");
-        hangEncoder = new Encoder(hangNvst, "neverest", 0);
+        hangEncoder = new Encoder(hangNvst, "Neverest", 0);
 
     }
 

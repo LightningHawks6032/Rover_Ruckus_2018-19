@@ -131,6 +131,7 @@ public class NavTargetDetector {
         targetsRoverRuckus.activate();
     }
 
+    // Look for navigation targets and update targetVisible if found
     public void lookForTargets() {
         for (VuforiaTrackable trackable : navigationTargets) {
             if (((VuforiaTrackableDefaultListener) trackable.getListener()).isVisible()) {
@@ -192,26 +193,6 @@ public class NavTargetDetector {
 
         // Rover
         return new Vector(x, y);
-    }
-
-    // Returns X coordinate
-    public double getX(){
-        return robotPos.get(0);
-    }
-
-    // Returns Y coordinate
-    public double getY(){
-        return robotPos.get(1);
-    }
-
-    public double getCamRoll() {
-        return robotRotation.firstAngle;
-    }
-    public double getCamPitch() {
-        return robotRotation.secondAngle;
-    }
-    public double getCamYaw() {
-        return robotRotation.thirdAngle;
     }
 
     // Returns robot's rotation in degrees --> only rotational component we care about

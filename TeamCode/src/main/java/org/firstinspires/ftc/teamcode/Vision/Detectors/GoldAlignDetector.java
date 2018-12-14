@@ -127,7 +127,7 @@ public class GoldAlignDetector extends DogeCVDetector {
             Imgproc.rectangle(displayMat, bestRect.tl(), bestRect.br(), new Scalar(255,0,0),4);
             Imgproc.putText(displayMat, "Chosen", bestRect.tl(),0,1,new Scalar(255,255,255));
 
-            // Set align X pos
+            // Set align X pos based on whether or not landscape mode used
             if (landscapeMode)
                 xPos = bestRect.y + (bestRect.width / 2);
             else
@@ -174,7 +174,7 @@ public class GoldAlignDetector extends DogeCVDetector {
     public void useDefaults() {
         addScorer(ratioScorer);
 
-        // Add diffrent scoreres depending on the selected mode
+        // Add different scorers depending on the selected mode
         if(areaScoringMethod == DogeCV.AreaScoringMethod.MAX_AREA){
             addScorer(maxAreaScorer);
         }
@@ -210,6 +210,7 @@ public class GoldAlignDetector extends DogeCVDetector {
     }
 
     /**
+     * Note: We no longer use this method.
      * @return location of gold mineral (1 = left, 2 = center, 3 = right); default is center
      */
     public int mineralLocation() {
