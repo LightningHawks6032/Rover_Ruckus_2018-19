@@ -79,7 +79,7 @@ public class Robot1_Auto {
         }
         hardware.hangNvst.setPower(0);
 
-        hardware.drivetrain.strafeDistance(-1, 5, 0.5);
+        hardware.drivetrain.strafeDistance(-1, 5, 1);
         hardware.drivetrain.driveDistance(1, 5, 0.5);
         hardware.drivetrain.strafeDistance(1, 5, 0.5);
         hardware.drivetrain.driveDistance(1, 8, 0.5);
@@ -129,8 +129,11 @@ public class Robot1_Auto {
         else if (goldPos == 3)
             hardware.drivetrain.goTo(fieldMap.get(minerals[2]), 0.8);
 
-        if (backup)
+        if (backup) {
             hardware.drivetrain.driveDistance(-1, hardware.drivetrain.robotPos.distanceFrom(startPos), 0.6);
+            hardware.drivetrain.setRobotPos(startPos.getX(), startPos.getY());
+            hardware.drivetrain.setRobotAngle((int) ((360 + hardware.drivetrain.robotAngle - hardware.drivetrain.gyroSensor.getAngle()) % 360));
+        }
 
     }
 
@@ -166,6 +169,7 @@ public class Robot1_Auto {
             hardware.drivetrain.faceAngle(270);
         else if (alliance.equals("blue"))
             hardware.drivetrain.faceAngle(90);
+        hardware.drivetrain.driveDistance(1, 5, 0.6);
         hardware.drivetrain.strafeForTime(0.8, 1); // used to be BEFORE the above if statements
 
         hardware.markerArm.setPosition(hardware.MARKER_ARM_DOWN);
@@ -181,8 +185,8 @@ public class Robot1_Auto {
         }
 
         hardware.drivetrain.strafeForTime(-0.8, 3/2);
-        hardware.drivetrain.driveDistance(1, fieldMap.SQUARE_LENGTH * 4, 0.8);
-        //extendHorizontalSlide(0.3, 1);
+        hardware.drivetrain.driveDistance(1, fieldMap.SQUARE_LENGTH * 4, 1);
+        extendHorizontalSlide(0.4, 1);
     }
 
     public void extendHorizontalSlide(double power, long seconds) throws InterruptedException {

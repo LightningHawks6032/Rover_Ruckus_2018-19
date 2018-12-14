@@ -28,26 +28,36 @@ public class Robot1_RedCraterSide extends LinearOpMode {
         // Sample minerals
         telemetry.addLine("Sampling Minerals");
         telemetry.update();
-        auto.performMineralSampling(3, false, true);
+        auto.performMineralSampling(3, false, false);
         hardware.mineralDetector.disable();
 
-        // Go to navigation target
-        hardware.drivetrain.goTo(fieldMap.get(FieldElement.FRONT_OF_RED_FOOTPRINT), 0.6);
-        auto.updateWithNavTarget();
-
-        // Go to depot
-        telemetry.addLine("Going to Depot");
-        telemetry.update();
-        hardware.drivetrain.goTo(fieldMap.get(FieldElement.RED_DEPOT), 0.6);
-
-        // Dropping off marker
-        telemetry.addLine("Releasing Marker");
-        telemetry.update();
-        auto.releaseMarker("red");
-
+        // Driving to Crater
         telemetry.addLine("Driving to Crater");
         telemetry.update();
-        auto.driveToCrater("red");
+        hardware.drivetrain.faceAngle(225);
+        hardware.drivetrain.driveDistance(1, 5, 0.5);
+        auto.extendHorizontalSlide(0.3, 1);
+
+        // Go to navigation target
+        //hardware.drivetrain.goTo(fieldMap.get(FieldElement.FRONT_OF_RED_FOOTPRINT), 0.8);
+
+        // Go to depot
+        //telemetry.addLine("Going to Depot");
+        //telemetry.update();
+        //hardware.drivetrain.faceAngle(0);
+        //hardware.drivetrain.strafeForTime(0.8, 2);
+        //hardware.drivetrain.setRobotPos(fieldMap.get(FieldElement.FRONT_OF_RED_FOOTPRINT).getX(), fieldMap.get(FieldElement.FRONT_OF_RED_FOOTPRINT).getY());
+        //hardware.drivetrain.setRobotAngle(0);
+        //hardware.drivetrain.goTo(fieldMap.get(FieldElement.RED_DEPOT), 0.8);
+
+        // Dropping off marker
+        //telemetry.addLine("Releasing Marker");
+        //telemetry.update();
+        //auto.releaseMarker("red");
+
+        //telemetry.addLine("Driving to Crater");
+        //telemetry.update();
+        //auto.driveToCrater("red");
 
         // If completing mineral sampling for partner, sample minerals
         //hardware.drivetrain.face(fieldMap.get(FieldElement.RED_DEPOT_MIDDLE_MINERAL));

@@ -94,6 +94,9 @@ public class Robot1_TeleOp extends OpMode {
             actuPos = 0;
 
         hardware.linearActuator.setPosition(actuPos);
+
+        if (gamepad2.right_bumper)
+            hardware.linearActuator.setPosition(0.5);
     }
 
     // lander latch control
