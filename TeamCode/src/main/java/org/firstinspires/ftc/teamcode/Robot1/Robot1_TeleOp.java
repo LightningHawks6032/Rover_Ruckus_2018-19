@@ -24,6 +24,9 @@ public class Robot1_TeleOp extends OpMode {
         slidePower = 0;
         hangPow = 0;
         actuPos = hardware.linearActuator.getPosition();
+        hardware.rightClaw.setPosition(hardware.RIGHT_CLAW_CLOSE);
+        hardware.leftClaw.setPosition(hardware.LEFT_CLAW_CLOSE);
+        hardware.linearActuator.setPosition(0.5);
     }
 
     public void loop() {

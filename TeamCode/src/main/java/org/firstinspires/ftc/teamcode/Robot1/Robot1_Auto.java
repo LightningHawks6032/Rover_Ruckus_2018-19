@@ -79,7 +79,7 @@ public class Robot1_Auto {
         }
         hardware.hangNvst.setPower(0);
 
-        hardware.drivetrain.strafeDistance(-1, 5, 1);
+        hardware.drivetrain.strafeDistance(-1, 10, 1);
         hardware.drivetrain.driveDistance(1, 5, 0.5);
         hardware.drivetrain.strafeDistance(1, 5, 0.5);
         hardware.drivetrain.driveDistance(1, 8, 0.5);
@@ -126,8 +126,10 @@ public class Robot1_Auto {
             hardware.drivetrain.goTo(fieldMap.get(minerals[0]), 0.8);
         else if (goldPos == 2)
             hardware.drivetrain.goTo(fieldMap.get(minerals[1]), 0.8);
-        else if (goldPos == 3)
+        else if (goldPos == 3) {
             hardware.drivetrain.goTo(fieldMap.get(minerals[2]), 0.8);
+            hardware.drivetrain.driveDistance(1, 5, 0.5);
+        }
 
         if (backup) {
             hardware.drivetrain.driveDistance(-1, hardware.drivetrain.robotPos.distanceFrom(startPos), 0.6);

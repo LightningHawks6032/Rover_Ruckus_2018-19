@@ -95,10 +95,10 @@ public class Robot1_Hardware implements HardwareInterface {
         slideMotor.setDirection(DcMotor.Direction.FORWARD);
         hangNvst.setDirection(DcMotor.Direction.REVERSE);
 
-        rightClaw.setPosition(RIGHT_CLAW_CLOSE);
-        leftClaw.setPosition(LEFT_CLAW_CLOSE);
+        //rightClaw.setPosition(RIGHT_CLAW_CLOSE);
+        //leftClaw.setPosition(LEFT_CLAW_CLOSE);
         markerArm.setPosition(MARKER_ARM_UP);
-        linearActuator.setPosition(0.5);
+        //linearActuator.setPosition(0.5);
 
         hangEncoder.setup();
     }
