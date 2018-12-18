@@ -14,10 +14,10 @@ public class OmniSlideDrive {
     // Motors
     public DcMotor leftMotor;
     public DcMotor rightMotor;
-    private DcMotor middleMotor;
-    private Encoder leftEncoder;
-    private Encoder rightEncoder;
-    private Encoder middleEncoder;
+    public DcMotor middleMotor;
+    public Encoder leftEncoder;
+    public Encoder rightEncoder;
+    public Encoder middleEncoder;
     public MRGyro gyroSensor;
     private Gamepad gamepad;
 

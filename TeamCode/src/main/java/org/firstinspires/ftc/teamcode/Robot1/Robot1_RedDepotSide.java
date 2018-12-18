@@ -14,10 +14,12 @@ public class Robot1_RedDepotSide extends LinearOpMode {
     private FieldMap fieldMap = new FieldMap();
 
     public void runOpMode() throws InterruptedException {
+        long startTime = System.currentTimeMillis();
+
         // Setup auto
         hardware = new Robot1_Hardware(hardwareMap, gamepad1, true);
         hardware.initHardware();
-        auto = new Robot1_Auto(hardware);
+        auto = new Robot1_Auto(hardware, startTime);
 
         auto.setupMineralDetector(hardwareMap);
         waitForStart();

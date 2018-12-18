@@ -17,12 +17,16 @@ public class Robot1_Auto {
     private FieldMap fieldMap = new FieldMap();
     private GoldAlignDetector mineralDetector;
     private NavTargetDetector navTargetDetector;
+    private long startTime;
+
+    final long autoTimeLimit = 300000; // Autonomous time limit in milliseconds
 
     // Constructor instantiates hardware and setups mineral detector
-    public Robot1_Auto(Robot1_Hardware hardware) {
+    public Robot1_Auto(Robot1_Hardware hardware, long startTime) {
         this.hardware = hardware;
         mineralDetector = hardware.mineralDetector;
         navTargetDetector = hardware.navTargetDetector;
+        this.startTime = startTime;
     }
 
     public void setupMineralDetector(HardwareMap hwMap) {
@@ -74,7 +78,7 @@ public class Robot1_Auto {
         hardware.hangEncoder.runToPosition();
         hardware.hangEncoder.setEncoderTarget(16500);
         hardware.hangNvst.setPower(-1);
-        while (hardware.hangNvst.isBusy()) {
+        while (hardware.hangNvst.isBusy() && !timeLimitReached()) {
             // WAIT - Motor is busy
         }
         hardware.hangNvst.setPower(0);
@@ -216,6 +220,10 @@ public class Robot1_Auto {
         } else {
             //do something to get it into vision
         }
+    }
+
+    public boolean timeLimitReached() {
+        return System.currentTimeMillis() - startTime >= autoTimeLimit;
     }
 
 }
