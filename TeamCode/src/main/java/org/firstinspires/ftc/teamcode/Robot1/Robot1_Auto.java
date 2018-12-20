@@ -21,6 +21,8 @@ public class Robot1_Auto {
 
     final long autoTimeLimit = 300000; // Autonomous time limit in milliseconds
 
+    public boolean stopRequested = false;
+
     // Constructor instantiates hardware and setups mineral detector
     public Robot1_Auto(Robot1_Hardware hardware, long startTime) {
         this.hardware = hardware;
@@ -78,7 +80,7 @@ public class Robot1_Auto {
         hardware.hangEncoder.runToPosition();
         hardware.hangEncoder.setEncoderTarget(16500);
         hardware.hangNvst.setPower(-1);
-        while (hardware.hangNvst.isBusy() && !timeLimitReached()) {
+        while (hardware.hangNvst.isBusy() && autoRunning()) {
             // WAIT - Motor is busy
         }
         hardware.hangNvst.setPower(0);
@@ -222,8 +224,8 @@ public class Robot1_Auto {
         }
     }
 
-    public boolean timeLimitReached() {
-        return System.currentTimeMillis() - startTime >= autoTimeLimit;
+    public boolean autoRunning() {
+        return System.currentTimeMillis() - startTime >= autoTimeLimit && !stopRequested;
     }
 
 }
