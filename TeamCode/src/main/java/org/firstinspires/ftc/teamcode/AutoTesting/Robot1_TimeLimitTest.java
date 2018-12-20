@@ -16,7 +16,7 @@ public class Robot1_TimeLimitTest extends LinearOpMode {
         hardware = new Robot1_Hardware(hardwareMap, gamepad1, false);
         hardware.initHardware();
 
-        hardware.drivetrain.driveDistance(1, 1000, 0.6);
+        turn(60, true);
     }
 
     public void driveDistance(int direction, double distance, double pow) {
@@ -40,5 +40,25 @@ public class Robot1_TimeLimitTest extends LinearOpMode {
 
         hardware.drivetrain.leftEncoder.runWithout();
         hardware.drivetrain.rightEncoder.runWithout();
+    }
+
+    public void turn(int degrees, boolean right) {
+        hardware.drivetrain.gyroSensor.zero();
+        hardware.drivetrain.encoderSetup();
+
+        int currAngle = Math.abs(hardware.drivetrain.gyroSensor.getAngle()); // Use getAngle() because it returns angle robot has turned from origin
+        double pow = 1; // power applied to motors
+
+        while (currAngle < degrees && System.currentTimeMillis() - startTime < 30000 && !isStopRequested()) {
+            pow = (double) (degrees - currAngle) / degrees * 0.6 + 0.1;
+
+            // Apply power to motors and update currAngle
+            if (right)
+                hardware.drivetrain.setPowers(pow, -pow, 0);
+            else
+                hardware.drivetrain.setPowers(-pow, pow, 0);
+            currAngle = Math.abs(hardware.drivetrain.gyroSensor.getAngle());
+        }
+        hardware.drivetrain.setPowers(0, 0, 0);
     }
 }

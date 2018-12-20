@@ -24,7 +24,7 @@ public class Robot1_RedDepotSide extends LinearOpMode {
         auto.setupMineralDetector(hardwareMap);
         waitForStart();
 
-        auto.landOnField();
+        hardware.drivetrain.driveDistance(1, 13, 0.5);
         auto.setStartPosition(4);
 
         // Sample minerals

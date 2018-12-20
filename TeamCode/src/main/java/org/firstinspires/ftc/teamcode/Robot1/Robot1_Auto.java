@@ -99,10 +99,10 @@ public class Robot1_Auto {
      * @throws InterruptedException
      */
     public void performMineralSampling(int quadrant, boolean reverse, boolean backup) throws InterruptedException {
-        int goldPos = findGold();
-        FieldElement[] minerals = new FieldElement[3];
+        int goldPos = 2; // by default
 
         // Generates minerals to choose from
+        FieldElement[] minerals = new FieldElement[3];
         switch (quadrant) {
             case 1:
                 minerals[0] = !reverse ? FieldElement.BLUE_CRATER_LEFT_MINERAL : FieldElement.BLUE_CRATER_RIGHT_MINERAL;
@@ -126,15 +126,44 @@ public class Robot1_Auto {
                 break;
         }
 
-        Vector startPos = hardware.drivetrain.robotPos;
+        // Find Gold
+        boolean found = false;
+        Thread.sleep(500);
+        if (mineralDetector.getAligned()) { // gold is middle
+            goldPos = 2;
+            found = true;
+        }
 
+        if (!found) {
+            hardware.drivetrain.face(fieldMap.get(minerals[0]));
+            //Thread.sleep(500);
+            if (mineralDetector.getAligned()) { // gold is left
+                goldPos = 1;
+                found = true;
+            }
+        }
+
+        if (!found) {
+            hardware.drivetrain.face(fieldMap.get(minerals[2]));
+            //Thread.sleep(500);
+            if (mineralDetector.getAligned()) { // gold is right
+                goldPos = 3;
+                found = true;
+            }
+        }
+
+        if (!found)
+            hardware.drivetrain.face(fieldMap.get(minerals[1])); // Turn back
+
+
+        // Go to Gold
+        Vector startPos = hardware.drivetrain.robotPos;
         if (goldPos == 1)
             hardware.drivetrain.goTo(fieldMap.get(minerals[0]), 0.8);
         else if (goldPos == 2)
             hardware.drivetrain.goTo(fieldMap.get(minerals[1]), 0.8);
         else if (goldPos == 3) {
             hardware.drivetrain.goTo(fieldMap.get(minerals[2]), 0.8);
-            hardware.drivetrain.driveDistance(1, 5, 0.5);
         }
 
         if (backup) {
