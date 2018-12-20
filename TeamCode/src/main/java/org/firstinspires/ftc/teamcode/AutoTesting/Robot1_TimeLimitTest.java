@@ -1,9 +1,11 @@
 package org.firstinspires.ftc.teamcode.AutoTesting;
 
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.Hardware.Robot1_Hardware;
 
+@Autonomous(name="Robot 1 Time Limit Test", group="Linear Opmode")
 public class Robot1_TimeLimitTest extends LinearOpMode {
 
     private Robot1_Hardware hardware;
@@ -29,6 +31,7 @@ public class Robot1_TimeLimitTest extends LinearOpMode {
 
         hardware.drivetrain.setPowers(direction * pow, direction * pow, 0);
 
+        // This works --> make sure to add this to auto class
         while (hardware.drivetrain.leftMotor.isBusy() && hardware.drivetrain.rightMotor.isBusy() && System.currentTimeMillis() - startTime < 30000 && !isStopRequested()) {
             // WAIT - Motors are busy
         }
