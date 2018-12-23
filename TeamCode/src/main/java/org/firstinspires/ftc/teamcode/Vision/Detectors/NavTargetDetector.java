@@ -43,30 +43,32 @@ public class NavTargetDetector {
     private VuforiaLocalizer vuforia;
     private ArrayList<VuforiaTrackable> navigationTargets;
 
-    // Instance data: hardwareMap and three vertical displacements that indicate phone location on robot
+    // Instance data: hardwareMap and displacements that indicate phone camera location on robot
     private HardwareMap hwMap;
-    private int camForwardDisplacement; // eg: Camera is 0 mm in front of robot center
-    private int camVerticalDisplacement; // eg: Camera is 0 mm above ground
-    private int camLeftDisplacement; // eg: Camera is ON the robot's center line
+    private int camForwardDisplacement; // eg: Camera is ___ mm in front of robot center
+    private int camLeftDisplacement; // eg: Camera is ___ mm to left of robot center
 
     // For returning to telemetry
     private boolean targetVisible;
     private String whichTargetVisible;
     private static final String[] targetNames = {"Blue-Rover", "Red-Footprint", "Front-Craters", "Back-Space"};
     private OpenGLMatrix lastLocation = null; // the last location of a nav target we've seen
-    private VectorF robotPos;
+    private VectorF camPos;
     private Orientation robotRotation;
 
-    public NavTargetDetector(HardwareMap hwMap, int camForwardDisplacement, int camVerticalDisplacement, int camLeftDisplacement) {
+    public NavTargetDetector(HardwareMap hwMap, int camForwardDisplacement, int camLeftDisplacement) {
+        // Hardware
         this.hwMap = hwMap;
-        navigationTargets = new ArrayList<VuforiaTrackable>();
         this.camForwardDisplacement = camForwardDisplacement;
-        this.camVerticalDisplacement = camVerticalDisplacement;
         this.camLeftDisplacement = camLeftDisplacement;
 
+        // Booleans
         targetVisible = false; // by default, we assume we don't see a target
         whichTargetVisible = null; // by default, we assume we don't see a target
-        robotPos = null;
+
+        // Data for tracker
+        navigationTargets = new ArrayList<VuforiaTrackable>();
+        camPos = null;
         robotRotation = null;
     }
 
@@ -119,7 +121,7 @@ public class NavTargetDetector {
         navigationTargets.addAll(targetsRoverRuckus);
 
         OpenGLMatrix phoneLocationOnRobot = OpenGLMatrix
-                .translation(camForwardDisplacement, camLeftDisplacement, camVerticalDisplacement)
+                .translation(0, 0, 0)
                 .multiplied(Orientation.getRotationMatrix(EXTRINSIC, YZX, DEGREES,
                         CAMERA_CHOICE == FRONT ? 90 : -90 /*0*/, 0, 0));
 
@@ -143,13 +145,15 @@ public class NavTargetDetector {
                     lastLocation = robotLocationTransform;
                 }
                 break; // Exit the for loop if we've found one of the nav targets
+            } else {
+                targetVisible = false;
             }
         }
 
         // If we've seen a target and know where the robot is
         if (targetVisible && lastLocation != null) {
             // express position (translation) of robot in inches.
-            robotPos = lastLocation.getTranslation();
+            camPos = lastLocation.getTranslation();
 
             // Express the rotation of the robot in degrees. Extrinsic = Roll, XYZ = Pitch, DEGREES = Yaw
             // More info about Roll, Pitch, Yaw: https://www.novatel.com/assets/Web-Phase-2-2012/Solution-Pages/AttitudePlane.png
@@ -172,9 +176,9 @@ public class NavTargetDetector {
         return whichTargetVisible;
     }
 
-    // Returns vector of robot's position in inches
-    public Vector getRobotPosition() {
-        double x = robotPos.get(0) / mmPerInch, y = robotPos.get(1) / mmPerInch;
+    // Returns vector of camera's position in inches
+    public Vector getCamPosition() {
+        double x = camPos.get(0) / mmPerInch, y = camPos.get(1) / mmPerInch;
 
         // Craters
         if (specificTargetVisible(2)) {
@@ -195,7 +199,40 @@ public class NavTargetDetector {
         return new Vector(x, y);
     }
 
-    // Returns robot's rotation in degrees --> only rotational component we care about
+    // Converts camera position into robot center's position using camForwardDisplacement
+    // THIS WILL WORK IF ROBOT IS IN CENTER OF FRONT SIDE (camLeftDisplacement = 0)
+    public Vector getRobotPosition() {
+        double yawR = -(robotRotation.thirdAngle - 90) * Math.PI / 180; // draw line from nav target to robot, this is the angle (in radians) the line makes with nearest axis
+
+        double x = getCamPosition().getX(); // Camera Position X
+        double y = getCamPosition().getY(); // Camera Position Y
+        double disp = camForwardDisplacement; // How far forward from robot center is the camera?
+
+        // Craters
+        if (specificTargetVisible(2)) {
+            return new Vector(x - disp * Math.cos(yawR), y + disp * Math.sin(yawR));
+        }
+
+        // Rover
+        else if (specificTargetVisible(0)) {
+            return new Vector(x - disp * Math.sin(yawR), y - disp * Math.cos(yawR));
+        }
+
+        // Space
+        else if (specificTargetVisible(3)) {
+            return new Vector(x + disp * Math.cos(yawR), y - disp * Math.sin(yawR));
+        }
+
+        // Footprint
+        else if (specificTargetVisible(1)) {
+            return new Vector(x + disp * Math.sin(yawR), y + disp * Math.cos(yawR));
+        }
+
+        // If everything fails, just return original phone position
+        return getCamPosition();
+    }
+
+    // Returns robot's rotation in degrees, see field map for reference
     public double getRobotRotation() {
         double yaw = robotRotation.thirdAngle;
 

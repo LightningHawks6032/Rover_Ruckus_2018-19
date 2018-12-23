@@ -21,7 +21,6 @@ public class NavTargetDetectorTest extends OpMode
     private Robot1_Hardware hardware;
 
     private final static int CAMERA_FORWARD_POSITION = 0, // eg: Camera is 0 mm in front of robot center
-            CAMERA_VERTICAL_POSITION = 0, // eg: Camera is 0 mm above ground
             CAMERA_LEFT_POSITION = 0; // eg: Camera is 0 mm left of the robot's center line
 
     @Override
@@ -29,7 +28,7 @@ public class NavTargetDetectorTest extends OpMode
         // Set up detector
         hardware = new Robot1_Hardware(hardwareMap, gamepad1, false);
         hardware.initHardware();
-        detector = new NavTargetDetector(hardwareMap, CAMERA_FORWARD_POSITION, CAMERA_VERTICAL_POSITION, CAMERA_LEFT_POSITION); // Create detector
+        detector = new NavTargetDetector(hardwareMap, CAMERA_FORWARD_POSITION, CAMERA_LEFT_POSITION); // Create detector
         detector.setupTracker();
     }
 
@@ -57,11 +56,9 @@ public class NavTargetDetectorTest extends OpMode
         telemetry.addData("Target Visible: ", detector.isTargetVisible());
         if (detector.isTargetVisible()) {
             telemetry.addData("The robot sees", detector.visibleTarget());
+            telemetry.addData("Cam Pos", detector.getCamPosition().toString());
             telemetry.addData("Robot Pos", detector.getRobotPosition().toString());
             telemetry.addData("Quadrant", detector.getRobotPosition().quadrant());
-            //telemetry.addData("Cam roll", Math.round(detector.getCamRoll()));
-            //telemetry.addData("Cam pitch", Math.round(detector.getCamPitch()));
-            //telemetry.addData("Cam yaw", Math.round(detector.getCamYaw()));
             telemetry.addData("Robot rotation", Math.round(detector.getRobotRotation()));
         } else
             telemetry.addLine("The robot sees: No Target");

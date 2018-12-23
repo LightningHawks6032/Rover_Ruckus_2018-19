@@ -40,10 +40,9 @@ public class Robot1_Hardware implements HardwareInterface {
 
     // Constants for phone position for nav targets
     public final static int CAMERA_FORWARD_POSITION = 0, // eg: Camera is 0 mm in front of robot center
-                 CAMERA_VERTICAL_POSITION = 0, // eg: Camera is 0 mm above ground
                  CAMERA_LEFT_POSITION = 0; // eg: Camera is 0 mm left of the robot's center line
 
-    // X-position pixel value for center of robot
+    // X-position pixel value for center of robot (for mineral sampling)
     public final static int ROBOT_CENTER_X = 285;
 
     /**
@@ -75,7 +74,7 @@ public class Robot1_Hardware implements HardwareInterface {
         }
 
         mineralDetector = new GoldAlignDetector(ROBOT_CENTER_X, 350, true); // was 300 originally
-        navTargetDetector = new NavTargetDetector(hardwareMap, CAMERA_FORWARD_POSITION, CAMERA_VERTICAL_POSITION, CAMERA_LEFT_POSITION);
+        navTargetDetector = new NavTargetDetector(hardwareMap, CAMERA_FORWARD_POSITION, CAMERA_LEFT_POSITION);
 
         slideMotor = hardwareMap.get(DcMotor.class, "sm");
 
