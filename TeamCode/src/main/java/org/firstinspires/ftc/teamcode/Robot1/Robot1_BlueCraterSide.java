@@ -23,6 +23,7 @@ public class Robot1_BlueCraterSide extends LinearOpMode {
 
         auto.setupMineralDetector(hardwareMap);
         waitForStart();
+        auto.setStartTime(System.currentTimeMillis());
 
         auto.landOnField();
         auto.setStartPosition(1);

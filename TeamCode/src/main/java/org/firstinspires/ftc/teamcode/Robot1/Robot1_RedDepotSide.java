@@ -23,6 +23,7 @@ public class Robot1_RedDepotSide extends LinearOpMode {
 
         auto.setupMineralDetector(hardwareMap);
         waitForStart();
+        auto.setStartTime(System.currentTimeMillis());
 
         hardware.drivetrain.driveDistance(1, 13, 0.5);
         auto.setStartPosition(4);
