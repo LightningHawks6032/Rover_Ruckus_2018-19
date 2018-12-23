@@ -19,7 +19,7 @@ public class Robot1_RedCraterSide extends LinearOpMode {
         // Setup auto
         hardware = new Robot1_Hardware(hardwareMap, gamepad1, true);
         hardware.initHardware();
-        auto = new Robot1_Auto(hardware, startTime);
+        auto = new Robot1_Auto(this, hardware, startTime);
 
         auto.setupMineralDetector(hardwareMap);
         waitForStart();

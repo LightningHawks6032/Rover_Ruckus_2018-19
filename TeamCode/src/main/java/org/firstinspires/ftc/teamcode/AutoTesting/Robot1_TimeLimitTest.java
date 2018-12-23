@@ -4,21 +4,27 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.Hardware.Robot1_Hardware;
+import org.firstinspires.ftc.teamcode.Robot1.Robot1_Auto;
 
 @Autonomous(name="Robot 1 Time Limit Test", group="Linear Opmode")
 public class Robot1_TimeLimitTest extends LinearOpMode {
 
     private Robot1_Hardware hardware;
-    private long startTime = System.currentTimeMillis();
+    private Robot1_Auto auto;
 
     @Override
     public void runOpMode() {
         hardware = new Robot1_Hardware(hardwareMap, gamepad1, false);
         hardware.initHardware();
+        auto = new Robot1_Auto(this, hardware);
 
-        turn(60, true);
+        waitForStart();
+        auto.setStartTime(System.currentTimeMillis()); // needed at beginning of auto
+
+        auto.turn(60, true);
     }
 
+    /*
     public void driveDistance(int direction, double distance, double pow) {
         hardware.drivetrain.leftEncoder.reset();
         hardware.drivetrain.rightEncoder.reset();
@@ -61,4 +67,5 @@ public class Robot1_TimeLimitTest extends LinearOpMode {
         }
         hardware.drivetrain.setPowers(0, 0, 0);
     }
+    */
 }

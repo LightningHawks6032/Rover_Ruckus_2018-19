@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.Robot1;
 
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
@@ -13,22 +14,25 @@ import org.firstinspires.ftc.teamcode.Vision.Detectors.NavTargetDetector;
 import java.lang.reflect.Field;
 
 public class Robot1_Auto {
+    private LinearOpMode autonomous; // The autonomous class being run
     private Robot1_Hardware hardware;
     private FieldMap fieldMap = new FieldMap();
     private GoldAlignDetector mineralDetector;
     private NavTargetDetector navTargetDetector;
     private long startTime;
 
-    final long autoTimeLimit = 300000; // Autonomous time limit in milliseconds
-
-    public boolean stopRequested = false;
+    private final long autoTimeLimit = 300000; // Autonomous time limit in milliseconds
 
     // Constructor instantiates hardware and setups mineral detector
-    public Robot1_Auto(Robot1_Hardware hardware, long startTime) {
+    public Robot1_Auto(LinearOpMode auto, Robot1_Hardware hardware) {
+        autonomous = auto;
         this.hardware = hardware;
         mineralDetector = hardware.mineralDetector;
         navTargetDetector = hardware.navTargetDetector;
-        this.startTime = startTime;
+    }
+
+    public void setStartTime(long time) {
+        startTime = time;
     }
 
     public void setupMineralDetector(HardwareMap hwMap) {
@@ -253,8 +257,32 @@ public class Robot1_Auto {
         }
     }
 
-    public boolean autoRunning() {
-        return System.currentTimeMillis() - startTime >= autoTimeLimit && !stopRequested;
+    // Used to break all while loops when an opmode stops
+    private boolean autoRunning() {
+        return System.currentTimeMillis() - startTime >= autoTimeLimit && !autonomous.isStopRequested();
+    }
+
+
+
+    // TEMPORARY FOR TESTING PURPOSES
+    public void turn(int degrees, boolean right) {
+        hardware.drivetrain.gyroSensor.zero();
+        hardware.drivetrain.encoderSetup();
+
+        int currAngle = Math.abs(hardware.drivetrain.gyroSensor.getAngle()); // Use getAngle() because it returns angle robot has turned from origin
+        double pow = 1; // power applied to motors
+
+        while (currAngle < degrees && autoRunning()) {
+            pow = (double) (degrees - currAngle) / degrees * 0.6 + 0.1;
+
+            // Apply power to motors and update currAngle
+            if (right)
+                hardware.drivetrain.setPowers(pow, -pow, 0);
+            else
+                hardware.drivetrain.setPowers(-pow, pow, 0);
+            currAngle = Math.abs(hardware.drivetrain.gyroSensor.getAngle());
+        }
+        hardware.drivetrain.setPowers(0, 0, 0);
     }
 
 }
