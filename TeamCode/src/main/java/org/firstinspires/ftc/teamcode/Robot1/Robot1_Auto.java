@@ -29,10 +29,13 @@ public class Robot1_Auto {
         this.hardware = hardware;
         mineralDetector = hardware.mineralDetector;
         navTargetDetector = hardware.navTargetDetector;
+
+        hardware.drivetrain.setAuto(auto);
     }
 
     public void setStartTime(long time) {
         startTime = time;
+        hardware.drivetrain.setStartTime(time);
     }
 
     public void setupMineralDetector(HardwareMap hwMap) {
@@ -259,30 +262,7 @@ public class Robot1_Auto {
 
     // Used to break all while loops when an opmode stops
     private boolean autoRunning() {
-        return System.currentTimeMillis() - startTime >= autoTimeLimit && !autonomous.isStopRequested();
-    }
-
-
-
-    // TEMPORARY FOR TESTING PURPOSES
-    public void turn(int degrees, boolean right) {
-        hardware.drivetrain.gyroSensor.zero();
-        hardware.drivetrain.encoderSetup();
-
-        int currAngle = Math.abs(hardware.drivetrain.gyroSensor.getAngle()); // Use getAngle() because it returns angle robot has turned from origin
-        double pow = 1; // power applied to motors
-
-        while (currAngle < degrees && autoRunning()) {
-            pow = (double) (degrees - currAngle) / degrees * 0.6 + 0.1;
-
-            // Apply power to motors and update currAngle
-            if (right)
-                hardware.drivetrain.setPowers(pow, -pow, 0);
-            else
-                hardware.drivetrain.setPowers(-pow, pow, 0);
-            currAngle = Math.abs(hardware.drivetrain.gyroSensor.getAngle());
-        }
-        hardware.drivetrain.setPowers(0, 0, 0);
+        return System.currentTimeMillis() - startTime <= autoTimeLimit && !autonomous.isStopRequested();
     }
 
 }

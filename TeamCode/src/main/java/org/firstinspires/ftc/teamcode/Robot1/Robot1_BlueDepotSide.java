@@ -19,7 +19,7 @@ public class Robot1_BlueDepotSide extends LinearOpMode {
         // Setup auto
         hardware = new Robot1_Hardware(hardwareMap, gamepad1, true);
         hardware.initHardware();
-        auto = new Robot1_Auto(this, hardware, startTime);
+        auto = new Robot1_Auto(this, hardware);
 
         auto.setupMineralDetector(hardwareMap);
         waitForStart();

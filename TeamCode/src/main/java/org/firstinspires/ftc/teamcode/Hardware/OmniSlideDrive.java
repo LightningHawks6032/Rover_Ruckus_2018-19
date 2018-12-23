@@ -22,6 +22,11 @@ public class OmniSlideDrive {
     public MRGyro gyroSensor;
     private Gamepad gamepad;
 
+    // AUTO BASED VARIABLES
+    private LinearOpMode autonomous = null; // stays null unless used in an auto
+    private long startTime;
+    private final long autoTimeLimit = 300000; // Autonomous time limit in milliseconds
+
     // Constants to regulate maximum power
     private final double MAX_DRIVE_POWER = 1;
     private final double MAX_MIDDLE_POWER = 1;
@@ -90,6 +95,14 @@ public class OmniSlideDrive {
             boost = 1;
     }
 
+    public void setStartTime(long time) {
+        startTime = time;
+    }
+
+    public void setAuto(LinearOpMode auto) {
+        autonomous = auto;
+    }
+
 
     /**
      * Robot drives forward or backward a set amount of linear distance using encoders
@@ -109,7 +122,7 @@ public class OmniSlideDrive {
 
         setPowers(direction * pow, direction * pow, 0);
 
-        while (leftMotor.isBusy() && rightMotor.isBusy()) {
+        while (leftMotor.isBusy() && rightMotor.isBusy() && autoRunning()) {
             // WAIT - Motors are busy
         }
 
@@ -134,7 +147,7 @@ public class OmniSlideDrive {
 
         setPowers(0, 0, direction * pow);
 
-        while (middleMotor.isBusy()) {
+        while (middleMotor.isBusy() && autoRunning()) {
             // WAIT - Motor is busy
         }
 
@@ -221,7 +234,7 @@ public class OmniSlideDrive {
         int currAngle = Math.abs(gyroSensor.getAngle()); // Use getAngle() because it returns angle robot has turned from origin
         double pow = 1; // power applied to motors
 
-        while (currAngle < degrees) {
+        while (currAngle < degrees && autoRunning()) {
             pow = (double) (degrees - currAngle) / degrees * 0.8 + 0.1; // originally 0.6 at qualifier
 
             // Apply power to motors and update currAngle
@@ -265,5 +278,10 @@ public class OmniSlideDrive {
     }
     public double getBoost() {
         return boost;
+    }
+
+
+    private boolean autoRunning() {
+        return System.currentTimeMillis() - startTime <= autoTimeLimit && !autonomous.isStopRequested();
     }
 }

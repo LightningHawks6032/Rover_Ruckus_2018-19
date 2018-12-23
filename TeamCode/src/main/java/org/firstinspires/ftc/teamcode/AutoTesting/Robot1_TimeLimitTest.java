@@ -21,7 +21,7 @@ public class Robot1_TimeLimitTest extends LinearOpMode {
         waitForStart();
         auto.setStartTime(System.currentTimeMillis()); // needed at beginning of auto
 
-        auto.turn(60, true);
+        hardware.drivetrain.turn(60, true);
     }
 
     /*
