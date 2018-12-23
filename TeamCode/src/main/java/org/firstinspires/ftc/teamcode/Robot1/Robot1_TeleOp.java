@@ -43,8 +43,12 @@ public class Robot1_TeleOp extends OpMode {
     private void debug() {
         telemetry.addData("Hang Motor Encoder Val", hardware.hangEncoder.getEncoderCount());
         telemetry.addData("Hang Motor Power", hardware.hangNvst.getPower());
-        telemetry.addData("linear actuator direction", hardware.linearActuator.getDirection());
-        telemetry.addData("linear actuator position", hardware.linearActuator.getPosition());
+        telemetry.addData("Left Motor Pow", hardware.drivetrain.getLeftPow());
+        telemetry.addData("Left Encoder Val", hardware.drivetrain.getLeftEncoder().getEncoderCount());
+        telemetry.addData("Right Motor Pow", hardware.drivetrain.getRightPow());
+        telemetry.addData("Right Encoder Val", hardware.drivetrain.getRightEncoder().getEncoderCount());
+        //telemetry.addData("linear actuator direction", hardware.linearActuator.getDirection());
+        //telemetry.addData("linear actuator position", hardware.linearActuator.getPosition());
         telemetry.update();
     }
 

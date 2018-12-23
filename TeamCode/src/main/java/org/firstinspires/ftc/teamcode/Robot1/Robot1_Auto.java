@@ -69,11 +69,12 @@ public class Robot1_Auto {
 
     // Updates Robot Position and Angle with Navigation Targets
     public void updateWithNavTarget() {
-        long startTime = System.currentTimeMillis();
+        long beginningTime = System.currentTimeMillis();
 
         // Wait for 3 seconds or until found
-        while (!navTargetDetector.isTargetVisible() || System.currentTimeMillis() - startTime < 3000) {
+        while ((!navTargetDetector.isTargetVisible() || System.currentTimeMillis() - beginningTime < 3000) && autoRunning()) {
             hardware.navTargetDetector.lookForTargets();
+            // Swerve?
         }
 
         if (navTargetDetector.isTargetVisible()) {

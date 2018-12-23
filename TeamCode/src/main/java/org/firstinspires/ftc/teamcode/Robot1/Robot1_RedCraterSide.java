@@ -25,24 +25,20 @@ public class Robot1_RedCraterSide extends LinearOpMode {
         waitForStart();
         auto.setStartTime(System.currentTimeMillis());
 
-        auto.landOnField();
+        hardware.drivetrain.driveDistance(1, 13, 0.5);
         auto.setStartPosition(3);
 
         // Sample minerals
         telemetry.addLine("Sampling Minerals");
         telemetry.update();
-        auto.performMineralSampling(3, false, false);
+        auto.performMineralSampling(3, false, true);
         hardware.mineralDetector.disable();
 
-        // Driving to Crater
-        telemetry.addLine("Driving to Crater");
-        telemetry.update();
-        hardware.drivetrain.faceAngle(225);
-        hardware.drivetrain.driveDistance(1, 5, 0.5);
-        auto.extendHorizontalSlide(0.3, 1);
-
         // Go to navigation target
-        //hardware.drivetrain.goTo(fieldMap.get(FieldElement.FRONT_OF_RED_FOOTPRINT), 0.8);
+        hardware.navTargetDetector.setupTracker();
+        hardware.drivetrain.goTo(fieldMap.get(FieldElement.FRONT_OF_RED_FOOTPRINT), 0.8);
+        hardware.drivetrain.face(fieldMap.get(FieldElement.RED_FOOTPRINT));
+        auto.updateWithNavTarget();
 
         // Go to depot
         //telemetry.addLine("Going to Depot");
