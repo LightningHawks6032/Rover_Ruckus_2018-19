@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.HardwareTesting;
+package org.firstinspires.ftc.teamcode.HardwareTesting.Robot1;
 
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
