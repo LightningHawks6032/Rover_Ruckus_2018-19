@@ -14,8 +14,6 @@ public class Robot1_RedCraterSide extends LinearOpMode {
     private FieldMap fieldMap = new FieldMap();
 
     public void runOpMode() throws InterruptedException {
-        long startTime = System.currentTimeMillis();
-
         // Setup auto
         hardware = new Robot1_Hardware(hardwareMap, gamepad1, true);
         hardware.initHardware();
@@ -38,16 +36,12 @@ public class Robot1_RedCraterSide extends LinearOpMode {
         hardware.navTargetDetector.setupTracker();
         hardware.drivetrain.goTo(fieldMap.get(FieldElement.FRONT_OF_RED_FOOTPRINT), 0.8);
         hardware.drivetrain.face(fieldMap.get(FieldElement.RED_FOOTPRINT));
+        hardware.drivetrain.driveDistance(1, 5, 0.5);
         auto.updateWithNavTarget();
 
         // Go to depot
-        //telemetry.addLine("Going to Depot");
-        //telemetry.update();
-        //hardware.drivetrain.faceAngle(0);
-        //hardware.drivetrain.strafeForTime(0.8, 2);
-        //hardware.drivetrain.setRobotPos(fieldMap.get(FieldElement.FRONT_OF_RED_FOOTPRINT).getX(), fieldMap.get(FieldElement.FRONT_OF_RED_FOOTPRINT).getY());
-        //hardware.drivetrain.setRobotAngle(0);
-        //hardware.drivetrain.goTo(fieldMap.get(FieldElement.RED_DEPOT), 0.8);
+        hardware.drivetrain.face(fieldMap.get(FieldElement.RED_DEPOT));
+        hardware.drivetrain.goTo(fieldMap.get(FieldElement.RED_DEPOT), 0.8);
 
         // Dropping off marker
         //telemetry.addLine("Releasing Marker");

@@ -68,22 +68,29 @@ public class Robot1_Auto {
     }
 
     // Updates Robot Position and Angle with Navigation Targets
-    public void updateWithNavTarget() {
+    public void updateWithNavTarget() throws InterruptedException {
         long beginningTime = System.currentTimeMillis();
 
         // Wait for 3 seconds or until found
-        while ((!navTargetDetector.isTargetVisible() || System.currentTimeMillis() - beginningTime < 3000) && autoRunning()) {
+        while (!navTargetDetector.isTargetVisible() && System.currentTimeMillis() - beginningTime < 3000 && autoRunning()) {
             hardware.navTargetDetector.lookForTargets();
             // Swerve?
         }
 
         if (navTargetDetector.isTargetVisible()) {
+            // Update Positional Data
             hardware.drivetrain.setRobotPos(hardware.navTargetDetector.getRobotPosition().getX(), hardware.navTargetDetector.getRobotPosition().getY());
             hardware.drivetrain.setRobotAngle((int) hardware.navTargetDetector.getRobotRotation());
-            hardware.drivetrain.driveDistance(-1, 10, 0.5);
-            autonomous.telemetry.addLine("Saw target");
+
+            // Reset Positional Hardware
+            hardware.drivetrain.encoderSetup();
+            hardware.drivetrain.gyroSensor.zero();
+
+            // Debug
+            autonomous.telemetry.addData("Robot Pos", hardware.drivetrain.robotPos.toString());
             autonomous.telemetry.update();
         }
+        Thread.sleep(1000);
     }
 
     public void landOnField() throws InterruptedException {
