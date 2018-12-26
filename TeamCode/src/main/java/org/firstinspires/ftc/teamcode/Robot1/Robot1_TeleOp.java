@@ -10,7 +10,7 @@ import org.firstinspires.ftc.teamcode.Hardware.Robot1_Hardware;
 @TeleOp(name="Robot1 TeleOp", group="Iterative Opmode")
 public class Robot1_TeleOp extends OpMode {
 
-    Robot1_Hardware hardware;
+    private Robot1_Hardware hardware;
 
     //Power variables
     private double slidePower, hangPow, actuPos;
