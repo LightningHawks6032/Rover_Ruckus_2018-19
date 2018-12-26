@@ -45,8 +45,8 @@ public class NavTargetDetector {
 
     // Instance data: hardwareMap and displacements that indicate phone camera location on robot
     private HardwareMap hwMap;
-    private int camForwardDisplacement; // eg: Camera is ___ mm in front of robot center
-    private int camLeftDisplacement; // eg: Camera is ___ mm to left of robot center
+    private double camForwardDisplacement; // eg: Camera is ___ inches in front of robot center
+    private double camLeftDisplacement; // eg: Camera is ___ inches to left of robot center
 
     // For returning to telemetry
     private boolean targetVisible;
@@ -56,7 +56,7 @@ public class NavTargetDetector {
     private VectorF camPos;
     private Orientation robotRotation;
 
-    public NavTargetDetector(HardwareMap hwMap, int camForwardDisplacement, int camLeftDisplacement) {
+    public NavTargetDetector(HardwareMap hwMap, double camForwardDisplacement, double camLeftDisplacement) {
         // Hardware
         this.hwMap = hwMap;
         this.camForwardDisplacement = camForwardDisplacement;

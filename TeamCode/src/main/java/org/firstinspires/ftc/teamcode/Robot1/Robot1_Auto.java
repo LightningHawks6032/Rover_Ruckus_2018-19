@@ -80,6 +80,9 @@ public class Robot1_Auto {
         if (navTargetDetector.isTargetVisible()) {
             hardware.drivetrain.setRobotPos(hardware.navTargetDetector.getRobotPosition().getX(), hardware.navTargetDetector.getRobotPosition().getY());
             hardware.drivetrain.setRobotAngle((int) hardware.navTargetDetector.getRobotRotation());
+            hardware.drivetrain.driveDistance(-1, 10, 0.5);
+            autonomous.telemetry.addLine("Saw target");
+            autonomous.telemetry.update();
         }
     }
 

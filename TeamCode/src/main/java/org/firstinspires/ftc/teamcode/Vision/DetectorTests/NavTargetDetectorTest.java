@@ -20,15 +20,12 @@ public class NavTargetDetectorTest extends OpMode
     private NavTargetDetector detector;
     private Robot1_Hardware hardware;
 
-    private final static int CAMERA_FORWARD_POSITION = 0, // eg: Camera is 0 mm in front of robot center
-            CAMERA_LEFT_POSITION = 0; // eg: Camera is 0 mm left of the robot's center line
-
     @Override
     public void init() {
         // Set up detector
         hardware = new Robot1_Hardware(hardwareMap, gamepad1, false);
         hardware.initHardware();
-        detector = new NavTargetDetector(hardwareMap, CAMERA_FORWARD_POSITION, CAMERA_LEFT_POSITION); // Create detector
+        detector = hardware.navTargetDetector; // Create detector
         detector.setupTracker();
     }
 

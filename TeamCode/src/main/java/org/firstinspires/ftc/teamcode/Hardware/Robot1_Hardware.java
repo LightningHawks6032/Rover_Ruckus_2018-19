@@ -39,7 +39,7 @@ public class Robot1_Hardware implements HardwareInterface {
     public double wheelDiameter = 4.0;
 
     // Constants for phone position for nav targets
-    public final static int CAMERA_FORWARD_POSITION = 0, // eg: Camera is 0 mm in front of robot center
+    public final static double CAMERA_FORWARD_POSITION = 3.5, // eg: Camera is 0 mm in front of robot center
                  CAMERA_LEFT_POSITION = 0; // eg: Camera is 0 mm left of the robot's center line
 
     // X-position pixel value for center of robot (for mineral sampling)
