@@ -32,7 +32,11 @@ public class Robot2_Intake {
         flipEncoder.setup();
     }
 
-    // ADD METHODS FOR TELE-OP AND AUTONOMOUS
+    public void manageTeleOp() {
+        collect();
+        flip();
+        manageSlide();
+    }
 
     // Run the collector
     private void collect() {
@@ -42,5 +46,17 @@ public class Robot2_Intake {
             collector.setPower(-1);
         }
     }
+
+    // Flip the collector
+    private void flip() {
+
+    }
+
+    // Manage horizontal slide
+    private void manageSlide() {
+
+    }
+
+
 
 }
