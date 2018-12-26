@@ -36,7 +36,7 @@ public class Robot1_Hardware implements HardwareInterface {
            MARKER_ARM_MIDDLE = 0.5,
            MARKER_ARM_DOWN = 0;
 
-    public double wheelDiameter = 4.0;
+    public final double WHEEL_DIAMETER = 4.0;
 
     // Constants for phone position for nav targets
     public final static double CAMERA_FORWARD_POSITION = 3.5, // eg: Camera is 0 mm in front of robot center
@@ -60,7 +60,7 @@ public class Robot1_Hardware implements HardwareInterface {
                     hardwareMap.get(DcMotor.class, "md"), // middle drive motor
                     new MRGyro(hardwareMap.get(GyroSensor.class, "gs"), true), // gyro sensor calibrated
                     driveGamepad,
-                    wheelDiameter
+                    WHEEL_DIAMETER
             );
         } else {
             drivetrain = new OmniSlideDrive(
@@ -69,7 +69,7 @@ public class Robot1_Hardware implements HardwareInterface {
                     hardwareMap.get(DcMotor.class, "md"), // middle drive motor
                     new MRGyro(hardwareMap.get(GyroSensor.class, "gs"), false), // gyro sensor not calibrated
                     driveGamepad,
-                    wheelDiameter
+                    WHEEL_DIAMETER
             );
         }
 

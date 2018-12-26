@@ -46,7 +46,7 @@ public class Robot1_RedCraterSide extends LinearOpMode {
         // Dropping off marker
         //telemetry.addLine("Releasing Marker");
         //telemetry.update();
-        //auto.releaseMarker("red");
+        auto.releaseMarker("red");
 
         //telemetry.addLine("Driving to Crater");
         //telemetry.update();
