@@ -47,16 +47,16 @@ public class Robot2_Hardware implements HardwareInterface {
 
 
 
-        intake = new Robot2_Intake(hardwareMap.get(DcMotor.class, "int"),
-                                   hardwareMap.get(DcMotor.class, "iflip"),
+        intake = new Robot2_Intake(hardwareMap.get(DcMotor.class, "col"),
+                                   hardwareMap.get(DcMotor.class, "flip"),
                                    hardwareMap.get(DcMotor.class, "hs"),
                                    manipsGamepad
         );
         leftVertical = hardwareMap.get(DcMotor.class, "lv");
         rightVertical = hardwareMap.get(DcMotor.class, "rv");
 
-        leftDumper = hardwareMap.get(Servo.class, "ld");
-        rightDumper = hardwareMap.get(Servo.class, "rd");
+        leftDumper = hardwareMap.get(Servo.class, "ldump");
+        rightDumper = hardwareMap.get(Servo.class, "rdump");
 
 
     }
