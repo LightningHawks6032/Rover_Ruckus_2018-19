@@ -183,7 +183,15 @@ public class OmniSlideDrive {
     public void goTo(Vector location, double pow) {
         face(location); // Turn to face location
         driveDistance(1, location.distanceFrom(robotPos), pow); // Drive to location
-        robotPos = location; // Update robot position
+
+        // Updating robot position
+        int tempRobotAngle = robotAngle > 180 ? -(360 - robotAngle) : robotAngle;
+        double theta = gyroSensor.convertToRadians(tempRobotAngle);
+        double dist = (leftEncoder.linDistance() + rightEncoder.linDistance()) / 2; // Distance travelled according to encoders
+
+        robotPos = robotPos.sum(new Vector(dist * Math.cos(theta), dist * Math.sin(theta)));
+
+        //robotPos = location; // Original way of updating robot position
     }
 
     /**
