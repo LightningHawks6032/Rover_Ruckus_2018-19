@@ -2,7 +2,7 @@
  * Basic auto class to test the turn() function(s) in the drivetrain class which use gyro
  */
 
-package org.firstinspires.ftc.teamcode.AutoTesting;
+package org.firstinspires.ftc.teamcode.TestOpmodes.AutoTesting;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;

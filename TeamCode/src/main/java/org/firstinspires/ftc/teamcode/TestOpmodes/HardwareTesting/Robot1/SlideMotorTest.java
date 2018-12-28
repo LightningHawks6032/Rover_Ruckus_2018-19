@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.HardwareTesting.Robot1;
+package org.firstinspires.ftc.teamcode.TestOpmodes.HardwareTesting.Robot1;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;

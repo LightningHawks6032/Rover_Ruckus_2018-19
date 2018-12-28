@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.HardwareTesting.Robot1;
+package org.firstinspires.ftc.teamcode.TestOpmodes.HardwareTesting.Robot1;
 
 import org.firstinspires.ftc.teamcode.Hardware.Encoder;
 import org.firstinspires.ftc.teamcode.Hardware.Robot1_Hardware;
