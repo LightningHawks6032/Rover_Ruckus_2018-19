@@ -13,10 +13,7 @@ public class Robot2_Hardware implements HardwareInterface {
     // Declaring the motors
     public OmniSlideDrive drivetrain;
     public Robot2_Intake intake;
-    public DcMotor leftVertical;
-    public DcMotor rightVertical;
-    public Servo leftDumper;
-    public Servo rightDumper;
+    public Robot2_Outtake outtake;
 
     // Servo constants
 
@@ -52,12 +49,12 @@ public class Robot2_Hardware implements HardwareInterface {
                                    hardwareMap.get(DcMotor.class, "hs"),
                                    manipsGamepad
         );
-        leftVertical = hardwareMap.get(DcMotor.class, "lv");
-        rightVertical = hardwareMap.get(DcMotor.class, "rv");
-
-        leftDumper = hardwareMap.get(Servo.class, "ldump");
-        rightDumper = hardwareMap.get(Servo.class, "rdump");
-
+        outtake = new Robot2_Outtake(hardwareMap.get(DcMotor.class, "lv"),
+                                     hardwareMap.get(DcMotor.class, "rv"),
+                                     hardwareMap.get(Servo.class, "ldump"),
+                                     hardwareMap.get(Servo.class, "rdump"),
+                                     manipsGamepad
+        );
 
     }
 
@@ -65,7 +62,6 @@ public class Robot2_Hardware implements HardwareInterface {
         // called during init() of opMode
         drivetrain.setupMotors();
         intake.setupMotors();
-        leftVertical.setDirection(DcMotor.Direction.FORWARD);
-        rightVertical.setDirection(DcMotor.Direction.FORWARD);
+        outtake.setupMotors();
     }
 }
