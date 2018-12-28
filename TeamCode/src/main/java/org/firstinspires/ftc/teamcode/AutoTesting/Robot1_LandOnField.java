@@ -7,7 +7,7 @@ import org.firstinspires.ftc.teamcode.FieldMapping.FieldMap;
 import org.firstinspires.ftc.teamcode.Hardware.Robot1_Hardware;
 import org.firstinspires.ftc.teamcode.Vision.Detectors.GoldAlignDetector;
 
-// @Autonomous(name="Landing", group="Linear OpMode")
+// @Autonomous(name="Landing", group=AutonomousData.TEST_GROUP)
 public class Robot1_LandOnField extends LinearOpMode {
     // Declare hardware
     private Robot1_Hardware hardware;

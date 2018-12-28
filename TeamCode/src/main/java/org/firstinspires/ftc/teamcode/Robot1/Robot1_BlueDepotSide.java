@@ -3,11 +3,12 @@ package org.firstinspires.ftc.teamcode.Robot1;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
+import org.firstinspires.ftc.teamcode.AutonomousData;
 import org.firstinspires.ftc.teamcode.FieldMapping.FieldElement;
 import org.firstinspires.ftc.teamcode.FieldMapping.FieldMap;
 import org.firstinspires.ftc.teamcode.Hardware.Robot1_Hardware;
 
-@Autonomous(name="Robot 1 Blue Depot Side", group="Linear Opmode")
+@Autonomous(name="Robot 1 Blue Depot Side", group=AutonomousData.OFFICIAL_GROUP)
 public class Robot1_BlueDepotSide extends LinearOpMode {
     private Robot1_Hardware hardware;
     private Robot1_Auto auto;
@@ -42,11 +43,11 @@ public class Robot1_BlueDepotSide extends LinearOpMode {
         // Dropping off marker
         telemetry.addLine("Releasing Marker");
         telemetry.update();
-        auto.releaseMarker("blue");
+        auto.releaseMarker(AutonomousData.BLUE_ALLIANCE);
 
         // Returning to crater
         telemetry.addLine("Driving to Crater");
         telemetry.update();
-        auto.driveToCrater("blue");
+        auto.driveToCrater(AutonomousData.BLUE_ALLIANCE);
     }
 }

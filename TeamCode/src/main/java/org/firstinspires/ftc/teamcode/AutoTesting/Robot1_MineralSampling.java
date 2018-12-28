@@ -15,7 +15,7 @@ import org.firstinspires.ftc.teamcode.Hardware.Robot1_Hardware;
 import org.firstinspires.ftc.teamcode.Vision.Detectors.GoldAlignDetector;
 import org.firstinspires.ftc.teamcode.Vision.Detectors.MineralDetector;
 
-// @Autonomous(name="Mineral Sampling", group="Linear Opmode")
+// @Autonomous(name="Mineral Sampling", group=AutonomousData.TEST_GROUP)
 public class Robot1_MineralSampling extends LinearOpMode {
     // Declare hardware
     private Robot1_Hardware hardware;

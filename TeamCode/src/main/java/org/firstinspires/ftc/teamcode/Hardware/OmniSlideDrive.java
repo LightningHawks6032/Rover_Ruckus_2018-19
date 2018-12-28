@@ -6,6 +6,7 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.GyroSensor;
 
+import org.firstinspires.ftc.teamcode.AutonomousData;
 import org.firstinspires.ftc.teamcode.FieldMapping.Vector;
 
 public class OmniSlideDrive {
@@ -25,7 +26,6 @@ public class OmniSlideDrive {
     // AUTO BASED VARIABLES
     private LinearOpMode autonomous = null; // stays null unless used in an auto
     private long startTime;
-    private final long autoTimeLimit = 300000; // Autonomous time limit in milliseconds
 
     // Constants to regulate maximum power
     private final double MAX_DRIVE_POWER = 1;
@@ -282,6 +282,6 @@ public class OmniSlideDrive {
 
 
     private boolean autoRunning() {
-        return System.currentTimeMillis() - startTime <= autoTimeLimit && !autonomous.isStopRequested();
+        return System.currentTimeMillis() - startTime <= AutonomousData.TIME_LIMIT && !autonomous.isStopRequested();
     }
 }

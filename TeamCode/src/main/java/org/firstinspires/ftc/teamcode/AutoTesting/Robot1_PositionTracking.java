@@ -10,7 +10,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import org.firstinspires.ftc.teamcode.FieldMapping.FieldElement;
 import org.firstinspires.ftc.teamcode.FieldMapping.FieldMap;
 import org.firstinspires.ftc.teamcode.Hardware.Robot1_Hardware;
-// @Autonomous(name="Position Tracking Test", group="Linear Opmode")
+// @Autonomous(name="Position Tracking Test", group=AutonomousData.TEST_GROUP)
 public class Robot1_PositionTracking extends LinearOpMode {
 
     private Robot1_Hardware hardware;

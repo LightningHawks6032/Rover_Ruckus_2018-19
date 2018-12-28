@@ -9,7 +9,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.Hardware.Robot1_Hardware;
 
-// @Autonomous(name="Robot 1 Turning with Gyro", group="Linear Opmode")
+// @Autonomous(name="Robot 1 Turning with Gyro", group=AutonomousData.TEST_GROUP)
 public class Robot1_Turning extends LinearOpMode {
     private Robot1_Hardware hardware;
 

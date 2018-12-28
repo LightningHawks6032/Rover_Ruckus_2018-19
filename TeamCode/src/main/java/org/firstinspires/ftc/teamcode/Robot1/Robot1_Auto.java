@@ -4,6 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
+import org.firstinspires.ftc.teamcode.AutonomousData;
 import org.firstinspires.ftc.teamcode.FieldMapping.FieldElement;
 import org.firstinspires.ftc.teamcode.FieldMapping.FieldMap;
 import org.firstinspires.ftc.teamcode.FieldMapping.Vector;
@@ -20,8 +21,6 @@ public class Robot1_Auto {
     private GoldAlignDetector mineralDetector;
     private NavTargetDetector navTargetDetector;
     private long startTime;
-
-    private final long autoTimeLimit = 300000; // Autonomous time limit in milliseconds
 
     // Constructor instantiates hardware and setups mineral detector
     public Robot1_Auto(LinearOpMode auto, Robot1_Hardware hardware) {
@@ -219,10 +218,10 @@ public class Robot1_Auto {
     }
 
 
-    public void releaseMarker(String alliance) throws InterruptedException {
-        if (alliance.equals("red"))
+    public void releaseMarker(int alliance) throws InterruptedException {
+        if (alliance == AutonomousData.RED_ALLIANCE)
             hardware.drivetrain.faceAngle(270);
-        else if (alliance.equals("blue"))
+        else if (alliance == AutonomousData.BLUE_ALLIANCE)
             hardware.drivetrain.faceAngle(90);
         hardware.drivetrain.driveDistance(1, 5, 0.6);
         hardware.drivetrain.strafeForTime(0.8, 1); // used to be BEFORE the above if statements
@@ -232,10 +231,10 @@ public class Robot1_Auto {
         hardware.markerArm.setPosition(hardware.MARKER_ARM_UP);
     }
 
-    public void driveToCrater(String alliance) throws InterruptedException {
-        if (alliance.equals("red")) {
+    public void driveToCrater(int alliance) throws InterruptedException {
+        if (alliance == AutonomousData.RED_ALLIANCE) {
             hardware.drivetrain.faceAngle(180);
-        } else if (alliance.equals("blue")) {
+        } else if (alliance == AutonomousData.BLUE_ALLIANCE) {
             hardware.drivetrain.faceAngle(0);
         }
 
@@ -273,7 +272,7 @@ public class Robot1_Auto {
 
     // Used to break all while loops when an opmode stops
     private boolean autoRunning() {
-        return System.currentTimeMillis() - startTime <= autoTimeLimit && !autonomous.isStopRequested();
+        return System.currentTimeMillis() - startTime <= AutonomousData.TIME_LIMIT && !autonomous.isStopRequested();
     }
 
 }
