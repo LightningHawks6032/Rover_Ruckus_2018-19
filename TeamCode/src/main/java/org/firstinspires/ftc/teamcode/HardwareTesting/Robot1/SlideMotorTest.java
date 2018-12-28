@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import org.firstinspires.ftc.teamcode.Hardware.Robot1_Hardware;
 
 // @TeleOp(name="Robot1 Slide Test", group="Iterative Opmode")
-public class Robot1_SlideMotorTest extends OpMode {
+public class SlideMotorTest extends OpMode {
     private Robot1_Hardware hardware;
 
     double motorPower;

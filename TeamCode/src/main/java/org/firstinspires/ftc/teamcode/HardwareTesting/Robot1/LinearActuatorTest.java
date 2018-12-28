@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import org.firstinspires.ftc.teamcode.Hardware.Robot1_Hardware;
 
 // @TeleOp(name="Robot1 Linear Actuator Test", group="Iterative Opmode")
-public class Robot1_LinearActuatorTest extends OpMode {
+public class LinearActuatorTest extends OpMode {
     Robot1_Hardware hardware;
 
     double actuPos;

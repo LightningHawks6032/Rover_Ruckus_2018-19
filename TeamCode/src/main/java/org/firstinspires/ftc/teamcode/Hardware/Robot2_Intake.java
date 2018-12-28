@@ -5,16 +5,16 @@ import com.qualcomm.robotcore.hardware.Gamepad;
 
 public class Robot2_Intake {
     // Hardware Components
-    private DcMotor collector; // Weird tubey thing that collects the minerals
-    private DcMotor flipper; // Flips the collector
-    private Encoder flipEncoder; // For managing the flipper position
-    private DcMotor horizontalSlide; // Extends over crater
+    public DcMotor collector; // Weird tubey thing that collects the minerals
+    public DcMotor flipper; // Flips the collector
+    public Encoder flipEncoder; // For managing the flipper position
+    public DcMotor horizontalSlide; // Extends over crater
 
     private Gamepad gamepad;
 
     // Hardware Constants
-    private final int FLIPPER_IN_ENCODER_VAL = 0;
-    private final int FLIPPER_OUT_ENCODER_VAL = 600; // Needs to be changed with testing
+    public final int FLIPPER_IN_ENCODER_VAL = 0;
+    public final int FLIPPER_OUT_ENCODER_VAL = 600; // Needs to be changed with testing
 
     public Robot2_Intake(DcMotor collect, DcMotor flip, DcMotor hs, Gamepad manipsGamepad) {
         collector = collect;

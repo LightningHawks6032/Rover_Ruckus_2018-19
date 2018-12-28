@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
 // @TeleOp(name="Robot 1 Encoder Test", group="Iterative Opmode")
-public class Robot1_EncoderTest extends OpMode {
+public class EncoderTest extends OpMode {
     Robot1_Hardware hardware;
 
     Encoder leftDriveEncoder;
