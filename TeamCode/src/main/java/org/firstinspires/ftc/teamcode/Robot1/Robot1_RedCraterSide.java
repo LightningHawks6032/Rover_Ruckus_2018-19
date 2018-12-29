@@ -34,15 +34,14 @@ public class Robot1_RedCraterSide extends LinearOpMode {
         hardware.mineralDetector.disable();
 
         // Go to navigation target
-        hardware.navTargetDetector.setupTracker();
+        auto.setupNavigationDetector(hardwareMap);
         hardware.drivetrain.goTo(fieldMap.get(FieldElement.FRONT_OF_RED_FOOTPRINT), 0.8);
         hardware.drivetrain.face(fieldMap.get(FieldElement.RED_FOOTPRINT));
         hardware.drivetrain.driveDistance(1, 5, 0.5);
         auto.updateWithNavTarget();
 
         // Go to depot
-        hardware.drivetrain.face(fieldMap.get(FieldElement.RED_DEPOT));
-        //hardware.drivetrain.goTo(fieldMap.get(FieldElement.RED_DEPOT), 0.8);
+        hardware.drivetrain.goTo(fieldMap.get(FieldElement.RED_DEPOT), 0.8);
 
         // Dropping off marker
         //telemetry.addLine("Releasing Marker");
