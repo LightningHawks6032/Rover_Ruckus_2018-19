@@ -68,6 +68,7 @@ public class Robot1_Auto {
 
     // Updates Robot Position and Angle with Navigation Targets
     public void updateWithNavTarget() throws InterruptedException {
+        Thread.sleep(1000);
         long beginningTime = System.currentTimeMillis();
 
         // Wait for 3 seconds or until found
@@ -86,10 +87,10 @@ public class Robot1_Auto {
             hardware.drivetrain.gyroSensor.zero();
 
             // Debug
-            autonomous.telemetry.addData("Robot Pos", hardware.drivetrain.robotPos.toString());
+            //autonomous.telemetry.addData("Robot Pos", hardware.drivetrain.robotPos.toString());
+            autonomous.telemetry.addData("Robot Angle", hardware.drivetrain.robotAngle);
             autonomous.telemetry.update();
         }
-        Thread.sleep(1000);
     }
 
     public void landOnField() throws InterruptedException {

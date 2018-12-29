@@ -42,12 +42,12 @@ public class Robot1_RedCraterSide extends LinearOpMode {
 
         // Go to depot
         hardware.drivetrain.face(fieldMap.get(FieldElement.RED_DEPOT));
-        hardware.drivetrain.goTo(fieldMap.get(FieldElement.RED_DEPOT), 0.8);
+        //hardware.drivetrain.goTo(fieldMap.get(FieldElement.RED_DEPOT), 0.8);
 
         // Dropping off marker
         //telemetry.addLine("Releasing Marker");
         //telemetry.update();
-        auto.releaseMarker(AutonomousData.RED_ALLIANCE);
+        //auto.releaseMarker(AutonomousData.RED_ALLIANCE);
 
         //telemetry.addLine("Driving to Crater");
         //telemetry.update();

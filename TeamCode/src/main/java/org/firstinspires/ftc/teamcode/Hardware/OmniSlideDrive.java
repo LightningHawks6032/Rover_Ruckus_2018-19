@@ -256,6 +256,9 @@ public class OmniSlideDrive {
 
         // Updates the robot angle based on turn
         updateAngleFromGyro();
+
+        autonomous.telemetry.addData("Robot Angle", robotAngle);
+        autonomous.telemetry.update();
     }
 
     public void updateAngleFromGyro() {
