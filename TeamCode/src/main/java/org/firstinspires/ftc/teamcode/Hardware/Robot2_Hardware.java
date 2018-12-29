@@ -14,9 +14,12 @@ public class Robot2_Hardware implements HardwareInterface {
     public OmniSlideDrive drivetrain;
     public Robot2_Intake intake;
     public Robot2_Outtake outtake;
+    public Servo markerArm;
 
     // Servo constants
-
+    public final double MARKER_ARM_UP = 1,
+                        MARKER_ARM_MIDDLE = 0.5,
+                        MARKER_ARM_DOWN = 0;
 
     public final double WHEEL_DIAMETER = 4.0;
 
@@ -56,6 +59,8 @@ public class Robot2_Hardware implements HardwareInterface {
                                      manipsGamepad
         );
 
+        markerArm = hardwareMap.get(Servo.class, "ma");
+
     }
 
     public void initHardware() {
@@ -63,5 +68,6 @@ public class Robot2_Hardware implements HardwareInterface {
         drivetrain.setupMotors();
         intake.setupMotors();
         outtake.setupMotors();
+        markerArm.setPosition(MARKER_ARM_UP);
     }
 }
