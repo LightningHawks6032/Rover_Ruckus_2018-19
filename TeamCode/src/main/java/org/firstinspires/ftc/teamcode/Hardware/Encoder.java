@@ -8,25 +8,27 @@ package org.firstinspires.ftc.teamcode.Hardware;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 
+import org.firstinspires.ftc.teamcode.AutonomousData;
+
 public class Encoder {
     private DcMotor motor; // motor
-    private String type; // Either "Neverest" or "Tetrix"
+    private int type; // Either "Neverest" or "Tetrix"
     private double wheelDiameter; // wheel diameter in inches
 
     // Constants for ticks per revolution of motors we use
     final static int NEVEREST_TICKS_PER_REV = 1120;
     final static int TETRIX_TICKS_PER_REV = 1440;
 
-    public Encoder(DcMotor motor, String type, double diam) {
+    public Encoder(DcMotor motor, int type, double diam) {
         this.motor = motor;
         this.type = type;
         wheelDiameter = diam;
     }
 
     public int ticksPerRev() {
-        if (type.equals("Neverest"))
+        if (type == AutonomousData.NEVEREST_ENCODER)
             return NEVEREST_TICKS_PER_REV;
-        else if (type.equals("Tetrix"))
+        else if (type == AutonomousData.TETRIX_ENCODER)
             return TETRIX_TICKS_PER_REV;
         else
             return NEVEREST_TICKS_PER_REV; // default
@@ -75,7 +77,7 @@ public class Encoder {
     public DcMotor getMotor() {
         return motor;
     }
-    public String getType() {
+    public int getType() {
         return type;
     }
     public double getWheelDiameter() {

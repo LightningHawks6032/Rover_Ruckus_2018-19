@@ -48,19 +48,19 @@ public class Robot1_Auto {
     public void setStartPosition(int quadrant) {
         switch (quadrant) {
             case 1:
-                hardware.drivetrain.setRobotPos(fieldMap.SQUARE_LENGTH, fieldMap.SQUARE_LENGTH);
+                hardware.drivetrain.setRobotPos(new Vector(fieldMap.SQUARE_LENGTH, fieldMap.SQUARE_LENGTH));
                 hardware.drivetrain.setRobotAngle(45);
                 break;
             case 2:
-                hardware.drivetrain.setRobotPos(-fieldMap.SQUARE_LENGTH, fieldMap.SQUARE_LENGTH);
+                hardware.drivetrain.setRobotPos(new Vector(-fieldMap.SQUARE_LENGTH, fieldMap.SQUARE_LENGTH));
                 hardware.drivetrain.setRobotAngle(135);
                 break;
             case 3:
-                hardware.drivetrain.setRobotPos(-fieldMap.SQUARE_LENGTH, -fieldMap.SQUARE_LENGTH);
+                hardware.drivetrain.setRobotPos(new Vector(-fieldMap.SQUARE_LENGTH, -fieldMap.SQUARE_LENGTH));
                 hardware.drivetrain.setRobotAngle(225);
                 break;
             case 4:
-                hardware.drivetrain.setRobotPos(fieldMap.SQUARE_LENGTH, -fieldMap.SQUARE_LENGTH);
+                hardware.drivetrain.setRobotPos(new Vector(fieldMap.SQUARE_LENGTH, -fieldMap.SQUARE_LENGTH));
                 hardware.drivetrain.setRobotAngle(315);
                 break;
         }
@@ -79,7 +79,7 @@ public class Robot1_Auto {
 
         if (navTargetDetector.isTargetVisible()) {
             // Update Positional Data
-            hardware.drivetrain.setRobotPos(hardware.navTargetDetector.getRobotPosition().getX(), hardware.navTargetDetector.getRobotPosition().getY());
+            hardware.drivetrain.setRobotPos(hardware.navTargetDetector.getRobotPosition());
             hardware.drivetrain.setRobotAngle((int) hardware.navTargetDetector.getRobotRotation());
 
             // Reset Positional Hardware
@@ -186,7 +186,7 @@ public class Robot1_Auto {
 
         if (backup) {
             hardware.drivetrain.driveDistance(-1, hardware.drivetrain.robotPos.distanceFrom(startPos), 0.6);
-            hardware.drivetrain.setRobotPos(startPos.getX(), startPos.getY());
+            hardware.drivetrain.updatePosFromEncoders();
             hardware.drivetrain.setRobotAngle((int) ((360 + hardware.drivetrain.robotAngle - hardware.drivetrain.gyroSensor.getAngle()) % 360));
         }
 

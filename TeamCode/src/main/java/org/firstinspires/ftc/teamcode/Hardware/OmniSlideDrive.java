@@ -41,16 +41,16 @@ public class OmniSlideDrive {
         middleMotor = mm;
         gyroSensor = gyro;
         this.gamepad = gamepad;
-        leftEncoder = new Encoder(lm, "Neverest", wheelDiam);
-        rightEncoder = new Encoder(rm, "Neverest", wheelDiam);
-        middleEncoder = new Encoder(mm, "Neverest", wheelDiam);
+        leftEncoder = new Encoder(lm, AutonomousData.NEVEREST_ENCODER, wheelDiam);
+        rightEncoder = new Encoder(rm, AutonomousData.NEVEREST_ENCODER, wheelDiam);
+        middleEncoder = new Encoder(mm, AutonomousData.NEVEREST_ENCODER, wheelDiam);
 
         boost = 1;
     }
 
-    public void setRobotPos(double x, double y) {
-        robotPos.setX(x);
-        robotPos.setY(y);
+    public void setRobotPos(Vector pos) {
+        robotPos.setX(pos.getX());
+        robotPos.setY(pos.getY());
     }
     public void setRobotAngle(int angle) {
         robotAngle = angle;
@@ -183,14 +183,7 @@ public class OmniSlideDrive {
     public void goTo(Vector location, double pow) {
         face(location); // Turn to face location
         driveDistance(1, location.distanceFrom(robotPos), pow); // Drive to location
-
-        // Updating robot position
-        int tempRobotAngle = robotAngle > 180 ? -(360 - robotAngle) : robotAngle;
-        double theta = gyroSensor.convertToRadians(tempRobotAngle);
-        double dist = (leftEncoder.linDistance() + rightEncoder.linDistance()) / 2; // Distance travelled according to encoders
-
-        robotPos = robotPos.sum(new Vector(dist * Math.cos(theta), dist * Math.sin(theta)));
-
+        updatePosFromEncoders();
         //robotPos = location; // Original way of updating robot position
     }
 
@@ -200,7 +193,7 @@ public class OmniSlideDrive {
      */
     public void face(Vector location) {
         double radiansToTurn = Math.atan2(location.getY() - robotPos.getY(), location.getX() - robotPos.getX());
-        int theta = gyroSensor.convertToDegrees(radiansToTurn);
+        int theta = MRGyro.convertToDegrees(radiansToTurn);
 
         faceAngle(theta);
     }
@@ -259,6 +252,14 @@ public class OmniSlideDrive {
 
         autonomous.telemetry.addData("Robot Angle", robotAngle);
         autonomous.telemetry.update();
+    }
+
+    public void updatePosFromEncoders() {
+        int tempRobotAngle = robotAngle > 180 ? -(360 - robotAngle) : robotAngle;
+        double theta = MRGyro.convertToRadians(tempRobotAngle);
+        double dist = (leftEncoder.linDistance() + rightEncoder.linDistance()) / 2; // Distance travelled according to encoders
+
+        setRobotPos(robotPos.sum(new Vector(dist * Math.cos(theta), dist * Math.sin(theta))));
     }
 
     public void updateAngleFromGyro() {
