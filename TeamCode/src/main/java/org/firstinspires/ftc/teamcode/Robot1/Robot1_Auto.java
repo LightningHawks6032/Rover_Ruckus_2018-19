@@ -82,7 +82,9 @@ public class Robot1_Auto {
             autonomous.telemetry.addLine("NAV FOUND");
             autonomous.telemetry.update();
             hardware.drivetrain.setRobotPos(hardware.navTargetDetector.getRobotPosition());
-            hardware.drivetrain.setRobotAngle((int) hardware.navTargetDetector.getRobotRotation());
+            //hardware.drivetrain.setRobotAngle((int) hardware.navTargetDetector.getRobotRotation());
+            //Temp fix by GC
+            hardware.drivetrain.setRobotAngle((int) (540-hardware.navTargetDetector.getRobotRotation()));
 
             // Reset Positional Hardware
             //hardware.drivetrain.encoderSetup();
