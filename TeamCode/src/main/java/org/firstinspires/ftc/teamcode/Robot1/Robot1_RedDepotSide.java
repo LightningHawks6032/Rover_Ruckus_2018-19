@@ -28,19 +28,19 @@ public class Robot1_RedDepotSide extends LinearOpMode {
         auto.setStartPosition(4);
 
         // Sample minerals
-        telemetry.addLine("Sampling Minerals");
-        telemetry.update();
+        //telemetry.addLine("Sampling Minerals");
+        //telemetry.update();
         auto.performMineralSampling(4, false, false);
         hardware.mineralDetector.disable();
 
         // Go to depot
-        telemetry.addLine("Going to Depot");
-        telemetry.update();
+        //telemetry.addLine("Going to Depot");
+        //telemetry.update();
         hardware.drivetrain.goTo(fieldMap.get(FieldElement.RED_DEPOT), 0.8);
 
         // Dropping off marker
-        telemetry.addLine("Releasing Marker");
-        telemetry.update();
+        //telemetry.addLine("Releasing Marker");
+        //telemetry.update();
         auto.releaseMarker(AutonomousData.RED_ALLIANCE);
 
         // Returning to crater

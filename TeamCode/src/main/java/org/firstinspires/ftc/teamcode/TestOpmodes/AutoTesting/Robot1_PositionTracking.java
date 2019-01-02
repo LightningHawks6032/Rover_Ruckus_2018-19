@@ -49,7 +49,7 @@ public class Robot1_PositionTracking extends LinearOpMode {
         while (!hardware.navTargetDetector.isTargetVisible() || System.currentTimeMillis() - startTime < 5){
             hardware.navTargetDetector.lookForTargets();
         }
-        hardware.drivetrain.setRobotPos(hardware.navTargetDetector.getRobotPosition().getX(), hardware.navTargetDetector.getRobotPosition().getY());
+        hardware.drivetrain.setRobotPos(hardware.navTargetDetector.getRobotPosition());
         hardware.drivetrain.setRobotAngle((int) hardware.navTargetDetector.getRobotRotation());
     }
 }

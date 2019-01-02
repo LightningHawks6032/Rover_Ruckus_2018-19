@@ -9,6 +9,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.sun.tools.javac.util.ForwardingDiagnosticFormatter;
 
+import org.firstinspires.ftc.teamcode.AutonomousData;
 import org.firstinspires.ftc.teamcode.Hardware.HardwareInterface;
 import org.firstinspires.ftc.teamcode.Vision.Detectors.GoldAlignDetector;
 import org.firstinspires.ftc.teamcode.Vision.Detectors.NavTargetDetector;
@@ -84,7 +85,7 @@ public class Robot1_Hardware implements HardwareInterface {
         markerArm = hardwareMap.get(Servo.class, "ma");
 
         hangNvst = hardwareMap.get(DcMotor.class, "hn");
-        hangEncoder = new Encoder(hangNvst, "Neverest", 0);
+        hangEncoder = new Encoder(hangNvst, AutonomousData.NEVEREST_ENCODER, 0);
 
     }
 

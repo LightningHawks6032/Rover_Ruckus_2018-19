@@ -88,8 +88,8 @@ public class Robot1_Auto {
 
             // Debug
             //autonomous.telemetry.addData("Robot Pos", hardware.drivetrain.robotPos.toString());
-            autonomous.telemetry.addData("Robot Angle", hardware.drivetrain.robotAngle);
-            autonomous.telemetry.update();
+            //autonomous.telemetry.addData("Robot Angle", hardware.drivetrain.robotAngle);
+            //autonomous.telemetry.update();
         }
     }
 

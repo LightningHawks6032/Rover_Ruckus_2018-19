@@ -28,8 +28,8 @@ public class Robot1_RedCraterSide extends LinearOpMode {
         auto.setStartPosition(3);
 
         // Sample minerals
-        telemetry.addLine("Sampling Minerals");
-        telemetry.update();
+        //telemetry.addLine("Sampling Minerals");
+        //telemetry.update();
         auto.performMineralSampling(3, false, true);
         hardware.mineralDetector.disable();
 

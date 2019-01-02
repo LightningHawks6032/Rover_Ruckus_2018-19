@@ -3,6 +3,8 @@ package org.firstinspires.ftc.teamcode.Hardware;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Gamepad;
 
+import org.firstinspires.ftc.teamcode.AutonomousData;
+
 public class Robot2_Intake {
     // Hardware Components
     public DcMotor collector; // Weird tubey thing that collects the minerals
@@ -20,7 +22,7 @@ public class Robot2_Intake {
         collector = collect;
         flipper = flip;
         horizontalSlide = hs;
-        flipEncoder = new Encoder(flip, "Neverest", 0);
+        flipEncoder = new Encoder(flip, AutonomousData.NEVEREST_ENCODER, 0);
 
         gamepad = manipsGamepad;
     }
