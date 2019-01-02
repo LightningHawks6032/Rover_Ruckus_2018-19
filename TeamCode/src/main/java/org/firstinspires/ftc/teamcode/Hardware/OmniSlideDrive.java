@@ -49,8 +49,7 @@ public class OmniSlideDrive {
     }
 
     public void setRobotPos(Vector pos) {
-        robotPos.setX(pos.getX());
-        robotPos.setY(pos.getY());
+        robotPos = pos;
     }
     public void setRobotAngle(int angle) {
         robotAngle = angle;
@@ -183,7 +182,14 @@ public class OmniSlideDrive {
     public void goTo(Vector location, double pow) {
         face(location); // Turn to face location
         driveDistance(1, location.distanceFrom(robotPos), pow); // Drive to location
-        updatePosFromEncoders();
+        //updatePosFromEncoders();
+
+        int tempRobotAngle = robotAngle > 180 ? -(360 - robotAngle) : robotAngle;
+        double theta = MRGyro.convertToRadians(tempRobotAngle);
+        double dist = (leftEncoder.linDistance() + rightEncoder.linDistance()) / 2; // Distance travelled according to encoders
+
+        setRobotPos(robotPos.sum(new Vector(dist * Math.cos(theta), dist * Math.sin(theta))));
+
         //robotPos = location; // Original way of updating robot position
     }
 

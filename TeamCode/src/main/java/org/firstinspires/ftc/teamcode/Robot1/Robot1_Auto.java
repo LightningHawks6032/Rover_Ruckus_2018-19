@@ -79,12 +79,14 @@ public class Robot1_Auto {
 
         if (navTargetDetector.isTargetVisible()) {
             // Update Positional Data
+            autonomous.telemetry.addLine("NAV FOUND");
+            autonomous.telemetry.update();
             hardware.drivetrain.setRobotPos(hardware.navTargetDetector.getRobotPosition());
             hardware.drivetrain.setRobotAngle((int) hardware.navTargetDetector.getRobotRotation());
 
             // Reset Positional Hardware
-            hardware.drivetrain.encoderSetup();
-            hardware.drivetrain.gyroSensor.zero();
+            //hardware.drivetrain.encoderSetup();
+            //hardware.drivetrain.gyroSensor.zero();
 
             // Debug
             //autonomous.telemetry.addData("Robot Pos", hardware.drivetrain.robotPos.toString());
