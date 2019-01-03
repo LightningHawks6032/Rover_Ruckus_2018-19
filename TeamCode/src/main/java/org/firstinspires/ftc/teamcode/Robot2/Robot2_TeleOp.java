@@ -24,6 +24,8 @@ public class Robot2_TeleOp extends OpMode {
 
     public void loop(){
         hardware.drivetrain.manageTeleOp();
+        hardware.intake.manageTeleOp();
+        hardware.outtake.manageTeleOp();
     }
 
     private void debug(){
