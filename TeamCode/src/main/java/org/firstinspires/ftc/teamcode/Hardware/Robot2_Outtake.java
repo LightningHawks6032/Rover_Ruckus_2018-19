@@ -13,6 +13,8 @@ public class Robot2_Outtake {
 
     private Gamepad gamepad;
 
+    double leftPower, rightPower;
+
     public Robot2_Outtake(DcMotor leftVert, DcMotor rightVert, Servo lDump, Servo rDump, Gamepad manipsGamepad) {
         leftVertical = leftVert;
         rightVertical = rightVert;
@@ -28,12 +30,13 @@ public class Robot2_Outtake {
     }
 
     public void manageTeleOp(){
-        lift();
+        lift(leftPower,rightPower);
         dump();
     }
 
-    private void lift(){
-
+    private void lift(double leftPow, double rightPow){
+        leftVertical.setPower(leftPow);
+        rightVertical.setPower(rightPow);
     }
 
     private void dump(){
