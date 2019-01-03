@@ -30,6 +30,11 @@ public class Robot2_Outtake {
     }
 
     public void manageTeleOp(){
+        //temporary power amounts
+        /*
+        leftPower = gamepad.left_stick_y;
+        rightPower = gamepad.left_stick_y:
+        */
         lift(leftPower,rightPower);
         dump();
     }
