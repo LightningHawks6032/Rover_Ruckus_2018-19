@@ -11,7 +11,13 @@ import org.firstinspires.ftc.teamcode.Hardware.Robot2_Intake;
 
 @TeleOp(name="Robot2 TeleOp", group="Iterative Opmode" )
 public class Robot2_TeleOp extends OpMode {
-    private Robot2_hardware hardware;
+    private Robot2_Hardware hardware;
 
-    public void init();
+    public void init(){
+
+    }
+
+    public void loop(){
+
+    }
 }
