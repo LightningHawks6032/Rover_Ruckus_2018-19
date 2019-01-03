@@ -14,6 +14,8 @@ public class Robot2_Intake {
 
     private Gamepad gamepad;
 
+    private double slidePower; // not sure if this should be moved elsewhere
+
     // Hardware Constants
     public final int FLIPPER_IN_ENCODER_VAL = 0;
     public final int FLIPPER_OUT_ENCODER_VAL = 600; // Needs to be changed with testing
@@ -44,7 +46,7 @@ public class Robot2_Intake {
     private void collect() {
         if (gamepad.a) {
             collector.setPower(1);
-        } else if (gamepad.b) {
+        } else if (gamepad.y) {
             collector.setPower(-1);
         }
     }
@@ -56,7 +58,8 @@ public class Robot2_Intake {
 
     // Manage horizontal slide
     private void manageSlide() {
-
+        slidePower = gamepad.right_stick_y * 0.4; // placeholder multiplier
+        horizontalSlide.setPower(slidePower);
     }
 
 
