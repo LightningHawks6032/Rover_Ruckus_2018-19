@@ -14,10 +14,27 @@ public class Robot2_TeleOp extends OpMode {
     private Robot2_Hardware hardware;
 
     public void init(){
+        // init hardware
+        hardware = new Robot2_Hardware(hardwareMap, gamepad1, gamepad2, false);
+        hardware.initHardware();
+
+        // init power variables
 
     }
 
     public void loop(){
+        hardware.drivetrain.manageTeleOp();
+    }
+
+    private void debug(){
+        telemetry.addData("Left Motor Pow", hardware.drivetrain.getLeftPow());
+        telemetry.addData("Left Encoder Val", hardware.drivetrain.getLeftEncoder().getEncoderCount());
+        telemetry.addData("Right Motor Pow", hardware.drivetrain.getRightPow());
+        telemetry.addData("Right Encoder Val", hardware.drivetrain.getRightEncoder().getEncoderCount());
+        telemetry.update();
+    }
+
+    public void manageMarker(){
 
     }
 }
