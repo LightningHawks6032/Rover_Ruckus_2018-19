@@ -187,7 +187,6 @@ public class OmniSlideDrive {
         int tempRobotAngle = robotAngle > 180 ? -(360 - robotAngle) : robotAngle;
         double theta = MRGyro.convertToRadians(tempRobotAngle);
         double dist = (leftEncoder.linDistance() + rightEncoder.linDistance()) / 2; // Distance travelled according to encoders
-
         setRobotPos(robotPos.sum(new Vector(dist * Math.cos(theta), dist * Math.sin(theta))));
 
         //robotPos = location; // Original way of updating robot position
@@ -260,6 +259,8 @@ public class OmniSlideDrive {
         //autonomous.telemetry.update();
     }
 
+
+    // Positional Updating Methods
     public void updatePosFromEncoders() {
         int tempRobotAngle = robotAngle > 180 ? -(360 - robotAngle) : robotAngle;
         double theta = MRGyro.convertToRadians(tempRobotAngle);
@@ -267,9 +268,9 @@ public class OmniSlideDrive {
 
         setRobotPos(robotPos.sum(new Vector(dist * Math.cos(theta), dist * Math.sin(theta))));
     }
-
     public void updateAngleFromGyro() {
         setRobotAngle((360 + robotAngle - gyroSensor.getAngle()) % 360);
+        gyroSensor.zero();
         autonomous.telemetry.addData("Robot Angle", robotAngle);
         autonomous.telemetry.update();
     }
@@ -301,6 +302,7 @@ public class OmniSlideDrive {
     }
 
 
+    // Used to break all while loops when an opmode stops
     private boolean autoRunning() {
         return System.currentTimeMillis() - startTime <= AutonomousData.TIME_LIMIT && !autonomous.isStopRequested();
     }

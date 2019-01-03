@@ -37,10 +37,10 @@ public class Robot1_Auto {
         hardware.drivetrain.setStartTime(time);
     }
 
+    // Computer Vision Detector Setup
     public void setupMineralDetector(HardwareMap hwMap) {
         mineralDetector.setupDetector(hwMap, 1);
     }
-
     public void setupNavigationDetector(HardwareMap hwMap) {
         navTargetDetector.setupTracker();
     }
@@ -71,6 +71,8 @@ public class Robot1_Auto {
         Thread.sleep(1000);
         long beginningTime = System.currentTimeMillis();
 
+        hardware.drivetrain.updateAngleFromGyro(); // maybe this will help improve accuracy with robot angle
+
         // Wait for 3 seconds or until found
         while (!navTargetDetector.isTargetVisible() && System.currentTimeMillis() - beginningTime < 3000 && autoRunning()) {
             hardware.navTargetDetector.lookForTargets();
@@ -85,10 +87,6 @@ public class Robot1_Auto {
             //hardware.drivetrain.setRobotAngle((int) hardware.navTargetDetector.getRobotRotation());
             //Temp fix by GC
             hardware.drivetrain.setRobotAngle((int) (540-hardware.navTargetDetector.getRobotRotation()));
-
-            // Reset Positional Hardware
-            //hardware.drivetrain.encoderSetup();
-            //hardware.drivetrain.gyroSensor.zero();
 
             // Debug
             //autonomous.telemetry.addData("Robot Pos", hardware.drivetrain.robotPos.toString());
@@ -195,33 +193,6 @@ public class Robot1_Auto {
         }
 
     }
-
-    private int findGold() throws InterruptedException {
-        Thread.sleep(1000);
-        if (mineralDetector.getAligned()) {
-            return 2;
-        }
-
-        hardware.drivetrain.turn(30, false);
-        Thread.sleep(500);
-        if (mineralDetector.getAligned()) {
-            hardware.drivetrain.turn(30, true); // Turn back
-            return 1;
-        }
-
-        hardware.drivetrain.turn(60, true);
-        Thread.sleep(500);
-        if (mineralDetector.getAligned()) {
-            hardware.drivetrain.turn(30, false); // Turn back
-            return 3;
-        }
-
-        hardware.drivetrain.turn(30, false); // Turn back
-
-
-        return 2;
-    }
-
 
     public void releaseMarker(int alliance) throws InterruptedException {
         if (alliance == AutonomousData.RED_ALLIANCE)
