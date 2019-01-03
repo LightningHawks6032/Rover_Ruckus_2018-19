@@ -20,6 +20,6 @@ public class VerticalSlideTest extends OpMode{
     }
 
     public void loop(){
-
+        outtake.lift(gamepad2.left_stick_y, gamepad2.right_stick_y);
     }
 }
