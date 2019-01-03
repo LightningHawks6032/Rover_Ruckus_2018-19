@@ -11,8 +11,6 @@ public class VerticalSlideTest extends OpMode{
     private Robot2_Hardware hardware;
     private Robot2_Outtake outtake;
 
-    private double leftPow, rightPow;
-
     public void init(){
         hardware = new Robot2_Hardware(hardwareMap, gamepad1, gamepad2, false);
         hardware.initHardware();
@@ -20,6 +18,16 @@ public class VerticalSlideTest extends OpMode{
     }
 
     public void loop(){
-        outtake.lift(gamepad2.left_stick_y, gamepad2.right_stick_y);
+        double pow = gamepad1.left_stick_y;
+
+        outtake.leftVertical.setPower(pow);
+        outtake.rightVertical.setPower(pow);
+
+        telemetry.addLine("Use left stick on gamepad1");
+        telemetry.addData("Left Pow", outtake.leftVertical.getPower());
+        telemetry.addData("Right Pow", outtake.rightVertical.getPower());
+        telemetry.addData("Left Encoder", outtake.leftVertEncoder.getEncoderCount());
+        telemetry.addData("Right Encoder", outtake.rightVertEncoder.getEncoderCount());
+        telemetry.update();
     }
 }
