@@ -34,7 +34,7 @@ public class Robot2_Outtake {
         dump();
     }
 
-    private void lift(double leftPow, double rightPow){
+    public void lift(double leftPow, double rightPow){
         leftVertical.setPower(leftPow);
         rightVertical.setPower(rightPow);
     }
