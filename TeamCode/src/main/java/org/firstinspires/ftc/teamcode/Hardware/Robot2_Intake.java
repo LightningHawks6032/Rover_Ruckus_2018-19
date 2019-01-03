@@ -11,6 +11,7 @@ public class Robot2_Intake {
     public DcMotor flipper; // Flips the collector
     public Encoder flipEncoder; // For managing the flipper position
     public DcMotor horizontalSlide; // Extends over crater
+    public Encoder slideEncoder;
 
     private Gamepad gamepad;
 
@@ -23,6 +24,7 @@ public class Robot2_Intake {
         flipper = flip;
         horizontalSlide = hs;
         flipEncoder = new Encoder(flip, AutonomousData.NEVEREST_ENCODER, 0);
+        slideEncoder = new Encoder(hs, AutonomousData.NEVEREST_ENCODER, 0);
 
         gamepad = manipsGamepad;
     }
@@ -32,6 +34,7 @@ public class Robot2_Intake {
         flipper.setDirection(DcMotor.Direction.FORWARD);
         horizontalSlide.setDirection(DcMotor.Direction.FORWARD);
         flipEncoder.setup();
+        slideEncoder.setup();
     }
 
     public void manageTeleOp() {
