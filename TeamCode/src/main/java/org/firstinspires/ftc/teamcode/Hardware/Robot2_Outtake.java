@@ -27,4 +27,17 @@ public class Robot2_Outtake {
         rightVertical.setDirection(DcMotor.Direction.FORWARD);
     }
 
+    public void manageTeleOp(){
+        lift();
+        dump();
+    }
+
+    private void lift(){
+
+    }
+
+    private void dump(){
+
+    }
+
 }
