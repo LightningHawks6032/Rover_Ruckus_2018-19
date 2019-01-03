@@ -17,7 +17,6 @@ public class Robot2_Outtake {
 
     private Gamepad gamepad;
 
-    double leftPower, rightPower;
 
     public Robot2_Outtake(DcMotor leftVert, DcMotor rightVert, Servo lDump, Servo rDump, Gamepad manipsGamepad) {
         leftVertical = leftVert;
@@ -40,11 +39,6 @@ public class Robot2_Outtake {
     }
 
     public void manageTeleOp(){
-        //temporary power amounts
-        /*
-        leftPower = gamepad.left_stick_y;
-        rightPower = gamepad.left_stick_y:
-        */
         lift();
         dump();
     }
