@@ -59,7 +59,7 @@ public class Robot2_Intake implements RobotHardware {
 
     // Manage horizontal slide
     private void manageSlide() {
-        horizontalSlide.setPower(gamepad.right_stick_y * 0.4);
+        horizontalSlide.setPower(gamepad.left_stick_y * 0.4);
     }
 
 
