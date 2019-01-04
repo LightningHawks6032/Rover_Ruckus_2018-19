@@ -65,9 +65,9 @@ public class Robot2_Hardware implements RobotHardware {
 
     public void initHardware() {
         // called during init() of opMode
-        drivetrain.setupMotors();
-        intake.setupMotors();
-        outtake.setupMotors();
+        drivetrain.initHardware();
+        intake.initHardware();
+        outtake.initHardware();
         markerArm.setPosition(MARKER_ARM_UP);
     }
 }

@@ -9,7 +9,7 @@ import com.qualcomm.robotcore.hardware.GyroSensor;
 import org.firstinspires.ftc.teamcode.AutonomousData;
 import org.firstinspires.ftc.teamcode.FieldMapping.Vector;
 
-public class OmniSlideDrive {
+public class OmniSlideDrive implements RobotHardware {
     public Vector robotPos; // Position on field
     public int robotAngle; // Angle relative to (0, 0) on field
 
@@ -55,7 +55,7 @@ public class OmniSlideDrive {
         robotAngle = angle;
     }
 
-    public void setupMotors() {
+    public void initHardware() {
         leftMotor.setDirection(DcMotor.Direction.REVERSE);
         rightMotor.setDirection(DcMotor.Direction.FORWARD);
         middleMotor.setDirection(DcMotor.Direction.FORWARD);

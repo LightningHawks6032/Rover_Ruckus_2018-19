@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.hardware.Gamepad;
 
 import org.firstinspires.ftc.teamcode.AutonomousData;
 
-public class Robot2_Intake {
+public class Robot2_Intake implements RobotHardware {
     // Hardware Components
     public DcMotor collector; // Weird tubey thing that collects the minerals
     public DcMotor flipper; // Flips the collector
@@ -29,7 +29,7 @@ public class Robot2_Intake {
         gamepad = manipsGamepad;
     }
 
-    public void setupMotors() {
+    public void initHardware() {
         collector.setDirection(DcMotor.Direction.FORWARD);
         flipper.setDirection(DcMotor.Direction.FORWARD);
         horizontalSlide.setDirection(DcMotor.Direction.FORWARD);

@@ -91,7 +91,7 @@ public class Robot1_Hardware implements RobotHardware {
 
     public void initHardware() {
         // called during init() of opMode
-        drivetrain.setupMotors();
+        drivetrain.initHardware();
         slideMotor.setDirection(DcMotor.Direction.FORWARD);
         hangNvst.setDirection(DcMotor.Direction.REVERSE);
 

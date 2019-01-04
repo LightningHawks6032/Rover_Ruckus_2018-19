@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.teamcode.AutonomousData;
 
-public class Robot2_Outtake {
+public class Robot2_Outtake implements RobotHardware{
     // Hardware Components
     public DcMotor leftVertical;
     public DcMotor rightVertical;
@@ -30,7 +30,7 @@ public class Robot2_Outtake {
         gamepad = manipsGamepad;
     }
 
-    public void setupMotors() {
+    public void initHardware() {
         leftVertical.setDirection(DcMotor.Direction.FORWARD);
         rightVertical.setDirection(DcMotor.Direction.FORWARD);
 
