@@ -71,8 +71,6 @@ public class Robot1_Auto {
         Thread.sleep(1000);
         long beginningTime = System.currentTimeMillis();
 
-        hardware.drivetrain.updateAngleFromGyro(); // maybe this will help improve accuracy with robot angle
-
         // Wait for 3 seconds or until found
         while (!navTargetDetector.isTargetVisible() && System.currentTimeMillis() - beginningTime < 3000 && autoRunning()) {
             hardware.navTargetDetector.lookForTargets();
@@ -84,14 +82,16 @@ public class Robot1_Auto {
             autonomous.telemetry.addLine("NAV FOUND");
             autonomous.telemetry.update();
             hardware.drivetrain.setRobotPos(hardware.navTargetDetector.getRobotPosition());
-            //hardware.drivetrain.setRobotAngle((int) hardware.navTargetDetector.getRobotRotation());
+            hardware.drivetrain.setRobotAngle((int) Math.round(hardware.navTargetDetector.getRobotRotation()));
             //Temp fix by GC
-            hardware.drivetrain.setRobotAngle((int) (540-hardware.navTargetDetector.getRobotRotation()));
+            //hardware.drivetrain.setRobotAngle((int) (540-hardware.navTargetDetector.getRobotRotation()));
+
+            hardware.drivetrain.gyroSensor.zero();
 
             // Debug
             //autonomous.telemetry.addData("Robot Pos", hardware.drivetrain.robotPos.toString());
-            //autonomous.telemetry.addData("Robot Angle", hardware.drivetrain.robotAngle);
-            //autonomous.telemetry.update();
+            autonomous.telemetry.addData("Robot Angle From Nav", hardware.drivetrain.robotAngle);
+            autonomous.telemetry.update();
         }
     }
 
@@ -187,7 +187,10 @@ public class Robot1_Auto {
         }
 
         if (backup) {
-            hardware.drivetrain.driveDistance(-1, hardware.drivetrain.robotPos.distanceFrom(startPos), 0.6);
+            if (!reverse)
+                hardware.drivetrain.driveDistance(-1, hardware.drivetrain.robotPos.distanceFrom(startPos) * 3/4, 0.6);
+            else
+                hardware.drivetrain.driveDistance(-1, hardware.drivetrain.robotPos.distanceFrom(startPos), 0.6);
             hardware.drivetrain.updatePosFromEncoders();
             hardware.drivetrain.setRobotAngle((int) ((360 + hardware.drivetrain.robotAngle - hardware.drivetrain.gyroSensor.getAngle()) % 360));
         }

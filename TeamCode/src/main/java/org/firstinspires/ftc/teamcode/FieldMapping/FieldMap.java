@@ -8,7 +8,7 @@ public class FieldMap {
     // Creates a map: each Vector position is mapped to a string identifier
     private Map<FieldElement, Vector> map = new HashMap<>();
 
-    public final double FULL_FIELD_LENGTH = 140;
+    public final double FULL_FIELD_LENGTH = 144;
     public final double QUADRANT_LENGTH = FULL_FIELD_LENGTH/2;
     public final double SQUARE_LENGTH = FULL_FIELD_LENGTH/6;
     public final double HALF_SQUARE_LENGTH = SQUARE_LENGTH/2;

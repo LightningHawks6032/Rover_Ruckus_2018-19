@@ -110,6 +110,7 @@ public class OmniSlideDrive implements RobotHardware {
      * @param pow : constant power at which the robot drives
      */
     public void driveDistance(int direction, double distance, double pow) {
+        gyroSensor.zero();
         leftEncoder.reset();
         rightEncoder.reset();
 
@@ -129,6 +130,7 @@ public class OmniSlideDrive implements RobotHardware {
 
         leftEncoder.runWithout();
         rightEncoder.runWithout();
+        updateAngleFromGyro();
     }
 
     /**
@@ -182,13 +184,7 @@ public class OmniSlideDrive implements RobotHardware {
     public void goTo(Vector location, double pow) {
         face(location); // Turn to face location
         driveDistance(1, location.distanceFrom(robotPos), pow); // Drive to location
-        //updatePosFromEncoders();
-
-        int tempRobotAngle = robotAngle > 180 ? -(360 - robotAngle) : robotAngle;
-        double theta = MRGyro.convertToRadians(tempRobotAngle);
-        double dist = (leftEncoder.linDistance() + rightEncoder.linDistance()) / 2; // Distance travelled according to encoders
-        setRobotPos(robotPos.sum(new Vector(dist * Math.cos(theta), dist * Math.sin(theta))));
-
+        updatePosFromEncoders();
         //robotPos = location; // Original way of updating robot position
     }
 
@@ -237,6 +233,9 @@ public class OmniSlideDrive implements RobotHardware {
         gyroSensor.zero();
         encoderSetup();
 
+        autonomous.telemetry.addData("Robot Angle", robotAngle);
+        autonomous.telemetry.update();
+
         int currAngle = Math.abs(gyroSensor.getAngle()); // Use getAngle() because it returns angle robot has turned from origin
         double pow = 1; // power applied to motors
 
@@ -265,13 +264,14 @@ public class OmniSlideDrive implements RobotHardware {
         int tempRobotAngle = robotAngle > 180 ? -(360 - robotAngle) : robotAngle;
         double theta = MRGyro.convertToRadians(tempRobotAngle);
         double dist = (leftEncoder.linDistance() + rightEncoder.linDistance()) / 2; // Distance travelled according to encoders
-
         setRobotPos(robotPos.sum(new Vector(dist * Math.cos(theta), dist * Math.sin(theta))));
+        leftEncoder.reset();
+        rightEncoder.reset();
     }
     public void updateAngleFromGyro() {
         setRobotAngle((360 + robotAngle - gyroSensor.getAngle()) % 360);
         gyroSensor.zero();
-        autonomous.telemetry.addData("Robot Angle", robotAngle);
+        autonomous.telemetry.addData("Robot Angle From Gyro", robotAngle);
         autonomous.telemetry.update();
     }
 
