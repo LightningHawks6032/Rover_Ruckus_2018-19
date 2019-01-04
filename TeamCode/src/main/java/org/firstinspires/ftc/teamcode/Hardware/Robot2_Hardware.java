@@ -15,11 +15,14 @@ public class Robot2_Hardware implements RobotHardware {
     public Robot2_Intake intake;
     public Robot2_Outtake outtake;
     public Servo markerArm;
+    public Servo phoneServo;
 
     // Servo constants
     public final double MARKER_ARM_UP = 1,
                         MARKER_ARM_MIDDLE = 0.5,
                         MARKER_ARM_DOWN = 0;
+
+    public final double PHONE_SERVO_UP = 1;
 
     public final double WHEEL_DIAMETER = 4.0;
 
@@ -61,6 +64,7 @@ public class Robot2_Hardware implements RobotHardware {
         );
 
         markerArm = hardwareMap.get(Servo.class, "ma");
+        phoneServo = hardwareMap.get(Servo.class, "ps");
 
     }
 
@@ -70,5 +74,6 @@ public class Robot2_Hardware implements RobotHardware {
         intake.initHardware();
         outtake.initHardware();
         markerArm.setPosition(MARKER_ARM_UP);
+        phoneServo.setPosition(PHONE_SERVO_UP);
     }
 }
