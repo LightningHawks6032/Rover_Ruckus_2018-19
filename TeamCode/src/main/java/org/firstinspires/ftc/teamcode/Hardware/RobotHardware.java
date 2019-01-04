@@ -1,5 +1,5 @@
 package org.firstinspires.ftc.teamcode.Hardware;
 
-public interface HardwareInterface {
+public interface RobotHardware {
     void initHardware(); // every Hardware class must have this method
 }

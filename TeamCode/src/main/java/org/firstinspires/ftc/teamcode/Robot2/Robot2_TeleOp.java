@@ -17,9 +17,6 @@ public class Robot2_TeleOp extends OpMode {
         // init hardware
         hardware = new Robot2_Hardware(hardwareMap, gamepad1, gamepad2, false);
         hardware.initHardware();
-
-        // init power variables
-
     }
 
     public void loop(){

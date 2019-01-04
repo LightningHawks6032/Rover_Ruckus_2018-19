@@ -10,11 +10,11 @@ import com.qualcomm.robotcore.hardware.Servo;
 import com.sun.tools.javac.util.ForwardingDiagnosticFormatter;
 
 import org.firstinspires.ftc.teamcode.AutonomousData;
-import org.firstinspires.ftc.teamcode.Hardware.HardwareInterface;
+import org.firstinspires.ftc.teamcode.Hardware.RobotHardware;
 import org.firstinspires.ftc.teamcode.Vision.Detectors.GoldAlignDetector;
 import org.firstinspires.ftc.teamcode.Vision.Detectors.NavTargetDetector;
 
-public class Robot1_Hardware implements HardwareInterface {
+public class Robot1_Hardware implements RobotHardware {
     // Declaring the motors
     public OmniSlideDrive drivetrain;
     public GoldAlignDetector mineralDetector;

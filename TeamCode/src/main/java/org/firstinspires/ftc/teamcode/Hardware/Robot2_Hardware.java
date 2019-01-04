@@ -7,9 +7,9 @@ import com.qualcomm.robotcore.hardware.GyroSensor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
-import org.firstinspires.ftc.teamcode.Hardware.HardwareInterface;
+import org.firstinspires.ftc.teamcode.Hardware.RobotHardware;
 
-public class Robot2_Hardware implements HardwareInterface {
+public class Robot2_Hardware implements RobotHardware {
     // Declaring the motors
     public OmniSlideDrive drivetrain;
     public Robot2_Intake intake;

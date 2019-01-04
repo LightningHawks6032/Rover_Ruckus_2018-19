@@ -18,7 +18,7 @@ public class Robot2_Outtake {
     private Gamepad gamepad;
 
 
-    public Robot2_Outtake(DcMotor leftVert, DcMotor rightVert, Servo lDump, Servo rDump, Gamepad manipsGamepad) {
+    protected Robot2_Outtake(DcMotor leftVert, DcMotor rightVert, Servo lDump, Servo rDump, Gamepad manipsGamepad) {
         leftVertical = leftVert;
         rightVertical = rightVert;
         leftVertEncoder = new Encoder(leftVert, AutonomousData.NEVEREST_ENCODER, 0);
@@ -43,7 +43,7 @@ public class Robot2_Outtake {
         dump();
     }
 
-    public void lift(){
+    private void lift(){
         double pow = gamepad.left_stick_y;
         leftVertical.setPower(pow);
         rightVertical.setPower(pow);

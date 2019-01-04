@@ -19,7 +19,7 @@ public class Robot2_Intake {
     public final int FLIPPER_IN_ENCODER_VAL = 0;
     public final int FLIPPER_OUT_ENCODER_VAL = 600; // Needs to be changed with testing
 
-    public Robot2_Intake(DcMotor collect, DcMotor flip, DcMotor hs, Gamepad manipsGamepad) {
+    protected Robot2_Intake(DcMotor collect, DcMotor flip, DcMotor hs, Gamepad manipsGamepad) {
         collector = collect;
         flipper = flip;
         horizontalSlide = hs;
