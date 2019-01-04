@@ -54,8 +54,9 @@ public class Robot2_Hardware implements RobotHardware {
         );
         outtake = new Robot2_Outtake(hardwareMap.get(DcMotor.class, "lv"),
                                      hardwareMap.get(DcMotor.class, "rv"),
-                                     hardwareMap.get(Servo.class, "ldump"),
-                                     hardwareMap.get(Servo.class, "rdump"),
+                                     hardwareMap.get(Servo.class, "dump"),
+                                     hardwareMap.get(Servo.class, "lp"),
+                                     hardwareMap.get(Servo.class, "rp"),
                                      manipsGamepad
         );
 
