@@ -10,7 +10,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 import org.firstinspires.ftc.teamcode.Hardware.RobotHardware;
 
 public class Robot2_Hardware implements RobotHardware {
-    // Declaring the motors
+    // Declaring the hardware components
     public OmniSlideDrive drivetrain;
     public Robot2_Intake intake;
     public Robot2_Outtake outtake;

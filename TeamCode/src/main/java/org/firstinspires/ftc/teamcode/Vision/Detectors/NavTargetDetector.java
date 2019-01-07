@@ -34,7 +34,8 @@ public class NavTargetDetector {
     // Since ImageTarget trackables use mm to specify their dimensions, we must use mm for all the physical dimension.
     private static final float mmPerInch        = 25.4f;
     private static final float mmFTCFieldWidth  = (12*6) * mmPerInch; // width of the FTC field (from the center point to the outer panels)
-    private static final float mmTargetHeight   = (6) * mmPerInch; // height of the center of the target image above the floor
+    private static final int targetHeight = 6;
+    private static final float mmTargetHeight   = (targetHeight) * mmPerInch; // height of the center of the target image above the floor
 
     // The camera on the RC that we are using (FRONT or BACK)
     private static final VuforiaLocalizer.CameraDirection CAMERA_CHOICE = FRONT;
@@ -258,5 +259,9 @@ public class NavTargetDetector {
 
         // Rover
         return robotRotation.thirdAngle;
+    }
+
+    public double heightFromTarget() {
+        return camVerticalDisplacement - targetHeight;
     }
 }
