@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.Hardware;
 
+import com.qualcomm.hardware.modernrobotics.ModernRoboticsI2cRangeSensor;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
@@ -19,6 +20,7 @@ public class Robot2_Hardware implements RobotHardware {
     public Robot2_Outtake outtake;
     public GoldAlignDetector mineralDetector;
     public NavTargetDetector navTargetDetector;
+    public ModernRoboticsI2cRangeSensor rangeSensor;
     public Servo markerArm;
     public Servo phoneServo;
 
@@ -62,9 +64,10 @@ public class Robot2_Hardware implements RobotHardware {
             );
         }
 
+        rangeSensor = hardwareMap.get(ModernRoboticsI2cRangeSensor.class, "rs");
+
         mineralDetector = new GoldAlignDetector(ROBOT_CENTER_X, 300, true);
         navTargetDetector = new NavTargetDetector(hardwareMap, CAMERA_FORWARD_POSITION, CAMERA_LEFT_POSITION, CAMERA_VERTICAL_POSITION);
-
 
 
         intake = new Robot2_Intake(hardwareMap.get(DcMotor.class, "harv"),
