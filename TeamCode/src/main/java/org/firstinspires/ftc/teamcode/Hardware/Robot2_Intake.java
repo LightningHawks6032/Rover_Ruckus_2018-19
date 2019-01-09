@@ -46,9 +46,9 @@ public class Robot2_Intake implements RobotHardware {
     // Run the collector
     private void collect() {
         if (gamepad.a) {
-            harvester.setPower(1);
+            harvester.setPower(0.5);
         } else if (gamepad.y) {
-            harvester.setPower(-1);
+            harvester.setPower(-0.5);
         }
     }
 
