@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.Hardware;
 
+import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Gamepad;
@@ -66,7 +67,7 @@ public class Robot2_Hardware implements RobotHardware {
 
 
 
-        intake = new Robot2_Intake(hardwareMap.get(DcMotor.class, "col"),
+        intake = new Robot2_Intake(hardwareMap.get(DcMotor.class, "harv"),
                                    hardwareMap.get(DcMotor.class, "flip"),
                                    hardwareMap.get(DcMotor.class, "hs"),
                                    manipsGamepad
@@ -90,6 +91,5 @@ public class Robot2_Hardware implements RobotHardware {
         intake.initHardware();
         outtake.initHardware();
         markerArm.setPosition(MARKER_ARM_UP);
-        phoneServo.setPosition(PHONE_SERVO_UP);
     }
 }
