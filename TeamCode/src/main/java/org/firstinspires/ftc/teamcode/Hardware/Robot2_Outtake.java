@@ -51,12 +51,12 @@ public class Robot2_Outtake implements RobotHardware{
         rightVertEncoder.setup();
     }
 
-    public void manageTeleOp(){
+    public void manageTeleOp() {
         lift();
         dump();
     }
 
-    private void lift(){
+    private void lift() {
         double pow = gamepad.right_stick_y;
         leftVertical.setPower(pow);
         rightVertical.setPower(pow);
@@ -64,19 +64,19 @@ public class Robot2_Outtake implements RobotHardware{
 
     private void dump() {
         if (gamepad.dpad_up)
-            dumper.setPosition(DUMPER_IN);
-        else if (gamepad.dpad_down)
             dumper.setPosition(DUMPER_OUT);
+        else if (gamepad.dpad_down)
+            dumper.setPosition(DUMPER_IN);
 
         if (gamepad.left_trigger > 0)
-            leftPlate.setPosition(LEFT_PLATE_DOWN);
+            leftPlate.setPosition(RIGHT_PLATE_UP);
         else
-            leftPlate.setPosition(LEFT_PLATE_UP);
+            leftPlate.setPosition(RIGHT_PLATE_DOWN);
 
         if (gamepad.right_trigger > 0)
-            rightPlate.setPosition(RIGHT_PLATE_DOWN);
+            rightPlate.setPosition(LEFT_PLATE_UP);
         else
-            rightPlate.setPosition(RIGHT_PLATE_UP);
+            rightPlate.setPosition(LEFT_PLATE_DOWN);
     }
 
 }
