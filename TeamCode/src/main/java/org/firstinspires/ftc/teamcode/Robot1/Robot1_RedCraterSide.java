@@ -8,7 +8,7 @@ import org.firstinspires.ftc.teamcode.FieldMapping.FieldElement;
 import org.firstinspires.ftc.teamcode.FieldMapping.FieldMap;
 import org.firstinspires.ftc.teamcode.Hardware.Robot1_Hardware;
 
-@Autonomous(name="Robot 1 Red Crater Side", group=AutonomousData.OFFICIAL_GROUP)
+// @Autonomous(name="Robot 1 Red Crater Side", group=AutonomousData.OFFICIAL_GROUP)
 public class Robot1_RedCraterSide extends LinearOpMode {
     private Robot1_Hardware hardware;
     private Robot1_Auto auto;
@@ -28,8 +28,8 @@ public class Robot1_RedCraterSide extends LinearOpMode {
         auto.setStartPosition(3);
 
         // Sample minerals
-        //telemetry.addLine("Sampling Minerals");
-        //telemetry.update();
+        telemetry.addLine("Sampling Minerals");
+        telemetry.update();
         auto.performMineralSampling(3, false, true);
         hardware.mineralDetector.disable();
 
@@ -45,16 +45,12 @@ public class Robot1_RedCraterSide extends LinearOpMode {
         hardware.drivetrain.goTo(fieldMap.get(FieldElement.RED_DEPOT), 0.8);
 
         // Dropping off marker
-        //telemetry.addLine("Releasing Marker");
-        //telemetry.update();
+        telemetry.addLine("Releasing Marker");
+        telemetry.update();
         auto.releaseMarker(AutonomousData.RED_ALLIANCE);
 
-        //telemetry.addLine("Driving to Crater");
-        //telemetry.update();
+        telemetry.addLine("Driving to Crater");
+        telemetry.update();
         auto.driveToCrater(AutonomousData.RED_ALLIANCE);
-
-        // If completing mineral sampling for partner, sample minerals
-        //hardware.drivetrain.face(fieldMap.get(FieldElement.RED_DEPOT_MIDDLE_MINERAL));
-        //auto.performMineralSampling(4, true, true);
     }
 }

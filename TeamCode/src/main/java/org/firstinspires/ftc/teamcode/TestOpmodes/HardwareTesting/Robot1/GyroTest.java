@@ -9,7 +9,7 @@ import com.qualcomm.robotcore.hardware.GyroSensor;
 import com.qualcomm.robotcore.hardware.Gyroscope;
 
 
-@TeleOp(name="Robot 1 Gyro Test", group="Iterative Opmode")
+// @TeleOp(name="Robot 1 Gyro Test", group="Iterative Opmode")
 public class GyroTest extends OpMode {
     Robot1_Hardware hardware;
 

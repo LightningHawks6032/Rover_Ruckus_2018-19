@@ -8,15 +8,13 @@ import org.firstinspires.ftc.teamcode.FieldMapping.FieldElement;
 import org.firstinspires.ftc.teamcode.FieldMapping.FieldMap;
 import org.firstinspires.ftc.teamcode.Hardware.Robot1_Hardware;
 
-@Autonomous(name="Robot 1 Blue Depot Side", group=AutonomousData.OFFICIAL_GROUP)
+// @Autonomous(name="Robot 1 Blue Depot Side", group=AutonomousData.OFFICIAL_GROUP)
 public class Robot1_BlueDepotSide extends LinearOpMode {
     private Robot1_Hardware hardware;
     private Robot1_Auto auto;
     private FieldMap fieldMap = new FieldMap();
 
     public void runOpMode() throws InterruptedException {
-        long startTime = System.currentTimeMillis();
-
         // Setup auto
         hardware = new Robot1_Hardware(hardwareMap, gamepad1, true);
         hardware.initHardware();
@@ -26,7 +24,7 @@ public class Robot1_BlueDepotSide extends LinearOpMode {
         waitForStart();
         auto.setStartTime(System.currentTimeMillis());
 
-        auto.landOnField();
+        hardware.drivetrain.driveDistance(1, 13, 0.5);
         auto.setStartPosition(2);
 
         // Sample minerals

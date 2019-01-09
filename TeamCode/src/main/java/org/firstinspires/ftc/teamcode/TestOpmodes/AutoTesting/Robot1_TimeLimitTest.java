@@ -7,7 +7,7 @@ import org.firstinspires.ftc.teamcode.AutonomousData;
 import org.firstinspires.ftc.teamcode.Hardware.Robot1_Hardware;
 import org.firstinspires.ftc.teamcode.Robot1.Robot1_Auto;
 
-@Autonomous(name="Robot 1 Time Limit Test", group=AutonomousData.TEST_GROUP)
+// @Autonomous(name="Robot 1 Time Limit Test", group=AutonomousData.TEST_GROUP)
 public class Robot1_TimeLimitTest extends LinearOpMode {
 
     private Robot1_Hardware hardware;

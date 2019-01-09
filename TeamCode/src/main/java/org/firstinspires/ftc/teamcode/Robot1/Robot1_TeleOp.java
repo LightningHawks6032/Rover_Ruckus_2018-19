@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.teamcode.Hardware.Robot1_Hardware;
 
-@TeleOp(name="Robot1 TeleOp", group="Iterative Opmode")
+// @TeleOp(name="Robot1 TeleOp", group="Iterative Opmode")
 public class Robot1_TeleOp extends OpMode {
 
     private Robot1_Hardware hardware;
