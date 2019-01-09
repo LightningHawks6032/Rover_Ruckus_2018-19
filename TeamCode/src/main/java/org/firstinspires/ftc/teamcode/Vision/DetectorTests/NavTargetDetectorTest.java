@@ -8,6 +8,7 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.Hardware.Robot1_Hardware;
+import org.firstinspires.ftc.teamcode.Hardware.Robot2_Hardware;
 import org.firstinspires.ftc.teamcode.Robot1.Robot1_TeleOp;
 import org.firstinspires.ftc.teamcode.Vision.Detectors.NavTargetDetector;
 import java.lang.Math;
@@ -18,12 +19,12 @@ public class NavTargetDetectorTest extends OpMode
 {
     // Detector object
     private NavTargetDetector detector;
-    private Robot1_Hardware hardware;
+    private Robot2_Hardware hardware;
 
     @Override
     public void init() {
         // Set up detector
-        hardware = new Robot1_Hardware(hardwareMap, gamepad1, false);
+        hardware = new Robot2_Hardware(hardwareMap, gamepad1, gamepad2, false);
         hardware.initHardware();
         detector = hardware.navTargetDetector; // Create detector
         detector.setupTracker();

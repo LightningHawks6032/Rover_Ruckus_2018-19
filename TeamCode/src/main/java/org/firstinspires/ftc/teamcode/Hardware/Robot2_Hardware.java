@@ -8,12 +8,16 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.teamcode.Hardware.RobotHardware;
+import org.firstinspires.ftc.teamcode.Vision.Detectors.GoldAlignDetector;
+import org.firstinspires.ftc.teamcode.Vision.Detectors.NavTargetDetector;
 
 public class Robot2_Hardware implements RobotHardware {
     // Declaring the hardware components
     public OmniSlideDrive drivetrain;
     public Robot2_Intake intake;
     public Robot2_Outtake outtake;
+    public GoldAlignDetector mineralDetector;
+    public NavTargetDetector navTargetDetector;
     public Servo markerArm;
     public Servo phoneServo;
 
@@ -24,7 +28,16 @@ public class Robot2_Hardware implements RobotHardware {
 
     public final double PHONE_SERVO_UP = 1;
 
+
     public final double WHEEL_DIAMETER = 4.0;
+
+    // Constants for phone position for nav targets (TUNE)
+    public final static double CAMERA_FORWARD_POSITION = 3.5, // eg: Camera is 0 inches in front of robot center
+            CAMERA_LEFT_POSITION = 0, // eg: Camera is 0 inches left of the robot's center line
+            CAMERA_VERTICAL_POSITION = 0; // eg: Camera is 0 inches from the ground
+
+    // X-position pixel value for center of robot (for mineral sampling)
+    public final static int ROBOT_CENTER_X = 285; // TUNE
 
     public Robot2_Hardware(HardwareMap hardwareMap, Gamepad driveGamepad, Gamepad manipsGamepad, boolean gyro){
         //constructs hardware objects based on configuration
@@ -47,6 +60,9 @@ public class Robot2_Hardware implements RobotHardware {
                     WHEEL_DIAMETER
             );
         }
+
+        mineralDetector = new GoldAlignDetector(ROBOT_CENTER_X, 300, true);
+        navTargetDetector = new NavTargetDetector(hardwareMap, CAMERA_FORWARD_POSITION, CAMERA_LEFT_POSITION, CAMERA_VERTICAL_POSITION);
 
 
 

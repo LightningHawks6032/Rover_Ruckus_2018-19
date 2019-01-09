@@ -9,7 +9,7 @@ import org.firstinspires.ftc.teamcode.Hardware.Robot2_Hardware;
 import org.firstinspires.ftc.teamcode.Hardware.Robot2_Outtake;
 import org.firstinspires.ftc.teamcode.Hardware.Robot2_Intake;
 
-@TeleOp(name="Robot2 TeleOp", group="Iterative Opmode" )
+@TeleOp(name="Robot TeleOp", group="Iterative Opmode")
 public class Robot2_TeleOp extends OpMode {
     private Robot2_Hardware hardware;
 
@@ -23,6 +23,8 @@ public class Robot2_TeleOp extends OpMode {
         hardware.drivetrain.manageTeleOp();
         hardware.intake.manageTeleOp();
         hardware.outtake.manageTeleOp();
+        manageMarker();
+        debug();
     }
 
     private void debug(){
@@ -33,7 +35,10 @@ public class Robot2_TeleOp extends OpMode {
         telemetry.update();
     }
 
-    public void manageMarker(){
-
+    public void manageMarker() {
+        if( gamepad2.left_bumper)
+            hardware.markerArm.setPosition(hardware.MARKER_ARM_UP);
+        else if (gamepad2.right_bumper)
+            hardware.markerArm.setPosition(hardware.MARKER_ARM_DOWN);
     }
 }
