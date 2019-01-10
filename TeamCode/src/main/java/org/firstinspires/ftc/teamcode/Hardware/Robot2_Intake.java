@@ -49,6 +49,8 @@ public class Robot2_Intake implements RobotHardware {
             harvester.setPower(0.5);
         } else if (gamepad.y) {
             harvester.setPower(-0.5);
+        } else {
+            harvester.setPower(0);
         }
     }
 
