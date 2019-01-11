@@ -39,6 +39,7 @@ public class Robot2_Intake implements RobotHardware {
         horizontalSlide.setDirection(DcMotor.Direction.FORWARD);
         flipEncoder.setup();
         slideEncoder.setup();
+        flipper.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
 
     public void manageTeleOp() {
@@ -60,7 +61,6 @@ public class Robot2_Intake implements RobotHardware {
 
     // Flip the collector
     private void flip() {
-        flipper.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         // Use x to toggle between flipper in and flipper out
 
         // flipping inwards
@@ -71,7 +71,9 @@ public class Robot2_Intake implements RobotHardware {
         } else if (flippingIn && isFlipping) {
             flipEncoder.setTarget(FLIPPER_IN_ENCODER_VAL);
             flipEncoder.runToPosition();
+            flipper.setPower(0.35);
             if(!flipper.isBusy()){
+                flipper.setPower(0);
                 isFlipping = false;
                 flippingIn = false;
             }
@@ -85,7 +87,9 @@ public class Robot2_Intake implements RobotHardware {
         }else if(!flippingIn && isFlipping){
             flipEncoder.setTarget(FLIPPER_OUT_ENCODER_VAL);
             flipEncoder.runToPosition();
+            flipper.setPower(0.35);
             if(!flipper.isBusy()){
+                flipper.setPower(0);
                 isFlipping = false;
                 flippingIn = true;
             }

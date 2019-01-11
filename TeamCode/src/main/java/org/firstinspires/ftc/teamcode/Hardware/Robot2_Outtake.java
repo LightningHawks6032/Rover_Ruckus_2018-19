@@ -60,9 +60,30 @@ public class Robot2_Outtake implements RobotHardware{
     }
 
     private void lift() {
+        // potential issue; running w/ encoder w/o using them
+        // potential fix: set target based on if pow is negative or positive
+        leftVertical.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        rightVertical.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
         double pow = gamepad.right_stick_y;
         leftVertical.setPower(pow);
         rightVertical.setPower(pow);
+        // highest position on left
+        if(leftVertEncoder.getEncoderCount() >= VERTICAL_SLIDE_MAX && pow > 0){
+            leftVertical.setPower(0);
+        }
+        // lowest position on left
+        if(leftVertEncoder.getEncoderCount() <= VERTICAL_SLIDE_MIN && pow < 0){
+            leftVertical.setPower(0);
+        }
+        // highest position on right
+        if(rightVertEncoder.getEncoderCount() >= VERTICAL_SLIDE_MAX && pow > 0){
+            rightVertical.setPower(0);
+        }
+        // lowest position on right
+        if(rightVertEncoder.getEncoderCount() <= VERTICAL_SLIDE_MIN && pow < 0){
+            rightVertical.setPower(0);
+        }
     }
 
     private void dump() {
