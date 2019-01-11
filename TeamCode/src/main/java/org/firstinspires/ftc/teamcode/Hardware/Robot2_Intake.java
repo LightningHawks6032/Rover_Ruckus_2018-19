@@ -19,6 +19,10 @@ public class Robot2_Intake implements RobotHardware {
     public final int FLIPPER_IN_ENCODER_VAL = 0;
     public final int FLIPPER_OUT_ENCODER_VAL = 700;
 
+    // Booleans
+    private boolean flippingIn = true; //should start as false if the flipper is in
+    private boolean isFlipping = false;
+
     protected Robot2_Intake(DcMotor harvest, DcMotor flip, DcMotor hs, Gamepad manipsGamepad) {
         harvester = harvest;
         flipper = flip;
@@ -56,8 +60,40 @@ public class Robot2_Intake implements RobotHardware {
 
     // Flip the collector
     private void flip() {
+        flipper.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         // Use x to toggle between flipper in and flipper out
+
+        // flipping inwards
+        if (flippingIn && !isFlipping) {
+            if (gamepad.x) {
+                isFlipping = true;
+            }
+        } else if (flippingIn && isFlipping) {
+            flipEncoder.setTarget(FLIPPER_IN_ENCODER_VAL);
+            flipEncoder.runToPosition();
+            if(!flipper.isBusy()){
+                isFlipping = false;
+                flippingIn = false;
+            }
+
+        }
+        //flipping out
+        if (!flippingIn && !isFlipping){
+            if (gamepad.x) {
+                isFlipping = true;
+            }
+        }else if(!flippingIn && isFlipping){
+            flipEncoder.setTarget(FLIPPER_OUT_ENCODER_VAL);
+            flipEncoder.runToPosition();
+            if(!flipper.isBusy()){
+                isFlipping = false;
+                flippingIn = true;
+            }
+        }
+
     }
+
+
 
     // Manage horizontal slide
     private void manageSlide() {
