@@ -17,7 +17,7 @@ public class Robot2_Intake implements RobotHardware {
 
     // Hardware Constants
     public final int FLIPPER_IN_ENCODER_VAL = 0;
-    public final int FLIPPER_OUT_ENCODER_VAL = 600; // Needs to be changed with testing
+    public final int FLIPPER_OUT_ENCODER_VAL = 700;
 
     protected Robot2_Intake(DcMotor harvest, DcMotor flip, DcMotor hs, Gamepad manipsGamepad) {
         harvester = harvest;
@@ -30,7 +30,7 @@ public class Robot2_Intake implements RobotHardware {
     }
 
     public void initHardware() {
-        harvester.setDirection(DcMotor.Direction.FORWARD);
+        harvester.setDirection(DcMotor.Direction.REVERSE);
         flipper.setDirection(DcMotor.Direction.FORWARD);
         horizontalSlide.setDirection(DcMotor.Direction.FORWARD);
         flipEncoder.setup();
@@ -56,12 +56,12 @@ public class Robot2_Intake implements RobotHardware {
 
     // Flip the collector
     private void flip() {
-
+        // Use x to toggle between flipper in and flipper out
     }
 
     // Manage horizontal slide
     private void manageSlide() {
-        horizontalSlide.setPower(gamepad.left_stick_y * 0.4);
+        horizontalSlide.setPower(gamepad.left_stick_y);
     }
 
 

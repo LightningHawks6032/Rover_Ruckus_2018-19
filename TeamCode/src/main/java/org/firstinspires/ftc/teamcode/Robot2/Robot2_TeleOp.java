@@ -32,6 +32,7 @@ public class Robot2_TeleOp extends OpMode {
         telemetry.addData("Left Encoder Val", hardware.drivetrain.getLeftEncoder().getEncoderCount());
         telemetry.addData("Right Motor Pow", hardware.drivetrain.getRightPow());
         telemetry.addData("Right Encoder Val", hardware.drivetrain.getRightEncoder().getEncoderCount());
+        telemetry.addData("Horizontal Slide Encoder", hardware.intake.slideEncoder.getEncoderCount());
         telemetry.update();
     }
 

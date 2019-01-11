@@ -13,7 +13,7 @@ public class MRSensorTest extends OpMode {
 
     public void init(){
         // hardware init (inits the gyro by calibrating and zeroing)
-        hardware = new Robot2_Hardware(hardwareMap, gamepad1, gamepad2, false);
+        hardware = new Robot2_Hardware(hardwareMap, gamepad1, gamepad2, true);
         hardware.initHardware();
     }
 

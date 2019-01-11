@@ -19,22 +19,25 @@ public class Robot2_Outtake implements RobotHardware{
     private Gamepad gamepad;
 
     // Servo constants
-    public final double LEFT_PLATE_UP = 1,
-            LEFT_PLATE_DOWN = 0,
-            RIGHT_PLATE_UP = 1,
-            RIGHT_PLATE_DOWN = 0;
+    public final double LEFT_PLATE_UP = 0.4,
+            LEFT_PLATE_DOWN = 0.9,
+            RIGHT_PLATE_UP = 0.9,
+            RIGHT_PLATE_DOWN = 0.4;
 
     public final double DUMPER_IN = 0,
             DUMPER_OUT = 1;
 
-    public final double WHEEL_DIAMETER = 4.0;
+    // Encoder constants
+    public final int VERTICAL_SLIDE_MAX = -3470; // this is negative because the encoders on the vertical slide run opposite
+    public final int VERTICAL_SLIDE_MIN = 0;
+    public final int LAND_ENCODER_VAL = -2840;
 
 
     protected Robot2_Outtake(DcMotor leftVert, DcMotor rightVert, Servo dump, Servo lPlate, Servo rPlate, Gamepad manipsGamepad) {
         leftVertical = leftVert;
         rightVertical = rightVert;
         leftVertEncoder = new Encoder(leftVert, AutonomousData.NEVEREST_ENCODER, 0);
-        rightVertEncoder = new Encoder(leftVert, AutonomousData.NEVEREST_ENCODER, 0);
+        rightVertEncoder = new Encoder(rightVert, AutonomousData.NEVEREST_ENCODER, 0);
 
         dumper = dump;
         leftPlate = lPlate;
