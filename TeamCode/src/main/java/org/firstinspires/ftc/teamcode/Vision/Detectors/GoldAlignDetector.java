@@ -220,7 +220,7 @@ public class GoldAlignDetector extends DogeCVDetector {
     }
 
     /**
-     * Note: We no longer use this method.
+     * If the camera is far back enough so that all minerals are in view, this method can determine the location of the gold mineral
      * @return location of gold mineral (1 = left, 2 = center, 3 = right); default is center
      */
     public int mineralLocation() {

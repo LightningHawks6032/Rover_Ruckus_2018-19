@@ -209,27 +209,6 @@ public class Robot2_Auto {
         //extendHorizontalSlide(0.4, 1);
     }
 
-    // Turn until gold mineral is aligned with robot center (NO LONGER USED)
-    public void turnToGold() throws InterruptedException {
-        double turningPower;
-
-        Thread.sleep(2000);
-        if (mineralDetector.isFound()) {
-            double startX = mineralDetector.getXPosition();
-
-            while (!mineralDetector.getAligned()) {
-                //turn towards gold (robot center x is less than x position = turn right)
-                turningPower = Math.abs(mineralDetector.getXPosition() - mineralDetector.getRobotCenterX()) / (startX - mineralDetector.getRobotCenterX()) * 0.2 + 0.1;
-
-                hardware.drivetrain.setPowers(turningPower, -turningPower*0.5, 0);
-            }
-            hardware.drivetrain.setPowers(0, 0, 0);
-
-        } else {
-            //do something to get it into vision
-        }
-    }
-
     // Used to break all while loops when an opmode stops
     private boolean autoRunning() {
         return System.currentTimeMillis() - startTime <= AutonomousData.TIME_LIMIT && !autonomous.isStopRequested();
