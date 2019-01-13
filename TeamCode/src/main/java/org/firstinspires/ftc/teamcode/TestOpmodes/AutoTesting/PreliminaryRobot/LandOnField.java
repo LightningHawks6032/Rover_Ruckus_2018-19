@@ -1,19 +1,19 @@
-package org.firstinspires.ftc.teamcode.TestOpmodes.AutoTesting;
+package org.firstinspires.ftc.teamcode.TestOpmodes.AutoTesting.PreliminaryRobot;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.FieldMapping.FieldMap;
-import org.firstinspires.ftc.teamcode.Hardware.Robot1_Hardware;
+import org.firstinspires.ftc.teamcode.Hardware.PrelimBot_Hardware;
 import org.firstinspires.ftc.teamcode.Vision.Detectors.GoldAlignDetector;
 
 // @Autonomous(name="Landing", group=AutonomousData.TEST_GROUP)
-public class Robot1_LandOnField extends LinearOpMode {
+public class LandOnField extends LinearOpMode {
     // Declare hardware
-    private Robot1_Hardware hardware;
+    private PrelimBot_Hardware hardware;
 
     public void runOpMode() throws InterruptedException {
-        hardware = new Robot1_Hardware(hardwareMap, gamepad1, true);
+        hardware = new PrelimBot_Hardware(hardwareMap, gamepad1, true);
         hardware.initHardware();
 
         waitForStart();

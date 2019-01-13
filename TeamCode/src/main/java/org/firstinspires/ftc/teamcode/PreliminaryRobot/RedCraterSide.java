@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.Robot1;
+package org.firstinspires.ftc.teamcode.PreliminaryRobot;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -6,19 +6,19 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import org.firstinspires.ftc.teamcode.AutonomousData;
 import org.firstinspires.ftc.teamcode.FieldMapping.FieldElement;
 import org.firstinspires.ftc.teamcode.FieldMapping.FieldMap;
-import org.firstinspires.ftc.teamcode.Hardware.Robot1_Hardware;
+import org.firstinspires.ftc.teamcode.Hardware.PrelimBot_Hardware;
 
 // @Autonomous(name="Robot 1 Red Crater Side", group=AutonomousData.OFFICIAL_GROUP)
-public class Robot1_RedCraterSide extends LinearOpMode {
-    private Robot1_Hardware hardware;
-    private Robot1_Auto auto;
+public class RedCraterSide extends LinearOpMode {
+    private PrelimBot_Hardware hardware;
+    private Auto auto;
     private FieldMap fieldMap = new FieldMap();
 
     public void runOpMode() throws InterruptedException {
         // Setup auto
-        hardware = new Robot1_Hardware(hardwareMap, gamepad1, true);
+        hardware = new PrelimBot_Hardware(hardwareMap, gamepad1, true);
         hardware.initHardware();
-        auto = new Robot1_Auto(this, hardware);
+        auto = new Auto(this, hardware);
 
         auto.setupMineralDetector(hardwareMap);
         waitForStart();

@@ -1,21 +1,21 @@
-package org.firstinspires.ftc.teamcode.TestOpmodes.HardwareTesting.Robot1;
+package org.firstinspires.ftc.teamcode.TestOpmodes.HardwareTesting.PreliminaryRobot;
 
 import org.firstinspires.ftc.teamcode.Hardware.Encoder;
-import org.firstinspires.ftc.teamcode.Hardware.Robot1_Hardware;
+import org.firstinspires.ftc.teamcode.Hardware.PrelimBot_Hardware;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
 // @TeleOp(name="Robot 1 Encoder Test", group="Iterative Opmode")
 public class EncoderTest extends OpMode {
-    Robot1_Hardware hardware;
+    PrelimBot_Hardware hardware;
 
     Encoder leftDriveEncoder;
     Encoder rightDriveEncoder;
 
     public void init() {
         //Initialize Hardware
-        hardware = new Robot1_Hardware(hardwareMap, gamepad1, false);
+        hardware = new PrelimBot_Hardware(hardwareMap, gamepad1, false);
         hardware.initHardware();
 
         leftDriveEncoder = hardware.drivetrain.getLeftEncoder();

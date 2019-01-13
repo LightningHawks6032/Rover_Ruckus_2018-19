@@ -1,19 +1,19 @@
-package org.firstinspires.ftc.teamcode.TestOpmodes.HardwareTesting.Robot1;
+package org.firstinspires.ftc.teamcode.TestOpmodes.HardwareTesting.PreliminaryRobot;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-import org.firstinspires.ftc.teamcode.Hardware.Robot1_Hardware;
+import org.firstinspires.ftc.teamcode.Hardware.PrelimBot_Hardware;
 
 // @TeleOp(name="Robot1 Slide Test", group="Iterative Opmode")
 public class SlideMotorTest extends OpMode {
-    private Robot1_Hardware hardware;
+    private PrelimBot_Hardware hardware;
 
     double motorPower;
 
     public void init() {
         //Initialize hardware
-        hardware = new Robot1_Hardware(hardwareMap, gamepad1, false);
+        hardware = new PrelimBot_Hardware(hardwareMap, gamepad1, false);
         hardware.initHardware();
     }
 

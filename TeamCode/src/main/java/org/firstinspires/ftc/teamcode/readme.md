@@ -7,9 +7,9 @@ Hardware: Each robot's hardware class, including some other classes for specific
 
 HardwareTesting: A collection of tele-op modes that test specific components of a robot's hardware for correct functionality
 
-Robot1: All OFFICIAL opmodes for Robot 1 for use in competition
+OfficialRobot: All OFFICIAL opmodes for our Official Robot for use in competition
 
-Robot2: All OFFICIAL opmodes for Robot 2 for use in competition
+PreliminaryRobot: All OFFICIAL opmodes for our Preliminary Robot for use in competition
 
 TestOpmodes: A collection of opmodes that test code for the robot to later be integrated with the competition code.
 

@@ -3,7 +3,7 @@ package org.firstinspires.ftc.teamcode.Vision.DetectorTests;
 import com.disnodeteam.dogecv.CameraViewDisplay;
 import com.disnodeteam.dogecv.DogeCV;
 
-import org.firstinspires.ftc.teamcode.Hardware.Robot2_Hardware;
+import org.firstinspires.ftc.teamcode.Hardware.OfficialBot_Hardware;
 import org.firstinspires.ftc.teamcode.Vision.Detectors.GoldAlignDetector;
 import org.firstinspires.ftc.teamcode.Vision.Detectors.NavTargetDetector;
 
@@ -17,13 +17,13 @@ public class GoldAlignDetectorTest extends OpMode
 {
     // Detector object
     private GoldAlignDetector detector;
-    private Robot2_Hardware hardware;
+    private OfficialBot_Hardware hardware;
 
 
     @Override
     public void init() {
         // Set up detector
-        hardware = new Robot2_Hardware(hardwareMap, gamepad1, gamepad2, false);
+        hardware = new OfficialBot_Hardware(hardwareMap, gamepad1, gamepad2, false);
         hardware.initHardware();
         detector = hardware.mineralDetector; // Create detector
         detector.setupDetector(hardwareMap, 1); // Camera Index: 0 for back camera, 1 for front camera

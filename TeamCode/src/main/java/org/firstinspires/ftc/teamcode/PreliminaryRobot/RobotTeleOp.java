@@ -1,23 +1,23 @@
-package org.firstinspires.ftc.teamcode.Robot1;
+package org.firstinspires.ftc.teamcode.PreliminaryRobot;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
-import org.firstinspires.ftc.teamcode.Hardware.Robot1_Hardware;
+import org.firstinspires.ftc.teamcode.Hardware.PrelimBot_Hardware;
 
 // @TeleOp(name="Robot1 TeleOp", group="Iterative Opmode")
-public class Robot1_TeleOp extends OpMode {
+public class RobotTeleOp extends OpMode {
 
-    private Robot1_Hardware hardware;
+    private PrelimBot_Hardware hardware;
 
     //Power variables
     private double slidePower, hangPow, actuPos;
 
     public void init() {
         //Initialize hardware
-        hardware = new Robot1_Hardware(hardwareMap, gamepad1, false);
+        hardware = new PrelimBot_Hardware(hardwareMap, gamepad1, false);
         hardware.initHardware();
 
         //Assign variables

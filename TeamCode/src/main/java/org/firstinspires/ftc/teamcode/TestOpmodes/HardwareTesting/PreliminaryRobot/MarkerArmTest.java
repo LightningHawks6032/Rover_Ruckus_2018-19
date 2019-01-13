@@ -1,19 +1,19 @@
-package org.firstinspires.ftc.teamcode.TestOpmodes.HardwareTesting.Robot1;
+package org.firstinspires.ftc.teamcode.TestOpmodes.HardwareTesting.PreliminaryRobot;
 
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import org.firstinspires.ftc.teamcode.Hardware.Robot1_Hardware;
+import org.firstinspires.ftc.teamcode.Hardware.PrelimBot_Hardware;
 
 // @TeleOp(name="Robot 1 Marker Arm Test", group="Iterative Opmode")
 public class MarkerArmTest extends OpMode{
-    Robot1_Hardware hardware;
+    PrelimBot_Hardware hardware;
 
     double servoPos;
 
     public void init() {
         // hardware init
-        hardware = new Robot1_Hardware(hardwareMap, gamepad1, false);
+        hardware = new PrelimBot_Hardware(hardwareMap, gamepad1, false);
         hardware.initHardware();
 
         servoPos = hardware.MARKER_ARM_UP;

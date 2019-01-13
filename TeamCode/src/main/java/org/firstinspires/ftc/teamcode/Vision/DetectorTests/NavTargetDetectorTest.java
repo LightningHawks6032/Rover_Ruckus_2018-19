@@ -7,9 +7,7 @@ import com.disnodeteam.dogecv.detectors.roverrukus.SamplingOrderDetector;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-import org.firstinspires.ftc.teamcode.Hardware.Robot1_Hardware;
-import org.firstinspires.ftc.teamcode.Hardware.Robot2_Hardware;
-import org.firstinspires.ftc.teamcode.Robot1.Robot1_TeleOp;
+import org.firstinspires.ftc.teamcode.Hardware.OfficialBot_Hardware;
 import org.firstinspires.ftc.teamcode.Vision.Detectors.NavTargetDetector;
 import java.lang.Math;
 
@@ -19,12 +17,12 @@ public class NavTargetDetectorTest extends OpMode
 {
     // Detector object
     private NavTargetDetector detector;
-    private Robot2_Hardware hardware;
+    private OfficialBot_Hardware hardware;
 
     @Override
     public void init() {
         // Set up detector
-        hardware = new Robot2_Hardware(hardwareMap, gamepad1, gamepad2, false);
+        hardware = new OfficialBot_Hardware(hardwareMap, gamepad1, gamepad2, false);
         hardware.initHardware();
         detector = hardware.navTargetDetector; // Create detector
         detector.setupTracker();

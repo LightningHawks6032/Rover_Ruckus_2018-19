@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.Robot2;
+package org.firstinspires.ftc.teamcode.PreliminaryRobot;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.Gamepad;
@@ -8,20 +8,22 @@ import org.firstinspires.ftc.teamcode.AutonomousData;
 import org.firstinspires.ftc.teamcode.FieldMapping.FieldElement;
 import org.firstinspires.ftc.teamcode.FieldMapping.FieldMap;
 import org.firstinspires.ftc.teamcode.FieldMapping.Vector;
-import org.firstinspires.ftc.teamcode.Hardware.Robot2_Hardware;
+import org.firstinspires.ftc.teamcode.Hardware.PrelimBot_Hardware;
 import org.firstinspires.ftc.teamcode.Vision.Detectors.GoldAlignDetector;
 import org.firstinspires.ftc.teamcode.Vision.Detectors.NavTargetDetector;
 
-public class Robot2_Auto {
-    private LinearOpMode autonomous;
-    private Robot2_Hardware hardware;
+import java.lang.reflect.Field;
+
+public class Auto {
+    private LinearOpMode autonomous; // The autonomous class being run
+    private PrelimBot_Hardware hardware;
     private FieldMap fieldMap = new FieldMap();
     private GoldAlignDetector mineralDetector;
     private NavTargetDetector navTargetDetector;
     private long startTime;
 
     // Constructor instantiates hardware and setups mineral detector
-    public Robot2_Auto(LinearOpMode auto, Robot2_Hardware hardware) {
+    protected Auto(LinearOpMode auto, PrelimBot_Hardware hardware) {
         autonomous = auto;
         this.hardware = hardware;
         mineralDetector = hardware.mineralDetector;
@@ -93,7 +95,6 @@ public class Robot2_Auto {
         }
     }
 
-    /*
     public void landOnField() throws InterruptedException {
         hardware.hangEncoder.reset();
         hardware.hangEncoder.runToPosition();
@@ -109,7 +110,6 @@ public class Robot2_Auto {
         hardware.drivetrain.strafeDistance(1, 5, 0.5);
         hardware.drivetrain.driveDistance(1, 8, 0.5);
     }
-    */
 
     /**
      * Robot performs mineral sampling by moving the gold mineral off of its starting position
@@ -197,6 +197,19 @@ public class Robot2_Auto {
 
     }
 
+    public void releaseMarker(int alliance) throws InterruptedException {
+        if (alliance == AutonomousData.RED_ALLIANCE)
+            hardware.drivetrain.faceAngle(270);
+        else if (alliance == AutonomousData.BLUE_ALLIANCE)
+            hardware.drivetrain.faceAngle(90);
+        hardware.drivetrain.driveDistance(1, 5, 0.6);
+        hardware.drivetrain.strafeForTime(0.8, 1); // used to be BEFORE the above if statements
+
+        hardware.markerArm.setPosition(hardware.MARKER_ARM_DOWN);
+        Thread.sleep(1000);
+        hardware.markerArm.setPosition(hardware.MARKER_ARM_UP);
+    }
+
     public void driveToCrater(int alliance) throws InterruptedException {
         if (alliance == AutonomousData.RED_ALLIANCE) {
             hardware.drivetrain.faceAngle(180);
@@ -206,11 +219,39 @@ public class Robot2_Auto {
 
         hardware.drivetrain.strafeForTime(-0.8, 3/2);
         hardware.drivetrain.driveDistance(1, fieldMap.SQUARE_LENGTH * 4, 1);
-        //extendHorizontalSlide(0.4, 1);
+        extendHorizontalSlide(0.4, 1);
+    }
+
+    public void extendHorizontalSlide(double power, long seconds) throws InterruptedException {
+        hardware.slideMotor.setPower(power);
+        Thread.sleep(seconds*1000);
+        hardware.slideMotor.setPower(0);
+    }
+
+    // Turn until gold mineral is aligned with robot center (NO LONGER USED)
+    public void turnToGold() throws InterruptedException {
+        double turningPower;
+
+        Thread.sleep(2000);
+        if (mineralDetector.isFound()) {
+            double startX = mineralDetector.getXPosition();
+
+            while (!mineralDetector.getAligned()) {
+                //turn towards gold (robot center x is less than x position = turn right)
+                turningPower = Math.abs(mineralDetector.getXPosition() - mineralDetector.getRobotCenterX()) / (startX - mineralDetector.getRobotCenterX()) * 0.2 + 0.1;
+
+                hardware.drivetrain.setPowers(turningPower, -turningPower*0.5, 0);
+            }
+            hardware.drivetrain.setPowers(0, 0, 0);
+
+        } else {
+            //do something to get it into vision
+        }
     }
 
     // Used to break all while loops when an opmode stops
     private boolean autoRunning() {
         return System.currentTimeMillis() - startTime <= AutonomousData.TIME_LIMIT && !autonomous.isStopRequested();
     }
+
 }

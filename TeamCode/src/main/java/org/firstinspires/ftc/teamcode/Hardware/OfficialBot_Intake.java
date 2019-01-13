@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.hardware.Gamepad;
 
 import org.firstinspires.ftc.teamcode.AutonomousData;
 
-public class Robot2_Intake implements RobotHardware {
+public class OfficialBot_Intake implements RobotHardware {
     // Hardware Components
     public DcMotor harvester; // Weird tubey thing that collects the minerals
     public DcMotor flipper; // Flips the collector
@@ -21,7 +21,7 @@ public class Robot2_Intake implements RobotHardware {
     public final int HORIZONTAL_SLIDE_MAX = 2800;
     public final int HORIZONTAL_SLIDE_MIN = 0;
 
-    protected Robot2_Intake(DcMotor harvest, DcMotor flip, DcMotor hs, Gamepad manipsGamepad) {
+    protected OfficialBot_Intake(DcMotor harvest, DcMotor flip, DcMotor hs, Gamepad manipsGamepad) {
         harvester = harvest;
         flipper = flip;
         horizontalSlide = hs;

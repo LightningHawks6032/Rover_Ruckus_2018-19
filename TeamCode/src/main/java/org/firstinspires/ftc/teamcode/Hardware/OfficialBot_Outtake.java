@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.teamcode.AutonomousData;
 
-public class Robot2_Outtake implements RobotHardware{
+public class OfficialBot_Outtake implements RobotHardware{
     // Hardware Components
     public DcMotor leftVertical;
     public DcMotor rightVertical;
@@ -33,7 +33,7 @@ public class Robot2_Outtake implements RobotHardware{
     public final int LAND_ENCODER_VAL = 2840;
 
 
-    protected Robot2_Outtake(DcMotor leftVert, DcMotor rightVert, Servo dump, Servo lPlate, Servo rPlate, Gamepad manipsGamepad) {
+    protected OfficialBot_Outtake(DcMotor leftVert, DcMotor rightVert, Servo dump, Servo lPlate, Servo rPlate, Gamepad manipsGamepad) {
         leftVertical = leftVert;
         rightVertical = rightVert;
         leftVertEncoder = new Encoder(leftVert, AutonomousData.NEVEREST_ENCODER, 0);

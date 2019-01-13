@@ -1,7 +1,7 @@
-package org.firstinspires.ftc.teamcode.TestOpmodes.HardwareTesting.Robot1;
+package org.firstinspires.ftc.teamcode.TestOpmodes.HardwareTesting.PreliminaryRobot;
 
 import org.firstinspires.ftc.teamcode.Hardware.Encoder;
-import org.firstinspires.ftc.teamcode.Hardware.Robot1_Hardware;
+import org.firstinspires.ftc.teamcode.Hardware.PrelimBot_Hardware;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -11,11 +11,11 @@ import com.qualcomm.robotcore.hardware.Gyroscope;
 
 // @TeleOp(name="Robot 1 Gyro Test", group="Iterative Opmode")
 public class GyroTest extends OpMode {
-    Robot1_Hardware hardware;
+    PrelimBot_Hardware hardware;
 
     public void init(){
         // hardware init (inits the gyro by calibrating and zeroing)
-        hardware = new Robot1_Hardware(hardwareMap, gamepad1, true);
+        hardware = new PrelimBot_Hardware(hardwareMap, gamepad1, true);
         hardware.initHardware();
     }
 
