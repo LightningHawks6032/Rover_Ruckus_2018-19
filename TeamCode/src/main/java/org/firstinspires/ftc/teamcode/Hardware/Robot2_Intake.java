@@ -17,8 +17,8 @@ public class Robot2_Intake implements RobotHardware {
 
     // Encoder constants (encoder setup happens at beginning of autonomous)
     public final int FLIPPER_IN_ENCODER_VAL = 0;
-    public final int FLIPPER_OUT_ENCODER_VAL = 600;
-    public final int HORIZONTAL_SLIDE_MAX = 3470;
+    public final int FLIPPER_OUT_ENCODER_VAL = 550;
+    public final int HORIZONTAL_SLIDE_MAX = 2800;
     public final int HORIZONTAL_SLIDE_MIN = 0;
 
     protected Robot2_Intake(DcMotor harvest, DcMotor flip, DcMotor hs, Gamepad manipsGamepad) {

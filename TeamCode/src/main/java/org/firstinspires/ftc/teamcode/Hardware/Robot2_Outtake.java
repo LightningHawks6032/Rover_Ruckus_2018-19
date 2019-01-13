@@ -19,9 +19,9 @@ public class Robot2_Outtake implements RobotHardware{
     private Gamepad gamepad;
 
     // Servo constants
-    public final double LEFT_PLATE_UP = 0.4,
+    public final double LEFT_PLATE_UP = 0.5,
             LEFT_PLATE_DOWN = 0.9,
-            RIGHT_PLATE_UP = 0.9,
+            RIGHT_PLATE_UP = 0.8,
             RIGHT_PLATE_DOWN = 0.4;
 
     public final double DUMPER_IN = 0.1,
