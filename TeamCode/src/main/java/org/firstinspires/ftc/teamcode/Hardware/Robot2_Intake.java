@@ -17,11 +17,7 @@ public class Robot2_Intake implements RobotHardware {
 
     // Hardware Constants
     public final int FLIPPER_IN_ENCODER_VAL = 0;
-    public final int FLIPPER_OUT_ENCODER_VAL = 700;
-
-    // Booleans
-    private boolean flippingIn = true; //should start as false if the flipper is in
-    private boolean isFlipping = false;
+    public final int FLIPPER_OUT_ENCODER_VAL = 600;
 
     protected Robot2_Intake(DcMotor harvest, DcMotor flip, DcMotor hs, Gamepad manipsGamepad) {
         harvester = harvest;
@@ -51,18 +47,36 @@ public class Robot2_Intake implements RobotHardware {
     // Run the collector
     private void collect() {
         if (gamepad.a) {
-            harvester.setPower(0.5);
+            harvester.setPower(0.75);
         } else if (gamepad.y) {
-            harvester.setPower(-0.5);
+            harvester.setPower(-0.75);
         } else {
             harvester.setPower(0);
         }
     }
 
+    // Booleans to manage flipping
+    public boolean flipIn = true; // Should the flipper be flipping inward? (i.e. was the last command to flip inward?)
+    public boolean togglePressed = false; // Is the toggle button currently pressed?
+    public boolean toggleLastPressed = false; // Was the toggle button pressed last iteration of loop()?
+
     // Flip the collector
     private void flip() {
         // Use x to toggle between flipper in and flipper out
+        togglePressed = gamepad.x;
+        if (togglePressed && !toggleLastPressed) // Only change flipper if toggle button wasn't pressed last iteration of loop()
+            flipIn = !flipIn;
+        toggleLastPressed = togglePressed; // toggleLastPressed updated for the next iteration of loop()
 
+        // Manage flip motor
+        if (flipIn && flipEncoder.getEncoderCount() > FLIPPER_IN_ENCODER_VAL)
+            flipper.setPower(-0.3);
+        else if (!flipIn && flipEncoder.getEncoderCount() < FLIPPER_OUT_ENCODER_VAL)
+            flipper.setPower(0.3);
+        else
+            flipper.setPower(0);
+
+        /*
         // flipping inwards
         if (flippingIn && !isFlipping) {
             if (gamepad.x) {
@@ -94,6 +108,7 @@ public class Robot2_Intake implements RobotHardware {
                 flippingIn = true;
             }
         }
+        */
 
     }
 

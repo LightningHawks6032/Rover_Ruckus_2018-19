@@ -27,10 +27,10 @@ public class Robot2_Outtake implements RobotHardware{
     public final double DUMPER_IN = 0,
             DUMPER_OUT = 1;
 
-    // Encoder constants
-    public final int VERTICAL_SLIDE_MAX = -3470; // this is negative because the encoders on the vertical slide run opposite
+    // Encoder constants (encoder setup happens at beginning of autonomous)
+    public final int VERTICAL_SLIDE_MAX = 3470;
     public final int VERTICAL_SLIDE_MIN = 0;
-    public final int LAND_ENCODER_VAL = -2840;
+    public final int LAND_ENCODER_VAL = 2840;
 
 
     protected Robot2_Outtake(DcMotor leftVert, DcMotor rightVert, Servo dump, Servo lPlate, Servo rPlate, Gamepad manipsGamepad) {
@@ -47,8 +47,8 @@ public class Robot2_Outtake implements RobotHardware{
     }
 
     public void initHardware() {
-        leftVertical.setDirection(DcMotor.Direction.FORWARD);
-        rightVertical.setDirection(DcMotor.Direction.FORWARD);
+        leftVertical.setDirection(DcMotor.Direction.REVERSE);
+        rightVertical.setDirection(DcMotor.Direction.REVERSE);
 
         leftVertEncoder.setup();
         rightVertEncoder.setup();
@@ -60,14 +60,21 @@ public class Robot2_Outtake implements RobotHardware{
     }
 
     private void lift() {
+        double pow = -gamepad.right_stick_y;
+        int encoderVal = (leftVertEncoder.getEncoderCount() + rightVertEncoder.getEncoderCount()) / 2; // average
+
+        if ((pow > 0 && encoderVal < VERTICAL_SLIDE_MAX) || (pow < 0 && encoderVal > VERTICAL_SLIDE_MIN)) {
+            leftVertical.setPower(pow);
+            rightVertical.setPower(pow);
+        } else {
+            leftVertical.setPower(0);
+            rightVertical.setPower(0);
+        }
+
+        /*
         // potential issue; running w/ encoder w/o using them
         // potential fix: set target based on if pow is negative or positive
-        leftVertical.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        rightVertical.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
-        double pow = gamepad.right_stick_y;
-        leftVertical.setPower(pow);
-        rightVertical.setPower(pow);
         // highest position on left
         if(leftVertEncoder.getEncoderCount() >= VERTICAL_SLIDE_MAX && pow > 0){
             leftVertical.setPower(0);
@@ -84,6 +91,7 @@ public class Robot2_Outtake implements RobotHardware{
         if(rightVertEncoder.getEncoderCount() <= VERTICAL_SLIDE_MIN && pow < 0){
             rightVertical.setPower(0);
         }
+        */
     }
 
     private void dump() {
