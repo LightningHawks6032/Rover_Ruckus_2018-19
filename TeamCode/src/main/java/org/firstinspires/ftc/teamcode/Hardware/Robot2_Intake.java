@@ -15,9 +15,11 @@ public class Robot2_Intake implements RobotHardware {
 
     private Gamepad gamepad;
 
-    // Hardware Constants
+    // Encoder constants (encoder setup happens at beginning of autonomous)
     public final int FLIPPER_IN_ENCODER_VAL = 0;
     public final int FLIPPER_OUT_ENCODER_VAL = 600;
+    public final int HORIZONTAL_SLIDE_MAX = 3470;
+    public final int HORIZONTAL_SLIDE_MIN = 0;
 
     protected Robot2_Intake(DcMotor harvest, DcMotor flip, DcMotor hs, Gamepad manipsGamepad) {
         harvester = harvest;
@@ -32,20 +34,19 @@ public class Robot2_Intake implements RobotHardware {
     public void initHardware() {
         harvester.setDirection(DcMotor.Direction.REVERSE);
         flipper.setDirection(DcMotor.Direction.FORWARD);
-        horizontalSlide.setDirection(DcMotor.Direction.FORWARD);
+        horizontalSlide.setDirection(DcMotor.Direction.REVERSE);
         flipEncoder.setup();
         slideEncoder.setup();
-        flipper.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
 
     public void manageTeleOp() {
-        collect();
-        flip();
+        manageHarvester();
+        manageFlipper();
         manageSlide();
     }
 
     // Run the collector
-    private void collect() {
+    private void manageHarvester() {
         if (gamepad.a) {
             harvester.setPower(0.75);
         } else if (gamepad.y) {
@@ -55,13 +56,13 @@ public class Robot2_Intake implements RobotHardware {
         }
     }
 
-    // Booleans to manage flipping
+    // Booleans to manage flipping for tele-op
     public boolean flipIn = true; // Should the flipper be flipping inward? (i.e. was the last command to flip inward?)
     public boolean togglePressed = false; // Is the toggle button currently pressed?
     public boolean toggleLastPressed = false; // Was the toggle button pressed last iteration of loop()?
 
     // Flip the collector
-    private void flip() {
+    private void manageFlipper() {
         // Use x to toggle between flipper in and flipper out
         togglePressed = gamepad.x;
         if (togglePressed && !toggleLastPressed) // Only change flipper if toggle button wasn't pressed last iteration of loop()
@@ -75,48 +76,19 @@ public class Robot2_Intake implements RobotHardware {
             flipper.setPower(0.3);
         else
             flipper.setPower(0);
-
-        /*
-        // flipping inwards
-        if (flippingIn && !isFlipping) {
-            if (gamepad.x) {
-                isFlipping = true;
-            }
-        } else if (flippingIn && isFlipping) {
-            flipEncoder.setTarget(FLIPPER_IN_ENCODER_VAL);
-            flipEncoder.runToPosition();
-            flipper.setPower(0.35);
-            if(!flipper.isBusy()){
-                flipper.setPower(0);
-                isFlipping = false;
-                flippingIn = false;
-            }
-
-        }
-        //flipping out
-        if (!flippingIn && !isFlipping){
-            if (gamepad.x) {
-                isFlipping = true;
-            }
-        }else if(!flippingIn && isFlipping){
-            flipEncoder.setTarget(FLIPPER_OUT_ENCODER_VAL);
-            flipEncoder.runToPosition();
-            flipper.setPower(0.35);
-            if(!flipper.isBusy()){
-                flipper.setPower(0);
-                isFlipping = false;
-                flippingIn = true;
-            }
-        }
-        */
-
     }
-
 
 
     // Manage horizontal slide
     private void manageSlide() {
-        horizontalSlide.setPower(gamepad.left_stick_y);
+        double pow = -gamepad.left_stick_y;
+        int encoderVal = slideEncoder.getEncoderCount();
+
+        if ((pow > 0 && encoderVal < HORIZONTAL_SLIDE_MAX) || (pow < 0 && encoderVal > HORIZONTAL_SLIDE_MIN)) {
+            horizontalSlide.setPower(pow);
+        } else {
+            horizontalSlide.setPower(0);
+        }
     }
 
 

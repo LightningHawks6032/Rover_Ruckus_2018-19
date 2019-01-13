@@ -18,7 +18,7 @@ public class VerticalSlideTest extends OpMode{
     }
 
     public void loop(){
-        double pow = gamepad1.left_stick_y;
+        double pow = -gamepad1.left_stick_y;
 
         outtake.leftVertical.setPower(pow);
         outtake.rightVertical.setPower(pow);

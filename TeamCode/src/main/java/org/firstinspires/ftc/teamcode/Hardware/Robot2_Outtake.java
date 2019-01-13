@@ -24,8 +24,8 @@ public class Robot2_Outtake implements RobotHardware{
             RIGHT_PLATE_UP = 0.9,
             RIGHT_PLATE_DOWN = 0.4;
 
-    public final double DUMPER_IN = 0,
-            DUMPER_OUT = 1;
+    public final double DUMPER_IN = 0.1,
+            DUMPER_OUT = 0.9;
 
     // Encoder constants (encoder setup happens at beginning of autonomous)
     public final int VERTICAL_SLIDE_MAX = 3470;
@@ -70,28 +70,6 @@ public class Robot2_Outtake implements RobotHardware{
             leftVertical.setPower(0);
             rightVertical.setPower(0);
         }
-
-        /*
-        // potential issue; running w/ encoder w/o using them
-        // potential fix: set target based on if pow is negative or positive
-
-        // highest position on left
-        if(leftVertEncoder.getEncoderCount() >= VERTICAL_SLIDE_MAX && pow > 0){
-            leftVertical.setPower(0);
-        }
-        // lowest position on left
-        if(leftVertEncoder.getEncoderCount() <= VERTICAL_SLIDE_MIN && pow < 0){
-            leftVertical.setPower(0);
-        }
-        // highest position on right
-        if(rightVertEncoder.getEncoderCount() >= VERTICAL_SLIDE_MAX && pow > 0){
-            rightVertical.setPower(0);
-        }
-        // lowest position on right
-        if(rightVertEncoder.getEncoderCount() <= VERTICAL_SLIDE_MIN && pow < 0){
-            rightVertical.setPower(0);
-        }
-        */
     }
 
     private void dump() {
