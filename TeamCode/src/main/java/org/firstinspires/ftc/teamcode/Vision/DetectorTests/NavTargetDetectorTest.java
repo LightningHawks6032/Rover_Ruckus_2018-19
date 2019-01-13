@@ -49,10 +49,8 @@ public class NavTargetDetectorTest extends OpMode
     @Override
     public void loop() {
         hardware.drivetrain.manageTeleOp();
-        testPhoneServo();
         detector.lookForTargets();
 
-        telemetry.addData("Phone Servo Position", hardware.phoneServo.getPosition());
         telemetry.addData("Target Visible: ", detector.isTargetVisible());
         if (detector.isTargetVisible()) {
             telemetry.addData("The robot sees", detector.visibleTarget());
@@ -63,20 +61,6 @@ public class NavTargetDetectorTest extends OpMode
         } else
             telemetry.addLine("The robot sees: No Target");
         telemetry.update();
-    }
-
-
-    private void testPhoneServo() {
-        if (gamepad1.dpad_up)
-            hardware.phoneServo.setPosition(0);
-        else if (gamepad1.dpad_right)
-            hardware.phoneServo.setPosition(0.25);
-        else if (gamepad1.dpad_down)
-            hardware.phoneServo.setPosition(0.5);
-        else if (gamepad1.dpad_left)
-            hardware.phoneServo.setPosition(0.75);
-        else if (gamepad1.x)
-            hardware.phoneServo.setPosition(1);
     }
 
     /*

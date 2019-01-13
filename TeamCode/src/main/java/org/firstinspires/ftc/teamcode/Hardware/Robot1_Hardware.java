@@ -75,7 +75,7 @@ public class Robot1_Hardware implements RobotHardware {
             );
         }
 
-        mineralDetector = new GoldAlignDetector(ROBOT_CENTER_X, 300, true); // was 300 originally
+        mineralDetector = new GoldAlignDetector(ROBOT_CENTER_X, 300, 300, true); // was 300 originally
         navTargetDetector = new NavTargetDetector(hardwareMap, CAMERA_FORWARD_POSITION, CAMERA_LEFT_POSITION, CAMERA_VERTICAL_POSITION);
 
         slideMotor = hardwareMap.get(DcMotor.class, "sm");

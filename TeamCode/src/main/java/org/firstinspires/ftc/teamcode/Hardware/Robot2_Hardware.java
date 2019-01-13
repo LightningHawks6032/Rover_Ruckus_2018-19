@@ -23,7 +23,6 @@ public class Robot2_Hardware implements RobotHardware {
     public NavTargetDetector navTargetDetector;
     public ModernRoboticsI2cRangeSensor rangeSensor;
     public Servo markerArm;
-    public Servo phoneServo;
 
     // Servo constants
     public final double MARKER_ARM_UP = 1,
@@ -67,7 +66,7 @@ public class Robot2_Hardware implements RobotHardware {
 
         rangeSensor = hardwareMap.get(ModernRoboticsI2cRangeSensor.class, "rs");
 
-        mineralDetector = new GoldAlignDetector(ROBOT_CENTER_X, 300, true);
+        mineralDetector = new GoldAlignDetector(ROBOT_CENTER_X, 300, 300, true);
         navTargetDetector = new NavTargetDetector(hardwareMap, CAMERA_FORWARD_POSITION, CAMERA_LEFT_POSITION, CAMERA_VERTICAL_POSITION);
 
 
@@ -85,7 +84,6 @@ public class Robot2_Hardware implements RobotHardware {
         );
 
         markerArm = hardwareMap.get(Servo.class, "ma");
-        phoneServo = hardwareMap.get(Servo.class, "ps");
 
     }
 

@@ -45,9 +45,11 @@ public class GoldAlignDetector extends DogeCVDetector {
     private boolean found = false; // Is the gold mineral found
     private boolean aligned = false; // Is the gold mineral aligned
     private double goldXPos = 0; // X Position (in pixels) of the gold element
+    private double goldYPos = 0; // Y Position (in pixels) of the gold element
 
     // Detector settings
     private int robotCenterX; // The x position in pixels of the center of the robot (find by placing gold mineral in front of robot at its center)
+    private int yMax; // The max y position of a mineral (for avoiding minerals in crater)
     private boolean debugAlignment = true; // Show debug lines to show alignment settings
     private double alignSize; // How wide is the margin of error for alignment
     private boolean landscapeMode; // Is the phone using landscape mode
@@ -67,11 +69,12 @@ public class GoldAlignDetector extends DogeCVDetector {
      * @param marginOfError : wideness of margin of error for alignment
      * @param landscape : boolean for whether we are using landscape mode
      */
-    public GoldAlignDetector(int robotCenterX, double marginOfError, boolean landscape) {
+    public GoldAlignDetector(int robotCenterX, int ym, double marginOfError, boolean landscape) {
         super();
         detectorName = "Gold Align Detector"; // Set the detector name
 
         this.robotCenterX = robotCenterX;
+        yMax = ym;
         alignSize = marginOfError;
         landscapeMode = landscape;
     }
@@ -98,7 +101,7 @@ public class GoldAlignDetector extends DogeCVDetector {
 
         // Current result
         Rect bestRect = null;
-        double bestDiffrence = Double.MAX_VALUE; // MAX_VALUE since less diffrence = better
+        double bestDifference = Double.MAX_VALUE; // MAX_VALUE since less diffrence = better
 
         // Loop through the contours and score them, searching for the best result
         for(MatOfPoint cont : contoursYellow){
@@ -109,43 +112,45 @@ public class GoldAlignDetector extends DogeCVDetector {
             Imgproc.rectangle(displayMat, rect.tl(), rect.br(), new Scalar(0,0,255),2); // Draw rect
 
             // If the result is better then the previously tracked one, set this rect as the new best
-            if(score < bestDiffrence){
-                bestDiffrence = score;
+            if(score < bestDifference && rect.x < yMax) { // since we're in landscape mode, x compared to y max
+                bestDifference = score;
                 bestRect = rect;
             }
         }
 
         // Vars to calculate the alignment logic.
         double alignX = robotCenterX;
-        //double alignX    = (getAdjustedSize().width / 2) + alignPosOffset; // Center point in X Pixels
         double alignXMin = alignX - (alignSize / 2); // Min X Pos in pixels
         double alignXMax = alignX +(alignSize / 2); // Max X pos in pixels
         double xPos; // Current Gold X Pos
+        double yPos; // Current Gold Y Pos
 
-        if(bestRect != null){
+        if(bestRect != null && bestRect.x < yMax){ // since we're in landscape mode, x compared to y max
             // Show chosen result
             Imgproc.rectangle(displayMat, bestRect.tl(), bestRect.br(), new Scalar(255,0,0),4);
             Imgproc.putText(displayMat, "Chosen", bestRect.tl(),0,1,new Scalar(255,255,255));
 
             // Set align X pos based on whether or not landscape mode used
-            if (landscapeMode)
-                xPos = bestRect.y + (bestRect.width / 2);
-            else
+            if (landscapeMode) {
+                xPos = bestRect.y + (bestRect.height / 2);
+                yPos = bestRect.x + (bestRect.width / 2);
+            } else {
                 xPos = bestRect.x + (bestRect.width / 2);
+                yPos = bestRect.y + (bestRect.height / 2);
+            }
             goldXPos = xPos;
+            goldYPos = yPos;
 
             // Draw center point
             Imgproc.circle(displayMat, new Point( xPos, bestRect.y + (bestRect.height / 2)), 5, new Scalar(0,255,0),2);
 
             // Check if the mineral is aligned
-            if(xPos < alignXMax && xPos > alignXMin){
+            if (xPos < alignXMax && xPos > alignXMin){
                 aligned = true;
-            }else{
+            } else{
                 aligned = false;
             }
 
-            // Draw Current X
-            Imgproc.putText(displayMat,"Current X: " + bestRect.x,new Point(10,getAdjustedSize().height - 10),0,0.5, new Scalar(255,255,255),1);
             found = true;
         }else{
             found = false;
@@ -161,9 +166,6 @@ public class GoldAlignDetector extends DogeCVDetector {
             Imgproc.line(displayMat,new Point(alignXMin, getAdjustedSize().height), new Point(alignXMin, getAdjustedSize().height - 40),new Scalar(0,255,0), 2);
             Imgproc.line(displayMat,new Point(alignXMax, getAdjustedSize().height), new Point(alignXMax,getAdjustedSize().height - 40),new Scalar(0,255,0), 2);
         }
-
-        //Print result
-        Imgproc.putText(displayMat,"Result: " + aligned,new Point(10,getAdjustedSize().height - 30),0,1, new Scalar(255,255,0),1);
 
 
         return displayMat;
@@ -199,6 +201,14 @@ public class GoldAlignDetector extends DogeCVDetector {
      */
     public double getXPosition(){
         return goldXPos;
+    }
+
+    /**
+     * Returns gold element last y-position
+     * @return last y-position in screen pixels of gold element
+     */
+    public double getYPosition() {
+        return goldYPos;
     }
 
     /**

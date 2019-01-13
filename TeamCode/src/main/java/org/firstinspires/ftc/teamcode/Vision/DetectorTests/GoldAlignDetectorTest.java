@@ -23,6 +23,8 @@ public class GoldAlignDetectorTest extends OpMode
     @Override
     public void init() {
         // Set up detector
+        hardware = new Robot2_Hardware(hardwareMap, gamepad1, gamepad2, false);
+        hardware.initHardware();
         detector = hardware.mineralDetector; // Create detector
         detector.setupDetector(hardwareMap, 1); // Camera Index: 0 for back camera, 1 for front camera
     }
@@ -48,11 +50,10 @@ public class GoldAlignDetectorTest extends OpMode
     @Override
     public void loop() {
         hardware.drivetrain.manageTeleOp();
-        testPhoneServo();
 
-        telemetry.addData("Phone Servo Position", hardware.phoneServo.getPosition());
         telemetry.addData("IsAligned" , detector.getAligned()); // Is the bot aligned with the gold mineral?
         telemetry.addData("X Pos" , detector.getXPosition()); // Gold X position.
+        telemetry.addData("Y Pos", detector.getYPosition()); // Gold Y position.
         telemetry.addData("Is found?", detector.isFound()); // Gold mineral found?
         if (detector.getXPosition() > detector.getRobotCenterX()) {
             telemetry.addLine("Robot Center X is less than Mineral Position ");
@@ -62,19 +63,6 @@ public class GoldAlignDetectorTest extends OpMode
         telemetry.addData("Robot Center X", detector.getRobotCenterX());
         telemetry.addData("Gold Mineral Location", detector.mineralLocation());
         telemetry.update();
-    }
-
-    private void testPhoneServo() {
-        if (gamepad1.dpad_up)
-            hardware.phoneServo.setPosition(0);
-        else if (gamepad1.dpad_right)
-            hardware.phoneServo.setPosition(0.25);
-        else if (gamepad1.dpad_down)
-            hardware.phoneServo.setPosition(0.5);
-        else if (gamepad1.dpad_left)
-            hardware.phoneServo.setPosition(0.75);
-        else if (gamepad1.x)
-            hardware.phoneServo.setPosition(1);
     }
 
     /*
