@@ -31,46 +31,26 @@ public class OfficialBot_Hardware implements RobotHardware {
                         MARKER_ARM_MIDDLE = 0.5,
                         MARKER_ARM_DOWN = 0;
 
-    public final double PHONE_SERVO_UP = 1;
-
-
-    public final double WHEEL_DIAMETER = 4.0;
+    // Drivetrain Wheel Diameter
+    private final double WHEEL_DIAMETER = 4.0;
 
     // Constants for phone position for nav targets (TUNE)
-    public final static double CAMERA_FORWARD_POSITION = 3.5, // eg: Camera is 0 inches in front of robot center
+    private final double CAMERA_FORWARD_POSITION = 3.5, // eg: Camera is 0 inches in front of robot center
             CAMERA_LEFT_POSITION = 0; // eg: Camera is 0 inches left of the robot's center line
 
     // X-position pixel value for center of robot (for mineral sampling)
-    public final static int ROBOT_CENTER_X = 285; // TUNE
+    private final int ROBOT_CENTER_X = 285; // TUNE
 
-    public OfficialBot_Hardware(HardwareMap hardwareMap, Gamepad driveGamepad, Gamepad manipsGamepad, boolean gyro){
+    public OfficialBot_Hardware(HardwareMap hardwareMap, Gamepad driveGamepad, Gamepad manipsGamepad, boolean gyro) {
         //constructs hardware objects based on configuration
-        if (gyro) {
-            drivetrain = new OmniSlideDrive(
-                    hardwareMap.get(DcMotor.class, "ld"), // left drive motor
-                    hardwareMap.get(DcMotor.class, "rd"), // right drive motor
-                    hardwareMap.get(DcMotor.class, "md"), // middle drive motor
-                    new MRGyro(hardwareMap.get(GyroSensor.class, "gs"), true), // gyro sensor calibrated
-                    driveGamepad,
-                    WHEEL_DIAMETER
-            );
-        } else {
-            drivetrain = new OmniSlideDrive(
-                    hardwareMap.get(DcMotor.class, "ld"), // left drive motor
-                    hardwareMap.get(DcMotor.class, "rd"), // right drive motor
-                    hardwareMap.get(DcMotor.class, "md"), // middle drive motor
-                    new MRGyro(hardwareMap.get(GyroSensor.class, "gs"), false), // gyro sensor not calibrated
-                    driveGamepad,
-                    WHEEL_DIAMETER
-            );
-        }
-
-        rangeSensor = hardwareMap.get(ModernRoboticsI2cRangeSensor.class, "rs");
-        imu = hardwareMap.get(BNO055IMU.class, "imu");
-
-        mineralDetector = new GoldAlignDetector(ROBOT_CENTER_X, 300, 300, true);
-        navTargetDetector = new NavTargetDetector(hardwareMap, CAMERA_FORWARD_POSITION, CAMERA_LEFT_POSITION);
-
+        drivetrain = new OmniSlideDrive(
+                hardwareMap.get(DcMotor.class, "ld"), // left drive motor
+                hardwareMap.get(DcMotor.class, "rd"), // right drive motor
+                hardwareMap.get(DcMotor.class, "md"), // middle drive motor
+                new MRGyro(hardwareMap.get(GyroSensor.class, "gs"), gyro), // gyro sensor calibrated
+                driveGamepad,
+                WHEEL_DIAMETER
+        );
 
         intake = new OfficialBot_Intake(hardwareMap.get(DcMotor.class, "harv"),
                                    hardwareMap.get(DcMotor.class, "flip"),
@@ -87,6 +67,10 @@ public class OfficialBot_Hardware implements RobotHardware {
 
         markerArm = hardwareMap.get(Servo.class, "ma");
 
+        mineralDetector = new GoldAlignDetector(ROBOT_CENTER_X, 300, 300, true);
+        navTargetDetector = new NavTargetDetector(hardwareMap, CAMERA_FORWARD_POSITION, CAMERA_LEFT_POSITION);
+        rangeSensor = hardwareMap.get(ModernRoboticsI2cRangeSensor.class, "rs");
+        imu = hardwareMap.get(BNO055IMU.class, "imu");
     }
 
     public void initHardware() {
