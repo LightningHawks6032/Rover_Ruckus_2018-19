@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.Hardware;
 
+import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.hardware.modernrobotics.ModernRoboticsI2cRangeSensor;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -22,6 +23,7 @@ public class OfficialBot_Hardware implements RobotHardware {
     public GoldAlignDetector mineralDetector;
     public NavTargetDetector navTargetDetector;
     public ModernRoboticsI2cRangeSensor rangeSensor;
+    public BNO055IMU imu;
     public Servo markerArm;
 
     // Servo constants
@@ -36,8 +38,7 @@ public class OfficialBot_Hardware implements RobotHardware {
 
     // Constants for phone position for nav targets (TUNE)
     public final static double CAMERA_FORWARD_POSITION = 3.5, // eg: Camera is 0 inches in front of robot center
-            CAMERA_LEFT_POSITION = 0, // eg: Camera is 0 inches left of the robot's center line
-            CAMERA_VERTICAL_POSITION = 0; // eg: Camera is 0 inches from the ground
+            CAMERA_LEFT_POSITION = 0; // eg: Camera is 0 inches left of the robot's center line
 
     // X-position pixel value for center of robot (for mineral sampling)
     public final static int ROBOT_CENTER_X = 285; // TUNE
@@ -65,9 +66,10 @@ public class OfficialBot_Hardware implements RobotHardware {
         }
 
         rangeSensor = hardwareMap.get(ModernRoboticsI2cRangeSensor.class, "rs");
+        imu = hardwareMap.get(BNO055IMU.class, "imu");
 
         mineralDetector = new GoldAlignDetector(ROBOT_CENTER_X, 300, 300, true);
-        navTargetDetector = new NavTargetDetector(hardwareMap, CAMERA_FORWARD_POSITION, CAMERA_LEFT_POSITION, CAMERA_VERTICAL_POSITION);
+        navTargetDetector = new NavTargetDetector(hardwareMap, CAMERA_FORWARD_POSITION, CAMERA_LEFT_POSITION);
 
 
         intake = new OfficialBot_Intake(hardwareMap.get(DcMotor.class, "harv"),

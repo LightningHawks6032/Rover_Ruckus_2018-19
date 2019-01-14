@@ -41,8 +41,7 @@ public class PrelimBot_Hardware implements RobotHardware {
 
     // Constants for phone position for nav targets
     public final static double CAMERA_FORWARD_POSITION = 3.5, // eg: Camera is 0 inches in front of robot center
-                 CAMERA_LEFT_POSITION = 0, // eg: Camera is 0 inches left of the robot's center line
-                 CAMERA_VERTICAL_POSITION = 0; // eg: Camera is 0 inches from the ground
+                 CAMERA_LEFT_POSITION = 0; // eg: Camera is 0 inches left of the robot's center line
 
     // X-position pixel value for center of robot (for mineral sampling)
     public final static int ROBOT_CENTER_X = 285;
@@ -76,7 +75,7 @@ public class PrelimBot_Hardware implements RobotHardware {
         }
 
         mineralDetector = new GoldAlignDetector(ROBOT_CENTER_X, 300, 300, true); // was 300 originally
-        navTargetDetector = new NavTargetDetector(hardwareMap, CAMERA_FORWARD_POSITION, CAMERA_LEFT_POSITION, CAMERA_VERTICAL_POSITION);
+        navTargetDetector = new NavTargetDetector(hardwareMap, CAMERA_FORWARD_POSITION, CAMERA_LEFT_POSITION);
 
         slideMotor = hardwareMap.get(DcMotor.class, "sm");
 

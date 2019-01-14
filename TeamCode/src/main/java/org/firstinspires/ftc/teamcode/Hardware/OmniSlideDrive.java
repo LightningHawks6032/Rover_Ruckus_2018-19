@@ -23,14 +23,14 @@ public class OmniSlideDrive implements RobotHardware {
     public MRGyro gyroSensor;
     private Gamepad gamepad;
 
-    // AUTO BASED VARIABLES
-    private LinearOpMode autonomous = null; // stays null unless used in an auto
-    private long startTime;
-
     // Constants to regulate maximum power
     private final double MAX_DRIVE_POWER = 1;
     private final double MAX_MIDDLE_POWER = 1;
     private double boost;
+
+    // AUTO BASED VARIABLES
+    private LinearOpMode autonomous = null; // stays null unless used in an auto
+    private long startTime;
 
     public OmniSlideDrive(DcMotor lm, DcMotor rm, DcMotor mm, MRGyro gyro, Gamepad gamepad, double wheelDiam) {
         robotPos = new Vector(0, 0); // set default position later in auto
@@ -73,6 +73,14 @@ public class OmniSlideDrive implements RobotHardware {
         middleEncoder.setup();
     }
 
+    public void setStartTime(long time) {
+        startTime = time;
+    }
+
+    public void setAuto(LinearOpMode auto) {
+        autonomous = auto;
+    }
+
     // Shortcut method for setting the power of the left drive, right drive, and middle drive
     public void setPowers(double lp, double rp, double mp) {
         leftMotor.setPower(lp);
@@ -98,15 +106,6 @@ public class OmniSlideDrive implements RobotHardware {
         if (gamepad.x)
             boost = 1;
     }
-
-    public void setStartTime(long time) {
-        startTime = time;
-    }
-
-    public void setAuto(LinearOpMode auto) {
-        autonomous = auto;
-    }
-
 
     /**
      * Robot drives forward or backward a set amount of linear distance using encoders
@@ -305,7 +304,6 @@ public class OmniSlideDrive implements RobotHardware {
     public double getBoost() {
         return boost;
     }
-
 
     // Used to break all while loops when an opmode stops
     private boolean autoRunning() {

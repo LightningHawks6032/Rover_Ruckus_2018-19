@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.Hardware;
 
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.Servo;
@@ -32,6 +33,9 @@ public class OfficialBot_Outtake implements RobotHardware{
     public final int VERTICAL_SLIDE_MIN = 0;
     public final int LAND_ENCODER_VAL = 2840;
 
+    // AUTO BASED VARIABLES
+    private LinearOpMode autonomous = null; // stays null unless used in an auto
+    private long startTime;
 
     protected OfficialBot_Outtake(DcMotor leftVert, DcMotor rightVert, Servo dump, Servo lPlate, Servo rPlate, Gamepad manipsGamepad) {
         leftVertical = leftVert;
@@ -54,12 +58,19 @@ public class OfficialBot_Outtake implements RobotHardware{
         rightVertEncoder.setup();
     }
 
-    public void manageTeleOp() {
-        lift();
-        dump();
+    public void setStartTime(long time) {
+        startTime = time;
+    }
+    public void setAuto(LinearOpMode auto) {
+        autonomous = auto;
     }
 
-    private void lift() {
+    public void manageTeleOp() {
+        manageLifting();
+        manageDumping();
+    }
+
+    private void manageLifting() {
         double pow = -gamepad.right_stick_y;
         int encoderVal = (leftVertEncoder.getEncoderCount() + rightVertEncoder.getEncoderCount()) / 2; // average
 
@@ -72,7 +83,7 @@ public class OfficialBot_Outtake implements RobotHardware{
         }
     }
 
-    private void dump() {
+    private void manageDumping() {
         if (gamepad.dpad_up)
             dumper.setPosition(DUMPER_OUT);
         else if (gamepad.dpad_down)
@@ -89,4 +100,29 @@ public class OfficialBot_Outtake implements RobotHardware{
             rightPlate.setPosition(LEFT_PLATE_DOWN);
     }
 
+    // Lands on the field for autonomous
+    public void landOnField() {
+        leftVertEncoder.reset();
+        rightVertEncoder.reset();
+
+        leftVertEncoder.runToPosition();
+        rightVertEncoder.runToPosition();
+
+        leftVertEncoder.setEncoderTarget(LAND_ENCODER_VAL);
+        rightVertEncoder.setEncoderTarget(LAND_ENCODER_VAL);
+
+        leftVertical.setPower(1);
+        rightVertical.setPower(1);
+        while (leftVertical.isBusy() && rightVertical.isBusy() && autoRunning()) {
+            // WAIT - Motor is busy
+        }
+        leftVertical.setPower(0);
+        rightVertical.setPower(0);
+    }
+
+
+    // Used to break all while loops when an opmode stops
+    private boolean autoRunning() {
+        return System.currentTimeMillis() - startTime <= AutonomousData.TIME_LIMIT && !autonomous.isStopRequested();
+    }
 }

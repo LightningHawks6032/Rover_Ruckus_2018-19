@@ -48,7 +48,6 @@ public class NavTargetDetector {
     private HardwareMap hwMap;
     private double camForwardDisplacement; // eg: Camera is ___ inches in front of robot center
     private double camLeftDisplacement; // eg: Camera is ___ inches to left of robot center
-    private double camVerticalDisplacement; // eg: Camera is ___ inches from the ground
 
     // For returning to telemetry
     private boolean targetVisible;
@@ -58,12 +57,11 @@ public class NavTargetDetector {
     private VectorF camPos;
     private Orientation robotRotation;
 
-    public NavTargetDetector(HardwareMap hwMap, double camForwardDisplacement, double camLeftDisplacement, double camVerticalDisplacement) {
+    public NavTargetDetector(HardwareMap hwMap, double camForwardDisplacement, double camLeftDisplacement) {
         // Hardware
         this.hwMap = hwMap;
         this.camForwardDisplacement = camForwardDisplacement;
         this.camLeftDisplacement = camLeftDisplacement;
-        this.camVerticalDisplacement = camVerticalDisplacement;
 
         // Booleans
         targetVisible = false; // by default, we assume we don't see a target
@@ -259,9 +257,5 @@ public class NavTargetDetector {
 
         // Rover
         return robotRotation.thirdAngle;
-    }
-
-    public double heightFromTarget() {
-        return camVerticalDisplacement - targetHeight;
     }
 }

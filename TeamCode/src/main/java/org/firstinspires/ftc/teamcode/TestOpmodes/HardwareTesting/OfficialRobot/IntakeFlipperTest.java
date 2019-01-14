@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import org.firstinspires.ftc.teamcode.Hardware.OfficialBot_Hardware;
 import org.firstinspires.ftc.teamcode.Hardware.OfficialBot_Intake;
 
-@TeleOp(name="Intake Flipper Test", group="Opmode")
+@TeleOp(name="Intake Flipper Test", group="Test Opmode")
 public class IntakeFlipperTest extends OpMode {
     private OfficialBot_Hardware hardware;
     private OfficialBot_Intake intake;

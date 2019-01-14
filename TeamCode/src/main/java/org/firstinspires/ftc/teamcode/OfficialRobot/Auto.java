@@ -28,18 +28,20 @@ public class Auto {
         navTargetDetector = hardware.navTargetDetector;
 
         hardware.drivetrain.setAuto(auto);
+        hardware.outtake.setAuto(auto);
     }
 
     public void setStartTime(long time) {
         startTime = time;
         hardware.drivetrain.setStartTime(time);
+        hardware.outtake.setStartTime(time);
     }
 
     // Computer Vision Detector Setup
     public void setupMineralDetector(HardwareMap hwMap) {
         mineralDetector.setupDetector(hwMap, 1);
     }
-    public void setupNavigationDetector(HardwareMap hwMap) {
+    public void setupNavigationDetector() {
         navTargetDetector.setupTracker();
     }
 
@@ -77,13 +79,8 @@ public class Auto {
 
         if (navTargetDetector.isTargetVisible()) {
             // Update Positional Data
-            autonomous.telemetry.addLine("NAV FOUND");
-            autonomous.telemetry.update();
             hardware.drivetrain.setRobotPos(hardware.navTargetDetector.getRobotPosition());
             hardware.drivetrain.setRobotAngle((int) Math.round(hardware.navTargetDetector.getRobotRotation()));
-            //Temp fix by GC
-            //hardware.drivetrain.setRobotAngle((int) (540-hardware.navTargetDetector.getRobotRotation()));
-
             hardware.drivetrain.gyroSensor.zero();
 
             // Debug
@@ -93,35 +90,116 @@ public class Auto {
         }
     }
 
-    /*
+
     public void landOnField() throws InterruptedException {
-        hardware.hangEncoder.reset();
-        hardware.hangEncoder.runToPosition();
-        hardware.hangEncoder.setEncoderTarget(16500);
-        hardware.hangNvst.setPower(-1);
-        while (hardware.hangNvst.isBusy() && autoRunning()) {
-            // WAIT - Motor is busy
-        }
-        hardware.hangNvst.setPower(0);
+        hardware.outtake.landOnField();
 
         hardware.drivetrain.strafeDistance(-1, 10, 1);
         hardware.drivetrain.driveDistance(1, 5, 0.5);
         hardware.drivetrain.strafeDistance(1, 5, 0.5);
         hardware.drivetrain.driveDistance(1, 8, 0.5);
     }
-    */
 
     /**
-     * Robot performs mineral sampling by moving the gold mineral off of its starting position
+     * Robot performs mineral sampling after the detecting the gold mineral from the ground.
      * @param quadrant : the quadrant where the mineral sampling happens (1-4)
      * @param reverse : true if robot back is to lander, false if robot front is to lander
      * @param backup : true if we want robot to back up after knocking over gold mineral
      * @throws InterruptedException
      */
-    public void performMineralSampling(int quadrant, boolean reverse, boolean backup) throws InterruptedException {
+    public void sampleFromGround(int quadrant, boolean reverse, boolean backup) throws InterruptedException {
         int goldPos = 2; // by default
 
         // Generates minerals to choose from
+        FieldElement[] minerals = samplingField(quadrant, reverse);
+
+        // Find Gold
+        boolean found = false;
+        Thread.sleep(500);
+        if (mineralDetector.getAligned()) { // gold is middle
+            goldPos = 2;
+            found = true;
+        }
+        if (!found) {
+            hardware.drivetrain.face(fieldMap.get(minerals[0]));
+            //Thread.sleep(500);
+            if (mineralDetector.getAligned()) { // gold is left
+                goldPos = 1;
+                found = true;
+            }
+        }
+        if (!found) {
+            hardware.drivetrain.face(fieldMap.get(minerals[2]));
+            //Thread.sleep(500);
+            if (mineralDetector.getAligned()) { // gold is right
+                goldPos = 3;
+                found = true;
+            }
+        }
+        if (!found)
+            hardware.drivetrain.face(fieldMap.get(minerals[1])); // Turn back
+
+        // Go to Gold
+        Vector startPos = hardware.drivetrain.robotPos;
+        if (goldPos == 1)
+            hardware.drivetrain.goTo(fieldMap.get(minerals[0]), 0.8);
+        else if (goldPos == 2)
+            hardware.drivetrain.goTo(fieldMap.get(minerals[1]), 0.8);
+        else if (goldPos == 3) {
+            hardware.drivetrain.goTo(fieldMap.get(minerals[2]), 0.8);
+        }
+
+        // Back up if necessary
+        if (backup) {
+            if (!reverse)
+                hardware.drivetrain.driveDistance(-1, hardware.drivetrain.robotPos.distanceFrom(startPos) * 3/4, 0.6);
+            else
+                hardware.drivetrain.driveDistance(-1, hardware.drivetrain.robotPos.distanceFrom(startPos), 0.6);
+            hardware.drivetrain.updatePosFromEncoders();
+            hardware.drivetrain.setRobotAngle((360 + hardware.drivetrain.robotAngle - hardware.drivetrain.gyroSensor.getAngle()) % 360);
+        }
+    }
+
+    /**
+     * Robot performs mineral sampling after the detecting the gold mineral while on the lander.
+     * @param goldPos : the position of the gold mineral determined while the robot is hanging at beginning of autonomous
+     * @param quadrant : the quadrant where the mineral sampling happens (1-4)
+     * @param reverse : true if robot back is to lander, false if robot front is to lander
+     * @param backup : true if we want robot to back up after knocking over gold mineral
+     * @throws InterruptedException
+     */
+    public void sampleFromLander(int goldPos, int quadrant, boolean reverse, boolean backup) throws InterruptedException {
+        // Generates minerals to choose from
+        FieldElement[] minerals = samplingField(quadrant, reverse);
+
+        // Go to Gold
+        Vector startPos = hardware.drivetrain.robotPos;
+        if (goldPos == 1)
+            hardware.drivetrain.goTo(fieldMap.get(minerals[0]), 0.8);
+        else if (goldPos == 2)
+            hardware.drivetrain.goTo(fieldMap.get(minerals[1]), 0.8);
+        else if (goldPos == 3) {
+            hardware.drivetrain.goTo(fieldMap.get(minerals[2]), 0.8);
+        }
+
+        // Back up if necessary
+        if (backup) {
+            if (!reverse)
+                hardware.drivetrain.driveDistance(-1, hardware.drivetrain.robotPos.distanceFrom(startPos) * 3/4, 0.6);
+            else
+                hardware.drivetrain.driveDistance(-1, hardware.drivetrain.robotPos.distanceFrom(startPos), 0.6);
+            hardware.drivetrain.updatePosFromEncoders();
+            hardware.drivetrain.setRobotAngle((360 + hardware.drivetrain.robotAngle - hardware.drivetrain.gyroSensor.getAngle()) % 360);
+        }
+    }
+
+    /**
+     * Create an array of the minerals, represented as FieldElements, in a particular sampling field.
+     * @param quadrant : the quadrant where the sampling field is happens (1-4)
+     * @param reverse : true if robot back is to lander, false if robot front is to lander
+     * @return the array of minerals, from left to right from the POV of the robot.
+     */
+    private FieldElement[] samplingField(int quadrant, boolean reverse) {
         FieldElement[] minerals = new FieldElement[3];
         switch (quadrant) {
             case 1:
@@ -146,55 +224,7 @@ public class Auto {
                 break;
         }
 
-        // Find Gold
-        boolean found = false;
-        Thread.sleep(500);
-        if (mineralDetector.getAligned()) { // gold is middle
-            goldPos = 2;
-            found = true;
-        }
-
-        if (!found) {
-            hardware.drivetrain.face(fieldMap.get(minerals[0]));
-            //Thread.sleep(500);
-            if (mineralDetector.getAligned()) { // gold is left
-                goldPos = 1;
-                found = true;
-            }
-        }
-
-        if (!found) {
-            hardware.drivetrain.face(fieldMap.get(minerals[2]));
-            //Thread.sleep(500);
-            if (mineralDetector.getAligned()) { // gold is right
-                goldPos = 3;
-                found = true;
-            }
-        }
-
-        if (!found)
-            hardware.drivetrain.face(fieldMap.get(minerals[1])); // Turn back
-
-
-        // Go to Gold
-        Vector startPos = hardware.drivetrain.robotPos;
-        if (goldPos == 1)
-            hardware.drivetrain.goTo(fieldMap.get(minerals[0]), 0.8);
-        else if (goldPos == 2)
-            hardware.drivetrain.goTo(fieldMap.get(minerals[1]), 0.8);
-        else if (goldPos == 3) {
-            hardware.drivetrain.goTo(fieldMap.get(minerals[2]), 0.8);
-        }
-
-        if (backup) {
-            if (!reverse)
-                hardware.drivetrain.driveDistance(-1, hardware.drivetrain.robotPos.distanceFrom(startPos) * 3/4, 0.6);
-            else
-                hardware.drivetrain.driveDistance(-1, hardware.drivetrain.robotPos.distanceFrom(startPos), 0.6);
-            hardware.drivetrain.updatePosFromEncoders();
-            hardware.drivetrain.setRobotAngle((int) ((360 + hardware.drivetrain.robotAngle - hardware.drivetrain.gyroSensor.getAngle()) % 360));
-        }
-
+        return minerals;
     }
 
     public void driveToCrater(int alliance) throws InterruptedException {
