@@ -55,7 +55,7 @@ public class NavTargetDetector {
     private static final String[] targetNames = {"Blue-Rover", "Red-Footprint", "Front-Craters", "Back-Space"};
     private OpenGLMatrix lastLocation = null; // the last location of a nav target we've seen
     private VectorF camPos;
-    private Orientation robotRotation;
+    public Orientation robotRotation;
 
     public NavTargetDetector(HardwareMap hwMap, double camForwardDisplacement, double camLeftDisplacement) {
         // Hardware
@@ -124,7 +124,7 @@ public class NavTargetDetector {
         OpenGLMatrix phoneLocationOnRobot = OpenGLMatrix
                 .translation(0, 0, 0)
                 .multiplied(Orientation.getRotationMatrix(EXTRINSIC, YZX, DEGREES,
-                        CAMERA_CHOICE == FRONT ? 90 : -90 /*0*/, 0, 0));
+                        CAMERA_CHOICE == FRONT ? 90 : -90, 90, 0));
 
         /**  Let all the trackable listeners know where the phone is.  */
         for (VuforiaTrackable trackable : navigationTargets) {
@@ -203,7 +203,7 @@ public class NavTargetDetector {
     // Converts camera position into robot center's position using camForwardDisplacement
     // THIS WILL WORK IF ROBOT IS IN CENTER OF FRONT SIDE (camLeftDisplacement = 0)
     public Vector getRobotPosition() {
-        double yawR = -(robotRotation.thirdAngle - 90) * Math.PI / 180; // draw line from nav target to robot, this is the angle (in radians) the line makes with nearest axis
+        double yawR = -(robotRotation.thirdAngle) * Math.PI / 180; // draw line from nav target to robot, this is the angle (in radians) the line makes with nearest axis
 
         double x = getCamPosition().getX(); // Camera Position X
         double y = getCamPosition().getY(); // Camera Position Y
@@ -239,23 +239,20 @@ public class NavTargetDetector {
 
         // Craters
         if (specificTargetVisible(2)) {
-            if (yaw - 90 < 0)
-                return 270 + yaw;
-            else
-                return yaw - 90;
+            return (360 + yaw) % 360;
         }
 
-        // Footprint
-        else if (specificTargetVisible(1)) {
-            return yaw + 180;
+        // Rover
+        else if (specificTargetVisible(0)) {
+            return yaw + 90;
         }
 
         // Space
         else if (specificTargetVisible(3)) {
-            return yaw + 90;
+            return yaw + 180;
         }
 
-        // Rover
-        return robotRotation.thirdAngle;
+        // Footprint
+        return yaw + 270;
     }
 }

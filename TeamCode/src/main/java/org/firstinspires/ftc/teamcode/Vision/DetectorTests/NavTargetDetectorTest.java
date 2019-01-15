@@ -55,7 +55,10 @@ public class NavTargetDetectorTest extends OpMode
             telemetry.addData("Cam Pos", detector.getCamPosition().toString());
             telemetry.addData("Robot Pos", detector.getRobotPosition().toString());
             telemetry.addData("Quadrant", detector.getRobotPosition().quadrant());
-            telemetry.addData("Robot rotation", Math.round(detector.getRobotRotation()));
+            telemetry.addData("Robot Rotation", Math.round(detector.getRobotRotation()));
+            telemetry.addData("Detector FirstAngle", detector.robotRotation.firstAngle);
+            telemetry.addData("Detector SecondAngle", detector.robotRotation.secondAngle);
+            telemetry.addData("Detector ThirdAngle", detector.robotRotation.thirdAngle);
         } else
             telemetry.addLine("The robot sees: No Target");
         telemetry.update();
