@@ -24,7 +24,7 @@ public class GoldAlignDetectorTest extends OpMode
     public void init() {
         // Set up detector
         hardware = new OfficialBot_Hardware(hardwareMap, gamepad1, gamepad2, false);
-        hardware.initHardware(true);
+        hardware.initHardware();
         detector = hardware.mineralDetector; // Create detector
         detector.setupDetector(hardwareMap, 1); // Camera Index: 0 for back camera, 1 for front camera
     }

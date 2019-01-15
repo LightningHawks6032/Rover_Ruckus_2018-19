@@ -12,26 +12,34 @@ import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 import org.firstinspires.ftc.teamcode.Hardware.OfficialBot_Hardware;
 
-@TeleOp(name="IMU test", group="Iterative Opmode")
+@TeleOp(name="IMU test", group="Test Opmode")
 public class ExpansionHubIMUTest extends OpMode {
     private OfficialBot_Hardware hardware;
+    private Orientation angles;
+
     public void init() {
         // hardware init (inits the gyro by calibrating and zeroing)
         hardware = new OfficialBot_Hardware(hardwareMap, gamepad1, gamepad2, true);
-        hardware.initHardware(true);
+        hardware.initHardware();
 
-        hardware.imu.calibrate();
+        BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
+        parameters.angleUnit           = BNO055IMU.AngleUnit.DEGREES;
+        parameters.accelUnit           = BNO055IMU.AccelUnit.METERS_PERSEC_PERSEC;
+        parameters.calibrationDataFile = "BNO055IMUCalibration.json"; // see the calibration sample opmode
+        parameters.loggingEnabled      = true;
+        parameters.loggingTag          = "IMU";
+        parameters.accelerationIntegrationAlgorithm = new JustLoggingAccelerationIntegrator();
+
+        hardware.imu.initialize(parameters);
     }
 
     public void loop() {
-        hardware.drivetrain.manageTeleOp();
-        telemetry.addData("IMU Pitch (x-axis)", hardware.imu.getAngles()[0]);
-        telemetry.addData("IMU Roll (y-axis)", hardware.imu.getAngles()[1]);
-        telemetry.addData("IMU Heading/Yaw (z-axis)", hardware.imu.getHeading());
-        telemetry.update();
+        angles = hardware.imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
 
-        if (gamepad1.x) {
-            hardware.drivetrain.getGyro().zero();
-        }
+        hardware.drivetrain.manageTeleOp();
+        telemetry.addData("IMU Pitch (x-axis)", angles.thirdAngle);
+        telemetry.addData("IMU Roll (y-axis)", angles.secondAngle);
+        telemetry.addData("IMU Heading/Yaw (z-axis)", angles.firstAngle);
+        telemetry.update();
     }
 }

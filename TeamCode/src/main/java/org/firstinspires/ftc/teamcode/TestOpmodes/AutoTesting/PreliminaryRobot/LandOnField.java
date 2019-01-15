@@ -14,7 +14,7 @@ public class LandOnField extends LinearOpMode {
 
     public void runOpMode() throws InterruptedException {
         hardware = new PrelimBot_Hardware(hardwareMap, gamepad1, true);
-        hardware.initHardware(true);
+        hardware.initHardware();
 
         waitForStart();
         land();

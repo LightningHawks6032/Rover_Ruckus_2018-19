@@ -25,7 +25,7 @@ public class MineralSamplingTest extends LinearOpMode {
 
     public void runOpMode() throws InterruptedException {
         hardware = new PrelimBot_Hardware(hardwareMap, gamepad1, true);
-        hardware.initHardware(true);
+        hardware.initHardware();
 
         detector = hardware.mineralDetector;
         detector.setupDetector(hardwareMap, 1); // Camera Index: 0 for back camera, 1 for front camera

@@ -16,7 +16,7 @@ public class EncoderTest extends OpMode {
     public void init() {
         //Initialize Hardware
         hardware = new PrelimBot_Hardware(hardwareMap, gamepad1, false);
-        hardware.initHardware(true);
+        hardware.initHardware();
 
         leftDriveEncoder = hardware.drivetrain.getLeftEncoder();
         rightDriveEncoder = hardware.drivetrain.getRightEncoder();

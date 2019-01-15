@@ -23,7 +23,7 @@ public class NavTargetDetectorTest extends OpMode
     public void init() {
         // Set up detector
         hardware = new OfficialBot_Hardware(hardwareMap, gamepad1, gamepad2, false);
-        hardware.initHardware(true);
+        hardware.initHardware();
         detector = hardware.navTargetDetector; // Create detector
         detector.setupTracker();
     }

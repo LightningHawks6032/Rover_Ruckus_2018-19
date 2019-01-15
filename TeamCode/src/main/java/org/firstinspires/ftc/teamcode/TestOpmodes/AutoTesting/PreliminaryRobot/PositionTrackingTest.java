@@ -20,7 +20,7 @@ public class PositionTrackingTest extends LinearOpMode {
 
     public void runOpMode() {
         hardware = new PrelimBot_Hardware(hardwareMap, gamepad1, true);
-        hardware.initHardware(true);
+        hardware.initHardware();
         hardware.navTargetDetector.setupTracker();
 
         waitForStart();

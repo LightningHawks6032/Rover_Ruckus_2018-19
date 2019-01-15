@@ -14,7 +14,7 @@ public class SlideMotorTest extends OpMode {
     public void init() {
         //Initialize hardware
         hardware = new PrelimBot_Hardware(hardwareMap, gamepad1, false);
-        hardware.initHardware(true);
+        hardware.initHardware();
     }
 
     public void loop() {

@@ -13,7 +13,7 @@ public class VerticalSlideTest extends OpMode{
 
     public void init() {
         hardware = new OfficialBot_Hardware(hardwareMap, gamepad1, gamepad2, false);
-        hardware.initHardware(true);
+        hardware.initHardware();
         outtake = hardware.outtake;
     }
 
