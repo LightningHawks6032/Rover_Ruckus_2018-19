@@ -89,16 +89,12 @@ public class PrelimBot_Hardware implements RobotHardware {
 
     }
 
-    public void initHardware() {
+    public void initHardware(boolean resetEncoders) {
         // called during init() of opMode
-        drivetrain.initHardware();
+        drivetrain.initHardware(resetEncoders);
         slideMotor.setDirection(DcMotor.Direction.FORWARD);
         hangNvst.setDirection(DcMotor.Direction.REVERSE);
-
-        //rightClaw.setPosition(RIGHT_CLAW_CLOSE);
-        //leftClaw.setPosition(LEFT_CLAW_CLOSE);
         markerArm.setPosition(MARKER_ARM_UP);
-        //linearActuator.setPosition(0.5);
 
         hangEncoder.setup();
     }

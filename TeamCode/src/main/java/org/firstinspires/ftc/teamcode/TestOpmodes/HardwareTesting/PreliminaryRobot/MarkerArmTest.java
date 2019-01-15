@@ -14,7 +14,7 @@ public class MarkerArmTest extends OpMode{
     public void init() {
         // hardware init
         hardware = new PrelimBot_Hardware(hardwareMap, gamepad1, false);
-        hardware.initHardware();
+        hardware.initHardware(true);
 
         servoPos = hardware.MARKER_ARM_UP;
     }

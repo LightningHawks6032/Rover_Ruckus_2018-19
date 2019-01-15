@@ -31,12 +31,17 @@ public class OfficialBot_Intake implements RobotHardware {
         gamepad = manipsGamepad;
     }
 
-    public void initHardware() {
+    public void initHardware(boolean resetEncoders) {
         harvester.setDirection(DcMotor.Direction.REVERSE);
         flipper.setDirection(DcMotor.Direction.FORWARD);
         horizontalSlide.setDirection(DcMotor.Direction.REVERSE);
-        flipEncoder.setup();
-        slideEncoder.setup();
+        if (resetEncoders) {
+            flipEncoder.setup();
+            slideEncoder.setup();
+        } else {
+            flipEncoder.runWith();
+            flipEncoder.runWith();
+        }
     }
 
     public void manageTeleOp() {

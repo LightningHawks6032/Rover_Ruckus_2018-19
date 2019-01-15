@@ -3,18 +3,17 @@ package org.firstinspires.ftc.teamcode.TestOpmodes.HardwareTesting.OfficialRobot
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-
 import org.firstinspires.ftc.teamcode.Hardware.OfficialBot_Hardware;
 import org.firstinspires.ftc.teamcode.Hardware.OfficialBot_Intake;
 
-@TeleOp(name="Intake Flipper Test", group="Test Opmode")
+@TeleOp(name="Intake Flipper Test", group="Opmode")
 public class IntakeFlipperTest extends OpMode {
     private OfficialBot_Hardware hardware;
     private OfficialBot_Intake intake;
 
     public void init() {
         hardware = new OfficialBot_Hardware(hardwareMap, gamepad1, gamepad2, false);
-        hardware.initHardware();
+        hardware.initHardware(true);
         intake = hardware.intake;
     }
 

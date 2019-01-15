@@ -16,7 +16,7 @@ public class RobotTeleOp extends OpMode {
     public void init() {
         // init hardware
         hardware = new OfficialBot_Hardware(hardwareMap, gamepad1, gamepad2, false);
-        hardware.initHardware();
+        hardware.initHardware(false);
     }
 
     public void loop() {

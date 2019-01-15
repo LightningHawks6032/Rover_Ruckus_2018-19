@@ -5,5 +5,5 @@
 package org.firstinspires.ftc.teamcode.Hardware;
 
 public interface RobotHardware {
-    void initHardware(); // every Hardware component that creates hardware devices must have this method
+    void initHardware(boolean resetEncoders); // every Hardware component that creates hardware devices must have this method
 }

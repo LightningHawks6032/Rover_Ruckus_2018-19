@@ -50,12 +50,14 @@ public class OfficialBot_Outtake implements RobotHardware{
         gamepad = manipsGamepad;
     }
 
-    public void initHardware() {
+    public void initHardware(boolean resetEncoders) {
         leftVertical.setDirection(DcMotor.Direction.REVERSE);
         rightVertical.setDirection(DcMotor.Direction.REVERSE);
 
-        leftVertEncoder.setup();
-        rightVertEncoder.setup();
+        if (resetEncoders) {
+            leftVertEncoder.setup();
+            rightVertEncoder.setup();
+        }
     }
 
     public void setStartTime(long time) {

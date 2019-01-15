@@ -55,16 +55,22 @@ public class OmniSlideDrive implements RobotHardware {
         robotAngle = angle;
     }
 
-    public void initHardware() {
+    public void initHardware(boolean resetEncoders) {
         leftMotor.setDirection(DcMotor.Direction.FORWARD);
         rightMotor.setDirection(DcMotor.Direction.REVERSE);
         middleMotor.setDirection(DcMotor.Direction.FORWARD);
-        encoderSetup();
+        if (resetEncoders)
+            encoderSetup();
+        else {
+            leftEncoder.runWith();
+            rightEncoder.runWith();
+            middleEncoder.runWith();
+        }
 
         // Potentially useful? idk how this works yet
-        leftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        rightMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        middleMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        //leftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        //rightMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        //middleMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
     }
 
     public void encoderSetup() {
