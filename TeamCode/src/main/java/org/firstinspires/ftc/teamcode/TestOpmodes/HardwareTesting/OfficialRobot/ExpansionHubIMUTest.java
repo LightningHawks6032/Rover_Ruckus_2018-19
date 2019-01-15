@@ -22,24 +22,14 @@ public class ExpansionHubIMUTest extends OpMode {
         hardware = new OfficialBot_Hardware(hardwareMap, gamepad1, gamepad2, true);
         hardware.initHardware();
 
-        BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
-        parameters.angleUnit           = BNO055IMU.AngleUnit.DEGREES;
-        parameters.accelUnit           = BNO055IMU.AccelUnit.METERS_PERSEC_PERSEC;
-        parameters.calibrationDataFile = "BNO055IMUCalibration.json"; // see the calibration sample opmode
-        parameters.loggingEnabled      = true;
-        parameters.loggingTag          = "IMU";
-        parameters.accelerationIntegrationAlgorithm = new JustLoggingAccelerationIntegrator();
-
-        hardware.imu.initialize(parameters);
+        hardware.imu.calibrate();
     }
 
     public void loop() {
-        angles = hardware.imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
-
         hardware.drivetrain.manageTeleOp();
-        telemetry.addData("IMU Pitch (x-axis)", angles.thirdAngle);
-        telemetry.addData("IMU Roll (y-axis)", angles.secondAngle);
-        telemetry.addData("IMU Heading/Yaw (z-axis)", angles.firstAngle);
+        telemetry.addData("IMU Pitch (x-axis)", hardware.imu.getAngles()[0]);
+        telemetry.addData("IMU Roll (y-axis)", hardware.imu.getAngles()[1]);
+        telemetry.addData("IMU Heading/Yaw (z-axis)", hardware.imu.getHeading());
         telemetry.update();
     }
 }

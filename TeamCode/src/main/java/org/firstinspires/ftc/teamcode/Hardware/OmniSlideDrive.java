@@ -23,10 +23,15 @@ public class OmniSlideDrive implements RobotHardware {
     public MRGyro gyroSensor;
     private Gamepad gamepad;
 
-    // Constants to regulate maximum power
+    // Drivetrain powering
+    private double leftMotorPower;
+    private double rightMotorPower;
+    private double boost;
+
+    // Power constants
+    private final double LERP_ALPHA = 0.5;
     private final double MAX_DRIVE_POWER = 1;
     private final double MAX_MIDDLE_POWER = 1;
-    private double boost;
 
     // AUTO BASED VARIABLES
     private LinearOpMode autonomous = null; // stays null unless used in an auto
@@ -60,11 +65,6 @@ public class OmniSlideDrive implements RobotHardware {
         rightMotor.setDirection(DcMotor.Direction.REVERSE);
         middleMotor.setDirection(DcMotor.Direction.FORWARD);
         encoderSetup();
-
-        // Potentially useful? idk how this works yet
-        leftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        rightMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        middleMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
     }
 
     public void encoderSetup() {
@@ -95,9 +95,14 @@ public class OmniSlideDrive implements RobotHardware {
         } else if (gamepad.right_trigger > 0) {
             setPowers(0, 0, MAX_MIDDLE_POWER); // strafe right
         } else {
-            // motor power = joysticks
-            setPowers(-gamepad.left_stick_y * MAX_DRIVE_POWER * boost, -gamepad.right_stick_y * MAX_DRIVE_POWER * boost, 0);
+            setPowers(leftMotorPower, rightMotorPower, 0);
         }
+
+        leftMotorPower = lerp(leftMotorPower, -gamepad.left_stick_y * MAX_DRIVE_POWER * boost, LERP_ALPHA);
+        rightMotorPower = lerp(rightMotorPower, -gamepad.left_stick_y * MAX_DRIVE_POWER * boost, LERP_ALPHA);
+
+        if (leftMotorPower < 0.1) leftMotorPower = 0;
+        if (rightMotorPower < 0.1) rightMotorPower = 0;
 
         applyBoost();
     }
@@ -105,6 +110,10 @@ public class OmniSlideDrive implements RobotHardware {
     private void applyBoost() {
         if (gamepad.x)
             boost = 1;
+    }
+
+    private double lerp(double point1, double point2, double alpha) {
+        return point1 + alpha * (point2 - point1);
     }
 
     /**

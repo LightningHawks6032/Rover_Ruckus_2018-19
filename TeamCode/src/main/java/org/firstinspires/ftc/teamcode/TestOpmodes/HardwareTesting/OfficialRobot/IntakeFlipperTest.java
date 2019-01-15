@@ -21,10 +21,8 @@ public class IntakeFlipperTest extends OpMode {
     public void loop() {
         // Will need to set constraints for power based on flipEncoder (adjust intake.FLIPPER_OUT_ENCODER_VAL accordingly)
         // I've set the power to be very low to avoid breaking anything
-        //intake.flipper.setPower(-gamepad2.left_stick_y * 0.2);
-
-
-        intake.manageTeleOp();
+        intake.flipper.setPower(-gamepad2.left_stick_y * 0.2);
+        //intake.manageTeleOp();
         telemetry.addData("Flipper Encoder Val", intake.flipEncoder.getEncoderCount());
         telemetry.addData("Flipper Motor Power", intake.flipper.getPower());
         telemetry.addData("FlipIn", intake.flipIn);

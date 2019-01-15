@@ -73,11 +73,11 @@ public class OfficialBot_Hardware implements RobotHardware {
         imu = new ExpansionHubIMU(hardwareMap.get(BNO055IMU.class, "imu"), calibrateSensors);
     }
 
-    public void initHardware(boolean resetEncoders) {
+    public void initHardware() {
         // called during init() of opMode
-        drivetrain.initHardware(resetEncoders);
-        intake.initHardware(resetEncoders);
-        outtake.initHardware(resetEncoders);
+        drivetrain.initHardware();
+        intake.initHardware();
+        outtake.initHardware();
         markerArm.setPosition(MARKER_ARM_UP);
     }
 }
