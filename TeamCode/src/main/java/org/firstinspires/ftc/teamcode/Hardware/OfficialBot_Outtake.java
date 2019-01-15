@@ -54,8 +54,8 @@ public class OfficialBot_Outtake implements RobotHardware{
         leftVertical.setDirection(DcMotor.Direction.REVERSE);
         rightVertical.setDirection(DcMotor.Direction.REVERSE);
 
-        leftVertEncoder.setup();
-        rightVertEncoder.setup();
+        leftVertEncoder.runWith();
+        rightVertEncoder.runWith();
     }
 
     public void setStartTime(long time) {

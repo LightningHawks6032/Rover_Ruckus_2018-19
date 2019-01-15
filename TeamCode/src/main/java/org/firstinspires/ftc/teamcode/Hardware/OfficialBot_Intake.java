@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.Hardware;
 
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Gamepad;
 
@@ -21,6 +22,10 @@ public class OfficialBot_Intake implements RobotHardware {
     public final int HORIZONTAL_SLIDE_MAX = 2800;
     public final int HORIZONTAL_SLIDE_MIN = 0;
 
+    // AUTO BASED VARIABLES
+    private LinearOpMode autonomous = null; // stays null unless used in an auto
+    private long startTime;
+
     protected OfficialBot_Intake(DcMotor harvest, DcMotor flip, DcMotor hs, Gamepad manipsGamepad) {
         harvester = harvest;
         flipper = flip;
@@ -35,8 +40,15 @@ public class OfficialBot_Intake implements RobotHardware {
         harvester.setDirection(DcMotor.Direction.REVERSE);
         flipper.setDirection(DcMotor.Direction.FORWARD);
         horizontalSlide.setDirection(DcMotor.Direction.REVERSE);
-        flipEncoder.setup();
-        slideEncoder.setup();
+        flipEncoder.runWith();
+        slideEncoder.runWith();
+    }
+
+    public void setStartTime(long time) {
+        startTime = time;
+    }
+    public void setAuto(LinearOpMode auto) {
+        autonomous = auto;
     }
 
     public void manageTeleOp() {
@@ -57,7 +69,7 @@ public class OfficialBot_Intake implements RobotHardware {
     }
 
     // Booleans to manage flipping for tele-op
-    public boolean flipIn = true; // Should the flipper be flipping inward? (i.e. was the last command to flip inward?)
+    public boolean flippingIn = true; // Should the flipper be flipping inward? (i.e. was the last command to flip inward?)
     public boolean togglePressed = false; // Is the toggle button currently pressed?
     public boolean toggleLastPressed = false; // Was the toggle button pressed last iteration of loop()?
 
@@ -66,13 +78,13 @@ public class OfficialBot_Intake implements RobotHardware {
         // Use x to toggle between flipper in and flipper out
         togglePressed = gamepad.x;
         if (togglePressed && !toggleLastPressed) // Only change flipper if toggle button wasn't pressed last iteration of loop()
-            flipIn = !flipIn;
+            flippingIn = !flippingIn;
         toggleLastPressed = togglePressed; // toggleLastPressed updated for the next iteration of loop()
 
         // Manage flip motor
-        if (flipIn && flipEncoder.getEncoderCount() > FLIPPER_IN_ENCODER_VAL)
+        if (flippingIn && flipEncoder.getEncoderCount() > FLIPPER_IN_ENCODER_VAL)
             flipper.setPower(-0.3);
-        else if (!flipIn && flipEncoder.getEncoderCount() < FLIPPER_OUT_ENCODER_VAL)
+        else if (!flippingIn && flipEncoder.getEncoderCount() < FLIPPER_OUT_ENCODER_VAL)
             flipper.setPower(0.3);
         else
             flipper.setPower(0);
@@ -92,5 +104,19 @@ public class OfficialBot_Intake implements RobotHardware {
     }
 
 
+    public void flipOut() {
+        flipEncoder.runToPosition();
+        flipEncoder.setEncoderTarget(FLIPPER_OUT_ENCODER_VAL);
+        flipper.setPower(0.3);
+        while (flipper.isBusy() && autoRunning()) {
+            // WAIT - Motor is busy
+        }
+        flipper.setPower(0);
+    }
+
+    // Used to break all while loops when an opmode stops
+    private boolean autoRunning() {
+        return System.currentTimeMillis() - startTime <= AutonomousData.TIME_LIMIT && !autonomous.isStopRequested();
+    }
 
 }

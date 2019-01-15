@@ -7,6 +7,7 @@ import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.GyroSensor;
 
 import org.firstinspires.ftc.teamcode.AutonomousData;
+import org.firstinspires.ftc.teamcode.FieldMapping.FieldElement;
 import org.firstinspires.ftc.teamcode.FieldMapping.Vector;
 
 public class OmniSlideDrive implements RobotHardware {
@@ -29,8 +30,8 @@ public class OmniSlideDrive implements RobotHardware {
     private double boost;
 
     // Power constants
-    private final double LERP_ALPHA = 0.5;
-    private final double MAX_DRIVE_POWER = 1;
+    private final double LERP_ALPHA = 0.4;
+    private final double MAX_DRIVE_POWER = 0.8;
     private final double MAX_MIDDLE_POWER = 1;
 
     // AUTO BASED VARIABLES
@@ -99,16 +100,18 @@ public class OmniSlideDrive implements RobotHardware {
         }
 
         leftMotorPower = lerp(leftMotorPower, -gamepad.left_stick_y * MAX_DRIVE_POWER * boost, LERP_ALPHA);
-        rightMotorPower = lerp(rightMotorPower, -gamepad.left_stick_y * MAX_DRIVE_POWER * boost, LERP_ALPHA);
+        rightMotorPower = lerp(rightMotorPower, -gamepad.right_stick_y * MAX_DRIVE_POWER * boost, LERP_ALPHA);
 
-        if (leftMotorPower < 0.1) leftMotorPower = 0;
-        if (rightMotorPower < 0.1) rightMotorPower = 0;
+        if (Math.abs(leftMotorPower) < 0.1) leftMotorPower = 0;
+        if (Math.abs(rightMotorPower) < 0.1) rightMotorPower = 0;
 
         applyBoost();
     }
 
     private void applyBoost() {
-        if (gamepad.x)
+        if (gamepad.left_bumper)
+            boost = 0.5;
+        else if (gamepad.right_bumper)
             boost = 1;
     }
 
@@ -201,6 +204,10 @@ public class OmniSlideDrive implements RobotHardware {
         //robotPos = location; // Original way of updating robot position
     }
 
+    public void goTo(FieldElement element, double pow) {
+        goTo(AutonomousData.FIELD_MAP.get(element), pow);
+    }
+
     /**
      * Robot turns to face certain location on field
      * @param location : Vector position of the location, use field map
@@ -211,6 +218,11 @@ public class OmniSlideDrive implements RobotHardware {
 
         faceAngle(theta);
     }
+
+    public void face(FieldElement element) {
+        face(AutonomousData.FIELD_MAP.get(element));
+    }
+
 
     public void faceAngle(int theta) {
         // Determine what angle to turn

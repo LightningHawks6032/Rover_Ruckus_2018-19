@@ -28,12 +28,15 @@ public class Auto {
         navTargetDetector = hardware.navTargetDetector;
 
         hardware.drivetrain.setAuto(auto);
+        hardware.intake.setAuto(auto);
         hardware.outtake.setAuto(auto);
+        resetManipsEncoders();
     }
 
     public void setStartTime(long time) {
         startTime = time;
         hardware.drivetrain.setStartTime(time);
+        hardware.intake.setStartTime(time);
         hardware.outtake.setStartTime(time);
     }
 
@@ -43,6 +46,13 @@ public class Auto {
     }
     public void setupNavigationDetector() {
         navTargetDetector.setupTracker();
+    }
+
+    private void resetManipsEncoders() {
+        hardware.intake.flipEncoder.reset();
+        hardware.intake.slideEncoder.reset();
+        hardware.outtake.leftVertEncoder.reset();
+        hardware.outtake.rightVertEncoder.reset();
     }
 
     public void setStartPosition(int quadrant) {
@@ -227,6 +237,18 @@ public class Auto {
         return minerals;
     }
 
+    public void releaseMarker(int alliance) throws InterruptedException {
+        if (alliance == AutonomousData.RED_ALLIANCE)
+            hardware.drivetrain.faceAngle(270);
+        else if (alliance == AutonomousData.BLUE_ALLIANCE)
+            hardware.drivetrain.faceAngle(90);
+        hardware.drivetrain.strafeForTime(0.8, 1);
+
+        hardware.markerArm.setPosition(hardware.MARKER_ARM_DOWN);
+        Thread.sleep(1000);
+        hardware.markerArm.setPosition(hardware.MARKER_ARM_UP);
+    }
+
     public void driveToCrater(int alliance) throws InterruptedException {
         if (alliance == AutonomousData.RED_ALLIANCE) {
             hardware.drivetrain.faceAngle(180);
@@ -236,7 +258,7 @@ public class Auto {
 
         hardware.drivetrain.strafeForTime(-0.8, 3/2);
         hardware.drivetrain.driveDistance(1, fieldMap.SQUARE_LENGTH * 4, 1);
-        //extendHorizontalSlide(0.4, 1);
+        hardware.intake.flipOut();
     }
 
     // Used to break all while loops when an opmode stops

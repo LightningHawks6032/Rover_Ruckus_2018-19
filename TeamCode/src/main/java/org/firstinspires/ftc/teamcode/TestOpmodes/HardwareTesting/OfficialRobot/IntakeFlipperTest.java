@@ -14,6 +14,7 @@ public class IntakeFlipperTest extends OpMode {
 
     public void init() {
         hardware = new OfficialBot_Hardware(hardwareMap, gamepad1, gamepad2, false);
+        hardware.intake.flipEncoder.reset();
         hardware.initHardware();
         intake = hardware.intake;
     }
@@ -25,7 +26,7 @@ public class IntakeFlipperTest extends OpMode {
         //intake.manageTeleOp();
         telemetry.addData("Flipper Encoder Val", intake.flipEncoder.getEncoderCount());
         telemetry.addData("Flipper Motor Power", intake.flipper.getPower());
-        telemetry.addData("FlipIn", intake.flipIn);
+        telemetry.addData("FlipIn", intake.flippingIn);
         telemetry.addData("Toggle Pressed", intake.togglePressed);
         telemetry.update();
     }
