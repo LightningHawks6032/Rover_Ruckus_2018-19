@@ -39,7 +39,7 @@ public class OfficialBot_Hardware implements RobotHardware {
             CAMERA_LEFT_POSITION = 0; // eg: Camera is 0 inches left of the robot's center line
 
     // X-position pixel value for center of robot (for mineral sampling)
-    private final int ROBOT_CENTER_X = 285; // TUNE
+    private final int ROBOT_CENTER_X = 225;
 
     public OfficialBot_Hardware(HardwareMap hardwareMap, Gamepad driveGamepad, Gamepad manipsGamepad, boolean calibrateSensors) {
         //constructs hardware objects based on configuration
@@ -67,7 +67,7 @@ public class OfficialBot_Hardware implements RobotHardware {
 
         markerArm = hardwareMap.get(Servo.class, "ma");
 
-        mineralDetector = new GoldAlignDetector(ROBOT_CENTER_X, 300, 300, true);
+        mineralDetector = new GoldAlignDetector(ROBOT_CENTER_X, 325, 300, true);
         navTargetDetector = new NavTargetDetector(hardwareMap, CAMERA_FORWARD_POSITION, CAMERA_LEFT_POSITION);
         rangeSensor = hardwareMap.get(ModernRoboticsI2cRangeSensor.class, "rs");
         imu = new ExpansionHubIMU(hardwareMap.get(BNO055IMU.class, "imu"), calibrateSensors);
