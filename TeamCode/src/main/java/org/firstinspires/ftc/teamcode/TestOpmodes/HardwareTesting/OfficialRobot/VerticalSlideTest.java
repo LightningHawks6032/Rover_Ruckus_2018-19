@@ -7,7 +7,7 @@ import org.firstinspires.ftc.teamcode.Hardware.OfficialBot_Hardware;
 import org.firstinspires.ftc.teamcode.Hardware.OfficialBot_Outtake;
 
 @TeleOp(name="Vertical Slide Test", group="Test Opmode")
-public class VerticalSlideTest extends OpMode{
+public class VerticalSlideTest extends OpMode {
     private OfficialBot_Hardware hardware;
     private OfficialBot_Outtake outtake;
 

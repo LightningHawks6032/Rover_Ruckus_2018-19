@@ -18,7 +18,7 @@ public class OfficialBot_Intake implements RobotHardware {
 
     // Encoder constants (encoder setup happens at beginning of autonomous)
     public final int FLIPPER_IN_ENCODER_VAL = 0;
-    public final int FLIPPER_OUT_ENCODER_VAL = 550;
+    public final int FLIPPER_OUT_ENCODER_VAL = 850;
     public final int HORIZONTAL_SLIDE_MAX = 2800;
     public final int HORIZONTAL_SLIDE_MIN = 0;
 
@@ -83,9 +83,9 @@ public class OfficialBot_Intake implements RobotHardware {
 
         // Manage flip motor
         if (flippingIn && flipEncoder.getEncoderCount() > FLIPPER_IN_ENCODER_VAL)
-            flipper.setPower(-0.3);
+            flipper.setPower(-0.4);
         else if (!flippingIn && flipEncoder.getEncoderCount() < FLIPPER_OUT_ENCODER_VAL)
-            flipper.setPower(0.3);
+            flipper.setPower(0.4);
         else
             flipper.setPower(0);
     }
@@ -107,7 +107,7 @@ public class OfficialBot_Intake implements RobotHardware {
     public void flipOut() {
         flipEncoder.runToPosition();
         flipEncoder.setEncoderTarget(FLIPPER_OUT_ENCODER_VAL);
-        flipper.setPower(0.3);
+        flipper.setPower(0.4);
         while (flipper.isBusy() && autoRunning()) {
             // WAIT - Motor is busy
         }
