@@ -32,11 +32,10 @@ public class RobotTeleOp extends OpMode {
         telemetry.addData("Left Encoder Val", hardware.drivetrain.getLeftEncoder().getEncoderCount());
         telemetry.addData("Right Motor Pow", hardware.drivetrain.getRightPow());
         telemetry.addData("Right Encoder Val", hardware.drivetrain.getRightEncoder().getEncoderCount());
-        telemetry.addData("Horizontal Slide Encoder", hardware.intake.slideEncoder.getEncoderCount());
         telemetry.update();
     }
 
-    public void manageMarker() {
+    private void manageMarker() {
         if (gamepad2.left_bumper)
             hardware.markerArm.setPosition(hardware.MARKER_ARM_UP);
         else if (gamepad2.right_bumper)

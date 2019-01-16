@@ -32,10 +32,10 @@ public class NavTargetDetector {
     private static final String VUFORIA_KEY = "AdwaKe7/////AAAAmVQWX/gUQE/gnK+olEmSWA5FCaxNrdY/EyKFLO2afR1IQD4gbnThc6LcCHIJ64hyC2i3n5VRiIRAMGxtKqjI7meHCphQAPrXpH9GomENr/fSXjVUhQao+Zw0/MLQEuTaqNYnp5EI/4oo6LTm/YPgYKOSPaP+tijaydiwNQn4A8zXPfDhkD/q6RTYMzS3UtpOR7WBZJPUBxW9XKim5ekHbYd1Hk2cFTTFAsL0XwycIWhuvHYpVlnZMqWwEnkTqp0o+5TE1FLkAfJ4OOUEfB8sP9kMEcged2/tczAh3GOcjOudp1S9F5xjPFZQX00OLV+QUCPzmT5kkqFBwiS30YR6L8urW2mJG4quq6NnrNYwzn47";
 
     // Since ImageTarget trackables use mm to specify their dimensions, we must use mm for all the physical dimension.
-    private static final float mmPerInch        = 25.4f;
-    private static final float mmFTCFieldWidth  = (12*6) * mmPerInch; // width of the FTC field (from the center point to the outer panels)
+    private static final float mmPerInch = 25.4f;
+    private static final float mmFTCFieldWidth = (12*6) * mmPerInch;
     private static final int targetHeight = 6;
-    private static final float mmTargetHeight   = (targetHeight) * mmPerInch; // height of the center of the target image above the floor
+    private static final float mmTargetHeight = (targetHeight) * mmPerInch;
 
     // The camera on the RC that we are using (FRONT or BACK)
     private static final VuforiaLocalizer.CameraDirection CAMERA_CHOICE = FRONT;
@@ -63,7 +63,7 @@ public class NavTargetDetector {
         this.camForwardDisplacement = camForwardDisplacement;
         this.camLeftDisplacement = camLeftDisplacement;
 
-        // Booleans
+        // Tracker results
         targetVisible = false; // by default, we assume we don't see a target
         whichTargetVisible = null; // by default, we assume we don't see a target
 
@@ -130,7 +130,6 @@ public class NavTargetDetector {
         for (VuforiaTrackable trackable : navigationTargets) {
             ((VuforiaTrackableDefaultListener) trackable.getListener()).setPhoneInformation(phoneLocationOnRobot, parameters.cameraDirection);
         }
-
         targetsRoverRuckus.activate();
     }
 

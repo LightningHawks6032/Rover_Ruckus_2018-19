@@ -1,6 +1,5 @@
 package org.firstinspires.ftc.teamcode.FieldMapping;
 
-import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -20,7 +19,6 @@ public class FieldMap {
     }
 
     private void generate() {
-
         // Quadrant 2
         // Minerals
         add(FieldElement.BLUE_DEPOT_LEFT_MINERAL, new Vector(-2*SQUARE_LENGTH, SQUARE_LENGTH));
