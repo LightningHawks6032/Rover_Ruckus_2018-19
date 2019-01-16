@@ -12,8 +12,8 @@ public class RedDepotSide extends LinearOpMode {
 
     public void runOpMode() throws InterruptedException {
         hardware = new OfficialBot_Hardware(hardwareMap, gamepad1, gamepad2, true);
-        hardware.initHardware();
         auto = new Auto(this, hardware);
+        hardware.initHardware();
 
         auto.setupMineralDetector(hardwareMap);
         waitForStart();

@@ -25,8 +25,8 @@ public class OfficialBot_Outtake implements RobotHardware{
             RIGHT_PLATE_UP = 0.8,
             RIGHT_PLATE_DOWN = 0.4;
 
-    public final double DUMPER_IN = 0.1,
-            DUMPER_OUT = 0.9;
+    public final double DUMPER_IN = 0,
+            DUMPER_OUT = 0.8;
 
     // Encoder constants (encoder setup happens at beginning of autonomous)
     public final int VERTICAL_SLIDE_MAX = 3470;
