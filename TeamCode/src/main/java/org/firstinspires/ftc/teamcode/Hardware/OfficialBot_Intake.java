@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.Hardware;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Gamepad;
 
 import org.firstinspires.ftc.teamcode.AutonomousData;
@@ -37,7 +38,7 @@ public class OfficialBot_Intake implements RobotHardware {
     }
 
     public void initHardware() {
-        harvester.setDirection(DcMotor.Direction.REVERSE);
+        harvester.setDirection(DcMotor.Direction.FORWARD);
         flipper.setDirection(DcMotor.Direction.FORWARD);
         flipper.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         horizontalSlide.setDirection(DcMotor.Direction.REVERSE);
