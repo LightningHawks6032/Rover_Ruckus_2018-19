@@ -21,7 +21,7 @@ public class OfficialBot_Outtake implements RobotHardware{
 
     // Servo constants
     public final double LEFT_PLATE_UP = 0.5,
-            LEFT_PLATE_DOWN = 0.9,
+            LEFT_PLATE_DOWN = 0.95,
             RIGHT_PLATE_UP = 0.8,
             RIGHT_PLATE_DOWN = 0.4;
 
