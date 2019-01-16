@@ -32,6 +32,8 @@ public class RobotTeleOp extends OpMode {
         telemetry.addData("Left Encoder Val", hardware.drivetrain.getLeftEncoder().getEncoderCount());
         telemetry.addData("Right Motor Pow", hardware.drivetrain.getRightPow());
         telemetry.addData("Right Encoder Val", hardware.drivetrain.getRightEncoder().getEncoderCount());
+        telemetry.addData("Intake Flipper Power", hardware.intake.flipper.getPower());
+        telemetry.addData("Intake Flipper Encoder", hardware.intake.flipEncoder.getEncoderCount());
         telemetry.update();
     }
 

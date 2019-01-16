@@ -92,9 +92,9 @@ public class OmniSlideDrive implements RobotHardware {
     public void manageTeleOp() {
         //drive1 controls (slide drive)
         if (gamepad.left_trigger > 0) {
-            setPowers(0, 0, -MAX_MIDDLE_POWER); // strafe left
+            setPowers(leftMotorPower, rightMotorPower, -MAX_MIDDLE_POWER); // strafe left
         } else if (gamepad.right_trigger > 0) {
-            setPowers(0, 0, MAX_MIDDLE_POWER); // strafe right
+            setPowers(leftMotorPower, rightMotorPower, MAX_MIDDLE_POWER); // strafe right
         } else {
             setPowers(leftMotorPower, rightMotorPower, 0);
         }

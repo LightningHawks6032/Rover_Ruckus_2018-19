@@ -18,7 +18,7 @@ public class OfficialBot_Intake implements RobotHardware {
 
     // Encoder constants (encoder setup happens at beginning of autonomous)
     public final int FLIPPER_IN_ENCODER_VAL = 0;
-    public final int FLIPPER_OUT_ENCODER_VAL = 850;
+    public final int FLIPPER_OUT_ENCODER_VAL = 440;
     public final int HORIZONTAL_SLIDE_MAX = 2800;
     public final int HORIZONTAL_SLIDE_MIN = 0;
 
@@ -39,6 +39,7 @@ public class OfficialBot_Intake implements RobotHardware {
     public void initHardware() {
         harvester.setDirection(DcMotor.Direction.REVERSE);
         flipper.setDirection(DcMotor.Direction.FORWARD);
+        flipper.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         horizontalSlide.setDirection(DcMotor.Direction.REVERSE);
         flipEncoder.runWith();
         slideEncoder.runWith();
@@ -60,9 +61,9 @@ public class OfficialBot_Intake implements RobotHardware {
     // Run the collector
     private void manageHarvester() {
         if (gamepad.a) {
-            harvester.setPower(0.75);
+            harvester.setPower(0.5);
         } else if (gamepad.y) {
-            harvester.setPower(-0.75);
+            harvester.setPower(-0.5);
         } else {
             harvester.setPower(0);
         }
@@ -83,7 +84,7 @@ public class OfficialBot_Intake implements RobotHardware {
 
         // Manage flip motor
         if (flippingIn && flipEncoder.getEncoderCount() > FLIPPER_IN_ENCODER_VAL)
-            flipper.setPower(-0.4);
+            flipper.setPower(-0.5);
         else if (!flippingIn && flipEncoder.getEncoderCount() < FLIPPER_OUT_ENCODER_VAL)
             flipper.setPower(0.4);
         else
