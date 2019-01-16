@@ -62,9 +62,9 @@ public class OfficialBot_Intake implements RobotHardware {
     // Run the collector
     private void manageHarvester() {
         if (gamepad.a) {
-            harvester.setPower(0.5);
+            harvester.setPower(0.7);
         } else if (gamepad.y) {
-            harvester.setPower(-0.5);
+            harvester.setPower(-0.7);
         } else {
             harvester.setPower(0);
         }
