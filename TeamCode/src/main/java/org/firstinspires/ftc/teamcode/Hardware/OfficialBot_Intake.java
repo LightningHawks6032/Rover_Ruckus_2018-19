@@ -19,7 +19,7 @@ public class OfficialBot_Intake implements RobotHardware {
 
     // Encoder constants (encoder setup happens at beginning of autonomous)
     public final int FLIPPER_IN_ENCODER_VAL = 0;
-    public final int FLIPPER_OUT_ENCODER_VAL = 440;
+    public final int FLIPPER_OUT_ENCODER_VAL = -14500;
     public final int HORIZONTAL_SLIDE_MAX = 2800;
     public final int HORIZONTAL_SLIDE_MIN = 0;
 
