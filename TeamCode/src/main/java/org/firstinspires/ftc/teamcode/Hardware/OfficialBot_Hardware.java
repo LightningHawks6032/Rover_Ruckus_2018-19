@@ -34,8 +34,8 @@ public class OfficialBot_Hardware implements RobotHardware {
     // Drivetrain Wheel Diameter
     private final double WHEEL_DIAMETER = 4.0;
 
-    // Constants for phone position for nav targets (TUNE)
-    private final double CAMERA_FORWARD_POSITION = 3.5, // eg: Camera is 0 inches in front of robot center
+    // Constants for phone position for nav targets
+    private final double CAMERA_FORWARD_POSITION = 7.5, // eg: Camera is 0 inches in front of robot center
             CAMERA_LEFT_POSITION = 0; // eg: Camera is 0 inches left of the robot's center line
 
     // X-position pixel value for center of robot (for mineral sampling)

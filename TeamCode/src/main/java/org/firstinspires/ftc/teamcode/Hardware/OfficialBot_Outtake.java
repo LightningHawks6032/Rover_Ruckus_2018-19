@@ -31,7 +31,7 @@ public class OfficialBot_Outtake implements RobotHardware{
     // Encoder constants (encoder setup happens at beginning of autonomous)
     public final int VERTICAL_SLIDE_MAX = 3470;
     public final int VERTICAL_SLIDE_MIN = 0;
-    public final int LAND_ENCODER_VAL = 2840;
+    public final int LAND_ENCODER_VAL = 2940;
 
     // AUTO BASED VARIABLES
     private LinearOpMode autonomous = null; // stays null unless used in an auto
