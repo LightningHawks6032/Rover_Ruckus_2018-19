@@ -20,12 +20,15 @@ public class HorizontalSlideTest extends OpMode {
     }
 
     public void loop() {
-        double pow = -gamepad1.right_stick_y;
+        double pow = -gamepad1.left_stick_y;
         intake.horizontalSlide.setPower(pow);
 
         telemetry.addLine("Use left stick on gamepad1");
-        telemetry.addData("Left Pow", intake.horizontalSlide.getPower());
-        telemetry.addData("Left Encoder", intake.slideEncoder.getEncoderCount());
+        telemetry.addData("Horizontal Slide Pow", intake.horizontalSlide.getPower());
+        telemetry.addData("Horizontal Slide Encoder", intake.slideEncoder.getEncoderCount());
         telemetry.update();
+
+        if (gamepad1.x)
+            intake.slideEncoder.setup();
     }
 }

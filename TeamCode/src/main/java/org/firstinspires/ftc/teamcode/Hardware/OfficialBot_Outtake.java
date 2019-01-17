@@ -20,10 +20,10 @@ public class OfficialBot_Outtake implements RobotHardware{
     private Gamepad gamepad;
 
     // Servo constants
-    public final double LEFT_PLATE_UP = 0.5,
-            LEFT_PLATE_DOWN = 0.95,
-            RIGHT_PLATE_UP = 0.8,
-            RIGHT_PLATE_DOWN = 0.4;
+    public final double RIGHT_PLATE_UP = 0.5,
+            RIGHT_PLATE_DOWN = 0.95,
+            LEFT_PLATE_UP = 0.8,
+            LEFT_PLATE_DOWN = 0.4;
 
     public final double DUMPER_IN = 0,
             DUMPER_OUT = 0.8;
@@ -53,7 +53,6 @@ public class OfficialBot_Outtake implements RobotHardware{
     public void initHardware() {
         leftVertical.setDirection(DcMotor.Direction.REVERSE);
         rightVertical.setDirection(DcMotor.Direction.REVERSE);
-
         leftVertEncoder.runWith();
         rightVertEncoder.runWith();
     }
@@ -90,14 +89,14 @@ public class OfficialBot_Outtake implements RobotHardware{
             dumper.setPosition(DUMPER_IN);
 
         if (gamepad.left_trigger > 0)
-            leftPlate.setPosition(RIGHT_PLATE_UP);
+            rightPlate.setPosition(RIGHT_PLATE_UP);
         else
-            leftPlate.setPosition(RIGHT_PLATE_DOWN);
+            rightPlate.setPosition(RIGHT_PLATE_DOWN);
 
         if (gamepad.right_trigger > 0)
-            rightPlate.setPosition(LEFT_PLATE_UP);
+            leftPlate.setPosition(LEFT_PLATE_UP);
         else
-            rightPlate.setPosition(LEFT_PLATE_DOWN);
+            leftPlate.setPosition(LEFT_PLATE_DOWN);
     }
 
     // Lands on the field for autonomous
@@ -118,6 +117,9 @@ public class OfficialBot_Outtake implements RobotHardware{
         }
         leftVertical.setPower(0);
         rightVertical.setPower(0);
+
+        leftVertEncoder.runWithout();
+        rightVertEncoder.runWithout();
     }
 
 

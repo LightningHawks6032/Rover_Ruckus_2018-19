@@ -26,10 +26,16 @@ public class VerticalSlideTest extends OpMode {
         outtake.rightVertical.setPower(pow);
 
         telemetry.addLine("Use left stick on gamepad1");
+        telemetry.addLine("Press x on gamepad1 to reset encoder");
         telemetry.addData("Left Pow", outtake.leftVertical.getPower());
         telemetry.addData("Right Pow", outtake.rightVertical.getPower());
         telemetry.addData("Left Encoder", outtake.leftVertEncoder.getEncoderCount());
         telemetry.addData("Right Encoder", outtake.rightVertEncoder.getEncoderCount());
         telemetry.update();
+
+        if (gamepad1.x) {
+            outtake.leftVertEncoder.setup();
+            outtake.rightVertEncoder.setup();
+        }
     }
 }
