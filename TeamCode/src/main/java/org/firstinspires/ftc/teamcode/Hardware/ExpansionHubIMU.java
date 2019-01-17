@@ -38,6 +38,6 @@ public class ExpansionHubIMU {
     }
 
     public double getHeading() {
-        return getAngles()[2];
+        return -getAngles()[2];
     }
 }
