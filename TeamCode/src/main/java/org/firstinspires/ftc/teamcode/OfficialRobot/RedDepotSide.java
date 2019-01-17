@@ -1,11 +1,13 @@
 package org.firstinspires.ftc.teamcode.OfficialRobot;
 
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.AutonomousData;
 import org.firstinspires.ftc.teamcode.FieldMapping.FieldElement;
 import org.firstinspires.ftc.teamcode.Hardware.OfficialBot_Hardware;
 
+@Autonomous(name="Red Depot Side", group=AutonomousData.OFFICIAL_GROUP)
 public class RedDepotSide extends LinearOpMode {
     private OfficialBot_Hardware hardware;
     private Auto auto;
@@ -21,11 +23,14 @@ public class RedDepotSide extends LinearOpMode {
 
         sleep(500);
         int goldPos = hardware.mineralDetector.mineralLocation();
+        telemetry.addData("Gold Position", goldPos);
+        telemetry.update();
         auto.landOnField();
-        auto.sampleFromLander(goldPos, 4, false, false);
+        hardware.mineralDetector.disable();
+        //auto.sampleFromLander(goldPos, 4, false, false);
 
-        hardware.drivetrain.goTo(FieldElement.RED_DEPOT, 0.6);
-        auto.releaseMarker(AutonomousData.RED_ALLIANCE);
-        auto.driveToCrater(AutonomousData.RED_ALLIANCE);
+        //hardware.drivetrain.goTo(FieldElement.RED_DEPOT, 0.6);
+        //auto.releaseMarker(AutonomousData.RED_ALLIANCE);
+        //auto.driveToCrater(AutonomousData.RED_ALLIANCE);
     }
 }

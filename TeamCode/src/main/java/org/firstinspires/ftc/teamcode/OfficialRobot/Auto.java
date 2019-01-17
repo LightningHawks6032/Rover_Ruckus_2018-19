@@ -104,10 +104,9 @@ public class Auto {
     public void landOnField() throws InterruptedException {
         hardware.outtake.landOnField();
 
-        /*hardware.drivetrain.strafeDistance(-1, 10, 1);
-        hardware.drivetrain.driveDistance(1, 5, 0.5);
-        hardware.drivetrain.strafeDistance(1, 5, 0.5);
-        hardware.drivetrain.driveDistance(1, 8, 0.5);*/
+        hardware.drivetrain.strafeDistance(-1, 3, 1);
+        hardware.drivetrain.driveDistance(1, 3, 0.4);
+        hardware.drivetrain.strafeDistance(1, 3, 0.5);
     }
 
     /**
