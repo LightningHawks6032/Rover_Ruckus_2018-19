@@ -1,21 +1,19 @@
-/**
- * Basic auto class to test the turn() function(s) in the drivetrain class which use gyro
- */
-
-package org.firstinspires.ftc.teamcode.TestOpmodes.AutoTesting.PreliminaryRobot;
+package org.firstinspires.ftc.teamcode.TestOpmodes.AutoTesting.OfficialRobot;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
-import org.firstinspires.ftc.teamcode.Hardware.PrelimBot_Hardware;
+import org.firstinspires.ftc.teamcode.Hardware.OfficialBot_Hardware;
 
-// @Autonomous(name="Robot 1 Turning with Gyro", group=AutonomousData.TEST_GROUP)
+@Autonomous
 public class TurningWithGyro extends LinearOpMode {
-    private PrelimBot_Hardware hardware;
+    private OfficialBot_Hardware hardware;
 
     public void runOpMode() throws InterruptedException {
-        hardware = new PrelimBot_Hardware(hardwareMap, gamepad1, true);
+        hardware = new OfficialBot_Hardware(hardwareMap, gamepad1, gamepad2, true);
         hardware.initHardware();
+        hardware.drivetrain.setAuto(this);
+        hardware.drivetrain.setStartTime(System.currentTimeMillis());
 
         waitForStart();
 

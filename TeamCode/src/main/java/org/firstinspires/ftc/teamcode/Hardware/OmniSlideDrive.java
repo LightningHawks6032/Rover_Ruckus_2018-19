@@ -74,6 +74,9 @@ public class OmniSlideDrive implements RobotHardware {
         rightMotor.setDirection(DcMotor.Direction.REVERSE);
         middleMotor.setDirection(DcMotor.Direction.FORWARD);
         encoderSetup();
+
+        leftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        rightMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
     }
 
     public void encoderSetup() {
@@ -202,14 +205,14 @@ public class OmniSlideDrive implements RobotHardware {
      * @param location : Vector position of the location, use field map
      * @param pow : power at which we drive
      */
-    public void goTo(Vector location, double pow) {
+    public void goTo(Vector location, double pow) throws InterruptedException {
         face(location); // Turn to face location
         driveDistance(1, location.distanceFrom(robotPos), pow); // Drive to location
         updatePosFromEncoders();
         updateAngleFromIMU();
     }
 
-    public void goTo(FieldElement element, double pow) {
+    public void goTo(FieldElement element, double pow) throws InterruptedException {
         goTo(AutonomousData.FIELD_MAP.get(element), pow);
     }
 
@@ -217,18 +220,18 @@ public class OmniSlideDrive implements RobotHardware {
      * Robot turns to face certain location on field
      * @param location : Vector position of the location, use field map
      */
-    public void face(Vector location) {
+    public void face(Vector location) throws InterruptedException {
         double radiansToTurn = Math.atan2(location.getY() - robotPos.getY(), location.getX() - robotPos.getX());
         int theta = MRGyro.convertToDegrees(radiansToTurn);
 
         faceAngle(theta);
     }
 
-    public void face(FieldElement element) {
+    public void face(FieldElement element) throws InterruptedException {
         face(AutonomousData.FIELD_MAP.get(element));
     }
 
-    public void faceAngle(int theta) {
+    public void faceAngle(int theta) throws InterruptedException {
         updateAngleFromIMU();
 
         // Determine what angle to turn
@@ -260,7 +263,7 @@ public class OmniSlideDrive implements RobotHardware {
      * @param degrees : the amount of degrees to turn
      * @param right : if true, we turn right; if false, we turn left
      */
-    public void turn(int degrees, boolean right) {
+    public void turn(int degrees, boolean right) throws InterruptedException {
         gyroSensor.zero();
         encoderSetup();
 
@@ -268,10 +271,13 @@ public class OmniSlideDrive implements RobotHardware {
         autonomous.telemetry.update();
 
         int currAngle = Math.abs(gyroSensor.getAngle()); // Use getAngle() because it returns angle robot has turned from origin
+        double startPow = 0.3; // starting power
         double pow; // power applied to motors
+        double prop; // proportion of angle completed
 
         while (currAngle < degrees && autoRunning()) {
-            pow = (double) (degrees - currAngle) / degrees * 0.1 + 0.05; // originally 0.6 at qualifier
+            prop = (double) currAngle / degrees;
+            pow = startPow * Math.pow((prop - 1), 2); // originally 0.6 at qualifier
 
             // Apply power to motors and update currAngle
             if (right)
@@ -286,6 +292,7 @@ public class OmniSlideDrive implements RobotHardware {
         autonomous.telemetry.update();
 
         // Updates the robot angle based on turn
+        Thread.sleep(200);
         updateAngleFromIMU();
 
         //autonomous.telemetry.addData("Robot Angle", robotAngle);
