@@ -31,7 +31,7 @@ public class OfficialBot_Outtake implements RobotHardware{
     // Encoder constants (encoder setup happens at beginning of autonomous)
     public final int VERTICAL_SLIDE_MAX = 3470;
     public final int VERTICAL_SLIDE_MIN = 0;
-    public final int LAND_ENCODER_VAL = 2940;
+    public final int LAND_ENCODER_VAL = 2400;
 
     // AUTO BASED VARIABLES
     private LinearOpMode autonomous = null; // stays null unless used in an auto
@@ -55,6 +55,8 @@ public class OfficialBot_Outtake implements RobotHardware{
         rightVertical.setDirection(DcMotor.Direction.REVERSE);
         leftVertEncoder.runWith();
         rightVertEncoder.runWith();
+
+        // add servos
     }
 
     public void setStartTime(long time) {

@@ -27,6 +27,10 @@ public class ExpansionHubIMU {
         parameters.accelerationIntegrationAlgorithm = new JustLoggingAccelerationIntegrator();
 
         imu.initialize(parameters);
+
+        while (!imu.isGyroCalibrated()) {
+            // Wait -- IMU Gyro is calibrating
+        }
     }
 
     public double[] getAngles() {

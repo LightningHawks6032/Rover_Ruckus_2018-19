@@ -43,9 +43,6 @@ public class OmniSlideDrive implements RobotHardware {
     private long startTime;
 
     public OmniSlideDrive(DcMotor lm, DcMotor rm, DcMotor mm, MRGyro gyro, ExpansionHubIMU hubIMU, Gamepad gamepad, double wheelDiam) {
-        robotPos = new Vector(0, 0); // set default position later in auto
-        robotAngle = 0; // set default angle later in auto
-
         leftMotor = lm;
         rightMotor = rm;
         middleMotor = mm;
@@ -267,14 +264,14 @@ public class OmniSlideDrive implements RobotHardware {
         gyroSensor.zero();
         encoderSetup();
 
-        autonomous.telemetry.addData("Robot Angle", robotAngle);
+        autonomous.telemetry.addData("Degrees", degrees);
         autonomous.telemetry.update();
 
         int currAngle = Math.abs(gyroSensor.getAngle()); // Use getAngle() because it returns angle robot has turned from origin
-        double pow = 1; // power applied to motors
+        double pow; // power applied to motors
 
         while (currAngle < degrees && autoRunning()) {
-            pow = (double) (degrees - currAngle) / degrees * 0.8 + 0.1; // originally 0.6 at qualifier
+            pow = (double) (degrees - currAngle) / degrees * 0.1 + 0.05; // originally 0.6 at qualifier
 
             // Apply power to motors and update currAngle
             if (right)
@@ -285,11 +282,14 @@ public class OmniSlideDrive implements RobotHardware {
         }
         setPowers(0, 0, 0);
 
+        autonomous.telemetry.addData("Gyro Sensor reading", gyroSensor.getAngle());
+        autonomous.telemetry.update();
+
         // Updates the robot angle based on turn
         updateAngleFromIMU();
 
-        autonomous.telemetry.addData("Robot Angle", robotAngle);
-        autonomous.telemetry.update();
+        //autonomous.telemetry.addData("Robot Angle", robotAngle);
+        //autonomous.telemetry.update();
     }
 
     // Positional Updating Methods
@@ -309,6 +309,8 @@ public class OmniSlideDrive implements RobotHardware {
     }
     public void updateAngleFromIMU() {
         setRobotAngle((360 + initialRobotAngle - (imu.getHeading() - initialIMUHeading)) % 360);
+        autonomous.telemetry.addData("Robot Angle From IMU", robotAngle);
+        autonomous.telemetry.update();
     }
 
     // Accessor methods

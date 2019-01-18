@@ -21,15 +21,13 @@ public class ExpansionHubIMUTest extends OpMode {
         // hardware init (inits the gyro by calibrating and zeroing)
         hardware = new OfficialBot_Hardware(hardwareMap, gamepad1, gamepad2, true);
         hardware.initHardware();
-
-        hardware.imu.calibrate();
     }
 
     public void loop() {
         hardware.drivetrain.manageTeleOp();
-        telemetry.addData("IMU Pitch (x-axis)", hardware.imu.getAngles()[0]);
-        telemetry.addData("IMU Roll (y-axis)", hardware.imu.getAngles()[1]);
-        telemetry.addData("IMU Heading/Yaw (z-axis)", hardware.imu.getHeading());
+        telemetry.addData("IMU Pitch (x-axis)", hardware.drivetrain.imu.getAngles()[0]);
+        telemetry.addData("IMU Roll (y-axis)", hardware.drivetrain.imu.getAngles()[1]);
+        telemetry.addData("IMU Heading/Yaw (z-axis)", hardware.drivetrain.imu.getHeading());
         telemetry.update();
     }
 }

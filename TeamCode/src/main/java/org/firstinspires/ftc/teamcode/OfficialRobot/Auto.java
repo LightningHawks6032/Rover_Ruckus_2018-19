@@ -113,9 +113,9 @@ public class Auto {
         hardware.drivetrain.setInitialIMUHeading();
         hardware.drivetrain.setInitialRobotAngle(startAngle(quadrant));
 
-        // Strafe away from lander
+        // Move away from lander
         hardware.drivetrain.strafeDistance(-1, 3, 1);
-        hardware.drivetrain.driveDistance(1, 3, 0.4);
+        hardware.drivetrain.driveDistance(1, 2, 0.3);
         hardware.drivetrain.strafeDistance(1, 3, 0.5);
     }
 
@@ -161,11 +161,11 @@ public class Auto {
         // Go to Gold
         Vector startPos = hardware.drivetrain.robotPos;
         if (goldPos == 1)
-            hardware.drivetrain.goTo(fieldMap.get(minerals[0]), 0.8);
+            hardware.drivetrain.goTo(fieldMap.get(minerals[0]), 0.2);
         else if (goldPos == 2)
-            hardware.drivetrain.goTo(fieldMap.get(minerals[1]), 0.8);
+            hardware.drivetrain.goTo(fieldMap.get(minerals[1]), 0.2);
         else if (goldPos == 3) {
-            hardware.drivetrain.goTo(fieldMap.get(minerals[2]), 0.8);
+            hardware.drivetrain.goTo(fieldMap.get(minerals[2]), 0.2);
         }
 
         // Back up if necessary
@@ -194,11 +194,11 @@ public class Auto {
         // Go to Gold
         Vector startPos = hardware.drivetrain.robotPos;
         if (goldPos == 1)
-            hardware.drivetrain.goTo(fieldMap.get(minerals[0]), 0.8);
+            hardware.drivetrain.goTo(fieldMap.get(minerals[0]), 0.4);
         else if (goldPos == 2)
-            hardware.drivetrain.goTo(fieldMap.get(minerals[1]), 0.8);
+            hardware.drivetrain.goTo(fieldMap.get(minerals[1]), 0.4);
         else if (goldPos == 3) {
-            hardware.drivetrain.goTo(fieldMap.get(minerals[2]), 0.8);
+            hardware.drivetrain.goTo(fieldMap.get(minerals[2]), 0.4);
         }
 
         // Back up if necessary

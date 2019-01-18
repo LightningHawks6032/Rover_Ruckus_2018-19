@@ -23,8 +23,6 @@ public class RedDepotSide extends LinearOpMode {
         waitForStart();
         auto.setStartTime(System.currentTimeMillis());
 
-        telemetry.addLine("Landing");
-        telemetry.update();
         sleep(500);
         int goldPos = hardware.mineralDetector.mineralLocation();
         telemetry.addData("Gold Position", goldPos);
@@ -33,13 +31,13 @@ public class RedDepotSide extends LinearOpMode {
         auto.setStartPosition(QUADRANT);
         hardware.mineralDetector.disable();
 
-        telemetry.addLine("Sampling");
-        telemetry.update();
+        //telemetry.addLine("Sampling");
+        //telemetry.update();
         auto.sampleFromLander(goldPos, QUADRANT, false, false);
 
-        hardware.drivetrain.goTo(FieldElement.RED_DEPOT, 0.6);
-        auto.releaseMarker(ALLIANCE);
+        //hardware.drivetrain.goTo(FieldElement.RED_DEPOT, 0.6);
+        //auto.releaseMarker(ALLIANCE);
 
-        auto.driveToCrater(ALLIANCE);
+        //auto.driveToCrater(ALLIANCE);
     }
 }
