@@ -23,7 +23,6 @@ public class OfficialBot_Hardware implements RobotHardware {
     public GoldAlignDetector mineralDetector;
     public NavTargetDetector navTargetDetector;
     public ModernRoboticsI2cRangeSensor rangeSensor;
-    public ExpansionHubIMU imu;
     public Servo markerArm;
 
     // Servo constants
@@ -48,6 +47,7 @@ public class OfficialBot_Hardware implements RobotHardware {
                 hardwareMap.get(DcMotor.class, "rd"), // right drive motor
                 hardwareMap.get(DcMotor.class, "md"), // middle drive motor
                 new MRGyro(hardwareMap.get(GyroSensor.class, "gs"), calibrateSensors),
+                new ExpansionHubIMU(hardwareMap.get(BNO055IMU.class, "imu"), calibrateSensors),
                 driveGamepad,
                 WHEEL_DIAMETER
         );
@@ -70,7 +70,6 @@ public class OfficialBot_Hardware implements RobotHardware {
         mineralDetector = new GoldAlignDetector(ROBOT_CENTER_X, 325, 300, true);
         navTargetDetector = new NavTargetDetector(hardwareMap, CAMERA_FORWARD_POSITION, CAMERA_LEFT_POSITION);
         rangeSensor = hardwareMap.get(ModernRoboticsI2cRangeSensor.class, "rs");
-        imu = new ExpansionHubIMU(hardwareMap.get(BNO055IMU.class, "imu"), calibrateSensors);
     }
 
     public void initHardware() {

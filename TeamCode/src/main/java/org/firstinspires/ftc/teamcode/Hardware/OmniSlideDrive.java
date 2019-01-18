@@ -11,9 +11,6 @@ import org.firstinspires.ftc.teamcode.FieldMapping.FieldElement;
 import org.firstinspires.ftc.teamcode.FieldMapping.Vector;
 
 public class OmniSlideDrive implements RobotHardware {
-    public Vector robotPos; // Position on field
-    public int robotAngle; // Angle relative to (0, 0) on field
-
     // Motors
     public DcMotor leftMotor;
     public DcMotor rightMotor;
@@ -22,7 +19,14 @@ public class OmniSlideDrive implements RobotHardware {
     public Encoder rightEncoder;
     public Encoder middleEncoder;
     public MRGyro gyroSensor;
+    public ExpansionHubIMU imu;
     private Gamepad gamepad;
+
+    // Navigation/Positional Components
+    public Vector robotPos; // Position on field
+    public double robotAngle; // Angle relative to (0, 0) on field
+    private double initialIMUHeading; // IMU when the robot first hits the floor
+    private double initialRobotAngle; // Manually-set robot angle when the robot first hits the floor
 
     // Drivetrain powering
     private double leftMotorPower;
@@ -38,7 +42,7 @@ public class OmniSlideDrive implements RobotHardware {
     private LinearOpMode autonomous = null; // stays null unless used in an auto
     private long startTime;
 
-    public OmniSlideDrive(DcMotor lm, DcMotor rm, DcMotor mm, MRGyro gyro, Gamepad gamepad, double wheelDiam) {
+    public OmniSlideDrive(DcMotor lm, DcMotor rm, DcMotor mm, MRGyro gyro, ExpansionHubIMU hubIMU, Gamepad gamepad, double wheelDiam) {
         robotPos = new Vector(0, 0); // set default position later in auto
         robotAngle = 0; // set default angle later in auto
 
@@ -46,6 +50,7 @@ public class OmniSlideDrive implements RobotHardware {
         rightMotor = rm;
         middleMotor = mm;
         gyroSensor = gyro;
+        imu = hubIMU;
         this.gamepad = gamepad;
         leftEncoder = new Encoder(lm, AutonomousData.NEVEREST_ENCODER, wheelDiam);
         rightEncoder = new Encoder(rm, AutonomousData.NEVEREST_ENCODER, wheelDiam);
@@ -57,8 +62,14 @@ public class OmniSlideDrive implements RobotHardware {
     public void setRobotPos(Vector pos) {
         robotPos = pos;
     }
-    public void setRobotAngle(int angle) {
+    public void setRobotAngle(double angle) {
         robotAngle = angle;
+    }
+    public void setInitialRobotAngle(double angle) {
+        initialRobotAngle = angle;
+    }
+    public void setInitialIMUHeading() {
+        initialIMUHeading = imu.getHeading();
     }
 
     public void initHardware() {
@@ -77,7 +88,6 @@ public class OmniSlideDrive implements RobotHardware {
     public void setStartTime(long time) {
         startTime = time;
     }
-
     public void setAuto(LinearOpMode auto) {
         autonomous = auto;
     }
@@ -126,7 +136,6 @@ public class OmniSlideDrive implements RobotHardware {
      * @param pow : constant power at which the robot drives
      */
     public void driveDistance(int direction, double distance, double pow) {
-        gyroSensor.zero();
         leftEncoder.reset();
         rightEncoder.reset();
 
@@ -146,7 +155,6 @@ public class OmniSlideDrive implements RobotHardware {
 
         leftEncoder.runWithout();
         rightEncoder.runWithout();
-        updateAngleFromGyro();
     }
 
     /**
@@ -201,7 +209,7 @@ public class OmniSlideDrive implements RobotHardware {
         face(location); // Turn to face location
         driveDistance(1, location.distanceFrom(robotPos), pow); // Drive to location
         updatePosFromEncoders();
-        //robotPos = location; // Original way of updating robot position
+        updateAngleFromIMU();
     }
 
     public void goTo(FieldElement element, double pow) {
@@ -223,10 +231,11 @@ public class OmniSlideDrive implements RobotHardware {
         face(AutonomousData.FIELD_MAP.get(element));
     }
 
-
     public void faceAngle(int theta) {
+        updateAngleFromIMU();
+
         // Determine what angle to turn
-        int tempRobotAngle = robotAngle > 180 ? -(360 - robotAngle) : robotAngle;
+        int tempRobotAngle = robotAngle > 180 ? -(360 - (int) Math.round(robotAngle)) : (int) Math.round(robotAngle);
         if (tempRobotAngle * theta < 0) {
             if (Math.abs(tempRobotAngle) + Math.abs(theta) < 180) {
                 if (tempRobotAngle > theta)
@@ -277,16 +286,15 @@ public class OmniSlideDrive implements RobotHardware {
         setPowers(0, 0, 0);
 
         // Updates the robot angle based on turn
-        updateAngleFromGyro();
+        updateAngleFromIMU();
 
-        //autonomous.telemetry.addData("Robot Angle", robotAngle);
-        //autonomous.telemetry.update();
+        autonomous.telemetry.addData("Robot Angle", robotAngle);
+        autonomous.telemetry.update();
     }
-
 
     // Positional Updating Methods
     public void updatePosFromEncoders() {
-        int tempRobotAngle = robotAngle > 180 ? -(360 - robotAngle) : robotAngle;
+        int tempRobotAngle = robotAngle > 180 ? -(360 - (int) Math.round(robotAngle)) : (int) Math.round(robotAngle);
         double theta = MRGyro.convertToRadians(tempRobotAngle);
         double dist = (leftEncoder.linDistance() + rightEncoder.linDistance()) / 2; // Distance travelled according to encoders
         setRobotPos(robotPos.sum(new Vector(dist * Math.cos(theta), dist * Math.sin(theta))));
@@ -298,6 +306,9 @@ public class OmniSlideDrive implements RobotHardware {
         gyroSensor.zero();
         autonomous.telemetry.addData("Robot Angle From Gyro", robotAngle);
         autonomous.telemetry.update();
+    }
+    public void updateAngleFromIMU() {
+        setRobotAngle((360 + initialRobotAngle - (imu.getHeading() - initialIMUHeading)) % 360);
     }
 
     // Accessor methods

@@ -11,6 +11,8 @@ import org.firstinspires.ftc.teamcode.Hardware.OfficialBot_Hardware;
 public class RedDepotSide extends LinearOpMode {
     private OfficialBot_Hardware hardware;
     private Auto auto;
+    private final int QUADRANT = 4;
+    private final int ALLIANCE = AutonomousData.RED_ALLIANCE;
 
     public void runOpMode() throws InterruptedException {
         hardware = new OfficialBot_Hardware(hardwareMap, gamepad1, gamepad2, true);
@@ -21,16 +23,23 @@ public class RedDepotSide extends LinearOpMode {
         waitForStart();
         auto.setStartTime(System.currentTimeMillis());
 
+        telemetry.addLine("Landing");
+        telemetry.update();
         sleep(500);
         int goldPos = hardware.mineralDetector.mineralLocation();
         telemetry.addData("Gold Position", goldPos);
         telemetry.update();
-        auto.landOnField();
+        auto.landOnField(QUADRANT);
+        auto.setStartPosition(QUADRANT);
         hardware.mineralDetector.disable();
-        //auto.sampleFromLander(goldPos, 4, false, false);
 
-        //hardware.drivetrain.goTo(FieldElement.RED_DEPOT, 0.6);
-        //auto.releaseMarker(AutonomousData.RED_ALLIANCE);
-        //auto.driveToCrater(AutonomousData.RED_ALLIANCE);
+        telemetry.addLine("Sampling");
+        telemetry.update();
+        auto.sampleFromLander(goldPos, QUADRANT, false, false);
+
+        hardware.drivetrain.goTo(FieldElement.RED_DEPOT, 0.6);
+        auto.releaseMarker(ALLIANCE);
+
+        auto.driveToCrater(ALLIANCE);
     }
 }

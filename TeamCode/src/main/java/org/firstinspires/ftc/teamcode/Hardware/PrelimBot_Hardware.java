@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.Hardware;
 
+import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
@@ -60,6 +61,7 @@ public class PrelimBot_Hardware implements RobotHardware {
                     hardwareMap.get(DcMotor.class, "rd"), // right drive motor
                     hardwareMap.get(DcMotor.class, "md"), // middle drive motor
                     new MRGyro(hardwareMap.get(GyroSensor.class, "gs"), true), // gyro sensor calibrated
+                    new ExpansionHubIMU(hardwareMap.get(BNO055IMU.class, "imu"), true),
                     driveGamepad,
                     WHEEL_DIAMETER
             );
@@ -69,6 +71,7 @@ public class PrelimBot_Hardware implements RobotHardware {
                     hardwareMap.get(DcMotor.class, "rd"), // right drive motor
                     hardwareMap.get(DcMotor.class, "md"), // middle drive motor
                     new MRGyro(hardwareMap.get(GyroSensor.class, "gs"), false), // gyro sensor not calibrated
+                    new ExpansionHubIMU(hardwareMap.get(BNO055IMU.class, "imu"), false),
                     driveGamepad,
                     WHEEL_DIAMETER
             );

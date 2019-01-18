@@ -20,6 +20,6 @@ public class LandOnField extends LinearOpMode {
         waitForStart();
         auto.setStartTime(System.currentTimeMillis());
 
-        auto.landOnField();
+        hardware.outtake.landOnField();
     }
 }

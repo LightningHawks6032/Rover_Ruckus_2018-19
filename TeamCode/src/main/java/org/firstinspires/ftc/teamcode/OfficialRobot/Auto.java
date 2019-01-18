@@ -55,25 +55,29 @@ public class Auto {
         hardware.outtake.rightVertEncoder.reset();
     }
 
+    // Sets up the starting position of the robot after it has landed and oriented itself on field
     public void setStartPosition(int quadrant) {
         switch (quadrant) {
             case 1:
                 hardware.drivetrain.setRobotPos(new Vector(fieldMap.SQUARE_LENGTH, fieldMap.SQUARE_LENGTH));
-                hardware.drivetrain.setRobotAngle(45);
                 break;
             case 2:
                 hardware.drivetrain.setRobotPos(new Vector(-fieldMap.SQUARE_LENGTH, fieldMap.SQUARE_LENGTH));
-                hardware.drivetrain.setRobotAngle(135);
                 break;
             case 3:
                 hardware.drivetrain.setRobotPos(new Vector(-fieldMap.SQUARE_LENGTH, -fieldMap.SQUARE_LENGTH));
-                hardware.drivetrain.setRobotAngle(225);
                 break;
             case 4:
                 hardware.drivetrain.setRobotPos(new Vector(fieldMap.SQUARE_LENGTH, -fieldMap.SQUARE_LENGTH));
-                hardware.drivetrain.setRobotAngle(315);
                 break;
         }
+
+        hardware.drivetrain.updateAngleFromIMU();
+    }
+
+    // Returns the starting angle of the robot dependent on its starting quadrant
+    private int startAngle(int quadrant) {
+        return 45 + 90 * (quadrant - 1);
     }
 
     // Updates Robot Position and Angle with Navigation Targets
@@ -101,9 +105,15 @@ public class Auto {
     }
 
 
-    public void landOnField() throws InterruptedException {
+    public void landOnField(int quadrant) throws InterruptedException {
+        // Land on field
         hardware.outtake.landOnField();
 
+        // Set up IMU readings and robot angle
+        hardware.drivetrain.setInitialIMUHeading();
+        hardware.drivetrain.setInitialRobotAngle(startAngle(quadrant));
+
+        // Strafe away from lander
         hardware.drivetrain.strafeDistance(-1, 3, 1);
         hardware.drivetrain.driveDistance(1, 3, 0.4);
         hardware.drivetrain.strafeDistance(1, 3, 0.5);
@@ -198,7 +208,7 @@ public class Auto {
             else
                 hardware.drivetrain.driveDistance(-1, hardware.drivetrain.robotPos.distanceFrom(startPos), 0.6);
             hardware.drivetrain.updatePosFromEncoders();
-            hardware.drivetrain.setRobotAngle((360 + hardware.drivetrain.robotAngle - hardware.drivetrain.gyroSensor.getAngle()) % 360);
+            hardware.drivetrain.updateAngleFromIMU();
         }
     }
 
