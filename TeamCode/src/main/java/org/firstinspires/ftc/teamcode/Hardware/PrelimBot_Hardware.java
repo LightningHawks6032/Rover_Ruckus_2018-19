@@ -88,7 +88,7 @@ public class PrelimBot_Hardware implements RobotHardware {
         markerArm = hardwareMap.get(Servo.class, "ma");
 
         hangNvst = hardwareMap.get(DcMotor.class, "hn");
-        hangEncoder = new Encoder(hangNvst, AutonomousData.NEVEREST_ENCODER, 0);
+        hangEncoder = new Encoder(hangNvst, AutonomousData.NEVEREST_40_ENCODER, 0);
 
     }
 

@@ -56,7 +56,7 @@ public class Auto {
     }
 
     // Sets up the starting position of the robot after it has landed and oriented itself on field
-    public void setStartPosition(int quadrant) {
+    public void setStartPosition(int quadrant) throws InterruptedException {
         switch (quadrant) {
             case 1:
                 hardware.drivetrain.setRobotPos(new Vector(fieldMap.SQUARE_LENGTH, fieldMap.SQUARE_LENGTH));
@@ -114,8 +114,8 @@ public class Auto {
         hardware.drivetrain.setInitialRobotAngle(startAngle(quadrant));
 
         // Move away from lander
-        hardware.drivetrain.strafeDistance(-1, 3, 1);
-        hardware.drivetrain.driveDistance(1, 2, 0.3);
+        hardware.drivetrain.strafeDistance(-1, 4, 1);
+        hardware.drivetrain.driveDistance(1, 6, 0.4);
         hardware.drivetrain.strafeDistance(1, 3, 0.5);
     }
 

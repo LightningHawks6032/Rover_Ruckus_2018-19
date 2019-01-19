@@ -31,8 +31,8 @@ public class OfficialBot_Intake implements RobotHardware {
         harvester = harvest;
         flipper = flip;
         horizontalSlide = hs;
-        flipEncoder = new Encoder(flip, AutonomousData.NEVEREST_ENCODER, 0);
-        slideEncoder = new Encoder(hs, AutonomousData.NEVEREST_ENCODER, 0);
+        flipEncoder = new Encoder(flip, AutonomousData.NEVEREST_20_ENCODER, 0);
+        slideEncoder = new Encoder(hs, AutonomousData.NEVEREST_20_ENCODER, 0);
 
         gamepad = manipsGamepad;
     }

@@ -31,7 +31,7 @@ public class OfficialBot_Outtake implements RobotHardware{
     // Encoder constants (encoder setup happens at beginning of autonomous)
     public final int VERTICAL_SLIDE_MAX = 3470;
     public final int VERTICAL_SLIDE_MIN = 0;
-    public final int LAND_ENCODER_VAL = 2400;
+    public final int LAND_ENCODER_VAL = 2450;
 
     // AUTO BASED VARIABLES
     private LinearOpMode autonomous = null; // stays null unless used in an auto
@@ -40,8 +40,8 @@ public class OfficialBot_Outtake implements RobotHardware{
     protected OfficialBot_Outtake(DcMotor leftVert, DcMotor rightVert, Servo dump, Servo lPlate, Servo rPlate, Gamepad manipsGamepad) {
         leftVertical = leftVert;
         rightVertical = rightVert;
-        leftVertEncoder = new Encoder(leftVert, AutonomousData.NEVEREST_ENCODER, 0);
-        rightVertEncoder = new Encoder(rightVert, AutonomousData.NEVEREST_ENCODER, 0);
+        leftVertEncoder = new Encoder(leftVert, AutonomousData.NEVEREST_40_ENCODER, 0);
+        rightVertEncoder = new Encoder(rightVert, AutonomousData.NEVEREST_40_ENCODER, 0);
 
         dumper = dump;
         leftPlate = lPlate;

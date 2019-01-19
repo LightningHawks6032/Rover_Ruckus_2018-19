@@ -49,9 +49,9 @@ public class OmniSlideDrive implements RobotHardware {
         gyroSensor = gyro;
         imu = hubIMU;
         this.gamepad = gamepad;
-        leftEncoder = new Encoder(lm, AutonomousData.NEVEREST_ENCODER, wheelDiam);
-        rightEncoder = new Encoder(rm, AutonomousData.NEVEREST_ENCODER, wheelDiam);
-        middleEncoder = new Encoder(mm, AutonomousData.NEVEREST_ENCODER, wheelDiam);
+        leftEncoder = new Encoder(lm, AutonomousData.NEVEREST_20_ENCODER, wheelDiam, 1.5);
+        rightEncoder = new Encoder(rm, AutonomousData.NEVEREST_20_ENCODER, wheelDiam, 1.5);
+        middleEncoder = new Encoder(mm, AutonomousData.NEVEREST_20_ENCODER, wheelDiam);
 
         boost = 1;
     }
@@ -271,13 +271,13 @@ public class OmniSlideDrive implements RobotHardware {
         autonomous.telemetry.update();
 
         int currAngle = Math.abs(gyroSensor.getAngle()); // Use getAngle() because it returns angle robot has turned from origin
-        double startPow = 0.3; // starting power
+        double startPow = 0.5; // starting power
         double pow; // power applied to motors
         double prop; // proportion of angle completed
 
         while (currAngle < degrees && autoRunning()) {
             prop = (double) currAngle / degrees;
-            pow = startPow * Math.pow((prop - 1), 2); // originally 0.6 at qualifier
+            pow = -startPow * Math.pow((prop - 1), 3); // originally 0.6 at qualifier
 
             // Apply power to motors and update currAngle
             if (right)
@@ -292,7 +292,6 @@ public class OmniSlideDrive implements RobotHardware {
         autonomous.telemetry.update();
 
         // Updates the robot angle based on turn
-        Thread.sleep(200);
         updateAngleFromIMU();
 
         //autonomous.telemetry.addData("Robot Angle", robotAngle);
@@ -308,13 +307,15 @@ public class OmniSlideDrive implements RobotHardware {
         leftEncoder.reset();
         rightEncoder.reset();
     }
-    public void updateAngleFromGyro() {
+    public void updateAngleFromGyro() throws InterruptedException {
+        Thread.sleep(200);
         setRobotAngle((360 + robotAngle - gyroSensor.getAngle()) % 360);
         gyroSensor.zero();
         autonomous.telemetry.addData("Robot Angle From Gyro", robotAngle);
         autonomous.telemetry.update();
     }
-    public void updateAngleFromIMU() {
+    public void updateAngleFromIMU() throws InterruptedException {
+        Thread.sleep(200);
         setRobotAngle((360 + initialRobotAngle - (imu.getHeading() - initialIMUHeading)) % 360);
         autonomous.telemetry.addData("Robot Angle From IMU", robotAngle);
         autonomous.telemetry.update();

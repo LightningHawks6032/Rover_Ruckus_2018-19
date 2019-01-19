@@ -16,8 +16,9 @@ public class AutonomousData {
     public final static int RED_ALLIANCE = 1;
     public final static int BLUE_ALLIANCE = 2;
 
-    public final static int NEVEREST_ENCODER = 1;
-    public final static int TETRIX_ENCODER = 2;
+    public final static int NEVEREST_40_ENCODER = 1;
+    public final static int NEVEREST_20_ENCODER = 2;
+    public final static int TETRIX_ENCODER = 3;
 
     public final static FieldMap FIELD_MAP = new FieldMap();
 

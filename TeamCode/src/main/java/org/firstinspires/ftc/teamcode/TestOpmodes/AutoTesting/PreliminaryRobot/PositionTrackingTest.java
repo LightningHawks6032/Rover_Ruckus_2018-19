@@ -18,7 +18,7 @@ public class PositionTrackingTest extends LinearOpMode {
 
     private double startTime;
 
-    public void runOpMode() {
+    public void runOpMode() throws InterruptedException {
         hardware = new PrelimBot_Hardware(hardwareMap, gamepad1, true);
         hardware.initHardware();
         hardware.navTargetDetector.setupTracker();
