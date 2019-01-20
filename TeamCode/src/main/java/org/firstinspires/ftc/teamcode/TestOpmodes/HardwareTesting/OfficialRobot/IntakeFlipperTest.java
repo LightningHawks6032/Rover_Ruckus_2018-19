@@ -26,8 +26,6 @@ public class IntakeFlipperTest extends OpMode {
         //intake.manageTeleOp();
         telemetry.addData("Flipper Encoder Val", intake.flipEncoder.getEncoderCount());
         telemetry.addData("Flipper Motor Power", intake.flipper.getPower());
-        telemetry.addData("FlipIn", intake.flippingIn);
-        telemetry.addData("Toggle Pressed", intake.togglePressed);
         telemetry.update();
     }
 

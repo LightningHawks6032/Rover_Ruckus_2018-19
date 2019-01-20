@@ -38,9 +38,9 @@ public class RobotTeleOp extends OpMode {
     }
 
     private void manageMarker() {
-        if (gamepad2.left_bumper)
+        if (gamepad1.y)
             hardware.markerArm.setPosition(hardware.MARKER_ARM_UP);
-        else if (gamepad2.right_bumper)
+        else if (gamepad1.x)
             hardware.markerArm.setPosition(hardware.MARKER_ARM_DOWN);
     }
 }

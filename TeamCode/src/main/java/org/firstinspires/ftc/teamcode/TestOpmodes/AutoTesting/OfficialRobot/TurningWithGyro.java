@@ -16,7 +16,7 @@ public class TurningWithGyro extends LinearOpMode {
     private OfficialBot_Hardware hardware;
     private OmniSlideDrive drivetrain;
 
-    private double START_POWER = 0.5;
+    private final double START_POWER = 0.5;
     private int[] degreesToTest = {20, 45, 90, 135};
 
     int sumOfLinearError = 0;
