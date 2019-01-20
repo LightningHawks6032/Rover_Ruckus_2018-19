@@ -6,8 +6,8 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import org.firstinspires.ftc.teamcode.AutonomousData;
 import org.firstinspires.ftc.teamcode.Hardware.OfficialBot_Hardware;
 
-@Autonomous(name="Encoder and Gyro Test", group= AutonomousData.TEST_GROUP)
-public class EncoderGyroTest extends LinearOpMode {
+@Autonomous(name="Encoder Test", group= AutonomousData.TEST_GROUP)
+public class RunningWithEncoders extends LinearOpMode {
     private OfficialBot_Hardware hardware;
 
     public void runOpMode() throws InterruptedException {
@@ -25,14 +25,5 @@ public class EncoderGyroTest extends LinearOpMode {
         telemetry.update();
 
         sleep(15000);
-        /*
-        telemetry.addLine("Turning right 90deg");
-        telemetry.update();
-        hardware.drivetrain.turn(90, true);
-
-        telemetry.addLine("Turning left 90deg");
-        telemetry.update();
-        hardware.drivetrain.turn(90, false);
-        */
     }
 }

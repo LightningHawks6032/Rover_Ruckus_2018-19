@@ -40,7 +40,7 @@ public class OmniSlideDrive implements RobotHardware {
 
     // AUTO BASED VARIABLES
     private LinearOpMode autonomous = null; // stays null unless used in an auto
-    private long startTime;
+    public long startTime;
 
     public OmniSlideDrive(DcMotor lm, DcMotor rm, DcMotor mm, MRGyro gyro, ExpansionHubIMU hubIMU, Gamepad gamepad, double wheelDiam) {
         leftMotor = lm;
@@ -279,7 +279,7 @@ public class OmniSlideDrive implements RobotHardware {
 
         while (currAngle < degrees && autoRunning()) {
             prop = (double) currAngle / degrees;
-            pow = -startPow * Math.pow((prop - 1), 3); // originally 0.6 at qualifier
+            pow = -startPow * Math.pow((prop - 1), 3);
 
             // Apply power to motors and update currAngle
             if (right)

@@ -56,7 +56,8 @@ public class OfficialBot_Outtake implements RobotHardware {
         leftVertEncoder.runWith();
         rightVertEncoder.runWith();
 
-        // add servos
+        leftPlate.setPosition(LEFT_PLATE_DOWN);
+        rightPlate.setPosition(RIGHT_PLATE_DOWN);
     }
 
     public void setStartTime(long time) {
