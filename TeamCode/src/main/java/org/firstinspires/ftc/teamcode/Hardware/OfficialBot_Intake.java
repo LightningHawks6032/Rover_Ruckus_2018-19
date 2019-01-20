@@ -17,6 +17,9 @@ public class OfficialBot_Intake implements RobotHardware {
 
     private Gamepad gamepad;
 
+    // Power constants
+    public final double HARVESTER_POWER = 0.7;
+
     // Encoder constants (encoder setup happens at beginning of autonomous)
     public final int FLIPPER_IN_ENCODER_VAL = 0;
     public final int FLIPPER_OUT_ENCODER_VAL = 7000;
@@ -61,9 +64,9 @@ public class OfficialBot_Intake implements RobotHardware {
     // Run the collector
     private void manageHarvester() {
         if (gamepad.a) {
-            harvester.setPower(0.7);
+            harvester.setPower(HARVESTER_POWER);
         } else if (gamepad.y) {
-            harvester.setPower(-0.7);
+            harvester.setPower(-HARVESTER_POWER);
         } else {
             harvester.setPower(0);
         }
@@ -91,7 +94,6 @@ public class OfficialBot_Intake implements RobotHardware {
             flipper.setPower(0);
     }
 
-
     // Manage horizontal slide
     private void manageSlide() {
         double pow = -gamepad.left_stick_y;
@@ -104,11 +106,28 @@ public class OfficialBot_Intake implements RobotHardware {
         }
     }
 
+    // Harvesting in autonomous
+    public void harvest() {
+        harvester.setPower(HARVESTER_POWER);
+    }
+    public void stopHarvesting() {
+        harvester.setPower(0);
+    }
 
+    // Utilizing intake flipper in autonomous
+    public void flipIn() {
+        flipEncoder.runToPosition();
+        flipEncoder.setEncoderTarget(FLIPPER_IN_ENCODER_VAL);
+        flipper.setPower(-1);
+        while (flipper.isBusy() && autoRunning()) {
+            // WAIT - Motor is busy
+        }
+        flipper.setPower(0);
+    }
     public void flipOut() {
         flipEncoder.runToPosition();
         flipEncoder.setEncoderTarget(FLIPPER_OUT_ENCODER_VAL);
-        flipper.setPower(0.4);
+        flipper.setPower(1);
         while (flipper.isBusy() && autoRunning()) {
             // WAIT - Motor is busy
         }

@@ -161,11 +161,11 @@ public class Auto {
         // Go to Gold
         Vector startPos = hardware.drivetrain.robotPos;
         if (goldPos == 1)
-            hardware.drivetrain.goTo(fieldMap.get(minerals[0]), 0.2);
+            hardware.drivetrain.goTo(fieldMap.get(minerals[0]), 0.4);
         else if (goldPos == 2)
-            hardware.drivetrain.goTo(fieldMap.get(minerals[1]), 0.2);
+            hardware.drivetrain.goTo(fieldMap.get(minerals[1]), 0.4);
         else if (goldPos == 3) {
-            hardware.drivetrain.goTo(fieldMap.get(minerals[2]), 0.2);
+            hardware.drivetrain.goTo(fieldMap.get(minerals[2]), 0.4);
         }
 
         // Back up if necessary
@@ -175,7 +175,6 @@ public class Auto {
             else
                 hardware.drivetrain.driveDistance(-1, hardware.drivetrain.robotPos.distanceFrom(startPos), 0.6);
             hardware.drivetrain.updatePosFromEncoders();
-            hardware.drivetrain.setRobotAngle((360 + hardware.drivetrain.robotAngle - hardware.drivetrain.gyroSensor.getAngle()) % 360);
         }
     }
 
@@ -192,6 +191,8 @@ public class Auto {
         FieldElement[] minerals = samplingField(quadrant, reverse);
 
         // Go to Gold
+        hardware.intake.flipOut();
+        hardware.intake.harvest();
         Vector startPos = hardware.drivetrain.robotPos;
         if (goldPos == 1)
             hardware.drivetrain.goTo(fieldMap.get(minerals[0]), 0.4);
@@ -200,6 +201,8 @@ public class Auto {
         else if (goldPos == 3) {
             hardware.drivetrain.goTo(fieldMap.get(minerals[2]), 0.4);
         }
+        hardware.intake.stopHarvesting();
+        hardware.intake.flipIn();
 
         // Back up if necessary
         if (backup) {
@@ -208,7 +211,6 @@ public class Auto {
             else
                 hardware.drivetrain.driveDistance(-1, hardware.drivetrain.robotPos.distanceFrom(startPos), 0.6);
             hardware.drivetrain.updatePosFromEncoders();
-            hardware.drivetrain.updateAngleFromIMU();
         }
     }
 

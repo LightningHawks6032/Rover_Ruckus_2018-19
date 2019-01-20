@@ -135,7 +135,7 @@ public class OmniSlideDrive implements RobotHardware {
      * @param distance : linear distance in inches for the robot to drive over
      * @param pow : constant power at which the robot drives
      */
-    public void driveDistance(int direction, double distance, double pow) {
+    public void driveDistance(int direction, double distance, double pow) throws InterruptedException {
         leftEncoder.reset();
         rightEncoder.reset();
 
@@ -155,6 +155,8 @@ public class OmniSlideDrive implements RobotHardware {
 
         leftEncoder.runWithout();
         rightEncoder.runWithout();
+
+        updateAngleFromIMU();
     }
 
     /**

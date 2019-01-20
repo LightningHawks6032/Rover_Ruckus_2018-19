@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.teamcode.AutonomousData;
 
-public class OfficialBot_Outtake implements RobotHardware{
+public class OfficialBot_Outtake implements RobotHardware {
     // Hardware Components
     public DcMotor leftVertical;
     public DcMotor rightVertical;

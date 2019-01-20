@@ -25,8 +25,6 @@ public class RedDepotSide extends LinearOpMode {
 
         sleep(500);
         int goldPos = hardware.mineralDetector.mineralLocation();
-        telemetry.addData("Gold Position", goldPos);
-        telemetry.update();
         auto.landOnField(QUADRANT);
         auto.setStartPosition(QUADRANT);
         hardware.mineralDetector.disable();
