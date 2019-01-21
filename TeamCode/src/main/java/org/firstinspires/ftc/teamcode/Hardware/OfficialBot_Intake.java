@@ -73,9 +73,9 @@ public class OfficialBot_Intake implements RobotHardware {
     }
 
     // Booleans to manage flipping for tele-op
-    public boolean flippingIn = true; // Should the flipper be flipping inward? (i.e. was the last command to flip inward?)
-    public boolean togglePressed = false; // Is the toggle button currently pressed?
-    public boolean toggleLastPressed = false; // Was the toggle button pressed last iteration of loop()?
+    private boolean flippingIn = true; // Should the flipper be flipping inward? (i.e. was the last command to flip inward?)
+    private boolean togglePressed = false; // Is the toggle button currently pressed?
+    private boolean toggleLastPressed = false; // Was the toggle button pressed last iteration of loop()?
 
     // Flip the collector
     private void manageFlipper() {
@@ -95,15 +95,23 @@ public class OfficialBot_Intake implements RobotHardware {
     }
 
     // Manage horizontal slide
+    private boolean autoRetract = false; // Should the horizontal slide be attempting to auto retract?
     private void manageSlide() {
         double pow = -gamepad.left_stick_y;
         int encoderVal = slideEncoder.getEncoderCount();
 
         if ((pow > 0 && encoderVal < HORIZONTAL_SLIDE_MAX) || (pow < 0 && encoderVal > HORIZONTAL_SLIDE_MIN)) {
+            autoRetract = false;
             horizontalSlide.setPower(pow);
+        } else if (autoRetract && encoderVal > HORIZONTAL_SLIDE_MIN) {
+            horizontalSlide.setPower(-1);
         } else {
             horizontalSlide.setPower(0);
         }
+
+        if (gamepad.left_bumper)
+            autoRetract = true;
+
     }
 
     // Harvesting in autonomous

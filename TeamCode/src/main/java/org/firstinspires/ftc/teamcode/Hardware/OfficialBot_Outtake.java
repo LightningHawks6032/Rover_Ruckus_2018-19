@@ -72,17 +72,27 @@ public class OfficialBot_Outtake implements RobotHardware {
         manageDumping();
     }
 
+    // Manage vertical slide
+    private boolean autoRetract = false; // Should the vertical slides be attempting to auto retract?
     private void manageLifting() {
         double pow = -gamepad.right_stick_y;
         int encoderVal = (leftVertEncoder.getEncoderCount() + rightVertEncoder.getEncoderCount()) / 2; // average
 
         if ((pow > 0 && encoderVal < VERTICAL_SLIDE_MAX) || (pow < 0 && encoderVal > VERTICAL_SLIDE_MIN)) {
+            autoRetract = false;
             leftVertical.setPower(pow);
             rightVertical.setPower(pow);
+        } else if (autoRetract && encoderVal > VERTICAL_SLIDE_MIN) {
+            leftVertical.setPower(-1);
+            rightVertical.setPower(-1);
         } else {
             leftVertical.setPower(0);
             rightVertical.setPower(0);
         }
+
+        if (gamepad.right_bumper)
+            autoRetract = true;
+
     }
 
     private void manageDumping() {
