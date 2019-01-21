@@ -5,17 +5,15 @@ FieldMapping: A collection of classes for generating a map of the match field fo
 
 Hardware: Each robot's hardware class, including some other classes for specific hardware components
 
-HardwareTesting: A collection of tele-op modes that test specific components of a robot's hardware for correct functionality
-
 OfficialRobot: All OFFICIAL opmodes for our Official Robot for use in competition
 
 PreliminaryRobot: All OFFICIAL opmodes for our Preliminary Robot for use in competition
 
 TestOpmodes: A collection of opmodes that test code for the robot to later be integrated with the competition code.
 
-    AutoTesting: A collection of linear opmodes that test some part of autonomous for any of the robots
+    AutoTesting: A collection of linear opmodes that test some part of autonomous
 
-    HardwareTesting: A collection of tele-op modes that test specific components of a robot's hardware for correct functionality
+    HardwareTesting: A collection of tele-op modes that test hardware components for correct functionality
 
 Vision: Anything concerning the computer vision systems on our robots
 
