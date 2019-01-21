@@ -189,16 +189,16 @@ public class OmniSlideDrive implements RobotHardware {
      * @param seconds : seconds during which the robot drives
      * @throws InterruptedException
      */
-    public void driveForTime(double pow, long seconds) throws InterruptedException {
+    public void driveForTime(double pow, double seconds) throws InterruptedException {
         encoderSetup();
         setPowers(pow, pow, 0);
-        Thread.sleep(seconds * 1000);
+        Thread.sleep((long) seconds * 1000);
         setPowers(0, 0, 0);
     }
-    public void strafeForTime(double pow, long seconds) throws InterruptedException {
+    public void strafeForTime(double pow, double seconds) throws InterruptedException {
         encoderSetup();
         setPowers(0, 0, pow);
-        Thread.sleep(seconds * 1000);
+        Thread.sleep((long) seconds * 1000);
         setPowers(0, 0, 0);
     }
 

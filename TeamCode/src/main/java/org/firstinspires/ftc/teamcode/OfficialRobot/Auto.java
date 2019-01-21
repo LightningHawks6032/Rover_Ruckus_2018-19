@@ -76,7 +76,7 @@ public class Auto {
     }
 
     // Returns the starting angle of the robot dependent on its starting quadrant
-    private int startAngle(int quadrant) {
+    public int startAngle(int quadrant) {
         return 45 + 90 * (quadrant - 1);
     }
 
@@ -141,7 +141,6 @@ public class Auto {
         }
         if (!found) {
             hardware.drivetrain.face(fieldMap.get(minerals[0]));
-            //Thread.sleep(500);
             if (mineralDetector.getAligned()) { // gold is left
                 goldPos = 1;
                 found = true;
@@ -149,7 +148,6 @@ public class Auto {
         }
         if (!found) {
             hardware.drivetrain.face(fieldMap.get(minerals[2]));
-            //Thread.sleep(500);
             if (mineralDetector.getAligned()) { // gold is right
                 goldPos = 3;
                 found = true;
@@ -267,7 +265,7 @@ public class Auto {
             hardware.drivetrain.faceAngle(0);
         }
 
-        hardware.drivetrain.strafeForTime(-0.8, 3/2);
+        hardware.drivetrain.strafeForTime(-0.8, 1.5);
         hardware.drivetrain.driveDistance(1, fieldMap.SQUARE_LENGTH * 4, 1);
         hardware.intake.flipOut();
     }

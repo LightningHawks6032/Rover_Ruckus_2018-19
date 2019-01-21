@@ -56,6 +56,7 @@ public class OfficialBot_Outtake implements RobotHardware {
         leftVertEncoder.runWith();
         rightVertEncoder.runWith();
 
+        dumper.setPosition(DUMPER_IN);
         leftPlate.setPosition(LEFT_PLATE_DOWN);
         rightPlate.setPosition(RIGHT_PLATE_DOWN);
     }
@@ -133,6 +134,51 @@ public class OfficialBot_Outtake implements RobotHardware {
 
         leftVertEncoder.runWithout();
         rightVertEncoder.runWithout();
+    }
+
+    // Vertical slide is brought up/down
+    public void verticalSlideUp() {
+        leftVertEncoder.runToPosition();
+        rightVertEncoder.runToPosition();
+
+        leftVertEncoder.setEncoderTarget(VERTICAL_SLIDE_MAX);
+        rightVertEncoder.setEncoderTarget(VERTICAL_SLIDE_MAX);
+
+        leftVertical.setPower(1);
+        rightVertical.setPower(1);
+        while (leftVertical.isBusy() && rightVertical.isBusy() && autoRunning()) {
+            // WAIT - Motor is busy
+        }
+        leftVertical.setPower(0);
+        rightVertical.setPower(0);
+
+        leftVertEncoder.runWithout();
+        rightVertEncoder.runWithout();
+    }
+    public void verticalSlideDown() {
+        leftVertEncoder.runToPosition();
+        rightVertEncoder.runToPosition();
+
+        leftVertEncoder.setEncoderTarget(VERTICAL_SLIDE_MIN);
+        rightVertEncoder.setEncoderTarget(VERTICAL_SLIDE_MIN);
+
+        leftVertical.setPower(-1);
+        rightVertical.setPower(-1);
+        while (leftVertical.isBusy() && rightVertical.isBusy() && autoRunning()) {
+            // WAIT - Motor is busy
+        }
+        leftVertical.setPower(0);
+        rightVertical.setPower(0);
+
+        leftVertEncoder.runWithout();
+        rightVertEncoder.runWithout();
+    }
+
+    // Dumping in autonomous
+    public void dump() throws InterruptedException {
+        dumper.setPosition(DUMPER_OUT);
+        Thread.sleep(1000);
+        dumper.setPosition(DUMPER_IN);
     }
 
 

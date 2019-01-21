@@ -118,6 +118,11 @@ public class OfficialBot_Intake implements RobotHardware {
     public void harvest() {
         harvester.setPower(HARVESTER_POWER);
     }
+    public void putMineralsInDumper() throws InterruptedException {
+        harvester.setPower(-HARVESTER_POWER);
+        Thread.sleep(2000);
+        stopHarvesting();
+    }
     public void stopHarvesting() {
         harvester.setPower(0);
     }
