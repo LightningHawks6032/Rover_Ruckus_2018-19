@@ -19,10 +19,10 @@ public class TurningWithGyro extends LinearOpMode {
     private final double START_POWER = 0.5;
     private int[] degreesToTest = {20, 45, 90, 135};
 
-    int sumOfLinearError = 0;
-    int sumOfQuadraticError = 0;
-    int sumOfCubicError = 0;
-    int sumOfLinearDegreesError = 0;
+    private int sumOfLinearError = 0;
+    private int sumOfQuadraticError = 0;
+    private int sumOfCubicError = 0;
+    private int sumOfLinearDegreesError = 0;
 
     public void runOpMode() {
         hardware = new OfficialBot_Hardware(hardwareMap, gamepad1, gamepad2, true);
@@ -168,8 +168,8 @@ public class TurningWithGyro extends LinearOpMode {
 
     // RETURN THE POWER GIVEN A PROPORTION
 
-    private double linearToDegreesLeft(int degrees) {
-        return START_POWER * (double) degrees / 180;
+    private double linearToDegreesLeft(int degreesLeft) {
+        return START_POWER * (double) degreesLeft / 180;
     }
     private double linearToProportion(double proportion) {
         return -START_POWER * (proportion - 1);

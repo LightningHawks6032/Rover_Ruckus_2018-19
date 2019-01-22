@@ -30,7 +30,7 @@ public class ScoreInLander extends LinearOpMode {
 
         hardware.drivetrain.faceAngle(auto.startAngle(4));
         hardware.outtake.verticalSlideDown();
-        hardware.intake.putMineralsInDumper();
+        hardware.intake.releaseMinerals(2);
         hardware.outtake.verticalSlideUp();
         hardware.drivetrain.driveDistance(-1, 5, 0.5); // Goal is to do this with the range sensor
         hardware.outtake.dump();

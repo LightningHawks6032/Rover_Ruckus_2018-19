@@ -345,6 +345,9 @@ public class OmniSlideDrive implements RobotHardware {
     public MRGyro getGyro() {
         return gyroSensor;
     }
+    public ExpansionHubIMU getIMU() {
+        return imu;
+    }
     public double getBoost() {
         return boost;
     }
