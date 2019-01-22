@@ -11,17 +11,18 @@ import org.firstinspires.ftc.teamcode.AutonomousData;
 import org.firstinspires.ftc.teamcode.Hardware.OfficialBot_Hardware;
 import org.firstinspires.ftc.teamcode.Hardware.OmniSlideDrive;
 
-@Autonomous(name="Turning with Gyro (Algorithms Test)", group= AutonomousData.TEST_GROUP)
+@Autonomous(name="Turning with Gyro Function Test", group=AutonomousData.TEST_GROUP)
 public class TurningWithGyro extends LinearOpMode {
     private OfficialBot_Hardware hardware;
     private OmniSlideDrive drivetrain;
 
-    private final double START_POWER = 0.5;
-    private int[] degreesToTest = {20, 45, 90, 135};
+    private final double START_POWER = 1;
+    private int[] degreesToTest = {5, 20, 45, 90, 135};
 
     private int sumOfLinearError = 0;
     private int sumOfQuadraticError = 0;
     private int sumOfCubicError = 0;
+    private int sumOfQuarticError = 0;
     private int sumOfLinearDegreesError = 0;
 
     public void runOpMode() {
@@ -34,12 +35,15 @@ public class TurningWithGyro extends LinearOpMode {
             turnLinear(d, true);
             turnQuadratic(d, true);
             turnCubic(d, true);
+            turnQuartic(d, true);
             turnDegreesLeft(d, true);
+
         }
 
         telemetry.addData("Turn Linear Total Error", sumOfLinearError);
         telemetry.addData("Turn Quadratic Total Error", sumOfQuadraticError);
         telemetry.addData("Turn Cubic Total Error", sumOfCubicError);
+        telemetry.addData("Turn Quartic Total Error", sumOfQuarticError);
         telemetry.addData("Turn Degrees Left Total Error", sumOfLinearDegreesError);
         telemetry.update();
 
@@ -82,7 +86,7 @@ public class TurningWithGyro extends LinearOpMode {
         drivetrain.encoderSetup();
         long startTime = System.currentTimeMillis();
 
-        telemetry.addLine("Linear to Proportion Completed");
+        telemetry.addLine("Quadratic to Proportion Completed");
         telemetry.addData("Turn Degrees: ", degrees);
         telemetry.update();
 
@@ -111,7 +115,7 @@ public class TurningWithGyro extends LinearOpMode {
         drivetrain.encoderSetup();
         long startTime = System.currentTimeMillis();
 
-        telemetry.addLine("Linear to Proportion Completed");
+        telemetry.addLine("Cubic to Proportion Completed");
         telemetry.addData("Turn Degrees: ", degrees);
         telemetry.update();
 
@@ -132,6 +136,35 @@ public class TurningWithGyro extends LinearOpMode {
         telemetry.addData("Turn Time (ms)", System.currentTimeMillis() - startTime);
         telemetry.update();
         sumOfCubicError += drivetrain.gyroSensor.getAngle() - degrees;
+
+        sleep(5000);
+    }
+    private void turnQuartic(int degrees, boolean right) {
+        drivetrain.gyroSensor.zero();
+        drivetrain.encoderSetup();
+        long startTime = System.currentTimeMillis();
+
+        telemetry.addLine("Quartic to Proportion Completed");
+        telemetry.addData("Turn Degrees: ", degrees);
+        telemetry.update();
+
+        int currAngle = Math.abs(drivetrain.gyroSensor.getAngle()); // Use getAngle() because it returns angle robot has turned from origin
+        double pow; // power applied to motors
+        while (currAngle < degrees && !isStopRequested()) {
+            pow = quarticToProportion((double) currAngle / degrees);
+            if (right)
+                drivetrain.setPowers(pow, -pow, 0);
+            else
+                drivetrain.setPowers(-pow, pow, 0);
+            currAngle = Math.abs(drivetrain.gyroSensor.getAngle());
+        }
+        drivetrain.setPowers(0, 0, 0);
+
+        telemetry.addData("Gyro Sensor Reading", drivetrain.gyroSensor.getAngle());
+        telemetry.addData("Error (Degrees)", drivetrain.gyroSensor.getAngle() - degrees);
+        telemetry.addData("Turn Time (ms)", System.currentTimeMillis() - startTime);
+        telemetry.update();
+        sumOfQuarticError += drivetrain.gyroSensor.getAngle() - degrees;
 
         sleep(5000);
     }
@@ -179,5 +212,8 @@ public class TurningWithGyro extends LinearOpMode {
     }
     private double cubicToProportion(double proportion) {
         return -START_POWER * Math.pow((proportion - 1), 3);
+    }
+    private double quarticToProportion(double proportion) {
+        return START_POWER * Math.pow((proportion - 1), 4);
     }
 }

@@ -273,7 +273,7 @@ public class OmniSlideDrive implements RobotHardware {
         autonomous.telemetry.update();
 
         int currAngle = Math.abs(gyroSensor.getAngle()); // Use getAngle() because it returns angle robot has turned from origin
-        double startPow = 0.5; // starting power
+        double startPow = 1; // starting power
         double pow; // power applied to motors
         double prop; // proportion of angle completed
 

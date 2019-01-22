@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.OfficialRobot;
 
+import com.qualcomm.hardware.hitechnic.HiTechnicNxtUltrasonicSensor;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
