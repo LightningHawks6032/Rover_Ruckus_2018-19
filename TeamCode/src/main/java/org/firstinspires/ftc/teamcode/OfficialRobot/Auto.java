@@ -247,11 +247,12 @@ public class Auto {
     }
 
     public void releaseMarker(int alliance) throws InterruptedException {
+        hardware.intake.releaseMinerals(0.3);
         if (alliance == AutonomousData.RED_ALLIANCE)
-            hardware.drivetrain.faceAngle(270);
-        else if (alliance == AutonomousData.BLUE_ALLIANCE)
             hardware.drivetrain.faceAngle(90);
-        hardware.drivetrain.strafeForTime(0.8, 1);
+        else if (alliance == AutonomousData.BLUE_ALLIANCE)
+            hardware.drivetrain.faceAngle(270);
+        hardware.drivetrain.strafeForTime(-0.8, 1);
 
         hardware.markerArm.setPosition(hardware.MARKER_ARM_DOWN);
         Thread.sleep(1000);
