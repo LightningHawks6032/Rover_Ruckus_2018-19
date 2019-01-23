@@ -59,9 +59,8 @@ public class OfficialBot_Hardware implements RobotHardware {
         );
         outtake = new OfficialBot_Outtake(hardwareMap.get(DcMotor.class, "lv"),
                                      hardwareMap.get(DcMotor.class, "rv"),
-                                     hardwareMap.get(Servo.class, "dump"),
-                                     hardwareMap.get(Servo.class, "lp"),
-                                     hardwareMap.get(Servo.class, "rp"),
+                                     hardwareMap.get(Servo.class, "lsv"),
+                                     hardwareMap.get(Servo.class, "rsv"),
                                      manipsGamepad
         );
 
