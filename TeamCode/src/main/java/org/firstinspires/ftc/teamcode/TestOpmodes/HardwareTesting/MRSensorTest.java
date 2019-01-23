@@ -19,7 +19,9 @@ public class MRSensorTest extends OpMode {
     public void loop() {
         hardware.drivetrain.manageTeleOp();
         telemetry.addData("Gyro Heading", hardware.drivetrain.getGyro().getHeading());
-        telemetry.addData("Range Sensor Ultrasonic", hardware.rangeSensor.rawUltrasonic());
+        telemetry.addData("Range Sensor Raw Ultrasonic", hardware.rangeSensor.rawUltrasonic());
+        telemetry.addData("Range Sensor Raw Optical", hardware.rangeSensor.rawOptical());
+        telemetry.addData("Range Sensor cm Optical", hardware.rangeSensor.cmOptical());
         telemetry.addData("Range Sensor Distance (inch)", hardware.rangeSensor.getDistance(DistanceUnit.INCH));
         telemetry.update();
 
