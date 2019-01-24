@@ -12,6 +12,8 @@ public class FieldMap {
     public final double SQUARE_LENGTH = FULL_FIELD_LENGTH/6;
     public final double HALF_SQUARE_LENGTH = SQUARE_LENGTH/2;
     public final double MID_QUADRANT = QUADRANT_LENGTH/2;
+    public final double LANDER_DIMENSIONS = 23.3;
+    public final double LANDER_WALL_COORDINATE = LANDER_DIMENSIONS / 2 / Math.sqrt(2);
 
     // Constructor generates the map
     public FieldMap() {
@@ -67,6 +69,12 @@ public class FieldMap {
 
         add(FieldElement.RED_FOOTPRINT, new Vector(0,-QUADRANT_LENGTH));
         add(FieldElement.FRONT_OF_RED_FOOTPRINT, new Vector(0, -5*HALF_SQUARE_LENGTH));
+
+        // Lander Walls
+        add(FieldElement.QUAD_1_LANDER_WALL, new Vector(LANDER_WALL_COORDINATE, LANDER_WALL_COORDINATE));
+        add(FieldElement.QUAD_2_LANDER_WALL, new Vector(-LANDER_WALL_COORDINATE, LANDER_WALL_COORDINATE));
+        add(FieldElement.QUAD_3_LANDER_WALL, new Vector(-LANDER_WALL_COORDINATE, -LANDER_WALL_COORDINATE));
+        add(FieldElement.QUAD_4_LANDER_WALL, new Vector(LANDER_WALL_COORDINATE, -LANDER_WALL_COORDINATE));
     }
 
     // Accesses the position of a specific element based on quadrant and name
