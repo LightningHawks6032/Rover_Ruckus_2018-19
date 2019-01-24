@@ -8,6 +8,7 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.GyroSensor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.I2cAddr;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.UltrasonicSensor;
 
@@ -76,6 +77,7 @@ public class OfficialBot_Hardware implements RobotHardware {
         drivetrain.initHardware();
         intake.initHardware();
         outtake.initHardware();
+        rangeSensor.setI2cAddress(I2cAddr.create8bit(0x1c));
         markerArm.setPosition(MARKER_ARM_UP);
     }
 }

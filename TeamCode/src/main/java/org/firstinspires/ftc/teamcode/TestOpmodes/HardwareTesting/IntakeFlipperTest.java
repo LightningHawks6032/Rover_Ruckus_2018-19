@@ -27,6 +27,9 @@ public class IntakeFlipperTest extends OpMode {
         telemetry.addData("Flipper Encoder Val", intake.flipEncoder.getEncoderCount());
         telemetry.addData("Flipper Motor Power", intake.flipper.getPower());
         telemetry.update();
+
+        if (gamepad1.x)
+            intake.slideEncoder.setup();
     }
 
 }

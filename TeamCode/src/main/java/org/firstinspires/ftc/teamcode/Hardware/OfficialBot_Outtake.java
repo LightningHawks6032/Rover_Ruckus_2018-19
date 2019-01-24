@@ -22,8 +22,8 @@ public class OfficialBot_Outtake implements RobotHardware {
 
     private Gamepad gamepad;
 
-    // Servo constants (TUNE)
-    public final double DUMPER_SERVO_DIFFERENCE = 0.6;
+    // Servo constants
+    public final double DUMPER_SERVO_DIFFERENCE = 0.7;
     public final double RIGHT_DUMPER_IN = 0.175,
             RIGHT_DUMPER_OUT = RIGHT_DUMPER_IN + DUMPER_SERVO_DIFFERENCE,
             LEFT_DUMPER_IN = 0.8,
