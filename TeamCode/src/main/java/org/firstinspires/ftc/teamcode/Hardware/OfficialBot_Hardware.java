@@ -41,6 +41,9 @@ public class OfficialBot_Hardware implements RobotHardware {
     // X-position pixel value for center of robot (for mineral sampling)
     private final int ROBOT_CENTER_X = 225;
 
+    // Range Sensor Distance from Robot Center (inches)
+    public final int RANGE_SENSOR_DISPLACEMENT = 9;
+
     public OfficialBot_Hardware(HardwareMap hardwareMap, Gamepad driveGamepad, Gamepad manipsGamepad, boolean calibrateSensors) {
         //constructs hardware objects based on configuration
         drivetrain = new OmniSlideDrive(
@@ -70,6 +73,7 @@ public class OfficialBot_Hardware implements RobotHardware {
         mineralDetector = new GoldAlignDetector(ROBOT_CENTER_X, 325, 300, true);
         navTargetDetector = new NavTargetDetector(hardwareMap, CAMERA_FORWARD_POSITION, CAMERA_LEFT_POSITION);
         rangeSensor = hardwareMap.get(ModernRoboticsI2cRangeSensor.class, "rs");
+        rangeSensor.setI2cAddress(I2cAddr.create8bit(0x1c));
     }
 
     public void initHardware() {
@@ -77,7 +81,6 @@ public class OfficialBot_Hardware implements RobotHardware {
         drivetrain.initHardware();
         intake.initHardware();
         outtake.initHardware();
-        rangeSensor.setI2cAddress(I2cAddr.create8bit(0x1c));
         markerArm.setPosition(MARKER_ARM_UP);
     }
 }

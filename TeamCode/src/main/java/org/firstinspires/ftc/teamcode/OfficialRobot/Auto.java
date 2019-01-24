@@ -4,6 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
+import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.teamcode.AutonomousData;
 import org.firstinspires.ftc.teamcode.FieldMapping.FieldElement;
 import org.firstinspires.ftc.teamcode.FieldMapping.FieldMap;
@@ -57,18 +58,41 @@ public class Auto {
 
     // Sets up the starting position of the robot after it has landed and oriented itself on field
     public void setStartPosition(int quadrant) throws InterruptedException {
+        hardware.drivetrain.faceAngle(startAngle(quadrant));
+
+        double distFromLander = hardware.rangeSensor.getDistance(DistanceUnit.INCH);
+        double coordinateOffset = (distFromLander + hardware.RANGE_SENSOR_DISPLACEMENT) / Math.sqrt(2);
+
+        // Set lander position
+        Vector landerPos = new Vector(0, 0); // DEFAULT VALUE
         switch (quadrant) {
             case 1:
-                hardware.drivetrain.setRobotPos(new Vector(fieldMap.SQUARE_LENGTH, fieldMap.SQUARE_LENGTH));
+                landerPos = fieldMap.get(FieldElement.QUAD_1_LANDER_WALL);
                 break;
             case 2:
-                hardware.drivetrain.setRobotPos(new Vector(-fieldMap.SQUARE_LENGTH, fieldMap.SQUARE_LENGTH));
+                landerPos = fieldMap.get(FieldElement.QUAD_2_LANDER_WALL);
                 break;
             case 3:
-                hardware.drivetrain.setRobotPos(new Vector(-fieldMap.SQUARE_LENGTH, -fieldMap.SQUARE_LENGTH));
+                landerPos = fieldMap.get(FieldElement.QUAD_3_LANDER_WALL);
                 break;
             case 4:
-                hardware.drivetrain.setRobotPos(new Vector(fieldMap.SQUARE_LENGTH, -fieldMap.SQUARE_LENGTH));
+                landerPos = fieldMap.get(FieldElement.QUAD_4_LANDER_WALL);
+                break;
+        }
+
+        // Set position based on distance and lander position
+        switch (quadrant) {
+            case 1:
+                hardware.drivetrain.setRobotPos(landerPos.sum(new Vector(coordinateOffset, coordinateOffset)));
+                break;
+            case 2:
+                hardware.drivetrain.setRobotPos(landerPos.sum(new Vector(-coordinateOffset, coordinateOffset)));
+                break;
+            case 3:
+                hardware.drivetrain.setRobotPos(landerPos.sum(new Vector(-coordinateOffset, -coordinateOffset)));
+                break;
+            case 4:
+                hardware.drivetrain.setRobotPos(landerPos.sum(new Vector(coordinateOffset, -coordinateOffset)));
                 break;
         }
 
