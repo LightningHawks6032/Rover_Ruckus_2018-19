@@ -4,11 +4,6 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.Servo;
 
-import org.firstinspires.ftc.teamcode.Hardware.OfficialBot_Hardware;
-import org.firstinspires.ftc.teamcode.Hardware.OfficialBot_Intake;
-import org.firstinspires.ftc.teamcode.Hardware.OfficialBot_Outtake;
-import org.firstinspires.ftc.teamcode.TestOpmodes.ServoTester;
-
 @TeleOp(name="Dumper Servo Test", group="Test Opmode")
 public class DumperServoTest extends OpMode{
     private ServoTester testLeft;
@@ -22,5 +17,6 @@ public class DumperServoTest extends OpMode{
     public void loop() {
         testLeft.run();
         testRight.run();
+        telemetry.update();
     }
 }

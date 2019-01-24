@@ -23,10 +23,11 @@ public class OfficialBot_Outtake implements RobotHardware {
     private Gamepad gamepad;
 
     // Servo constants (TUNE)
-    public final double RIGHT_DUMPER_OUT = 0.35,
-            RIGHT_DUMPER_IN = 1.00,
-            LEFT_DUMPER_OUT = 0.9,
-            LEFT_DUMPER_IN = 0.45;
+    public final double DUMPER_SERVO_DIFFERENCE = 0.6;
+    public final double RIGHT_DUMPER_IN = 0.175,
+            RIGHT_DUMPER_OUT = RIGHT_DUMPER_IN + DUMPER_SERVO_DIFFERENCE,
+            LEFT_DUMPER_IN = 0.8,
+            LEFT_DUMPER_OUT = LEFT_DUMPER_IN - DUMPER_SERVO_DIFFERENCE;
     /*
     public final double DUMPER_IN = 0,
             DUMPER_OUT = 0.8;
@@ -64,8 +65,8 @@ public class OfficialBot_Outtake implements RobotHardware {
         leftPlate.setPosition(LEFT_PLATE_DOWN);
         rightPlate.setPosition(RIGHT_PLATE_DOWN);
         */
-        //leftDumper.setPosition(LEFT_DUMPER_IN);
-        //rightDumper.setPosition(RIGHT_DUMPER_IN);
+        leftDumper.setPosition(LEFT_DUMPER_IN);
+        rightDumper.setPosition(RIGHT_DUMPER_IN);
     }
 
     public void setStartTime(long time) {

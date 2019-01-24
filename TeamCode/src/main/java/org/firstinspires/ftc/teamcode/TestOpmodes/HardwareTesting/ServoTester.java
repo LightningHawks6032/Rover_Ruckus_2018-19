@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.TestOpmodes;
+package org.firstinspires.ftc.teamcode.TestOpmodes.HardwareTesting;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
@@ -21,7 +21,7 @@ public class ServoTester {
     private boolean increaseTogglePressed = false;
     private boolean increaseToggleLastPressed = false;
     public void increase() {
-        increaseTogglePressed = gamepad.a;
+        increaseTogglePressed = gamepad.x;
 
         if (increaseTogglePressed && !increaseToggleLastPressed) {
             servoPos += 0.1;
@@ -33,7 +33,7 @@ public class ServoTester {
     private boolean decreaseTogglePressed = false;
     private boolean decreaseToggleLastPressed = false;
     public void decrease() {
-        increaseTogglePressed = gamepad.y;
+        decreaseTogglePressed = gamepad.y;
 
         if (decreaseTogglePressed && !decreaseToggleLastPressed) {
             servoPos -= 0.1;
@@ -45,7 +45,6 @@ public class ServoTester {
     public void display() {
         teleOp.telemetry.addData("Actual Servo Position", servo.getPosition());
         teleOp.telemetry.addData("Set Servo Position", servo.getPosition());
-        teleOp.telemetry.update();
     }
 
     public void run() {
