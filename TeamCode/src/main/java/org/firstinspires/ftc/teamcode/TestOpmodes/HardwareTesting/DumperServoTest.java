@@ -27,15 +27,19 @@ public class DumperServoTest extends OpMode{
         outtake = hardware.outtake;
     }
 
-    public void loop(){
-        if(gamepad2.dpad_up) {
+    public void loop() {
+        if (gamepad2.dpad_up) {
             outtake.rightDumper.setPosition(rightPos);
             outtake.leftDumper.setPosition(leftPos);
         }
-        else if(gamepad2.dpad_down){
+        else if (gamepad2.dpad_down) {
             outtake.rightDumper.setPosition(rightPos-posDif);
             outtake.leftDumper.setPosition(leftPos+posDif);
         }
+
+        telemetry.addData("Left Dumper Pos", outtake.leftDumper.getPosition());
+        telemetry.addData("Right Dumper Pos", outtake.leftDumper.getPosition());
+        telemetry.update();
 
     }
 }

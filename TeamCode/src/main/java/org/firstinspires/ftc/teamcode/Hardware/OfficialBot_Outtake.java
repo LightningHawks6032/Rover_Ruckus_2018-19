@@ -22,14 +22,15 @@ public class OfficialBot_Outtake implements RobotHardware {
 
     private Gamepad gamepad;
 
-    // Servo constants
+    // Servo constants (TUNE)
     public final double RIGHT_DUMPER_OUT = 0.35,
             RIGHT_DUMPER_IN = 1.00,
             LEFT_DUMPER_OUT = 0.9,
             LEFT_DUMPER_IN = 0.45;
-
+    /*
     public final double DUMPER_IN = 0,
             DUMPER_OUT = 0.8;
+    */
 
     // Encoder constants (encoder setup happens at beginning of autonomous)
     public final int VERTICAL_SLIDE_MAX = 3470;
