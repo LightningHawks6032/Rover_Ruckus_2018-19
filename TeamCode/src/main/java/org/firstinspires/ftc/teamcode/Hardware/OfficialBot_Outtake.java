@@ -121,11 +121,11 @@ public class OfficialBot_Outtake implements RobotHardware {
         else
             leftPlate.setPosition(LEFT_PLATE_DOWN);
         */
-        if (gamepad.dpad_up){
+        if (gamepad.dpad_down) {
             leftDumper.setPosition(LEFT_DUMPER_IN);
             rightDumper.setPosition(RIGHT_DUMPER_IN);
         }
-        else if (gamepad.dpad_down){
+        else if (gamepad.dpad_up) {
             leftDumper.setPosition(LEFT_DUMPER_OUT);
             rightDumper.setPosition(RIGHT_DUMPER_OUT);
         }
