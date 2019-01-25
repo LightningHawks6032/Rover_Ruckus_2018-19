@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import org.firstinspires.ftc.teamcode.AutonomousData;
 import org.firstinspires.ftc.teamcode.Hardware.OfficialBot_Hardware;
 
-@Autonomous(name="Encoder Test", group= AutonomousData.TEST_GROUP)
+// @Autonomous(name="Encoder Test", group= AutonomousData.TEST_GROUP)
 public class RunningWithEncoders extends LinearOpMode {
     private OfficialBot_Hardware hardware;
 

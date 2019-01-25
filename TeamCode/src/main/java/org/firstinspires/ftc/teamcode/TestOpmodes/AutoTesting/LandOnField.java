@@ -7,7 +7,7 @@ import org.firstinspires.ftc.teamcode.AutonomousData;
 import org.firstinspires.ftc.teamcode.Hardware.OfficialBot_Hardware;
 import org.firstinspires.ftc.teamcode.OfficialRobot.Auto;
 
-@Autonomous(name="Landing", group= AutonomousData.TEST_GROUP)
+// @Autonomous(name="Landing", group= AutonomousData.TEST_GROUP)
 public class LandOnField extends LinearOpMode {
     private OfficialBot_Hardware hardware;
     private Auto auto;

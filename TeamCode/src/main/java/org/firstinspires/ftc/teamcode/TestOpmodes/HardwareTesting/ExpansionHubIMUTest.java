@@ -12,7 +12,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 import org.firstinspires.ftc.teamcode.Hardware.OfficialBot_Hardware;
 
-@TeleOp(name="IMU test", group="Test Opmode")
+// @TeleOp(name="IMU test", group="Test Opmode")
 public class ExpansionHubIMUTest extends OpMode {
     private OfficialBot_Hardware hardware;
     private Orientation angles;
