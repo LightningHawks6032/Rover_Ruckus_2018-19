@@ -9,7 +9,7 @@ OfficialRobot: All OFFICIAL opmodes for our Official Robot for use in competitio
 
 PreliminaryRobot: All OFFICIAL opmodes for our Preliminary Robot for use in competition
 
-TestOpmodes: A collection of opmodes that test code for the robot to later be integrated with the competition code.
+TestOpmodes: A collection of opmodes that test code for the robot to later be integrated with the competition code
 
     AutoTesting: A collection of linear opmodes that test some part of autonomous
 
