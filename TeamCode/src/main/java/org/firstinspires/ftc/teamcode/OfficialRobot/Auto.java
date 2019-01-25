@@ -63,35 +63,23 @@ public class Auto {
         double distFromLander = hardware.rangeSensor.getDistance(DistanceUnit.INCH);
         double coordinateOffset = (distFromLander + hardware.RANGE_SENSOR_DISPLACEMENT) / Math.sqrt(2);
 
-        // Set lander position
-        Vector landerPos = new Vector(0, 0); // DEFAULT VALUE
+        // Set lander position and robot position
+        Vector landerPos;
         switch (quadrant) {
             case 1:
                 landerPos = fieldMap.get(FieldElement.QUAD_1_LANDER_WALL);
-                break;
-            case 2:
-                landerPos = fieldMap.get(FieldElement.QUAD_2_LANDER_WALL);
-                break;
-            case 3:
-                landerPos = fieldMap.get(FieldElement.QUAD_3_LANDER_WALL);
-                break;
-            case 4:
-                landerPos = fieldMap.get(FieldElement.QUAD_4_LANDER_WALL);
-                break;
-        }
-
-        // Set position based on distance and lander position
-        switch (quadrant) {
-            case 1:
                 hardware.drivetrain.setRobotPos(landerPos.sum(new Vector(coordinateOffset, coordinateOffset)));
                 break;
             case 2:
+                landerPos = fieldMap.get(FieldElement.QUAD_2_LANDER_WALL);
                 hardware.drivetrain.setRobotPos(landerPos.sum(new Vector(-coordinateOffset, coordinateOffset)));
                 break;
             case 3:
+                landerPos = fieldMap.get(FieldElement.QUAD_3_LANDER_WALL);
                 hardware.drivetrain.setRobotPos(landerPos.sum(new Vector(-coordinateOffset, -coordinateOffset)));
                 break;
             case 4:
+                landerPos = fieldMap.get(FieldElement.QUAD_4_LANDER_WALL);
                 hardware.drivetrain.setRobotPos(landerPos.sum(new Vector(coordinateOffset, -coordinateOffset)));
                 break;
         }

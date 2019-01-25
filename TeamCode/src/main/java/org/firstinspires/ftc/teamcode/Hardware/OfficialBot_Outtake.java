@@ -13,10 +13,6 @@ public class OfficialBot_Outtake implements RobotHardware {
     public DcMotor rightVertical;
     public Encoder leftVertEncoder;
     public Encoder rightVertEncoder;
-    //public Servo dumper;
-    //public Servo leftPlate;
-    //public Servo rightPlate;
-
     public Servo leftDumper;
     public Servo rightDumper;
 
@@ -28,10 +24,6 @@ public class OfficialBot_Outtake implements RobotHardware {
             RIGHT_DUMPER_OUT = RIGHT_DUMPER_IN + DUMPER_SERVO_DIFFERENCE,
             LEFT_DUMPER_IN = 0.8,
             LEFT_DUMPER_OUT = LEFT_DUMPER_IN - DUMPER_SERVO_DIFFERENCE;
-    /*
-    public final double DUMPER_IN = 0,
-            DUMPER_OUT = 0.8;
-    */
 
     // Encoder constants (encoder setup happens at beginning of autonomous)
     public final int VERTICAL_SLIDE_MAX = 3470;
@@ -59,12 +51,6 @@ public class OfficialBot_Outtake implements RobotHardware {
         rightVertical.setDirection(DcMotor.Direction.REVERSE);
         leftVertEncoder.runWith();
         rightVertEncoder.runWith();
-
-        /*
-        dumper.setPosition(DUMPER_IN);
-        leftPlate.setPosition(LEFT_PLATE_DOWN);
-        rightPlate.setPosition(RIGHT_PLATE_DOWN);
-        */
         leftDumper.setPosition(LEFT_DUMPER_IN);
         rightDumper.setPosition(RIGHT_DUMPER_IN);
     }
@@ -105,22 +91,6 @@ public class OfficialBot_Outtake implements RobotHardware {
     }
 
     private void manageDumping() {
-        /*
-        if (gamepad.dpad_up)
-            dumper.setPosition(DUMPER_OUT);
-        else if (gamepad.dpad_down)
-            dumper.setPosition(DUMPER_IN);
-
-        if (gamepad.left_trigger > 0)
-            rightPlate.setPosition(RIGHT_PLATE_UP);
-        else
-            rightPlate.setPosition(RIGHT_PLATE_DOWN);
-
-        if (gamepad.right_trigger > 0)
-            leftPlate.setPosition(LEFT_PLATE_UP);
-        else
-            leftPlate.setPosition(LEFT_PLATE_DOWN);
-        */
         if (gamepad.dpad_down) {
             leftDumper.setPosition(LEFT_DUMPER_IN);
             rightDumper.setPosition(RIGHT_DUMPER_IN);
@@ -129,8 +99,6 @@ public class OfficialBot_Outtake implements RobotHardware {
             leftDumper.setPosition(LEFT_DUMPER_OUT);
             rightDumper.setPosition(RIGHT_DUMPER_OUT);
         }
-
-
     }
 
     // Lands on the field for autonomous
@@ -196,11 +164,9 @@ public class OfficialBot_Outtake implements RobotHardware {
 
     // Dumping in autonomous
     public void dump() throws InterruptedException {
-        //dumper.setPosition(DUMPER_OUT);
         leftDumper.setPosition(LEFT_DUMPER_OUT);
         rightDumper.setPosition(RIGHT_DUMPER_OUT);
         Thread.sleep(1000);
-        //dumper.setPosition(DUMPER_IN);
         leftDumper.setPosition(LEFT_DUMPER_IN);
         rightDumper.setPosition(RIGHT_DUMPER_IN);
     }
