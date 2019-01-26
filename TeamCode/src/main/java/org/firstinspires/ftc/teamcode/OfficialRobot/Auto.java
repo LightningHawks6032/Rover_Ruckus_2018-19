@@ -127,8 +127,8 @@ public class Auto {
 
         // Move away from lander
         hardware.drivetrain.strafeDistance(-1, 4, 1);
-        hardware.drivetrain.driveDistance(1, 6, 0.4);
-        hardware.drivetrain.strafeDistance(1, 3, 0.5);
+        hardware.drivetrain.driveDistance(1, 7, 0.6);
+        hardware.drivetrain.strafeDistance(1, 9, 1);
     }
 
     /**
@@ -205,12 +205,13 @@ public class Auto {
         hardware.intake.harvest();
         Vector startPos = hardware.drivetrain.robotPos;
         if (goldPos == 1)
-            hardware.drivetrain.goTo(fieldMap.get(minerals[0]), 0.4);
+            hardware.drivetrain.goTo(fieldMap.get(minerals[0]), 0.6);
         else if (goldPos == 2)
-            hardware.drivetrain.goTo(fieldMap.get(minerals[1]), 0.4);
+            hardware.drivetrain.goTo(fieldMap.get(minerals[1]), 0.6);
         else if (goldPos == 3) {
-            hardware.drivetrain.goTo(fieldMap.get(minerals[2]), 0.4);
+            hardware.drivetrain.goTo(fieldMap.get(minerals[2]), 0.6);
         }
+        Thread.sleep(500);
         hardware.intake.stopHarvesting();
         hardware.intake.flipIn();
 
