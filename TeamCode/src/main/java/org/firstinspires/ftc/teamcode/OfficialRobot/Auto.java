@@ -122,6 +122,7 @@ public class Auto {
         hardware.outtake.landOnField();
 
         // Set up IMU readings and robot angle
+        Thread.sleep(500);
         hardware.drivetrain.setInitialIMUHeading();
         hardware.drivetrain.setInitialRobotAngle(startAngle(quadrant));
 
@@ -129,6 +130,18 @@ public class Auto {
         hardware.drivetrain.strafeDistance(-1, 4, 1);
         hardware.drivetrain.driveDistance(1, 7, 0.6);
         hardware.drivetrain.strafeDistance(1, 9, 1);
+    }
+
+    private void goToIntake(Vector location, double pow) throws InterruptedException {
+        hardware.drivetrain.face(location); // Turn to face location
+        hardware.intake.flipOut();
+        hardware.intake.harvest();
+        hardware.drivetrain.driveDistance(1, location.distanceFrom(hardware.drivetrain.robotPos), pow); // Drive to location
+        hardware.drivetrain.updatePosFromEncoders();
+        hardware.drivetrain.updateAngleFromIMU();
+        Thread.sleep(500);
+        hardware.intake.stopHarvesting();
+        hardware.intake.flipIn();
     }
 
     /**
@@ -199,21 +212,17 @@ public class Auto {
     public void sampleFromLander(int goldPos, int quadrant, boolean reverse, boolean backup) throws InterruptedException {
         // Generates minerals to choose from
         FieldElement[] minerals = samplingField(quadrant, reverse);
+        double pow = 0.7;
 
         // Go to Gold
-        hardware.intake.flipOut();
-        hardware.intake.harvest();
         Vector startPos = hardware.drivetrain.robotPos;
         if (goldPos == 1)
-            hardware.drivetrain.goTo(fieldMap.get(minerals[0]), 0.6);
+            goToIntake(fieldMap.get(minerals[0]), pow);
         else if (goldPos == 2)
-            hardware.drivetrain.goTo(fieldMap.get(minerals[1]), 0.6);
+            goToIntake(fieldMap.get(minerals[1]), pow);
         else if (goldPos == 3) {
-            hardware.drivetrain.goTo(fieldMap.get(minerals[2]), 0.6);
+            goToIntake(fieldMap.get(minerals[2]), pow);
         }
-        Thread.sleep(500);
-        hardware.intake.stopHarvesting();
-        hardware.intake.flipIn();
 
         // Back up if necessary
         if (backup) {

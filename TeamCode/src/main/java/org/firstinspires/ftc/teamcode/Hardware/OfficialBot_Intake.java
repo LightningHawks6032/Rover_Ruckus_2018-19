@@ -23,6 +23,7 @@ public class OfficialBot_Intake implements RobotHardware {
     // Encoder constants (encoder setup happens at beginning of autonomous)
     public final int FLIPPER_IN_ENCODER_VAL = 0;
     public final int FLIPPER_OUT_ENCODER_VAL = 7100;
+    public final int FLIPPER_MIDDLE_ENCODER_VAL = (int) (FLIPPER_OUT_ENCODER_VAL * 0.8);
     public final int HORIZONTAL_SLIDE_MAX = 2800;
     public final int HORIZONTAL_SLIDE_MIN = 0;
 
@@ -132,6 +133,15 @@ public class OfficialBot_Intake implements RobotHardware {
         flipEncoder.runToPosition();
         flipEncoder.setEncoderTarget(FLIPPER_IN_ENCODER_VAL);
         flipper.setPower(-1);
+        while (flipper.isBusy() && autoRunning()) {
+            // WAIT - Motor is busy
+        }
+        flipper.setPower(0);
+    }
+    public void flipMiddle() {
+        flipEncoder.runToPosition();
+        flipEncoder.setEncoderTarget(FLIPPER_MIDDLE_ENCODER_VAL);
+        flipper.setPower(flipEncoder.getEncoderCount() > FLIPPER_MIDDLE_ENCODER_VAL ? -1 : 1);
         while (flipper.isBusy() && autoRunning()) {
             // WAIT - Motor is busy
         }
