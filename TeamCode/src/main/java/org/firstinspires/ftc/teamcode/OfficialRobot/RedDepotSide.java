@@ -30,12 +30,6 @@ public class RedDepotSide extends LinearOpMode {
         auto.setStartPosition(QUADRANT);
         hardware.mineralDetector.disable();
 
-        telemetry.addData("Robot Position", hardware.drivetrain.robotPos.toString());
-        telemetry.addData("Robot Angle", hardware.drivetrain.robotAngle);
-        telemetry.update();
-
-        //sleep(10000);
-
         //telemetry.addLine("Sampling");
         //telemetry.update();
         auto.sampleFromLander(goldPos, QUADRANT, false, false);

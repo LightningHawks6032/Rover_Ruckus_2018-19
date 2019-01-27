@@ -293,6 +293,29 @@ public class Auto {
         hardware.intake.flipOut();
     }
 
+    public void backupToLander(int distance) throws InterruptedException {
+        hardware.drivetrain.encoderSetup();
+
+        double startDistance = hardware.rangeSensor.getDistance(DistanceUnit.INCH);
+        double currDistance = hardware.rangeSensor.getDistance(DistanceUnit.INCH);
+        double startPow = 1.0; // starting power was 1.0
+        double pow; // power applied to motors
+        double prop; // proportion of angle completed
+
+        while (currDistance > distance && autoRunning()) {
+            prop = (currDistance - distance) / (startDistance - distance);
+            pow = -startPow * Math.pow((prop - 1), 3);
+
+            // Apply power to motors and update currDistance
+            hardware.drivetrain.setPowers(-pow, -pow, 0);
+            currDistance = hardware.rangeSensor.getDistance(DistanceUnit.INCH);
+        }
+        hardware.drivetrain.setPowers(0, 0, 0);
+
+        // Updates the robot angle based on turn
+        hardware.drivetrain.updateAngleFromIMU();
+    }
+
     // Used to break all while loops when an opmode stops
     private boolean autoRunning() {
         return System.currentTimeMillis() - startTime <= AutonomousData.TIME_LIMIT && !autonomous.isStopRequested();
