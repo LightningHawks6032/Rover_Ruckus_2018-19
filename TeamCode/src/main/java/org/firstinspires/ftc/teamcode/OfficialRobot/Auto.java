@@ -141,7 +141,7 @@ public class Auto {
         hardware.drivetrain.updateAngleFromIMU();
         Thread.sleep(500);
         hardware.intake.stopHarvesting();
-        hardware.intake.flipIn();
+        hardware.intake.flipMiddle();
     }
 
     /**
@@ -269,7 +269,7 @@ public class Auto {
     }
 
     public void releaseMarker(int alliance) throws InterruptedException {
-        hardware.intake.releaseMinerals(0.3);
+        //hardware.intake.releaseMinerals(0.3);
         if (alliance == AutonomousData.RED_ALLIANCE)
             hardware.drivetrain.faceAngle(90);
         else if (alliance == AutonomousData.BLUE_ALLIANCE)

@@ -266,6 +266,7 @@ public class OmniSlideDrive implements RobotHardware {
      * @param right : if true, we turn right; if false, we turn left
      */
     public void turn(int degrees, boolean right) throws InterruptedException {
+        Thread.sleep(200);
         gyroSensor.zero();
         encoderSetup();
 
