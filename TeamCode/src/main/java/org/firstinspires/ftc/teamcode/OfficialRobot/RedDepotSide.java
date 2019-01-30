@@ -33,10 +33,12 @@ public class RedDepotSide extends LinearOpMode {
         //telemetry.addLine("Sampling");
         //telemetry.update();
         auto.sampleFromLander(goldPos, QUADRANT, false, false);
+        telemetry.addData("Pos", hardware.drivetrain.robotPos);
+        telemetry.update();
 
-        hardware.drivetrain.goTo(FieldElement.RED_DEPOT, 0.6);
+        hardware.drivetrain.goTo(FieldElement.RED_DEPOT, 0.4);
         auto.releaseMarker(ALLIANCE);
 
-        //auto.driveToCrater(ALLIANCE);
+        auto.driveToCrater(ALLIANCE);
     }
 }

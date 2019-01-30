@@ -266,7 +266,7 @@ public class OmniSlideDrive implements RobotHardware {
      * @param right : if true, we turn right; if false, we turn left
      */
     public void turn(int degrees, boolean right) throws InterruptedException {
-        Thread.sleep(200);
+        //Thread.sleep(200);
         gyroSensor.zero();
         encoderSetup();
 
@@ -306,19 +306,21 @@ public class OmniSlideDrive implements RobotHardware {
         setRobotPos(robotPos.sum(new Vector(dist * Math.cos(theta), dist * Math.sin(theta))));
         leftEncoder.reset();
         rightEncoder.reset();
+        autonomous.telemetry.addData("Pos", robotPos);
+        autonomous.telemetry.update();
     }
     public void updateAngleFromGyro() throws InterruptedException {
         Thread.sleep(200);
         setRobotAngle((360 + robotAngle - gyroSensor.getAngle()) % 360);
         gyroSensor.zero();
-        autonomous.telemetry.addData("Robot Angle From Gyro", robotAngle);
-        autonomous.telemetry.update();
+        //autonomous.telemetry.addData("Robot Angle From Gyro", robotAngle);
+        //autonomous.telemetry.update();
     }
     public void updateAngleFromIMU() throws InterruptedException {
         Thread.sleep(200);
         setRobotAngle((360 + initialRobotAngle - (imu.getHeading() - initialIMUHeading)) % 360);
-        autonomous.telemetry.addData("Robot Angle From IMU", robotAngle);
-        autonomous.telemetry.update();
+        //autonomous.telemetry.addData("Robot Angle From IMU", robotAngle);
+        //autonomous.telemetry.update();
     }
 
     // Accessor methods

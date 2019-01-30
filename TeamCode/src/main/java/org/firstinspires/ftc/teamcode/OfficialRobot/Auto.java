@@ -128,20 +128,47 @@ public class Auto {
 
         // Move away from lander
         hardware.drivetrain.strafeDistance(-1, 4, 1);
-        hardware.drivetrain.driveDistance(1, 7, 0.6);
-        hardware.drivetrain.strafeDistance(1, 9, 1);
+        hardware.drivetrain.driveDistance(1, 8, 0.6);
+        hardware.drivetrain.strafeDistance(1, 6, 1);
+        hardware.outtake.verticalSlideDown();
+    }
+
+    public void driveAndLowerSlide(int direction, double distance, double pow) throws InterruptedException {
+        hardware.drivetrain.leftEncoder.reset();
+        hardware.drivetrain.rightEncoder.reset();
+
+        hardware.drivetrain.leftEncoder.runToPosition();
+        hardware.drivetrain.rightEncoder.runToPosition();
+
+        hardware.drivetrain.leftEncoder.setTarget(direction * distance);
+        hardware.drivetrain.rightEncoder.setTarget(direction * distance);
+
+        hardware.drivetrain.setPowers(direction * pow, direction * pow, 0);
+
+        while (hardware.drivetrain.leftMotor.isBusy() && hardware.drivetrain.rightMotor.isBusy() && autoRunning()) {
+            int slideEncoderVal = (hardware.outtake.leftVertEncoder.getEncoderCount() + hardware.outtake.rightVertEncoder.getEncoderCount()) / 2; // average
+            if (slideEncoderVal > hardware.outtake.VERTICAL_SLIDE_MIN) {
+                hardware.outtake.leftVertical.setPower(-1);
+                hardware.outtake.rightVertical.setPower(-1);
+            }
+        }
+
+        hardware.drivetrain.setPowers(0, 0, 0);
+        hardware.drivetrain.leftEncoder.runWithout();
+        hardware.drivetrain.rightEncoder.runWithout();
+        hardware.drivetrain.updateAngleFromIMU();
     }
 
     private void goToIntake(Vector location, double pow) throws InterruptedException {
         hardware.drivetrain.face(location); // Turn to face location
         hardware.intake.flipOut();
         hardware.intake.harvest();
-        hardware.drivetrain.driveDistance(1, location.distanceFrom(hardware.drivetrain.robotPos), pow); // Drive to location
+        driveAndLowerSlide(1, location.distanceFrom(hardware.drivetrain.robotPos), pow); // Drive to location
+        hardware.outtake.verticalSlideDown(); // in case vertical slide did not reach down
         hardware.drivetrain.updatePosFromEncoders();
         hardware.drivetrain.updateAngleFromIMU();
-        Thread.sleep(500);
         hardware.intake.stopHarvesting();
-        hardware.intake.flipMiddle();
+        hardware.intake.flipIn();
     }
 
     /**
@@ -277,8 +304,9 @@ public class Auto {
         hardware.drivetrain.strafeForTime(-0.8, 1);
 
         hardware.markerArm.setPosition(hardware.MARKER_ARM_DOWN);
-        Thread.sleep(1000);
+        Thread.sleep(500);
         hardware.markerArm.setPosition(hardware.MARKER_ARM_UP);
+        //hardware.intake.flipIn();
     }
 
     public void driveToCrater(int alliance) throws InterruptedException {
@@ -288,7 +316,7 @@ public class Auto {
             hardware.drivetrain.faceAngle(0);
         }
 
-        hardware.drivetrain.strafeForTime(-0.8, 1.5);
+        hardware.drivetrain.strafeForTime(-1, 1.5);
         hardware.drivetrain.driveDistance(1, fieldMap.SQUARE_LENGTH * 4, 1);
         hardware.intake.flipOut();
     }
