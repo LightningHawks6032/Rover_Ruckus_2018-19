@@ -7,7 +7,7 @@ import org.firstinspires.ftc.teamcode.AutonomousData;
 import org.firstinspires.ftc.teamcode.Hardware.OfficialBot_Hardware;
 import org.firstinspires.ftc.teamcode.OfficialRobot.Auto;
 
-@Autonomous(name="Scoring in Lander", group=AutonomousData.TEST_GROUP)
+// @Autonomous(name="Scoring in Lander", group=AutonomousData.TEST_GROUP)
 public class ScoreInLander extends LinearOpMode {
     private OfficialBot_Hardware hardware;
     private Auto auto;

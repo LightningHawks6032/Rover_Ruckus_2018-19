@@ -11,7 +11,7 @@ import org.firstinspires.ftc.teamcode.AutonomousData;
 import org.firstinspires.ftc.teamcode.Hardware.OfficialBot_Hardware;
 import org.firstinspires.ftc.teamcode.Hardware.OmniSlideDrive;
 
-@Autonomous(name="Turning with Gyro Function Test", group=AutonomousData.TEST_GROUP)
+// @Autonomous(name="Turning with Gyro Function Test", group=AutonomousData.TEST_GROUP)
 public class TurningWithGyro extends LinearOpMode {
     private OfficialBot_Hardware hardware;
     private OmniSlideDrive drivetrain;
