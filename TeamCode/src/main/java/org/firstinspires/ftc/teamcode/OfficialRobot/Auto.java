@@ -68,7 +68,7 @@ public class Auto {
         switch (quadrant) {
             case 1:
                 landerPos = fieldMap.get(FieldElement.QUAD_1_LANDER_WALL);
-                hardware.drivetrain.setRobotPos(landerPos.sum(new Vector(coordinateOffset, coordinateOffset)));
+                hardware.drivetrain.setRobotPos(landerPos.sum(new Vector(coordinateOffset+2, coordinateOffset+2)));
                 break;
             case 2:
                 landerPos = fieldMap.get(FieldElement.QUAD_2_LANDER_WALL);
@@ -76,7 +76,7 @@ public class Auto {
                 break;
             case 3:
                 landerPos = fieldMap.get(FieldElement.QUAD_3_LANDER_WALL);
-                hardware.drivetrain.setRobotPos(landerPos.sum(new Vector(-coordinateOffset, -coordinateOffset)));
+                hardware.drivetrain.setRobotPos(landerPos.sum(new Vector(-coordinateOffset-2, -coordinateOffset-2)));
                 break;
             case 4:
                 landerPos = fieldMap.get(FieldElement.QUAD_4_LANDER_WALL);
@@ -94,7 +94,7 @@ public class Auto {
 
     // Updates Robot Position and Angle with Navigation Targets
     public void updateWithNavTarget() throws InterruptedException {
-        Thread.sleep(1000);
+        autonomous.sleep(1000);
         long beginningTime = System.currentTimeMillis();
 
         // Wait for 3 seconds or until found
@@ -119,17 +119,15 @@ public class Auto {
 
     public void landOnField(int quadrant) throws InterruptedException {
         // Land on field
-        hardware.outtake.landOnField();
+        hardware.outtake.verticalSlideUp();
 
         // Set up IMU readings and robot angle
-        Thread.sleep(500);
+        autonomous.sleep(500);
         hardware.drivetrain.setInitialIMUHeading();
         hardware.drivetrain.setInitialRobotAngle(startAngle(quadrant));
 
         // Move away from lander
-        hardware.drivetrain.strafeDistance(-1, 4, 1);
-        hardware.drivetrain.driveDistance(1, 8, 0.6);
-        hardware.drivetrain.strafeDistance(1, 6, 1);
+        hardware.drivetrain.driveDistance(1, 8, 1);
         hardware.outtake.verticalSlideDown();
     }
 
@@ -146,6 +144,11 @@ public class Auto {
         hardware.drivetrain.setPowers(direction * pow, direction * pow, 0);
 
         while (hardware.drivetrain.leftMotor.isBusy() && hardware.drivetrain.rightMotor.isBusy() && autoRunning()) {
+            double encoderDistance = (hardware.drivetrain.leftEncoder.linDistance() + hardware.drivetrain.rightEncoder.linDistance()) / 2;
+            double prop = encoderDistance / distance;
+            double newPow = -(pow - 0.1) * Math.pow(prop - 1, 3) + 0.1;
+            hardware.drivetrain.setPowers(direction * newPow, direction * newPow, 0);
+
             int slideEncoderVal = (hardware.outtake.leftVertEncoder.getEncoderCount() + hardware.outtake.rightVertEncoder.getEncoderCount()) / 2; // average
             if (slideEncoderVal > hardware.outtake.VERTICAL_SLIDE_MIN) {
                 hardware.outtake.leftVertical.setPower(-1);
@@ -156,19 +159,18 @@ public class Auto {
         hardware.drivetrain.setPowers(0, 0, 0);
         hardware.drivetrain.leftEncoder.runWithout();
         hardware.drivetrain.rightEncoder.runWithout();
-        hardware.drivetrain.updateAngleFromIMU();
     }
 
     private void goToIntake(Vector location, double pow) throws InterruptedException {
         hardware.drivetrain.face(location); // Turn to face location
-        hardware.intake.flipOut();
-        hardware.intake.harvest();
+        //hardware.intake.flipOut();
+        //hardware.intake.harvest();
         driveAndLowerSlide(1, location.distanceFrom(hardware.drivetrain.robotPos), pow); // Drive to location
         hardware.outtake.verticalSlideDown(); // in case vertical slide did not reach down
         hardware.drivetrain.updatePosFromEncoders();
         hardware.drivetrain.updateAngleFromIMU();
-        hardware.intake.stopHarvesting();
-        hardware.intake.flipIn();
+        //hardware.intake.stopHarvesting();
+        //hardware.intake.flipIn();
     }
 
     /**
@@ -186,7 +188,7 @@ public class Auto {
 
         // Find Gold
         boolean found = false;
-        Thread.sleep(500);
+        autonomous.sleep(500);
         if (mineralDetector.getAligned()) { // gold is middle
             goldPos = 2;
             found = true;
@@ -211,19 +213,19 @@ public class Auto {
         // Go to Gold
         Vector startPos = hardware.drivetrain.robotPos;
         if (goldPos == 1)
-            hardware.drivetrain.goTo(fieldMap.get(minerals[0]), 0.4);
+            hardware.drivetrain.goTo(fieldMap.get(minerals[0]), 1);
         else if (goldPos == 2)
-            hardware.drivetrain.goTo(fieldMap.get(minerals[1]), 0.4);
+            hardware.drivetrain.goTo(fieldMap.get(minerals[1]), 1);
         else if (goldPos == 3) {
-            hardware.drivetrain.goTo(fieldMap.get(minerals[2]), 0.4);
+            hardware.drivetrain.goTo(fieldMap.get(minerals[2]), 1);
         }
 
         // Back up if necessary
         if (backup) {
             if (!reverse)
-                hardware.drivetrain.driveDistance(-1, hardware.drivetrain.robotPos.distanceFrom(startPos) * 3/4, 0.6);
+                hardware.drivetrain.driveDistance(-1, hardware.drivetrain.robotPos.distanceFrom(startPos) * 3/4, 1);
             else
-                hardware.drivetrain.driveDistance(-1, hardware.drivetrain.robotPos.distanceFrom(startPos), 0.6);
+                hardware.drivetrain.driveDistance(-1, hardware.drivetrain.robotPos.distanceFrom(startPos), 1);
             hardware.drivetrain.updatePosFromEncoders();
         }
     }
@@ -239,24 +241,26 @@ public class Auto {
     public void sampleFromLander(int goldPos, int quadrant, boolean reverse, boolean backup) throws InterruptedException {
         // Generates minerals to choose from
         FieldElement[] minerals = samplingField(quadrant, reverse);
-        double pow = 0.7;
+        double pow = backup ? 0.5 : 1;
 
         // Go to Gold
         Vector startPos = hardware.drivetrain.robotPos;
         if (goldPos == 1)
-            goToIntake(fieldMap.get(minerals[0]), pow);
+            hardware.drivetrain.goTo(fieldMap.get(minerals[0]), pow);
         else if (goldPos == 2)
-            goToIntake(fieldMap.get(minerals[1]), pow);
+            hardware.drivetrain.goTo(fieldMap.get(minerals[1]), pow);
         else if (goldPos == 3) {
-            goToIntake(fieldMap.get(minerals[2]), pow);
+            hardware.drivetrain.goTo(fieldMap.get(minerals[2]), pow);
         }
+
+        Thread.sleep(500);
 
         // Back up if necessary
         if (backup) {
             if (!reverse)
-                hardware.drivetrain.driveDistance(-1, hardware.drivetrain.robotPos.distanceFrom(startPos) * 3/4, 0.6);
+                hardware.drivetrain.driveDistance(-1, hardware.drivetrain.robotPos.distanceFrom(startPos) * 3/4, 1);
             else
-                hardware.drivetrain.driveDistance(-1, hardware.drivetrain.robotPos.distanceFrom(startPos), 0.6);
+                hardware.drivetrain.driveDistance(-1, hardware.drivetrain.robotPos.distanceFrom(startPos), 1);
             hardware.drivetrain.updatePosFromEncoders();
         }
     }
@@ -298,27 +302,43 @@ public class Auto {
     public void releaseMarker(int alliance) throws InterruptedException {
         //hardware.intake.releaseMinerals(0.3);
         if (alliance == AutonomousData.RED_ALLIANCE)
-            hardware.drivetrain.faceAngle(90);
+            hardware.drivetrain.faceAngle(45);
         else if (alliance == AutonomousData.BLUE_ALLIANCE)
-            hardware.drivetrain.faceAngle(270);
-        hardware.drivetrain.strafeForTime(-0.8, 1);
+            hardware.drivetrain.faceAngle(225);
+        hardware.drivetrain.strafeForTime(-1, 0.8);
 
         hardware.markerArm.setPosition(hardware.MARKER_ARM_DOWN);
-        Thread.sleep(500);
+        autonomous.sleep(600);
         hardware.markerArm.setPosition(hardware.MARKER_ARM_UP);
         //hardware.intake.flipIn();
     }
 
     public void driveToCrater(int alliance) throws InterruptedException {
         if (alliance == AutonomousData.RED_ALLIANCE) {
-            hardware.drivetrain.faceAngle(180);
+            hardware.drivetrain.faceAngle(190);
         } else if (alliance == AutonomousData.BLUE_ALLIANCE) {
-            hardware.drivetrain.faceAngle(0);
+            hardware.drivetrain.faceAngle(10);
         }
 
-        hardware.drivetrain.strafeForTime(-1, 1.5);
-        hardware.drivetrain.driveDistance(1, fieldMap.SQUARE_LENGTH * 4, 1);
-        hardware.intake.flipOut();
+        //hardware.drivetrain.strafeForTime(-1, 1.5);
+        hardware.drivetrain.driveDistance(1, fieldMap.SQUARE_LENGTH * 3.2, 3);
+        hardware.intake.horizontalSlide.setPower(1);
+        Thread.sleep(800);
+        hardware.intake.horizontalSlide.setPower(0);
+    }
+
+    public void driveToOtherCrater(int alliance) throws InterruptedException {
+        if (alliance == AutonomousData.RED_ALLIANCE) {
+            hardware.drivetrain.faceAngle(60);
+        } else if (alliance == AutonomousData.BLUE_ALLIANCE) {
+            hardware.drivetrain.faceAngle(240);
+        }
+
+        //hardware.drivetrain.strafeForTime(1, 1.5);
+        hardware.drivetrain.driveDistance(1, fieldMap.SQUARE_LENGTH * 3.2, 3);
+        hardware.intake.horizontalSlide.setPower(1);
+        Thread.sleep(800);
+        hardware.intake.horizontalSlide.setPower(0);
     }
 
     public void backupToLander(int distance) throws InterruptedException {

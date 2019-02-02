@@ -58,6 +58,8 @@ public class OmniSlideDrive implements RobotHardware {
 
     public void setRobotPos(Vector pos) {
         robotPos = pos;
+        autonomous.telemetry.addData("Pos", pos);
+        autonomous.telemetry.update();
     }
     public void setRobotAngle(double angle) {
         robotAngle = angle;
@@ -75,8 +77,8 @@ public class OmniSlideDrive implements RobotHardware {
         middleMotor.setDirection(DcMotor.Direction.FORWARD);
         encoderSetup();
 
-        leftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        rightMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        //leftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        //rightMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
     }
 
     public void encoderSetup() {
@@ -148,7 +150,15 @@ public class OmniSlideDrive implements RobotHardware {
         setPowers(direction * pow, direction * pow, 0);
 
         while (leftMotor.isBusy() && rightMotor.isBusy() && autoRunning()) {
+            double encoderDistance = (leftEncoder.linDistance() + rightEncoder.linDistance()) / 2;
+            double prop = encoderDistance / distance;
+            double newPow = (pow - 0.1) * Math.pow(prop - 1, 2) + 0.1;
+            setPowers(direction * newPow, direction * newPow, 0);
             // WAIT - Motors are busy
+
+            if (!powerHighEnough())
+                break;
+
         }
 
         setPowers(0, 0, 0);
@@ -192,13 +202,13 @@ public class OmniSlideDrive implements RobotHardware {
     public void driveForTime(double pow, double seconds) throws InterruptedException {
         encoderSetup();
         setPowers(pow, pow, 0);
-        Thread.sleep((long) seconds * 1000);
+        autonomous.sleep((long) seconds * 1000);
         setPowers(0, 0, 0);
     }
     public void strafeForTime(double pow, double seconds) throws InterruptedException {
         encoderSetup();
         setPowers(0, 0, pow);
-        Thread.sleep((long) seconds * 1000);
+        autonomous.sleep((long) seconds * 1000);
         setPowers(0, 0, 0);
     }
 
@@ -222,18 +232,18 @@ public class OmniSlideDrive implements RobotHardware {
      * Robot turns to face certain location on field
      * @param location : Vector position of the location, use field map
      */
-    public void face(Vector location) throws InterruptedException {
+    public void face(Vector location) {
         double radiansToTurn = Math.atan2(location.getY() - robotPos.getY(), location.getX() - robotPos.getX());
         int theta = MRGyro.convertToDegrees(radiansToTurn);
 
         faceAngle(theta);
     }
 
-    public void face(FieldElement element) throws InterruptedException {
+    public void face(FieldElement element) {
         face(AutonomousData.FIELD_MAP.get(element));
     }
 
-    public void faceAngle(int theta) throws InterruptedException {
+    public void faceAngle(int theta) {
         updateAngleFromIMU();
 
         // Determine what angle to turn
@@ -265,22 +275,21 @@ public class OmniSlideDrive implements RobotHardware {
      * @param degrees : the amount of degrees to turn
      * @param right : if true, we turn right; if false, we turn left
      */
-    public void turn(int degrees, boolean right) throws InterruptedException {
-        //Thread.sleep(200);
+    public void turn(int degrees, boolean right) {
         gyroSensor.zero();
         encoderSetup();
 
-        autonomous.telemetry.addData("Degrees", degrees);
-        autonomous.telemetry.update();
-
         int currAngle = Math.abs(gyroSensor.getAngle()); // Use getAngle() because it returns angle robot has turned from origin
-        double startPow = 1.0; // starting power was 1.0
+        double startPow = 0.8; // starting power was 1.0
         double pow; // power applied to motors
         double prop; // proportion of angle completed
 
         while (currAngle < degrees && autoRunning()) {
             prop = (double) currAngle / degrees;
-            pow = -startPow * Math.pow((prop - 1), 3);
+            if (degrees < 100)
+                pow = startPow * Math.pow(prop - 1, 4);
+            else
+                pow = -startPow * Math.pow(prop - 1, 3);
 
             // Apply power to motors and update currAngle
             if (right)
@@ -288,11 +297,11 @@ public class OmniSlideDrive implements RobotHardware {
             else
                 setPowers(-pow, pow, 0);
             currAngle = Math.abs(gyroSensor.getAngle());
+
+            if (!powerHighEnough())
+                break;
         }
         setPowers(0, 0, 0);
-
-        autonomous.telemetry.addData("Gyro Sensor reading", gyroSensor.getAngle());
-        autonomous.telemetry.update();
 
         // Updates the robot angle based on turn
         updateAngleFromIMU();
@@ -306,18 +315,16 @@ public class OmniSlideDrive implements RobotHardware {
         setRobotPos(robotPos.sum(new Vector(dist * Math.cos(theta), dist * Math.sin(theta))));
         leftEncoder.reset();
         rightEncoder.reset();
-        autonomous.telemetry.addData("Pos", robotPos);
-        autonomous.telemetry.update();
     }
-    public void updateAngleFromGyro() throws InterruptedException {
-        Thread.sleep(200);
+    public void updateAngleFromGyro() {
+        autonomous.sleep(200);
         setRobotAngle((360 + robotAngle - gyroSensor.getAngle()) % 360);
         gyroSensor.zero();
         //autonomous.telemetry.addData("Robot Angle From Gyro", robotAngle);
         //autonomous.telemetry.update();
     }
-    public void updateAngleFromIMU() throws InterruptedException {
-        Thread.sleep(200);
+    public void updateAngleFromIMU() {
+        autonomous.sleep(200);
         setRobotAngle((360 + initialRobotAngle - (imu.getHeading() - initialIMUHeading)) % 360);
         //autonomous.telemetry.addData("Robot Angle From IMU", robotAngle);
         //autonomous.telemetry.update();
@@ -350,6 +357,10 @@ public class OmniSlideDrive implements RobotHardware {
     }
     public double getBoost() {
         return boost;
+    }
+
+    private boolean powerHighEnough() {
+        return Math.abs(leftMotor.getPower()) > 0.08 && Math.abs(rightMotor.getPower()) > 0.08;
     }
 
     // Used to break all while loops when an opmode stops

@@ -28,7 +28,8 @@ public class OfficialBot_Outtake implements RobotHardware {
     // Encoder constants (encoder setup happens at beginning of autonomous)
     public final int VERTICAL_SLIDE_MAX = 3470;
     public final int VERTICAL_SLIDE_MIN = 0;
-    public final int LAND_ENCODER_VAL = 2450;
+    //public final int LAND_ENCODER_VAL = 2900;
+    public final int HANG_ENCODER_VAL = 2520;
 
     // AUTO BASED VARIABLES
     private LinearOpMode autonomous = null; // stays null unless used in an auto
@@ -77,6 +78,11 @@ public class OfficialBot_Outtake implements RobotHardware {
             autoRetract = false;
             leftVertical.setPower(pow);
             rightVertical.setPower(pow);
+        } else if (gamepad.right_trigger > 0 && (encoderVal < HANG_ENCODER_VAL - 20 || encoderVal > HANG_ENCODER_VAL + 20)) {
+            autoRetract = false;
+            double hangPow = encoderVal < HANG_ENCODER_VAL ? 1 : -1;
+            leftVertical.setPower(hangPow);
+            rightVertical.setPower(hangPow);
         } else if (autoRetract && encoderVal > VERTICAL_SLIDE_MIN) {
             leftVertical.setPower(-1);
             rightVertical.setPower(-1);
@@ -109,8 +115,8 @@ public class OfficialBot_Outtake implements RobotHardware {
         leftVertEncoder.runToPosition();
         rightVertEncoder.runToPosition();
 
-        leftVertEncoder.setEncoderTarget(LAND_ENCODER_VAL);
-        rightVertEncoder.setEncoderTarget(LAND_ENCODER_VAL);
+        //leftVertEncoder.setEncoderTarget(LAND_ENCODER_VAL);
+        //rightVertEncoder.setEncoderTarget(LAND_ENCODER_VAL);
 
         leftVertical.setPower(1);
         rightVertical.setPower(1);

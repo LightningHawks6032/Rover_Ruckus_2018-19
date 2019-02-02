@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.OfficialRobot;
 
+import com.qualcomm.hardware.hitechnic.HiTechnicNxtUltrasonicSensor;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
@@ -7,11 +8,11 @@ import org.firstinspires.ftc.teamcode.AutonomousData;
 import org.firstinspires.ftc.teamcode.FieldMapping.FieldElement;
 import org.firstinspires.ftc.teamcode.Hardware.OfficialBot_Hardware;
 
-@Autonomous(name="Red Crater Side", group=AutonomousData.OFFICIAL_GROUP)
-public class RedCraterSide extends LinearOpMode {
+@Autonomous(name="Red Depot Side Other Park", group=AutonomousData.OFFICIAL_GROUP)
+public class RedDepotSideOtherPark extends LinearOpMode {
     private OfficialBot_Hardware hardware;
     private Auto auto;
-    private final int QUADRANT = 3;
+    private final int QUADRANT = 4;
     private final int ALLIANCE = AutonomousData.RED_ALLIANCE;
 
     public void runOpMode() throws InterruptedException {
@@ -30,10 +31,9 @@ public class RedCraterSide extends LinearOpMode {
         hardware.mineralDetector.disable();
 
         auto.sampleFromLander(goldPos, QUADRANT, false, false);
+        hardware.drivetrain.goTo(FieldElement.RED_DEPOT, 0.8);
+        auto.releaseMarker(ALLIANCE);
 
-        // Park
-        hardware.intake.horizontalSlide.setPower(1);
-        sleep(800);
-        hardware.intake.horizontalSlide.setPower(0);
+        auto.driveToOtherCrater(ALLIANCE);
     }
 }

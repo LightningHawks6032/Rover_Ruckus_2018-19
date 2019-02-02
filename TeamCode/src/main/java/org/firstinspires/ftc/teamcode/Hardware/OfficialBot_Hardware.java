@@ -42,7 +42,7 @@ public class OfficialBot_Hardware implements RobotHardware {
     private final int ROBOT_CENTER_X = 225;
 
     // Range Sensor Distance from Robot Center (inches)
-    public final int RANGE_SENSOR_DISPLACEMENT = 9;
+    public final int RANGE_SENSOR_DISPLACEMENT = 5;
 
     public OfficialBot_Hardware(HardwareMap hardwareMap, Gamepad driveGamepad, Gamepad manipsGamepad, boolean calibrateSensors) {
         //constructs hardware objects based on configuration

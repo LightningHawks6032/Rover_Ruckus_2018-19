@@ -7,12 +7,12 @@ import org.firstinspires.ftc.teamcode.AutonomousData;
 import org.firstinspires.ftc.teamcode.FieldMapping.FieldElement;
 import org.firstinspires.ftc.teamcode.Hardware.OfficialBot_Hardware;
 
-@Autonomous(name="Red Crater Side", group=AutonomousData.OFFICIAL_GROUP)
-public class RedCraterSide extends LinearOpMode {
+@Autonomous(name="Blue Crater Side", group=AutonomousData.OFFICIAL_GROUP)
+public class BlueCraterSide extends LinearOpMode {
     private OfficialBot_Hardware hardware;
     private Auto auto;
-    private final int QUADRANT = 3;
-    private final int ALLIANCE = AutonomousData.RED_ALLIANCE;
+    private final int QUADRANT = 1;
+    private final int ALLIANCE = AutonomousData.BLUE_ALLIANCE;
 
     public void runOpMode() throws InterruptedException {
         hardware = new OfficialBot_Hardware(hardwareMap, gamepad1, gamepad2, true);
