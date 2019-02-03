@@ -156,8 +156,8 @@ public class OmniSlideDrive implements RobotHardware {
             setPowers(direction * newPow, direction * newPow, 0);
             // WAIT - Motors are busy
 
-            if (!powerHighEnough())
-                break;
+            /*if (!powerHighEnough())
+                break;*/
 
         }
 
