@@ -145,7 +145,7 @@ public class MecanumWheelDrive implements RobotHardware {
      * @param distance : linear distance in inches for the robot to drive over
      * @param pow : constant power at which the robot drives
      */
-    public void driveDistance(int direction, double distance, double pow) throws InterruptedException {
+    public void driveDistance(int direction, double distance, double pow) {
         resetEncoders();
         runEncodersToPosition();
 
