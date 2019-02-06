@@ -20,7 +20,7 @@ public class MecanumWheelDrive implements RobotHardware {
     public MRGyro gyro;
     private Gamepad gamepad;
 
-    private int wheelDiameter = 5;
+    private int wheelDiameter = 4;
 
 
     // AUTO BASED VARIABLES
@@ -162,6 +162,64 @@ public class MecanumWheelDrive implements RobotHardware {
 
         setPowers(0, 0, 0, 0);
         runWithoutEncoders();
+        //updateAngleFromIMU();
+    }
+
+    /**
+     * Robot strafes left or right a set amount of linear distance using encoders
+     * @param direction : right (1) or left (-1)
+     * @param distance : linear distance in inches for the robot to strafe over
+     * @param pow : constant power at which the robot strafes
+     */
+    public void strafeDistance(int direction, double distance, double pow) {
+        resetEncoders();
+        runEncodersToPosition();
+
+        leftFrontEncoder.setTarget(direction * distance);
+        rightFrontEncoder.setTarget(-direction * distance);
+        leftBackEncoder.setTarget(-direction * distance);
+        rightBackEncoder.setTarget(direction * distance);
+
+        setPowers(pow, -pow, -pow, pow);
+
+        while (leftFront.isBusy() && rightFront.isBusy() && leftBack.isBusy() && rightBack.isBusy() && autoRunning()) {
+            // WAIT - Motor is busy
+        }
+
+        setPowers(0, 0, 0, 0);
+
+        runWithoutEncoders();
+        //updateAngleFromIMU();
+    }
+
+    /**
+     * Turns a specific amount of degrees using an MRGyro
+     * @param degrees : the amount of degrees to turn
+     * @param right : if true, we turn right; if false, we turn left
+     */
+    public void turn(int degrees, boolean right) {
+        gyro.zero();
+        encoderSetup();
+
+        int currAngle = Math.abs(gyro.getAngle()); // Use getAngle() because it returns angle robot has turned from origin
+        double startPow = 1;
+        double pow; // power applied to motors
+        double prop; // proportion of angle completed
+
+        while (currAngle < degrees && autoRunning()) {
+            prop = (double) currAngle / degrees;
+            pow = -startPow * Math.pow(prop - 1, 3);
+
+            // Apply power to motors and update currAngle
+            if (right)
+                setPowers(pow, -pow, pow, -pow);
+            else
+                setPowers(-pow, pow, -pow, pow);
+            currAngle = Math.abs(gyro.getAngle());
+        }
+        setPowers(0, 0, 0, 0);
+
+        // Updates the robot angle based on turn
         //updateAngleFromIMU();
     }
 
