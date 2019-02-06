@@ -234,7 +234,7 @@ public class OmniSlideDrive implements RobotHardware {
      */
     public void face(Vector location) {
         double radiansToTurn = Math.atan2(location.getY() - robotPos.getY(), location.getX() - robotPos.getX());
-        int theta = MRGyro.convertToDegrees(radiansToTurn);
+        int theta = (int) MRGyro.convertToDegrees(radiansToTurn);
 
         faceAngle(theta);
     }

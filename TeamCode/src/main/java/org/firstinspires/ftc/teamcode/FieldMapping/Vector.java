@@ -39,6 +39,9 @@ public class Vector {
     public Vector changeInPosition(Vector other) {
         return new Vector(x - other.getX(), y - other.getY());
     }
+    public Vector scale(double scaleFactor) {
+        return new Vector(getX() * scaleFactor, getY() * scaleFactor);
+    }
 
     public int quadrant() {
         if (x > 0 && y > 0)

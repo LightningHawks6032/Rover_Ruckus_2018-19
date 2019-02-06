@@ -6,6 +6,7 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Gamepad;
 
 import org.firstinspires.ftc.teamcode.AutonomousData;
+import org.firstinspires.ftc.teamcode.FieldMapping.Vector;
 
 public class MecanumWheelDrive implements RobotHardware {
     public DcMotor leftFront;
@@ -19,6 +20,12 @@ public class MecanumWheelDrive implements RobotHardware {
     public ExpansionHubIMU imu;
     public MRGyro gyro;
     private Gamepad gamepad;
+
+    // Navigation/Positional Components
+    public Vector robotPos; // Position on field
+    public double robotAngle; // Angle relative to (0, 0) on field
+    private double initialIMUHeading; // IMU when the robot first hits the floor
+    private double initialRobotAngle; // Manually-set robot angle when the robot first hits the floor
 
     private int wheelDiameter = 4;
     private double boost = .5;
@@ -47,6 +54,19 @@ public class MecanumWheelDrive implements RobotHardware {
     }
     public void setAuto(LinearOpMode auto) {
         autonomous = auto;
+    }
+
+    public void setRobotPos(Vector pos) {
+        robotPos = pos;
+    }
+    public void setRobotAngle(double angle) {
+        robotAngle = angle;
+    }
+    public void setInitialRobotAngle(double angle) {
+        initialRobotAngle = angle;
+    }
+    public void setInitialIMUHeading() {
+        initialIMUHeading = imu.getHeading();
     }
 
     public void initHardware() {
@@ -171,7 +191,7 @@ public class MecanumWheelDrive implements RobotHardware {
 
         setPowers(0, 0, 0, 0);
         runWithoutEncoders();
-        //updateAngleFromIMU();
+        updateAngleFromIMU();
     }
 
     /**
@@ -198,7 +218,7 @@ public class MecanumWheelDrive implements RobotHardware {
         setPowers(0, 0, 0, 0);
 
         runWithoutEncoders();
-        //updateAngleFromIMU();
+        updateAngleFromIMU();
     }
 
     /**
@@ -229,7 +249,24 @@ public class MecanumWheelDrive implements RobotHardware {
         setPowers(0, 0, 0, 0);
 
         // Updates the robot angle based on turn
-        //updateAngleFromIMU();
+        updateAngleFromIMU();
+    }
+
+
+    public void updatePosAfterDrive(int direction) {
+        double theta = MRGyro.convertToRadians(getTemporaryAngle(direction == 1 ? 0 : 180));
+        setRobotPos(robotPos.sum(new Vector(getAverageDist() * Math.cos(theta), getAverageDist() * Math.sin(theta))));
+        resetEncoders();
+    }
+    public void updatePosAfterStrafe(int direction, boolean diagonal) {
+        double theta = MRGyro.convertToRadians(getTemporaryAngle(-direction * 90));
+        Vector newVec = robotPos.sum(new Vector(getAverageDist() * Math.cos(theta), getAverageDist() * Math.sin(theta)));
+        setRobotPos(diagonal ? newVec.scale(Math.sqrt(2)) : newVec);
+        resetEncoders();
+    }
+    public void updateAngleFromIMU() {
+        autonomous.sleep(200);
+        setRobotAngle((360 + initialRobotAngle - (imu.getHeading() - initialIMUHeading)) % 360);
     }
 
 
@@ -247,8 +284,13 @@ public class MecanumWheelDrive implements RobotHardware {
         return rightBack.getPower();
     }
     public double getAverageDist() {
-        double sum = leftFrontEncoder.linDistance() + rightFrontEncoder.linDistance() + leftBackEncoder.linDistance() + rightBackEncoder.linDistance();
+        double sum = Math.abs(leftFrontEncoder.linDistance()) + Math.abs(rightFrontEncoder.linDistance()) +
+                     Math.abs(leftBackEncoder.linDistance()) + Math.abs(rightBackEncoder.linDistance());
         return sum / 4;
+    }
+    public int getTemporaryAngle(int adjustmentFactor) {
+        int RA = ((int) Math.round(robotAngle + adjustmentFactor)) % 360;
+        return RA > 180 ? -(360 - RA) : RA;
     }
 
 

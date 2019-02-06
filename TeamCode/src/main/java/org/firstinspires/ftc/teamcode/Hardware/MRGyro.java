@@ -43,8 +43,8 @@ public class MRGyro {
             return heading;
     }
 
-    public static int convertToDegrees(double radians) {
-        return (int) (radians * 180 / Math.PI);
+    public static double convertToDegrees(double radians) {
+        return (radians * 180 / Math.PI);
     }
-    public static double convertToRadians(int degrees) { return degrees * Math.PI / 180; }
+    public static double convertToRadians(double degrees) { return degrees * Math.PI / 180; }
 }
