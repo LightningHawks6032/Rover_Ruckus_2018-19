@@ -21,7 +21,7 @@ public class MecanumWheelDrive implements RobotHardware {
     private Gamepad gamepad;
 
     private int wheelDiameter = 4;
-
+    private double boost = .5;
 
     // AUTO BASED VARIABLES
     private LinearOpMode autonomous = null; // stays null unless used in an auto
@@ -106,7 +106,7 @@ public class MecanumWheelDrive implements RobotHardware {
             } else if (gamepad.left_trigger > 0) {
                 manageDiagonalStrafing(false);
             } else {
-                setPowers(-gamepad.left_stick_y, -gamepad.right_stick_y, -gamepad.left_stick_y, -gamepad.right_stick_y);
+                setPowers(-gamepad.left_stick_y * boost, -gamepad.right_stick_y * boost, -gamepad.left_stick_y * boost, -gamepad.right_stick_y * boost);
             }
         }
     }
@@ -136,6 +136,15 @@ public class MecanumWheelDrive implements RobotHardware {
                 setPowers(0, pow, pow, 0);
             else
                 setPowers(-pow, 0, 0, -pow);
+        }
+    }
+
+    private void applyBoost(){
+        if(gamepad.left_bumper){
+            boost = 0.5;
+        }
+        if(gamepad.right_bumper){
+            boost = 1;
         }
     }
 
