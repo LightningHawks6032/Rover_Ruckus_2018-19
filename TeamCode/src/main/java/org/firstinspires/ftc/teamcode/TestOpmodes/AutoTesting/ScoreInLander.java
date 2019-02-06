@@ -7,7 +7,7 @@ import org.firstinspires.ftc.teamcode.AutonomousData;
 import org.firstinspires.ftc.teamcode.Hardware.OfficialBot_Hardware;
 import org.firstinspires.ftc.teamcode.OfficialRobot.Auto;
 
-// @Autonomous(name="Scoring in Lander", group=AutonomousData.TEST_GROUP)
+@Autonomous(name="Scoring in Lander", group=AutonomousData.TEST_GROUP)
 public class ScoreInLander extends LinearOpMode {
     private OfficialBot_Hardware hardware;
     private Auto auto;
@@ -29,10 +29,10 @@ public class ScoreInLander extends LinearOpMode {
         auto.sampleFromLander(goldPos, 4, false, true);
 
         hardware.drivetrain.faceAngle(auto.startAngle(4));
-        hardware.outtake.verticalSlideDown();
         hardware.intake.releaseMinerals(2);
         hardware.outtake.verticalSlideUp();
-        hardware.drivetrain.driveDistance(-1, 5, 0.5); // Goal is to do this with the range sensor
+        auto.backupToLander(7); // Goal is to do this with the range sensor
+        hardware.drivetrain.faceAngle(auto.startAngle(4));
         hardware.outtake.dump();
     }
 }

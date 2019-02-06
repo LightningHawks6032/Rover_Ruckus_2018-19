@@ -163,14 +163,14 @@ public class Auto {
 
     private void goToIntake(Vector location, double pow) throws InterruptedException {
         hardware.drivetrain.face(location); // Turn to face location
-        //hardware.intake.flipOut();
-        //hardware.intake.harvest();
-        driveAndLowerSlide(1, location.distanceFrom(hardware.drivetrain.robotPos), pow); // Drive to location
+        hardware.intake.flipOut();
+        hardware.intake.harvest();
+        hardware.drivetrain.driveDistance(1, location.distanceFrom(hardware.drivetrain.robotPos), pow); // Drive to location
         hardware.outtake.verticalSlideDown(); // in case vertical slide did not reach down
         hardware.drivetrain.updatePosFromEncoders();
         hardware.drivetrain.updateAngleFromIMU();
-        //hardware.intake.stopHarvesting();
-        //hardware.intake.flipIn();
+        hardware.intake.stopHarvesting();
+        hardware.intake.flipIn();
     }
 
     /**
@@ -245,12 +245,15 @@ public class Auto {
 
         // Go to Gold
         Vector startPos = hardware.drivetrain.robotPos;
-        if (goldPos == 1)
-            hardware.drivetrain.goTo(fieldMap.get(minerals[0]), pow);
-        else if (goldPos == 2)
-            hardware.drivetrain.goTo(fieldMap.get(minerals[1]), pow);
-        else if (goldPos == 3) {
-            hardware.drivetrain.goTo(fieldMap.get(minerals[2]), pow);
+        if (goldPos == 1) {
+            //hardware.drivetrain.goTo(fieldMap.get(minerals[0]), pow);
+            goToIntake(fieldMap.get(minerals[0]), pow);
+        } else if (goldPos == 2) {
+            //hardware.drivetrain.goTo(fieldMap.get(minerals[1]), pow);
+            goToIntake(fieldMap.get(minerals[1]), pow);
+        } else if (goldPos == 3) {
+            //hardware.drivetrain.goTo(fieldMap.get(minerals[2]), pow);
+            goToIntake(fieldMap.get(minerals[2]), pow);
         }
 
         Thread.sleep(500);
@@ -352,7 +355,7 @@ public class Auto {
 
         while (currDistance > distance && autoRunning()) {
             prop = (currDistance - distance) / (startDistance - distance);
-            pow = -startPow * Math.pow((prop - 1), 3);
+            pow = -startPow * Math.pow((prop - 1), 1);
 
             // Apply power to motors and update currDistance
             hardware.drivetrain.setPowers(-pow, -pow, 0);
