@@ -34,7 +34,7 @@ public class OmniSlideDrive implements RobotHardware {
     private double boost;
 
     // Power constants
-    private final double LERP_ALPHA = 0.4;
+    private final double LERP_ALPHA = 0.6;
     private final double MAX_DRIVE_POWER = 0.8;
     private final double MAX_MIDDLE_POWER = 1;
 
