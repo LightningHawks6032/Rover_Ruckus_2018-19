@@ -283,13 +283,13 @@ public class MecanumWheelDrive implements RobotHardware {
     public double getRightBackPower() {
         return rightBack.getPower();
     }
-    public double getAverageDist() {
+    private double getAverageDist() {
         double sum = Math.abs(leftFrontEncoder.linDistance()) + Math.abs(rightFrontEncoder.linDistance()) +
                      Math.abs(leftBackEncoder.linDistance()) + Math.abs(rightBackEncoder.linDistance());
         return sum / 4;
     }
-    public int getTemporaryAngle(int adjustmentFactor) {
-        int RA = ((int) Math.round(robotAngle + adjustmentFactor)) % 360;
+    private int getTemporaryAngle(int adjustmentFactor) {
+        int RA = (360 + (int) Math.round(robotAngle + adjustmentFactor)) % 360;
         return RA > 180 ? -(360 - RA) : RA;
     }
 

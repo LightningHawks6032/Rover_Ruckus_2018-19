@@ -1,21 +1,17 @@
-package org.firstinspires.ftc.teamcode.OfficialRobot;
+package org.firstinspires.ftc.teamcode.QualifierRobot;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.HardwareMap;
-import com.qualcomm.robotcore.hardware.Servo;
 
-import org.firstinspires.ftc.teamcode.Hardware.OfficialBot_Hardware;
-import org.firstinspires.ftc.teamcode.Hardware.OfficialBot_Outtake;
-import org.firstinspires.ftc.teamcode.Hardware.OfficialBot_Intake;
+import org.firstinspires.ftc.teamcode.Hardware.QualBot_Hardware;
 
 @TeleOp(name="Robot TeleOp", group="Iterative Opmode")
 public class RobotTeleOp extends OpMode {
-    private OfficialBot_Hardware hardware;
+    private QualBot_Hardware hardware;
 
     public void init() {
         // init hardware
-        hardware = new OfficialBot_Hardware(hardwareMap, gamepad1, gamepad2, false);
+        hardware = new QualBot_Hardware(hardwareMap, gamepad1, gamepad2, false);
         hardware.initHardware();
     }
 

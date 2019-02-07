@@ -1,13 +1,9 @@
 package org.firstinspires.ftc.teamcode.Vision.DetectorTests;
 
-import com.disnodeteam.dogecv.CameraViewDisplay;
-import com.disnodeteam.dogecv.DogeCV;
-import com.disnodeteam.dogecv.detectors.roverrukus.GoldAlignDetector;
-import com.disnodeteam.dogecv.detectors.roverrukus.SamplingOrderDetector;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-import org.firstinspires.ftc.teamcode.Hardware.OfficialBot_Hardware;
+import org.firstinspires.ftc.teamcode.Hardware.QualBot_Hardware;
 import org.firstinspires.ftc.teamcode.Vision.Detectors.NavTargetDetector;
 import java.lang.Math;
 
@@ -17,12 +13,12 @@ public class NavTargetDetectorTest extends OpMode
 {
     // Detector object
     private NavTargetDetector detector;
-    private OfficialBot_Hardware hardware;
+    private QualBot_Hardware hardware;
 
     @Override
     public void init() {
         // Set up detector
-        hardware = new OfficialBot_Hardware(hardwareMap, gamepad1, gamepad2, false);
+        hardware = new QualBot_Hardware(hardwareMap, gamepad1, gamepad2, false);
         hardware.initHardware();
         detector = hardware.navTargetDetector; // Create detector
         detector.setupTracker();

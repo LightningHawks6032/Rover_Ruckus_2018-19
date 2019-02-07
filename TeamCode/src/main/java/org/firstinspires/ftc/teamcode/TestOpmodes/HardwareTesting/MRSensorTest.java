@@ -1,18 +1,17 @@
 package org.firstinspires.ftc.teamcode.TestOpmodes.HardwareTesting;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
-import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
-import org.firstinspires.ftc.teamcode.Hardware.OfficialBot_Hardware;
+import org.firstinspires.ftc.teamcode.Hardware.QualBot_Hardware;
 
 // @TeleOp(name="MR Sensor Test", group="Test Opmode")
 public class MRSensorTest extends OpMode {
-    private OfficialBot_Hardware hardware;
+    private QualBot_Hardware hardware;
 
     public void init() {
         // hardware init (inits the gyro by calibrating and zeroing)
-        hardware = new OfficialBot_Hardware(hardwareMap, gamepad1, gamepad2, true);
+        hardware = new QualBot_Hardware(hardwareMap, gamepad1, gamepad2, true);
         hardware.initHardware();
     }
 

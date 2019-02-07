@@ -1,13 +1,8 @@
 package org.firstinspires.ftc.teamcode.Vision.DetectorTests;
 
-import com.disnodeteam.dogecv.CameraViewDisplay;
-import com.disnodeteam.dogecv.DogeCV;
-
-import org.firstinspires.ftc.teamcode.Hardware.OfficialBot_Hardware;
+import org.firstinspires.ftc.teamcode.Hardware.QualBot_Hardware;
 import org.firstinspires.ftc.teamcode.Vision.Detectors.GoldAlignDetector;
-import org.firstinspires.ftc.teamcode.Vision.Detectors.NavTargetDetector;
 
-import com.disnodeteam.dogecv.detectors.roverrukus.SamplingOrderDetector;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
@@ -17,13 +12,13 @@ public class GoldAlignDetectorTest extends OpMode
 {
     // Detector object
     private GoldAlignDetector detector;
-    private OfficialBot_Hardware hardware;
+    private QualBot_Hardware hardware;
 
 
     @Override
     public void init() {
         // Set up detector
-        hardware = new OfficialBot_Hardware(hardwareMap, gamepad1, gamepad2, false);
+        hardware = new QualBot_Hardware(hardwareMap, gamepad1, gamepad2, false);
         hardware.initHardware();
         detector = hardware.mineralDetector; // Create detector
         detector.setupDetector(hardwareMap, 1); // Camera Index: 0 for back camera, 1 for front camera

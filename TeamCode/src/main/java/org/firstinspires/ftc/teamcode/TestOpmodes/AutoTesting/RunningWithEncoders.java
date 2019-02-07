@@ -1,17 +1,15 @@
 package org.firstinspires.ftc.teamcode.TestOpmodes.AutoTesting;
 
-import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
-import org.firstinspires.ftc.teamcode.AutonomousData;
-import org.firstinspires.ftc.teamcode.Hardware.OfficialBot_Hardware;
+import org.firstinspires.ftc.teamcode.Hardware.QualBot_Hardware;
 
 // @Autonomous(name="Encoder Test", group= AutonomousData.TEST_GROUP)
 public class RunningWithEncoders extends LinearOpMode {
-    private OfficialBot_Hardware hardware;
+    private QualBot_Hardware hardware;
 
     public void runOpMode() throws InterruptedException {
-        hardware = new OfficialBot_Hardware(hardwareMap, gamepad1, gamepad2, false);
+        hardware = new QualBot_Hardware(hardwareMap, gamepad1, gamepad2, false);
         hardware.initHardware();
         hardware.drivetrain.setAuto(this);
         hardware.intake.setAuto(this);

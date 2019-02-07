@@ -1,21 +1,21 @@
-package org.firstinspires.ftc.teamcode.OfficialRobot;
+package org.firstinspires.ftc.teamcode.QualifierRobot;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.AutonomousData;
 import org.firstinspires.ftc.teamcode.FieldMapping.FieldElement;
-import org.firstinspires.ftc.teamcode.Hardware.OfficialBot_Hardware;
+import org.firstinspires.ftc.teamcode.Hardware.QualBot_Hardware;
 
-@Autonomous(name="Red Crater Side", group=AutonomousData.OFFICIAL_GROUP)
-public class RedCraterSide extends LinearOpMode {
-    private OfficialBot_Hardware hardware;
+@Autonomous(name="Blue Depot Side", group=AutonomousData.OFFICIAL_GROUP)
+public class BlueDepotSide extends LinearOpMode {
+    private QualBot_Hardware hardware;
     private Auto auto;
-    private final int QUADRANT = 3;
-    private final int ALLIANCE = AutonomousData.RED_ALLIANCE;
+    private final int QUADRANT = 2;
+    private final int ALLIANCE = AutonomousData.BLUE_ALLIANCE;
 
     public void runOpMode() throws InterruptedException {
-        hardware = new OfficialBot_Hardware(hardwareMap, gamepad1, gamepad2, true);
+        hardware = new QualBot_Hardware(hardwareMap, gamepad1, gamepad2, true);
         auto = new Auto(this, hardware);
         hardware.initHardware();
 
@@ -30,10 +30,9 @@ public class RedCraterSide extends LinearOpMode {
         hardware.mineralDetector.disable();
 
         auto.sampleFromLander(goldPos, QUADRANT, false, false);
+        hardware.drivetrain.goTo(FieldElement.BLUE_DEPOT, 0.8);
+        auto.releaseMarker(ALLIANCE);
 
-        // Park
-        hardware.intake.horizontalSlide.setPower(1);
-        sleep(800);
-        hardware.intake.horizontalSlide.setPower(0);
+        auto.driveToCrater(ALLIANCE);
     }
 }

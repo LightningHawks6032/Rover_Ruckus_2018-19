@@ -2,25 +2,21 @@ package org.firstinspires.ftc.teamcode.Hardware;
 
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.hardware.modernrobotics.ModernRoboticsI2cRangeSensor;
-import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.GyroSensor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.I2cAddr;
 import com.qualcomm.robotcore.hardware.Servo;
-import com.qualcomm.robotcore.hardware.UltrasonicSensor;
 
-import org.firstinspires.ftc.teamcode.Hardware.RobotHardware;
 import org.firstinspires.ftc.teamcode.Vision.Detectors.GoldAlignDetector;
 import org.firstinspires.ftc.teamcode.Vision.Detectors.NavTargetDetector;
 
-public class OfficialBot_Hardware implements RobotHardware {
+public class QualBot_Hardware implements RobotHardware {
     // Declaring the hardware components
     public OmniSlideDrive drivetrain;
-    public OfficialBot_Intake intake;
-    public OfficialBot_Outtake outtake;
+    public QualBot_Intake intake;
+    public QualBot_Outtake outtake;
     public GoldAlignDetector mineralDetector;
     public NavTargetDetector navTargetDetector;
     public ModernRoboticsI2cRangeSensor rangeSensor;
@@ -44,7 +40,7 @@ public class OfficialBot_Hardware implements RobotHardware {
     // Range Sensor Distance from Robot Center (inches)
     public final int RANGE_SENSOR_DISPLACEMENT = 5;
 
-    public OfficialBot_Hardware(HardwareMap hardwareMap, Gamepad driveGamepad, Gamepad manipsGamepad, boolean calibrateSensors) {
+    public QualBot_Hardware(HardwareMap hardwareMap, Gamepad driveGamepad, Gamepad manipsGamepad, boolean calibrateSensors) {
         //constructs hardware objects based on configuration
         drivetrain = new OmniSlideDrive(
                 hardwareMap.get(DcMotor.class, "ld"), // left drive motor
@@ -56,12 +52,12 @@ public class OfficialBot_Hardware implements RobotHardware {
                 WHEEL_DIAMETER
         );
 
-        intake = new OfficialBot_Intake(hardwareMap.get(DcMotor.class, "harv"),
+        intake = new QualBot_Intake(hardwareMap.get(DcMotor.class, "harv"),
                                    hardwareMap.get(DcMotor.class, "flip"),
                                    hardwareMap.get(DcMotor.class, "hs"),
                                    manipsGamepad
         );
-        outtake = new OfficialBot_Outtake(hardwareMap.get(DcMotor.class, "lv"),
+        outtake = new QualBot_Outtake(hardwareMap.get(DcMotor.class, "lv"),
                                      hardwareMap.get(DcMotor.class, "rv"),
                                      hardwareMap.get(Servo.class, "lsv"),
                                      hardwareMap.get(Servo.class, "rsv"),

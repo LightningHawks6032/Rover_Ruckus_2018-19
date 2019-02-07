@@ -4,16 +4,14 @@
 
 package org.firstinspires.ftc.teamcode.TestOpmodes.AutoTesting;
 
-import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
-import org.firstinspires.ftc.teamcode.AutonomousData;
-import org.firstinspires.ftc.teamcode.Hardware.OfficialBot_Hardware;
+import org.firstinspires.ftc.teamcode.Hardware.QualBot_Hardware;
 import org.firstinspires.ftc.teamcode.Hardware.OmniSlideDrive;
 
 // @Autonomous(name="Turning with Gyro Function Test", group=AutonomousData.TEST_GROUP)
 public class TurningWithGyro extends LinearOpMode {
-    private OfficialBot_Hardware hardware;
+    private QualBot_Hardware hardware;
     private OmniSlideDrive drivetrain;
 
     private final double START_POWER = 1;
@@ -26,7 +24,7 @@ public class TurningWithGyro extends LinearOpMode {
     private int sumOfLinearDegreesError = 0;
 
     public void runOpMode() {
-        hardware = new OfficialBot_Hardware(hardwareMap, gamepad1, gamepad2, true);
+        hardware = new QualBot_Hardware(hardwareMap, gamepad1, gamepad2, true);
         hardware.initHardware();
         drivetrain = hardware.drivetrain;
         waitForStart();

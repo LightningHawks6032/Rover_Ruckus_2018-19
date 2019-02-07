@@ -1,7 +1,6 @@
-package org.firstinspires.ftc.teamcode.OfficialRobot;
+package org.firstinspires.ftc.teamcode.QualifierRobot;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
@@ -9,20 +8,20 @@ import org.firstinspires.ftc.teamcode.AutonomousData;
 import org.firstinspires.ftc.teamcode.FieldMapping.FieldElement;
 import org.firstinspires.ftc.teamcode.FieldMapping.FieldMap;
 import org.firstinspires.ftc.teamcode.FieldMapping.Vector;
-import org.firstinspires.ftc.teamcode.Hardware.OfficialBot_Hardware;
+import org.firstinspires.ftc.teamcode.Hardware.QualBot_Hardware;
 import org.firstinspires.ftc.teamcode.Vision.Detectors.GoldAlignDetector;
 import org.firstinspires.ftc.teamcode.Vision.Detectors.NavTargetDetector;
 
 public class Auto {
     private LinearOpMode autonomous;
-    private OfficialBot_Hardware hardware;
+    private QualBot_Hardware hardware;
     private FieldMap fieldMap = new FieldMap();
     private GoldAlignDetector mineralDetector;
     private NavTargetDetector navTargetDetector;
     private long startTime;
 
     // Constructor instantiates hardware and setups mineral detector
-    public Auto(LinearOpMode auto, OfficialBot_Hardware hardware) {
+    public Auto(LinearOpMode auto, QualBot_Hardware hardware) {
         autonomous = auto;
         this.hardware = hardware;
         mineralDetector = hardware.mineralDetector;
