@@ -5,9 +5,9 @@ FieldMapping: A collection of classes for generating a map of the match field fo
 
 Hardware: Each robot's hardware class, including some other classes for specific hardware components
 
-OfficialRobot: All OFFICIAL opmodes for our Official Robot for use in competition
-
 PreliminaryRobot: All OFFICIAL opmodes for our Preliminary Robot for use in competition
+
+QualifierRobot: All OFFICIAL opmodes for our Qualifier Robot for use in competition
 
 TestOpmodes: A collection of opmodes that test code for the robot to later be integrated with the competition code
 
