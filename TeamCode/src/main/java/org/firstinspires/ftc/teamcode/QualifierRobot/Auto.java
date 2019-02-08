@@ -322,7 +322,6 @@ public class Auto {
             hardware.drivetrain.faceAngle(10);
         }
 
-        //hardware.drivetrain.strafeForTime(-1, 1.5);
         hardware.drivetrain.driveDistance(1, fieldMap.SQUARE_LENGTH * 3.2, 3);
         hardware.intake.horizontalSlide.setPower(1);
         Thread.sleep(800);
@@ -336,7 +335,6 @@ public class Auto {
             hardware.drivetrain.faceAngle(240);
         }
 
-        //hardware.drivetrain.strafeForTime(1, 1.5);
         hardware.drivetrain.driveDistance(1, fieldMap.SQUARE_LENGTH * 3.2, 3);
         hardware.intake.horizontalSlide.setPower(1);
         Thread.sleep(800);
