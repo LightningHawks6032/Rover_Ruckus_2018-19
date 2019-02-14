@@ -28,7 +28,6 @@ public class StatesBot_Outtake implements RobotHardware {
     // Encoder constants (encoder setup happens at beginning of autonomous)
     public final int VERTICAL_SLIDE_MAX = 3470;
     public final int VERTICAL_SLIDE_MIN = 0;
-    //public final int LAND_ENCODER_VAL = 2900;
     public final int HANG_ENCODER_VAL = 2520;
 
     // AUTO BASED VARIABLES
@@ -63,18 +62,18 @@ public class StatesBot_Outtake implements RobotHardware {
         autonomous = auto;
     }
 
-    public void manageTeleOp() {
-        manageLifting();
+    public void manageTeleOp(boolean slideLimiting) {
+        manageLifting(slideLimiting);
         manageDumping();
     }
 
     // Manage vertical slide
     private boolean autoRetract = false; // Should the vertical slides be attempting to auto retract?
-    private void manageLifting() {
+    private void manageLifting(boolean slideLimiting) {
         double pow = -gamepad.right_stick_y;
         int encoderVal = (leftVertEncoder.getEncoderCount() + rightVertEncoder.getEncoderCount()) / 2; // average
 
-        if ((pow > 0 && encoderVal < VERTICAL_SLIDE_MAX) || (pow < 0 && encoderVal > VERTICAL_SLIDE_MIN)) {
+        if ((pow > 0 && encoderVal < VERTICAL_SLIDE_MAX) || (pow < 0 && encoderVal > VERTICAL_SLIDE_MIN) || !slideLimiting) {
             autoRetract = false;
             leftVertical.setPower(pow);
             rightVertical.setPower(pow);
@@ -105,29 +104,6 @@ public class StatesBot_Outtake implements RobotHardware {
             leftDumper.setPosition(LEFT_DUMPER_OUT);
             rightDumper.setPosition(RIGHT_DUMPER_OUT);
         }
-    }
-
-    // Lands on the field for autonomous
-    public void landOnField() {
-        leftVertEncoder.reset();
-        rightVertEncoder.reset();
-
-        leftVertEncoder.runToPosition();
-        rightVertEncoder.runToPosition();
-
-        //leftVertEncoder.setEncoderTarget(LAND_ENCODER_VAL);
-        //rightVertEncoder.setEncoderTarget(LAND_ENCODER_VAL);
-
-        leftVertical.setPower(1);
-        rightVertical.setPower(1);
-        while (leftVertical.isBusy() && rightVertical.isBusy() && autoRunning()) {
-            // WAIT - Motor is busy
-        }
-        leftVertical.setPower(0);
-        rightVertical.setPower(0);
-
-        leftVertEncoder.runWithout();
-        rightVertEncoder.runWithout();
     }
 
     // Vertical slide is brought up/down
@@ -176,7 +152,6 @@ public class StatesBot_Outtake implements RobotHardware {
         leftDumper.setPosition(LEFT_DUMPER_IN);
         rightDumper.setPosition(RIGHT_DUMPER_IN);
     }
-
 
     // Used to break all while loops when an opmode stops
     private boolean autoRunning() {

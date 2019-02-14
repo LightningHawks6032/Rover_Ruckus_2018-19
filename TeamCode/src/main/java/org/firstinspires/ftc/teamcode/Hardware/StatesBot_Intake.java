@@ -11,7 +11,7 @@ import org.firstinspires.ftc.teamcode.AutonomousData;
 
 public class StatesBot_Intake {
     //Hardware Components
-    public RevRoboticsCoreHexMotor harvester;
+    public DcMotor harvester;
     public Servo flipper;
     public DcMotor horizontalSlide;
     public Encoder slideEncoder;
@@ -24,11 +24,13 @@ public class StatesBot_Intake {
     public final int HORIZONTAL_SLIDE_MAX = 2800;
     public final int HORIZONTAL_SLIDE_MIN = 0;
 
+    public final double HARVESTER_POWER = 1.0;
+
     // AUTO BASED VARIABLES
     private LinearOpMode autonomous = null; // stays null unless used in an auto
     private long startTime;
 
-    protected StatesBot_Intake(RevRoboticsCoreHexMotor harvest, Servo flip, DcMotor hs, Gamepad manipsGamepad) {
+    protected StatesBot_Intake(DcMotor harvest, Servo flip, DcMotor hs, Gamepad manipsGamepad) {
         harvester = harvest;
         flipper = flip;
         horizontalSlide = hs;
@@ -38,50 +40,54 @@ public class StatesBot_Intake {
     }
 
     public void initHardware() {
-        //harvester.setDirection(RevRoboticsCoreHexMotor.Direction.FORWARD);
-        // still haven't figured out core hex controls)
+        harvester.setDirection(DcMotor.Direction.FORWARD);
         horizontalSlide.setDirection(DcMotor.Direction.REVERSE);
         slideEncoder.runWith();
     }
 
-
-    //TeleOp functions
-
-    public void manageTeleOp() {
+    public void manageTeleOp(boolean slideLimiting) {
         manageHarvester();
         manageFlipper();
-        manageSlide();
+        manageSlide(slideLimiting);
     }
 
-    private void manageHarvester(){
-        //Yet again foiled by hexcore motor
+    private void manageHarvester() {
         if (gamepad.a) {
-            //harvester.setPower(HARVESTER_POWER);
+            harvester.setPower(HARVESTER_POWER);
         } else if (gamepad.y) {
-            //harvester.setPower(-HARVESTER_POWER);
+            harvester.setPower(-HARVESTER_POWER);
         } else {
-            //harvester.setPower(0);
+            harvester.setPower(0);
         }
-
     }
 
+    // Booleans to manage flipping for tele-op
+    private boolean flippingIn = true; // Should the flipper be flipping inward? (i.e. was the last command to flip inward?)
+    private boolean togglePressed = false; // Is the toggle button currently pressed?
+    private boolean toggleLastPressed = false; // Was the toggle button pressed last iteration of loop()?
 
-    private void manageFlipper(){
-        //this may not allow you to change direction mid-movement - micc
-        if(gamepad.x && flipper.getPosition() == FLIPPER_IN_VAL){
-            flipper.setPosition(FLIPPER_OUT_VAL);
-        }else if(gamepad.x && flipper.getPosition() == FLIPPER_OUT_VAL){
+    // Flip the harvester
+    private void manageFlipper() {
+        // Use x to toggle between flipper in and flipper out
+        togglePressed = gamepad.x;
+        if (togglePressed && !toggleLastPressed) // Only change flipper if toggle button wasn't pressed last iteration of loop()
+            flippingIn = !flippingIn;
+        toggleLastPressed = togglePressed; // toggleLastPressed updated for the next iteration of loop()
+
+        // Manage flip servo
+        if (flippingIn)
             flipper.setPosition(FLIPPER_IN_VAL);
-        }
+        else
+            flipper.setPosition(FLIPPER_OUT_VAL);
     }
 
     // Manage horizontal slide
     private boolean autoRetract = false; // Should the horizontal slide be attempting to auto retract?
-    private void manageSlide() {
+    private void manageSlide(boolean slideLimiting) {
         double pow = -gamepad.left_stick_y;
         int encoderVal = slideEncoder.getEncoderCount();
 
-        if ((pow > 0 && encoderVal < HORIZONTAL_SLIDE_MAX) || (pow < 0 && encoderVal > HORIZONTAL_SLIDE_MIN)) {
+        if ((pow > 0 && encoderVal < HORIZONTAL_SLIDE_MAX) || (pow < 0 && encoderVal > HORIZONTAL_SLIDE_MIN) || !slideLimiting) {
             autoRetract = false;
             horizontalSlide.setPower(pow);
         } else if (autoRetract && encoderVal > HORIZONTAL_SLIDE_MIN) {

@@ -21,7 +21,7 @@ public class StatesBot_Hardware {
     public GoldAlignDetector mineralDetector;
     public NavTargetDetector navTargetDetector;
     public ModernRoboticsI2cRangeSensor rangeSensor;
-    public Servo markerArm;
+    //public Servo markerArm;
 
     // Servo constants
     public final double MARKER_ARM_UP = 1,
@@ -65,7 +65,7 @@ public class StatesBot_Hardware {
                 manipsGamepad
         );
 
-        markerArm = hardwareMap.get(Servo.class, "ma");
+        //markerArm = hardwareMap.get(Servo.class, "ma");
 
         mineralDetector = new GoldAlignDetector(ROBOT_CENTER_X, 325, 300, true);
         navTargetDetector = new NavTargetDetector(hardwareMap, CAMERA_FORWARD_POSITION, CAMERA_LEFT_POSITION);
@@ -78,6 +78,6 @@ public class StatesBot_Hardware {
         drivetrain.initHardware();
         intake.initHardware();
         outtake.initHardware();
-        markerArm.setPosition(MARKER_ARM_UP);
+        //markerArm.setPosition(MARKER_ARM_UP);
     }
 }
