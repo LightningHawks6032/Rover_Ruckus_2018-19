@@ -53,7 +53,7 @@ public class StatesBot_Hardware {
                 driveGamepad
         );
 
-        intake = new StatesBot_Intake(hardwareMap.get(RevRoboticsCoreHexMotor.class, "harv"),
+        intake = new StatesBot_Intake(hardwareMap.get(DcMotor.class, "harv"),
                 hardwareMap.get(Servo.class, "flip"),
                 hardwareMap.get(DcMotor.class, "hs"),
                 manipsGamepad

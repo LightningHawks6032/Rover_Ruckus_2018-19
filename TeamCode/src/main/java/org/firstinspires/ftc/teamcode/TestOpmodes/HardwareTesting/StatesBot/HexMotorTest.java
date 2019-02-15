@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 
-@TeleOp(name="Hex Motor test", group="Test Opmode")
+@TeleOp(name="States Hex Motor test", group="Test Opmode")
 public class HexMotorTest extends OpMode {
     private DcMotor motor;
 

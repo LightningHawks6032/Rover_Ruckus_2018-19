@@ -1,18 +1,20 @@
-package org.firstinspires.ftc.teamcode.TestOpmodes.HardwareTesting.QualBot;
+package org.firstinspires.ftc.teamcode.TestOpmodes.HardwareTesting.StatesBot;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.Hardware.QualBot_Hardware;
 import org.firstinspires.ftc.teamcode.Hardware.QualBot_Outtake;
+import org.firstinspires.ftc.teamcode.Hardware.StatesBot_Hardware;
+import org.firstinspires.ftc.teamcode.Hardware.StatesBot_Outtake;
 
-// @TeleOp(name="Qual Vertical Slide Test", group="Test Opmode")
+@TeleOp(name="States Vertical Slide Test", group="Test Opmode")
 public class VerticalSlideTest extends OpMode {
-    private QualBot_Hardware hardware;
-    private QualBot_Outtake outtake;
+    private StatesBot_Hardware hardware;
+    private StatesBot_Outtake outtake;
 
     public void init() {
-        hardware = new QualBot_Hardware(hardwareMap, gamepad1, gamepad2, false);
+        hardware = new StatesBot_Hardware(hardwareMap, gamepad1, gamepad2, false);
         hardware.outtake.leftVertEncoder.reset();
         hardware.outtake.rightVertEncoder.reset();
         hardware.initHardware();

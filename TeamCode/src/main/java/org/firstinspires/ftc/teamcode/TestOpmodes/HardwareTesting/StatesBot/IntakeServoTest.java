@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.teamcode.TestOpmodes.HardwareTesting.ServoTester;
 
-@TeleOp(name="Intake servo test", group="Test Opmode")
+@TeleOp(name="States Intake servo test", group="Test Opmode")
 public class IntakeServoTest extends OpMode {
     private ServoTester test;
 

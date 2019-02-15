@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import org.firstinspires.ftc.teamcode.Hardware.QualBot_Hardware;
 import org.firstinspires.ftc.teamcode.Hardware.StatesBot_Hardware;
 
-@TeleOp(name="Robot TeleOp", group="Iterative Opmode")
+@TeleOp(name="New Robot TeleOp", group="Iterative Opmode")
 public class RobotTeleOp extends OpMode {
     private StatesBot_Hardware hardware;
     private boolean slideLimitingOn = true;
