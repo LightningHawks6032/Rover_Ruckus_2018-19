@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import org.firstinspires.ftc.teamcode.Hardware.QualBot_Hardware;
 import org.firstinspires.ftc.teamcode.Hardware.StatesBot_Hardware;
 
-@TeleOp(name="New Robot TeleOp", group="Iterative Opmode")
+@TeleOp(name="States Robot TeleOp", group="Iterative Opmode")
 public class RobotTeleOp extends OpMode {
     private StatesBot_Hardware hardware;
     private boolean slideLimitingOn = true;
@@ -27,8 +27,8 @@ public class RobotTeleOp extends OpMode {
 
     private void debug() {
         telemetry.addData("Left Front Dist", hardware.drivetrain.leftFrontEncoder.linDistance());
-        telemetry.addData("Left Back Dist", hardware.drivetrain.leftBackEncoder.linDistance());
         telemetry.addData("Right Front Dist", hardware.drivetrain.rightFrontEncoder.linDistance());
+        telemetry.addData("Left Back Dist", hardware.drivetrain.leftBackEncoder.linDistance());
         telemetry.addData("Right Back Dist", hardware.drivetrain.rightBackEncoder.linDistance());
         telemetry.update();
     }
