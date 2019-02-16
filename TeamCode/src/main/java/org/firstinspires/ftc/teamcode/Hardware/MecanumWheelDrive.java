@@ -221,6 +221,22 @@ public class MecanumWheelDrive implements RobotHardware {
         updateAngleFromIMU();
     }
 
+    public void strafeForTime(double pow, double seconds) throws InterruptedException {
+        encoderSetup();
+        setPowers(pow, -pow, -pow, pow);
+        autonomous.sleep((long) seconds * 1000);
+        setPowers(0, 0, 0, 0);
+    }
+
+    /*
+    public void goTo(Vector location, double pow) throws InterruptedException {
+        face(location); // Turn to face location
+        driveDistance(1, location.distanceFrom(robotPos), pow); // Drive to location
+        updatePosFromEncoders();
+        updateAngleFromIMU();
+    }
+    */
+
     /**
      * Turns a specific amount of degrees using an MRGyro
      * @param degrees : the amount of degrees to turn
@@ -250,6 +266,44 @@ public class MecanumWheelDrive implements RobotHardware {
 
         // Updates the robot angle based on turn
         updateAngleFromIMU();
+    }
+    /*
+    // Positional Updating Methods
+    public void updatePosFromEncoders() {
+        int tempRobotAngle = robotAngle > 180 ? -(360 - (int) Math.round(robotAngle)) : (int) Math.round(robotAngle);
+        double theta = MRGyro.convertToRadians(tempRobotAngle);
+        double dist = (leftEncoder.linDistance() + rightEncoder.linDistance()) / 2; // Distance travelled according to encoders
+        setRobotPos(robotPos.sum(new Vector(dist * Math.cos(theta), dist * Math.sin(theta))));
+        leftEncoder.reset();
+        rightEncoder.reset();
+    }
+    */
+
+    public void faceAngle(int theta) {
+        updateAngleFromIMU();
+
+        // Determine what angle to turn
+        int tempRobotAngle = robotAngle > 180 ? -(360 - (int) Math.round(robotAngle)) : (int) Math.round(robotAngle);
+        if (tempRobotAngle * theta < 0) {
+            if (Math.abs(tempRobotAngle) + Math.abs(theta) < 180) {
+                if (tempRobotAngle > theta)
+                    turn(Math.abs(tempRobotAngle) + Math.abs(theta), true);
+                else
+                    turn(Math.abs(tempRobotAngle) + Math.abs(theta), false);
+            }
+            else {
+                if (tempRobotAngle > theta)
+                    turn(360 - (Math.abs(theta) + Math.abs(tempRobotAngle)), false);
+                else
+                    turn(360 - (Math.abs(theta) + Math.abs(tempRobotAngle)), true);
+            }
+        }
+        else if (tempRobotAngle != theta) {
+            if (tempRobotAngle < theta)
+                turn(theta - tempRobotAngle, false);
+            else
+                turn(tempRobotAngle - theta, true);
+        }
     }
 
 

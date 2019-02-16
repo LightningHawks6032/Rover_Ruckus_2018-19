@@ -49,6 +49,13 @@ public class StatesBot_Intake {
         slideEncoder.runWith();
     }
 
+    public void setStartTime(long time) {
+        startTime = time;
+    }
+    public void setAuto(LinearOpMode auto) {
+        autonomous = auto;
+    }
+
     public void manageTeleOp(boolean slideLimiting) {
         manageHarvester();
         manageFlipper();
@@ -108,6 +115,8 @@ public class StatesBot_Intake {
             autoRetract = true;
 
     }
+
+
 
     //Auto functions
 
