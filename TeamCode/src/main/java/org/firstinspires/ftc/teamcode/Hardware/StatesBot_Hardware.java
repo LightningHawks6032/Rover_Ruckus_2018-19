@@ -54,7 +54,8 @@ public class StatesBot_Hardware {
         );
 
         intake = new StatesBot_Intake(hardwareMap.get(DcMotor.class, "harv"),
-                hardwareMap.get(Servo.class, "flip"),
+                hardwareMap.get(Servo.class, "lflip"),
+                hardwareMap.get(Servo.class, "rflip"),
                 hardwareMap.get(DcMotor.class, "hs"),
                 manipsGamepad
         );

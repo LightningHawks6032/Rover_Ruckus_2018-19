@@ -12,15 +12,18 @@ import org.firstinspires.ftc.teamcode.AutonomousData;
 public class StatesBot_Intake {
     //Hardware Components
     public DcMotor harvester;
-    public Servo flipper;
+    public Servo leftFlipper;
+    public Servo rightFlipper;
     public DcMotor horizontalSlide;
     public Encoder slideEncoder;
 
     private Gamepad gamepad;
 
     //Positions for flipping and sliding
-    public final int FLIPPER_IN_VAL = 1; //guesstimation
-    public final int FLIPPER_OUT_VAL = 0; //guesstimation
+    public final int RIGHT_FLIPPER_IN_VAL = 1, //guesstimation
+    RIGHT_FLIPPER_OUT_VAL = 0, //guesstimation
+    LEFT_FLIPPER_IN_VAL = 0, //guesstimation
+    LEFT_FLIPPER_OUT_VAL = 1; //guesstimation
     public final int HORIZONTAL_SLIDE_MAX = 2800;
     public final int HORIZONTAL_SLIDE_MIN = 0;
 
@@ -30,9 +33,10 @@ public class StatesBot_Intake {
     private LinearOpMode autonomous = null; // stays null unless used in an auto
     private long startTime;
 
-    protected StatesBot_Intake(DcMotor harvest, Servo flip, DcMotor hs, Gamepad manipsGamepad) {
+    protected StatesBot_Intake(DcMotor harvest, Servo rFlip, Servo lFlip, DcMotor hs, Gamepad manipsGamepad) {
         harvester = harvest;
-        flipper = flip;
+        leftFlipper = lFlip;
+        rightFlipper = rFlip;
         horizontalSlide = hs;
         slideEncoder = new Encoder(hs, AutonomousData.NEVEREST_20_ENCODER, 0);
 
@@ -75,10 +79,14 @@ public class StatesBot_Intake {
         toggleLastPressed = togglePressed; // toggleLastPressed updated for the next iteration of loop()
 
         // Manage flip servo
-        if (flippingIn)
-            flipper.setPosition(FLIPPER_IN_VAL);
-        else
-            flipper.setPosition(FLIPPER_OUT_VAL);
+        if (flippingIn) {
+            leftFlipper.setPosition(LEFT_FLIPPER_IN_VAL);
+            rightFlipper.setPosition(RIGHT_FLIPPER_IN_VAL);
+        }else {
+            rightFlipper.setPosition(RIGHT_FLIPPER_OUT_VAL);
+            leftFlipper.setPosition(LEFT_FLIPPER_OUT_VAL);
+
+        }
     }
 
     // Manage horizontal slide
