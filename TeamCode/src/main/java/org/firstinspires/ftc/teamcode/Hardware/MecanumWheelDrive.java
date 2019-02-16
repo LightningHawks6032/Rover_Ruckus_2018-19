@@ -6,6 +6,7 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Gamepad;
 
 import org.firstinspires.ftc.teamcode.AutonomousData;
+import org.firstinspires.ftc.teamcode.FieldMapping.FieldElement;
 import org.firstinspires.ftc.teamcode.FieldMapping.Vector;
 
 public class MecanumWheelDrive implements RobotHardware {
@@ -228,14 +229,28 @@ public class MecanumWheelDrive implements RobotHardware {
         setPowers(0, 0, 0, 0);
     }
 
-    /*
     public void goTo(Vector location, double pow) throws InterruptedException {
         face(location); // Turn to face location
         driveDistance(1, location.distanceFrom(robotPos), pow); // Drive to location
         updatePosFromEncoders();
         updateAngleFromIMU();
     }
-    */
+
+    /**
+     * Robot turns to face certain location on field
+     * @param location : Vector position of the location, use field map
+     */
+    public void face(Vector location) {
+        double radiansToTurn = Math.atan2(location.getY() - robotPos.getY(), location.getX() - robotPos.getX());
+        int theta = (int) MRGyro.convertToDegrees(radiansToTurn);
+
+        faceAngle(theta);
+    }
+
+    public void face(FieldElement element) {
+        face(AutonomousData.FIELD_MAP.get(element));
+    }
+
 
     /**
      * Turns a specific amount of degrees using an MRGyro
@@ -267,17 +282,19 @@ public class MecanumWheelDrive implements RobotHardware {
         // Updates the robot angle based on turn
         updateAngleFromIMU();
     }
-    /*
+
     // Positional Updating Methods
     public void updatePosFromEncoders() {
         int tempRobotAngle = robotAngle > 180 ? -(360 - (int) Math.round(robotAngle)) : (int) Math.round(robotAngle);
         double theta = MRGyro.convertToRadians(tempRobotAngle);
-        double dist = (leftEncoder.linDistance() + rightEncoder.linDistance()) / 2; // Distance travelled according to encoders
+        double dist = (leftFrontEncoder.linDistance() + leftBackEncoder.linDistance() + rightFrontEncoder.linDistance() + rightBackEncoder.linDistance()) / 4; // Distance travelled according to encoders
         setRobotPos(robotPos.sum(new Vector(dist * Math.cos(theta), dist * Math.sin(theta))));
-        leftEncoder.reset();
-        rightEncoder.reset();
+        leftBackEncoder.reset();
+        rightBackEncoder.reset();
+        leftFrontEncoder.reset();
+        rightFrontEncoder.reset();
     }
-    */
+
 
     public void faceAngle(int theta) {
         updateAngleFromIMU();

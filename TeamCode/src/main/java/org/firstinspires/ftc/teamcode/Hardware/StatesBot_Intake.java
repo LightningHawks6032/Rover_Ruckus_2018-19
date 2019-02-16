@@ -120,8 +120,29 @@ public class StatesBot_Intake {
 
     //Auto functions
 
-    //nothing here as of now, as harvester is a core hex motor which we haven't figured out, and flipper is a servo
-    //that can be accessed directly in auto without need for functions
+    public void flipOut(){
+        leftFlipper.setPosition(LEFT_FLIPPER_OUT_VAL);
+        rightFlipper.setPosition(RIGHT_FLIPPER_OUT_VAL);
+    }
+
+    public void flipIn(){
+        leftFlipper.setPosition(LEFT_FLIPPER_IN_VAL);
+        rightFlipper.setPosition(RIGHT_FLIPPER_IN_VAL);
+    }
+
+    // Harvesting in autonomous
+    public void harvest() {
+        harvester.setPower(HARVESTER_POWER);
+    }
+    public void releaseMinerals(double seconds) throws InterruptedException {
+        harvester.setPower(-HARVESTER_POWER);
+        Thread.sleep((long) seconds * 1000);
+        stopHarvesting();
+    }
+    public void stopHarvesting() {
+        harvester.setPower(0);
+    }
+
 
 
 }

@@ -168,7 +168,6 @@ public class Auto {
         hardware.drivetrain.rightBackEncoder.runWithout();
     }
 
-    /*
     private void goToIntake(Vector location, double pow) throws InterruptedException {
         hardware.drivetrain.face(location); // Turn to face location
         hardware.intake.flipOut();
@@ -180,7 +179,6 @@ public class Auto {
         hardware.intake.stopHarvesting();
         hardware.intake.flipIn();
     }
-    */
 
     /**
      * Robot performs mineral sampling after the detecting the gold mineral from the ground.
@@ -189,7 +187,6 @@ public class Auto {
      * @param backup : true if we want robot to back up after knocking over gold mineral
      * @throws InterruptedException
      */
-    /*
     public void sampleFromGround(int quadrant, boolean reverse, boolean backup) throws InterruptedException {
         int goldPos = 2; // by default
 
@@ -239,7 +236,6 @@ public class Auto {
             hardware.drivetrain.updatePosFromEncoders();
         }
     }
-    */
 
     /**
      * Robot performs mineral sampling after the detecting the gold mineral while on the lander.
@@ -249,7 +245,6 @@ public class Auto {
      * @param backup : true if we want robot to back up after knocking over gold mineral
      * @throws InterruptedException
      */
-    /*
     public void sampleFromLander(int goldPos, int quadrant, boolean reverse, boolean backup) throws InterruptedException {
         // Generates minerals to choose from
         FieldElement[] minerals = samplingField(quadrant, reverse);
@@ -279,7 +274,6 @@ public class Auto {
             hardware.drivetrain.updatePosFromEncoders();
         }
     }
-    */
 
     /**
      * Create an array of the minerals, represented as FieldElements, in a particular sampling field.
@@ -315,7 +309,7 @@ public class Auto {
         return minerals;
     }
 
-    /*
+    // Turns towards depot, sends horizontal slide forward, de-harvests
     public void releaseMarker(int alliance) throws InterruptedException {
         //hardware.intake.releaseMinerals(0.3);
         if (alliance == AutonomousData.RED_ALLIANCE)
@@ -324,12 +318,9 @@ public class Auto {
             hardware.drivetrain.faceAngle(225);
         hardware.drivetrain.strafeForTime(-1, 0.8);
 
-        hardware.markerArm.setPosition(hardware.MARKER_ARM_DOWN);
-        autonomous.sleep(600);
-        hardware.markerArm.setPosition(hardware.MARKER_ARM_UP);
+
         //hardware.intake.flipIn();
     }
-    */
 
     public void driveToCrater(int alliance) throws InterruptedException {
         if (alliance == AutonomousData.RED_ALLIANCE) {
