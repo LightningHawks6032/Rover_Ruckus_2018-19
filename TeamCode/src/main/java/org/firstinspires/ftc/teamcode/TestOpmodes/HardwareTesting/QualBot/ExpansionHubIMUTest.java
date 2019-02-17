@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 import org.firstinspires.ftc.teamcode.Hardware.QualBot_Hardware;
 
-// @TeleOp(name="IMU test", group="Test Opmode")
+// @TeleOp(name="Qual IMU test", group="Test Opmode")
 public class ExpansionHubIMUTest extends OpMode {
     private QualBot_Hardware hardware;
 

@@ -8,12 +8,14 @@ import com.qualcomm.robotcore.hardware.Servo;
 public class ServoTester {
     private OpMode teleOp;
     private Servo servo;
+    private String name;
     private Gamepad gamepad;
     private double servoPos;
 
-    public ServoTester(OpMode tele, Servo s, Gamepad g) {
+    public ServoTester(OpMode tele, Servo s, String nm, Gamepad g) {
         teleOp = tele;
         servo = s;
+        name = nm;
         gamepad = g;
         servoPos = 0; // DEFAULT
     }
@@ -43,6 +45,7 @@ public class ServoTester {
     }
 
     public void display() {
+        teleOp.telemetry.addLine("Testing Servo: " + name);
         teleOp.telemetry.addData("Actual Servo Position", servo.getPosition());
         teleOp.telemetry.addData("Set Servo Position", servo.getPosition());
     }

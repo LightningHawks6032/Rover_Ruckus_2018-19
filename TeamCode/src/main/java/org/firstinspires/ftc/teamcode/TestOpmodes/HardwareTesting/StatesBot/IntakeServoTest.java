@@ -8,14 +8,14 @@ import org.firstinspires.ftc.teamcode.TestOpmodes.HardwareTesting.ServoTester;
 
 @TeleOp(name="States Intake servo test", group="Test Opmode")
 public class IntakeServoTest extends OpMode {
-    private ServoTester test;
+    private ServoTester flipper;
 
     public void init() {
-        test = new ServoTester(this, hardwareMap.get(Servo.class, "is"), gamepad1);
+        flipper = new ServoTester(this, hardwareMap.get(Servo.class, "flip"), "Intake Flipper", gamepad1);
     }
 
     public void loop() {
-        test.run();
+        flipper.run();
         telemetry.update();
     }
 }
