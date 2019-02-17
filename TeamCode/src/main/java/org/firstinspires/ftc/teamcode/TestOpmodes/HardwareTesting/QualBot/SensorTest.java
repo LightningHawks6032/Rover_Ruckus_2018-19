@@ -1,12 +1,14 @@
 package org.firstinspires.ftc.teamcode.TestOpmodes.HardwareTesting.QualBot;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.teamcode.Hardware.QualBot_Hardware;
 
 // @TeleOp(name="MR Sensor Test", group="Test Opmode")
-public class MRSensorTest extends OpMode {
+public class SensorTest extends OpMode {
     private QualBot_Hardware hardware;
 
     public void init() {

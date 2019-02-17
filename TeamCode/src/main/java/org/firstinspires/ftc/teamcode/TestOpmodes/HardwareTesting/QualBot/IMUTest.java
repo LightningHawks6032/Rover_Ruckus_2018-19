@@ -1,12 +1,14 @@
 package org.firstinspires.ftc.teamcode.TestOpmodes.HardwareTesting.QualBot;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 import org.firstinspires.ftc.teamcode.Hardware.QualBot_Hardware;
 
 // @TeleOp(name="Qual IMU test", group="Test Opmode")
-public class ExpansionHubIMUTest extends OpMode {
+public class IMUTest extends OpMode {
     private QualBot_Hardware hardware;
 
     public void init() {
