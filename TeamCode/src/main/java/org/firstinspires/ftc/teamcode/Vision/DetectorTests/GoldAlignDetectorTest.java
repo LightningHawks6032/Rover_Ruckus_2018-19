@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.Vision.DetectorTests;
 
 import org.firstinspires.ftc.teamcode.Hardware.QualBot_Hardware;
+import org.firstinspires.ftc.teamcode.Hardware.StatesBot_Hardware;
 import org.firstinspires.ftc.teamcode.Vision.Detectors.GoldAlignDetector;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
@@ -12,13 +13,13 @@ public class GoldAlignDetectorTest extends OpMode
 {
     // Detector object
     private GoldAlignDetector detector;
-    private QualBot_Hardware hardware;
+    private StatesBot_Hardware hardware;
 
 
     @Override
     public void init() {
         // Set up detector
-        hardware = new QualBot_Hardware(hardwareMap, gamepad1, gamepad2, false);
+        hardware = new StatesBot_Hardware(hardwareMap, gamepad1, gamepad2, false);
         hardware.initHardware();
         detector = hardware.mineralDetector; // Create detector
         detector.setupDetector(hardwareMap, 1); // Camera Index: 0 for back camera, 1 for front camera

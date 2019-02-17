@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.teamcode.TestOpmodes.HardwareTesting.ServoTester;
 
-@TeleOp(name="Qual Dumper Servo Test", group="Test Opmode")
+// @TeleOp(name="Qual Dumper Servo Test", group="Test Opmode")
 public class DumperServoTest extends OpMode{
     private ServoTester testLeft;
     private ServoTester testRight;

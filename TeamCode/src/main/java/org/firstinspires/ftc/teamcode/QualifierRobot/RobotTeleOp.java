@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.Hardware.QualBot_Hardware;
 
-@TeleOp(name="Robot TeleOp", group="Iterative Opmode")
+// @TeleOp(name="Robot TeleOp", group="Iterative Opmode")
 public class RobotTeleOp extends OpMode {
     private QualBot_Hardware hardware;
 

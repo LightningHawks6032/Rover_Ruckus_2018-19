@@ -66,7 +66,7 @@ public class QualBot_Hardware implements RobotHardware {
 
         markerArm = hardwareMap.get(Servo.class, "ma");
 
-        mineralDetector = new GoldAlignDetector(ROBOT_CENTER_X, 325, 300, true);
+        mineralDetector = new GoldAlignDetector(ROBOT_CENTER_X, 325, 300, true, true);
         navTargetDetector = new NavTargetDetector(hardwareMap, CAMERA_FORWARD_POSITION, CAMERA_LEFT_POSITION);
         rangeSensor = hardwareMap.get(ModernRoboticsI2cRangeSensor.class, "rs");
         rangeSensor.setI2cAddress(I2cAddr.create8bit(0x1c));

@@ -40,6 +40,7 @@ public class GoldAlignDetector extends DogeCVDetector {
     private boolean debugAlignment = true; // Show debug lines to show alignment settings
     private double alignSize; // How wide is the margin of error for alignment
     private boolean landscapeMode; // Is the phone using landscape mode
+    private boolean leftSideBottom; // Is the left side of the phone on the bottom side (only applicable to landscape mode)
     private DogeCV.AreaScoringMethod areaScoringMethod = DogeCV.AreaScoringMethod.MAX_AREA; // Setting to decide to use MaxAreaScorer or PerfectAreaScorer
 
     //Create the default filters and scorers
@@ -55,12 +56,13 @@ public class GoldAlignDetector extends DogeCVDetector {
      * @param marginOfError : wideness of margin of error for alignment
      * @param landscape : boolean for whether we are using landscape mode
      */
-    public GoldAlignDetector(int robotCenterX, int ym, double marginOfError, boolean landscape) {
+    public GoldAlignDetector(int robotCenterX, int ym, double marginOfError, boolean landscape, boolean leftSideBottom) {
         super();
         this.robotCenterX = robotCenterX;
         yMax = ym;
         alignSize = marginOfError;
         landscapeMode = landscape;
+        this.leftSideBottom = leftSideBottom;
     }
 
     @Override
@@ -120,7 +122,7 @@ public class GoldAlignDetector extends DogeCVDetector {
             xPos = bestRect.x + (bestRect.width / 2);
             yPos = bestRect.y + (bestRect.height / 2);
             goldXPos = xPos;
-            goldYPos = yPos;
+            goldYPos = leftSideBottom ? yPos : yPos;
 
             // Draw center point
             Imgproc.circle(displayMat, new Point( xPos, bestRect.y + (bestRect.height / 2)), 5, new Scalar(0,255,0),2);
@@ -183,9 +185,9 @@ public class GoldAlignDetector extends DogeCVDetector {
         if (getAligned())
             return 2;
         else {
-            if (robotCenterX < getXPosition())
+            if ((leftSideBottom && robotCenterX < getXPosition()) || (!leftSideBottom && robotCenterX > getXPosition()))
                 return 3;
-            else if (robotCenterX > getXPosition())
+            else if ((leftSideBottom && robotCenterX > getXPosition()) || (!leftSideBottom && robotCenterX < getXPosition()))
                 return 1;
         }
         return 2;

@@ -12,7 +12,7 @@ public class HexMotorTest extends OpMode {
     private DcMotor motor;
 
     public void init() {
-        motor = hardwareMap.get(DcMotor.class, "hm");
+        motor = hardwareMap.get(DcMotor.class, "harv");
     }
 
     public void loop() {

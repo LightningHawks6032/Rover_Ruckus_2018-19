@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import org.firstinspires.ftc.teamcode.Hardware.QualBot_Hardware;
 import org.firstinspires.ftc.teamcode.Hardware.QualBot_Intake;
 
-@TeleOp(name="Qual Horizontal Slide Test", group="Test Opmode")
+// @TeleOp(name="Qual Horizontal Slide Test", group="Test Opmode")
 public class HorizontalSlideTest extends OpMode {
     private QualBot_Hardware hardware;
     private QualBot_Intake intake;

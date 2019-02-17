@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.teamcode.Hardware.QualBot_Hardware;
 
-@TeleOp(name="Qual Sensor Test", group="Test Opmode")
+// @TeleOp(name="Qual Sensor Test", group="Test Opmode")
 public class SensorTest extends OpMode {
     private QualBot_Hardware hardware;
 
