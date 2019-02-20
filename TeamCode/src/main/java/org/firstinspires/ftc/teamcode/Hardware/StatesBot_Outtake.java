@@ -26,9 +26,9 @@ public class StatesBot_Outtake implements RobotHardware {
             LEFT_DUMPER_OUT = LEFT_DUMPER_IN - DUMPER_SERVO_DIFFERENCE;
 
     // Encoder constants (encoder setup happens at beginning of autonomous)
-    public final int VERTICAL_SLIDE_MAX = 2900;
+    public final int VERTICAL_SLIDE_MAX = 3300;
     public final int VERTICAL_SLIDE_MIN = 0;
-    public final int HANG_ENCODER_VAL = 2520;
+    public final int HANG_ENCODER_VAL = 2450;
 
     // AUTO BASED VARIABLES
     private LinearOpMode autonomous = null; // stays null unless used in an auto
@@ -47,8 +47,8 @@ public class StatesBot_Outtake implements RobotHardware {
     }
 
     public void initHardware() {
-        leftVertical.setDirection(DcMotor.Direction.REVERSE);
-        rightVertical.setDirection(DcMotor.Direction.REVERSE);
+        leftVertical.setDirection(DcMotor.Direction.FORWARD);
+        rightVertical.setDirection(DcMotor.Direction.FORWARD);
         leftVertEncoder.runWith();
         rightVertEncoder.runWith();
         leftDumper.setPosition(LEFT_DUMPER_IN);

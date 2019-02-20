@@ -17,15 +17,26 @@ public class DrivingWithEncoders extends LinearOpMode {
         hardware.drivetrain.setStartTime(System.currentTimeMillis());
 
         waitForStart();
-        telemetry.addLine("Driving 10 inches at 1 pow");
+        telemetry.addLine("Driving 10 inches at 0.5 pow");
         telemetry.update();
-        hardware.drivetrain.driveDistance(1, 10, 1);
+        hardware.drivetrain.driveDistance(1, 10, 0.5);
+        telemetry.addData("DIST", hardware.drivetrain.getAverageDist());
         telemetry.addData("Left Front Encoder", hardware.drivetrain.leftFrontEncoder.linDistance());
-        telemetry.addData("Right Front Encoder", hardware.drivetrain.rightFrontEncoder.getEncoderCount());
+        telemetry.addData("Right Front Encoder", hardware.drivetrain.rightFrontEncoder.linDistance());
         telemetry.addData("Left Back Encoder", hardware.drivetrain.leftBackEncoder.linDistance());
         telemetry.addData("Right Back Encoder", hardware.drivetrain.rightBackEncoder.linDistance());
         telemetry.update();
+        sleep(10000);
 
+        telemetry.addLine("Strafing 10 inches at 0.5 pow");
+        telemetry.update();
+        hardware.drivetrain.strafeDistance(1, 10, 0.5);
+        telemetry.addData("DIST", hardware.drivetrain.getAverageDist());
+        telemetry.addData("Left Front Encoder", hardware.drivetrain.leftFrontEncoder.linDistance());
+        telemetry.addData("Right Front Encoder", hardware.drivetrain.rightFrontEncoder.linDistance());
+        telemetry.addData("Left Back Encoder", hardware.drivetrain.leftBackEncoder.linDistance());
+        telemetry.addData("Right Back Encoder", hardware.drivetrain.rightBackEncoder.linDistance());
+        telemetry.update();
         sleep(10000);
 
     }

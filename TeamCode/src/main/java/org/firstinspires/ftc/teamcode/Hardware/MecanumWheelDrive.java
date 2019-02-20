@@ -28,7 +28,7 @@ public class MecanumWheelDrive implements RobotHardware {
     private double initialIMUHeading; // IMU when the robot first hits the floor
     private double initialRobotAngle; // Manually-set robot angle when the robot first hits the floor
 
-    private int wheelDiameter = 4;
+    private double wheelDiameter = 4.4;
     private double boost = 0.5;
 
     // AUTO BASED VARIABLES
@@ -75,6 +75,10 @@ public class MecanumWheelDrive implements RobotHardware {
         rightFront.setDirection(DcMotorSimple.Direction.REVERSE);
         leftBack.setDirection(DcMotorSimple.Direction.FORWARD);
         rightBack.setDirection(DcMotorSimple.Direction.REVERSE);
+        leftFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        rightFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        leftBack.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        rightBack.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         encoderSetup();
     }
 
@@ -115,7 +119,7 @@ public class MecanumWheelDrive implements RobotHardware {
     }
 
     public void manageTeleOp() {
-        if (gamepad.left_stick_y == 0 && gamepad.right_stick_y == 0) {
+        /*if (gamepad.left_stick_y == 0 && gamepad.right_stick_y == 0) {
             if (gamepad.right_trigger > 0) {
                 manageStrafing(true);
             } else if (gamepad.left_trigger > 0) {
@@ -131,6 +135,16 @@ public class MecanumWheelDrive implements RobotHardware {
             } else {
                 setPowers(-gamepad.left_stick_y * boost, -gamepad.right_stick_y * boost, -gamepad.left_stick_y * boost, -gamepad.right_stick_y * boost);
             }
+        }*/
+
+        if (gamepad.right_trigger > 0) {
+            double pow = gamepad.right_trigger * boost;
+            setPowers(pow, -pow, -pow, pow);
+        } else if (gamepad.left_trigger > 0) {
+            double pow = gamepad.left_trigger * boost;
+            setPowers(-pow, pow, pow, -pow);
+        } else {
+            setPowers(-gamepad.left_stick_y * boost, -gamepad.right_stick_y * boost, -gamepad.left_stick_y * boost, -gamepad.right_stick_y * boost);
         }
 
         applyBoost();
@@ -165,10 +179,10 @@ public class MecanumWheelDrive implements RobotHardware {
     }
 
     private void applyBoost() {
-        if(gamepad.left_bumper){
+        if (gamepad.left_bumper) {
             boost = 0.5;
         }
-        if(gamepad.right_bumper){
+        if (gamepad.right_bumper) {
             boost = 1;
         }
     }
@@ -358,7 +372,7 @@ public class MecanumWheelDrive implements RobotHardware {
     public double getRightBackPower() {
         return rightBack.getPower();
     }
-    private double getAverageDist() {
+    public double getAverageDist() {
         double sum = Math.abs(leftFrontEncoder.linDistance()) + Math.abs(rightFrontEncoder.linDistance()) +
                      Math.abs(leftBackEncoder.linDistance()) + Math.abs(rightBackEncoder.linDistance());
         return sum / 4;

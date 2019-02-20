@@ -26,14 +26,14 @@ public class RobotTeleOp extends OpMode {
     }
 
     private void debug() {
+        telemetry.addData("Left Front Pow", hardware.drivetrain.leftFront.getPower());
+        telemetry.addData("Right Front Pow", hardware.drivetrain.rightFront.getPower());
+        telemetry.addData("Left Back Pow", hardware.drivetrain.leftBack.getPower());
+        telemetry.addData("Right Back Pow", hardware.drivetrain.rightBack.getPower());
         telemetry.addData("Left Front Dist", hardware.drivetrain.leftFrontEncoder.linDistance());
         telemetry.addData("Right Front Dist", hardware.drivetrain.rightFrontEncoder.linDistance());
         telemetry.addData("Left Back Dist", hardware.drivetrain.leftBackEncoder.linDistance());
         telemetry.addData("Right Back Dist", hardware.drivetrain.rightBackEncoder.linDistance());
-        telemetry.addData("LEFT Intake Servo", hardware.intake.leftFlipper.getPosition());
-        telemetry.addData("RIGHT Intake Servo", hardware.intake.rightFlipper.getPosition());
-        telemetry.addData("LEFT Outtake Servo", hardware.outtake.leftDumper.getPosition());
-        telemetry.addData("RIGHT Outtake Servo", hardware.outtake.rightDumper.getPosition());
         telemetry.update();
     }
 
