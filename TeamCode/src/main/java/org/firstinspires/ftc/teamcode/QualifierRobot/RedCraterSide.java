@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import org.firstinspires.ftc.teamcode.AutonomousData;
 import org.firstinspires.ftc.teamcode.Hardware.QualBot_Hardware;
 
-@Autonomous(name="Red Crater Side", group=AutonomousData.OFFICIAL_GROUP)
+// @Autonomous(name="Red Crater Side", group=AutonomousData.OFFICIAL_GROUP)
 public class RedCraterSide extends LinearOpMode {
     private QualBot_Hardware hardware;
     private Auto auto;

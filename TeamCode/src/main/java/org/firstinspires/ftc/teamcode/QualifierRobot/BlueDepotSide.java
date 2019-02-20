@@ -7,7 +7,7 @@ import org.firstinspires.ftc.teamcode.AutonomousData;
 import org.firstinspires.ftc.teamcode.FieldMapping.FieldElement;
 import org.firstinspires.ftc.teamcode.Hardware.QualBot_Hardware;
 
-@Autonomous(name="Blue Depot Side", group=AutonomousData.OFFICIAL_GROUP)
+// @Autonomous(name="Blue Depot Side", group=AutonomousData.OFFICIAL_GROUP)
 public class BlueDepotSide extends LinearOpMode {
     private QualBot_Hardware hardware;
     private Auto auto;
