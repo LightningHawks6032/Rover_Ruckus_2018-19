@@ -26,7 +26,7 @@ public class StatesBot_Intake {
                      LEFT_FLIPPER_OUT_VAL = LEFT_FLIPPER_IN_VAL + FLIPPER_SERVO_DIFFERENCE;
 
 
-    public final int HORIZONTAL_SLIDE_MAX = 2800;
+    public final int HORIZONTAL_SLIDE_MAX = 3100;
     public final int HORIZONTAL_SLIDE_MIN = 0;
 
     public final double HARVESTER_POWER = 1.0;
@@ -40,7 +40,7 @@ public class StatesBot_Intake {
         leftFlipper = lFlip;
         rightFlipper = rFlip;
         horizontalSlide = hs;
-        slideEncoder = new Encoder(hs, AutonomousData.NEVEREST_20_ENCODER, 0);
+        slideEncoder = new Encoder(hs, AutonomousData.NEVEREST_20_ENCODER, 1.8);
 
         gamepad = manipsGamepad;
     }
@@ -124,13 +124,22 @@ public class StatesBot_Intake {
 
 
     //Auto functions
-
-    public void flipOut(){
+    public void extendHorizontalSlide(double fractionOfFull) {
+        slideEncoder.runToPosition();
+        slideEncoder.setEncoderTarget((int) (fractionOfFull * HORIZONTAL_SLIDE_MAX));
+        horizontalSlide.setPower(1);
+        while (horizontalSlide.isBusy() && autoRunning()) {
+            // WAIT - Motor is busy
+        }
+        horizontalSlide.setPower(0);
+        slideEncoder.runWithout();
+    }
+    public void flipOut() {
         leftFlipper.setPosition(LEFT_FLIPPER_OUT_VAL);
         rightFlipper.setPosition(RIGHT_FLIPPER_OUT_VAL);
     }
 
-    public void flipIn(){
+    public void flipIn() {
         leftFlipper.setPosition(LEFT_FLIPPER_IN_VAL);
         rightFlipper.setPosition(RIGHT_FLIPPER_IN_VAL);
     }
@@ -139,8 +148,8 @@ public class StatesBot_Intake {
     public void harvest() {
         harvester.setPower(HARVESTER_POWER);
     }
-    public void releaseMinerals(double seconds) throws InterruptedException {
-        harvester.setPower(-HARVESTER_POWER);
+    public void release(boolean minerals, double seconds) throws InterruptedException {
+        harvester.setPower(minerals ? -HARVESTER_POWER : -HARVESTER_POWER * 0.6);
         Thread.sleep((long) seconds * 1000);
         stopHarvesting();
     }
@@ -148,6 +157,8 @@ public class StatesBot_Intake {
         harvester.setPower(0);
     }
 
-
-
+    // Used to break all while loops when an opmode stops
+    private boolean autoRunning() {
+        return System.currentTimeMillis() - startTime <= AutonomousData.TIME_LIMIT && !autonomous.isStopRequested();
+    }
 }

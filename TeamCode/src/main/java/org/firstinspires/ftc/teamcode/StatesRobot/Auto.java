@@ -115,8 +115,7 @@ public class Auto {
         }
     }
 
-
-    public void landOnField(int quadrant) throws InterruptedException {
+    public void landOnField(int quadrant) {
         // Land on field
         hardware.outtake.verticalSlideUp();
 
@@ -126,7 +125,7 @@ public class Auto {
         hardware.drivetrain.setInitialRobotAngle(startAngle(quadrant));
 
         // Move away from lander
-        hardware.drivetrain.driveDistance(1, 8, 1);
+        hardware.drivetrain.driveDistance(1, 8, 0.6);
         hardware.outtake.verticalSlideDown();
     }
 

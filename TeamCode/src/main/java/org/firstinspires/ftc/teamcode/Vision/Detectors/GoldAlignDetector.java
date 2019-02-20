@@ -36,7 +36,7 @@ public class GoldAlignDetector extends DogeCVDetector {
 
     // Detector settings
     private int robotCenterX; // The x position in pixels of the center of the robot (find by placing gold mineral in front of robot at its center)
-    private int yMax; // The max y position of a mineral (for avoiding minerals in crater)
+    private int yBounds; // The bounded y position of a mineral (for avoiding minerals in crater)
     private boolean debugAlignment = true; // Show debug lines to show alignment settings
     private double alignSize; // How wide is the margin of error for alignment
     private boolean landscapeMode; // Is the phone using landscape mode
@@ -52,14 +52,14 @@ public class GoldAlignDetector extends DogeCVDetector {
     /**
      * Constructor builds a GoldAlignDetector by using the superclass
      * @param robotCenterX : the x position of the center of the robot
-     * @param ym : maximum y position of a mineral, ensuring it is in the sampling field and not in the crater
+     * @param yb : bounded y position of a mineral, ensuring it is in the sampling field and not in the crater
      * @param marginOfError : wideness of margin of error for alignment
      * @param landscape : boolean for whether we are using landscape mode
      */
-    public GoldAlignDetector(int robotCenterX, int ym, double marginOfError, boolean landscape, boolean leftSideBottom) {
+    public GoldAlignDetector(int robotCenterX, int yb, double marginOfError, boolean landscape, boolean leftSideBottom) {
         super();
         this.robotCenterX = robotCenterX;
-        yMax = ym;
+        yBounds = yb;
         alignSize = marginOfError;
         landscapeMode = landscape;
         this.leftSideBottom = leftSideBottom;
@@ -101,7 +101,8 @@ public class GoldAlignDetector extends DogeCVDetector {
                 rect = new Rect(boundingRect.x, boundingRect.y, boundingRect.width, boundingRect.height);
 
             // Set this rect as the new best if its score is better than the previous and it is not outside the y-max
-            if(score < bestDifference && rect.y < yMax) {
+            boolean rectWithinBounds = leftSideBottom ? rect.y < yBounds : rect.y > yBounds;
+            if (score < bestDifference && rectWithinBounds) {
                 bestDifference = score;
                 bestRect = rect;
             }
@@ -110,26 +111,29 @@ public class GoldAlignDetector extends DogeCVDetector {
         // Vars to calculate the alignment logic.
         double alignX = robotCenterX;
         double alignXMin = alignX - (alignSize / 2); // Min X Pos in pixels
-        double alignXMax = alignX +(alignSize / 2); // Max X pos in pixels
+        double alignXMax = alignX + (alignSize / 2); // Max X pos in pixels
         double xPos, yPos; // Current Gold X & Y Pos
 
-        if (bestRect != null && bestRect.y < yMax) {
-            // Show chosen result
-            Imgproc.rectangle(displayMat, bestRect.tl(), bestRect.br(), new Scalar(255,0,0), 4);
-            Imgproc.putText(displayMat, "Chosen", bestRect.tl(), 0,1, new Scalar(255,255,255));
+        //boolean rectWithinBounds = leftSideBottom ? bestRect.y < yBounds : bestRect.y > yBounds;
+        if (bestRect != null) {
+            if (leftSideBottom ? bestRect.y < yBounds : bestRect.y > yBounds) {
+                // Show chosen result
+                Imgproc.rectangle(displayMat, bestRect.tl(), bestRect.br(), new Scalar(255, 0, 0), 4);
+                Imgproc.putText(displayMat, "Chosen", bestRect.tl(), 0, 1, new Scalar(255, 255, 255));
 
-            // Set x and y pos
-            xPos = bestRect.x + (bestRect.width / 2);
-            yPos = bestRect.y + (bestRect.height / 2);
-            goldXPos = xPos;
-            goldYPos = leftSideBottom ? yPos : yPos;
+                // Set x and y pos
+                xPos = bestRect.x + (bestRect.width / 2);
+                yPos = bestRect.y + (bestRect.height / 2);
+                goldXPos = xPos;
+                goldYPos = yPos;
 
-            // Draw center point
-            Imgproc.circle(displayMat, new Point( xPos, bestRect.y + (bestRect.height / 2)), 5, new Scalar(0,255,0),2);
+                // Draw center point
+                Imgproc.circle(displayMat, new Point(xPos, bestRect.y + (bestRect.height / 2)), 5, new Scalar(0, 255, 0), 2);
 
-            // Check if the mineral is aligned
-            aligned = (xPos < alignXMax && xPos > alignXMin);
-            found = true;
+                // Check if the mineral is aligned
+                aligned = (xPos < alignXMax && xPos > alignXMin);
+                found = true;
+            }
         } else {
             found = false;
             aligned = false;

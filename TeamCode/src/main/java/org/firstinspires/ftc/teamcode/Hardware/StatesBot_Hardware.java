@@ -23,23 +23,15 @@ public class StatesBot_Hardware {
     public ModernRoboticsI2cRangeSensor rangeSensor;
     //public Servo markerArm;
 
-    // Servo constants
-    public final double MARKER_ARM_UP = 1,
-            MARKER_ARM_MIDDLE = 0.5,
-            MARKER_ARM_DOWN = 0;
-
-    // Drivetrain Wheel Diameter
-    private final double WHEEL_DIAMETER = 4.0;
-
     // Constants for phone position for nav targets *THESE WILL NEED TO CHANGE AS THEY ARE CURRENTLY PULLED FROM QUALBOT*
-    private final double CAMERA_FORWARD_POSITION = 7.5, // eg: Camera is 0 inches in front of robot center
+    private final double CAMERA_FORWARD_POSITION = 3.5, // eg: Camera is 0 inches in front of robot center
             CAMERA_LEFT_POSITION = 0; // eg: Camera is 0 inches left of the robot's center line
 
     // X-position pixel value for center of robot (for mineral sampling)
     private final int ROBOT_CENTER_X = 225;
 
     // Range Sensor Distance from Robot Center (inches)
-    public final int RANGE_SENSOR_DISPLACEMENT = 5;
+    public final int RANGE_SENSOR_DISPLACEMENT = 7;
 
 
     public StatesBot_Hardware(HardwareMap hardwareMap, Gamepad driveGamepad, Gamepad manipsGamepad, boolean calibrateSensors) {
