@@ -19,14 +19,14 @@ public class StatesBot_Outtake implements RobotHardware {
     private Gamepad gamepad;
 
     // Servo constants
-    public final double DUMPER_SERVO_DIFFERENCE = 0.7;
-    public final double RIGHT_DUMPER_IN = 0.175,
+    public final double DUMPER_SERVO_DIFFERENCE = 0.6;
+    public final double RIGHT_DUMPER_IN = 0.45,
             RIGHT_DUMPER_OUT = RIGHT_DUMPER_IN + DUMPER_SERVO_DIFFERENCE,
-            LEFT_DUMPER_IN = 0.8,
+            LEFT_DUMPER_IN = 0.65,
             LEFT_DUMPER_OUT = LEFT_DUMPER_IN - DUMPER_SERVO_DIFFERENCE;
 
     // Encoder constants (encoder setup happens at beginning of autonomous)
-    public final int VERTICAL_SLIDE_MAX = 3470;
+    public final int VERTICAL_SLIDE_MAX = 2900;
     public final int VERTICAL_SLIDE_MIN = 0;
     public final int HANG_ENCODER_VAL = 2520;
 

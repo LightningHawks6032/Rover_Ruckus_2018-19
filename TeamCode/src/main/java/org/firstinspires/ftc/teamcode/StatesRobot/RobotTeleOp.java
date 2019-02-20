@@ -30,6 +30,10 @@ public class RobotTeleOp extends OpMode {
         telemetry.addData("Right Front Dist", hardware.drivetrain.rightFrontEncoder.linDistance());
         telemetry.addData("Left Back Dist", hardware.drivetrain.leftBackEncoder.linDistance());
         telemetry.addData("Right Back Dist", hardware.drivetrain.rightBackEncoder.linDistance());
+        telemetry.addData("LEFT Intake Servo", hardware.intake.leftFlipper.getPosition());
+        telemetry.addData("RIGHT Intake Servo", hardware.intake.rightFlipper.getPosition());
+        telemetry.addData("LEFT Outtake Servo", hardware.outtake.leftDumper.getPosition());
+        telemetry.addData("RIGHT Outtake Servo", hardware.outtake.rightDumper.getPosition());
         telemetry.update();
     }
 

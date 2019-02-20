@@ -10,20 +10,22 @@ import com.qualcomm.robotcore.hardware.Servo;
 import org.firstinspires.ftc.teamcode.AutonomousData;
 
 public class StatesBot_Intake {
-    //Hardware Components
+    // Hardware Components
     public DcMotor harvester;
     public Servo leftFlipper;
     public Servo rightFlipper;
     public DcMotor horizontalSlide;
     public Encoder slideEncoder;
-
     private Gamepad gamepad;
 
-    //Positions for flipping and sliding
-    public final int RIGHT_FLIPPER_IN_VAL = 1, //guesstimation
-    RIGHT_FLIPPER_OUT_VAL = 0, //guesstimation
-    LEFT_FLIPPER_IN_VAL = 0, //guesstimation
-    LEFT_FLIPPER_OUT_VAL = 1; //guesstimation
+    // Positions for flipping and sliding
+    public final double FLIPPER_SERVO_DIFFERENCE = 0.8;
+    public final double RIGHT_FLIPPER_IN_VAL = 0.9,
+                     RIGHT_FLIPPER_OUT_VAL = RIGHT_FLIPPER_IN_VAL - FLIPPER_SERVO_DIFFERENCE,
+                     LEFT_FLIPPER_IN_VAL = 0.1,
+                     LEFT_FLIPPER_OUT_VAL = LEFT_FLIPPER_IN_VAL + FLIPPER_SERVO_DIFFERENCE;
+
+
     public final int HORIZONTAL_SLIDE_MAX = 2800;
     public final int HORIZONTAL_SLIDE_MIN = 0;
 
@@ -33,7 +35,7 @@ public class StatesBot_Intake {
     private LinearOpMode autonomous = null; // stays null unless used in an auto
     private long startTime;
 
-    protected StatesBot_Intake(DcMotor harvest, Servo rFlip, Servo lFlip, DcMotor hs, Gamepad manipsGamepad) {
+    protected StatesBot_Intake(DcMotor harvest, Servo lFlip, Servo rFlip, DcMotor hs, Gamepad manipsGamepad) {
         harvester = harvest;
         leftFlipper = lFlip;
         rightFlipper = rFlip;
@@ -45,8 +47,11 @@ public class StatesBot_Intake {
 
     public void initHardware() {
         harvester.setDirection(DcMotor.Direction.FORWARD);
-        horizontalSlide.setDirection(DcMotor.Direction.REVERSE);
+        horizontalSlide.setDirection(DcMotor.Direction.FORWARD);
+        horizontalSlide.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         slideEncoder.runWith();
+        leftFlipper.setPosition(LEFT_FLIPPER_IN_VAL);
+        rightFlipper.setPosition(RIGHT_FLIPPER_IN_VAL);
     }
 
     public void setStartTime(long time) {
@@ -89,7 +94,7 @@ public class StatesBot_Intake {
         if (flippingIn) {
             leftFlipper.setPosition(LEFT_FLIPPER_IN_VAL);
             rightFlipper.setPosition(RIGHT_FLIPPER_IN_VAL);
-        }else {
+        } else {
             rightFlipper.setPosition(RIGHT_FLIPPER_OUT_VAL);
             leftFlipper.setPosition(LEFT_FLIPPER_OUT_VAL);
 

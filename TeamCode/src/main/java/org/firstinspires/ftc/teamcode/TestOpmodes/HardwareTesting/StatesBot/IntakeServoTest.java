@@ -12,12 +12,12 @@ public class IntakeServoTest extends OpMode {
     private ServoTester flipperRight;
 
     public void init() {
-        flipperLeft = new ServoTester(this, hardwareMap.get(Servo.class, "flip"), "Left Intake Flipper", gamepad1);
-        flipperRight = new ServoTester(this, hardwareMap.get(Servo.class, "flip"), "Right Intake Flipper", gamepad2);
+        //flipperLeft = new ServoTester(this, hardwareMap.get(Servo.class, "lflip"), "Left Intake Flipper", gamepad1);
+        flipperRight = new ServoTester(this, hardwareMap.get(Servo.class, "rflip"), "Right Intake Flipper", gamepad2);
     }
 
     public void loop() {
-        flipperLeft.run();
+        //flipperLeft.run();
         flipperRight.run();
         telemetry.update();
     }

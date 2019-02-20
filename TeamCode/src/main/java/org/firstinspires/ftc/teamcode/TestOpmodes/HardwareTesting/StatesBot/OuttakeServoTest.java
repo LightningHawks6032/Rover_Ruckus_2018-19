@@ -13,12 +13,12 @@ public class OuttakeServoTest extends OpMode {
 
     public void init() {
         leftServo = new ServoTester(this, hardwareMap.get(Servo.class, "lsv"), "Left Outtake Servo", gamepad1);
-        rightServo = new ServoTester(this, hardwareMap.get(Servo.class, "rsv"), "Right Outtake Servo", gamepad2);
+        //rightServo = new ServoTester(this, hardwareMap.get(Servo.class, "rsv"), "Right Outtake Servo", gamepad2);
     }
 
     public void loop() {
         leftServo.run();
-        rightServo.run();
+        //rightServo.run();
         telemetry.update();
     }
 }

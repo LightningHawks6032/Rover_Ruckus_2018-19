@@ -29,7 +29,7 @@ public class MecanumWheelDrive implements RobotHardware {
     private double initialRobotAngle; // Manually-set robot angle when the robot first hits the floor
 
     private int wheelDiameter = 4;
-    private double boost = .5;
+    private double boost = 0.5;
 
     // AUTO BASED VARIABLES
     private LinearOpMode autonomous = null; // stays null unless used in an auto
@@ -72,9 +72,9 @@ public class MecanumWheelDrive implements RobotHardware {
 
     public void initHardware() {
         leftFront.setDirection(DcMotorSimple.Direction.FORWARD);
-        rightFront.setDirection(DcMotorSimple.Direction.FORWARD);
+        rightFront.setDirection(DcMotorSimple.Direction.REVERSE);
         leftBack.setDirection(DcMotorSimple.Direction.FORWARD);
-        rightBack.setDirection(DcMotorSimple.Direction.FORWARD);
+        rightBack.setDirection(DcMotorSimple.Direction.REVERSE);
         encoderSetup();
     }
 
@@ -120,6 +120,8 @@ public class MecanumWheelDrive implements RobotHardware {
                 manageStrafing(true);
             } else if (gamepad.left_trigger > 0) {
                 manageStrafing(false);
+            } else {
+                setPowers(0, 0, 0, 0);
             }
         } else {
             if (gamepad.right_trigger > 0) {
@@ -130,15 +132,17 @@ public class MecanumWheelDrive implements RobotHardware {
                 setPowers(-gamepad.left_stick_y * boost, -gamepad.right_stick_y * boost, -gamepad.left_stick_y * boost, -gamepad.right_stick_y * boost);
             }
         }
+
+        applyBoost();
     }
 
     private void manageStrafing(boolean right) {
         double pow;
         if (right) {
-            pow = gamepad.right_trigger;
+            pow = gamepad.right_trigger * boost;
             setPowers(pow, -pow, -pow, pow);
         } else {
-            pow = gamepad.left_trigger;
+            pow = gamepad.left_trigger * boost;
             setPowers(-pow, pow, pow, -pow);
         }
     }
@@ -146,13 +150,13 @@ public class MecanumWheelDrive implements RobotHardware {
     private void manageDiagonalStrafing(boolean right) {
         double pow;
         if (right) {
-            pow = -gamepad.right_stick_y;
+            pow = -gamepad.right_stick_y * boost;
             if (pow > 0)
                 setPowers(pow, 0, 0, pow);
             else
                 setPowers(0, -pow, -pow, 0);
         } else {
-            pow = -gamepad.left_stick_y;
+            pow = -gamepad.left_stick_y * boost;
             if (pow > 0)
                 setPowers(0, pow, pow, 0);
             else
@@ -160,7 +164,7 @@ public class MecanumWheelDrive implements RobotHardware {
         }
     }
 
-    private void applyBoost(){
+    private void applyBoost() {
         if(gamepad.left_bumper){
             boost = 0.5;
         }
