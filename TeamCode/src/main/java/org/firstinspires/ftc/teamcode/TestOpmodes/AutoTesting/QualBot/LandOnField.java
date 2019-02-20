@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.TestOpmodes.AutoTesting;
+package org.firstinspires.ftc.teamcode.TestOpmodes.AutoTesting.QualBot;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 

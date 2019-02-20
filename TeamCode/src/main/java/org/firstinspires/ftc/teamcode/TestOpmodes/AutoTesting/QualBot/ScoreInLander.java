@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.TestOpmodes.AutoTesting;
+package org.firstinspires.ftc.teamcode.TestOpmodes.AutoTesting.QualBot;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -7,7 +7,7 @@ import org.firstinspires.ftc.teamcode.AutonomousData;
 import org.firstinspires.ftc.teamcode.Hardware.QualBot_Hardware;
 import org.firstinspires.ftc.teamcode.QualifierRobot.Auto;
 
-@Autonomous(name="Scoring in Lander", group=AutonomousData.TEST_GROUP)
+// @Autonomous(name="Scoring in Lander", group=AutonomousData.TEST_GROUP)
 public class ScoreInLander extends LinearOpMode {
     private QualBot_Hardware hardware;
     private Auto auto;

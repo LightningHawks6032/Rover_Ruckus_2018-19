@@ -2,7 +2,7 @@
  * This tests multiple different turn functions. Each turn algorithm models power with respect to proportion of turn completed or degrees left.
  */
 
-package org.firstinspires.ftc.teamcode.TestOpmodes.AutoTesting;
+package org.firstinspires.ftc.teamcode.TestOpmodes.AutoTesting.QualBot;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
