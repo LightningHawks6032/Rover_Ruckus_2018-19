@@ -193,7 +193,7 @@ public class MecanumWheelDrive implements RobotHardware {
      * @param distance : linear distance in inches for the robot to drive over
      * @param pow : constant power at which the robot drives
      */
-    public void driveDistance(int direction, double distance, double pow) {
+    public void driveDistance(int direction, double distance, double pow) throws InterruptedException {
         resetEncoders();
         runEncodersToPosition();
 
@@ -219,7 +219,7 @@ public class MecanumWheelDrive implements RobotHardware {
      * @param distance : linear distance in inches for the robot to strafe over
      * @param pow : constant power at which the robot strafes
      */
-    public void strafeDistance(int direction, double distance, double pow) {
+    public void strafeDistance(int direction, double distance, double pow) throws InterruptedException {
         resetEncoders();
         runEncodersToPosition();
 
@@ -243,14 +243,14 @@ public class MecanumWheelDrive implements RobotHardware {
     public void strafeForTime(double pow, double seconds) throws InterruptedException {
         encoderSetup();
         setPowers(pow, -pow, -pow, pow);
-        autonomous.sleep((long) seconds * 1000);
+        Thread.sleep((long) seconds * 1000);
         setPowers(0, 0, 0, 0);
     }
 
     public void goTo(Vector location, double pow) throws InterruptedException {
         face(location); // Turn to face location
         driveDistance(1, location.distanceFrom(robotPos), pow); // Drive to location
-        updatePosFromEncoders();
+        updatePosAfterDrive(1);
         updateAngleFromIMU();
     }
 
@@ -258,14 +258,14 @@ public class MecanumWheelDrive implements RobotHardware {
      * Robot turns to face certain location on field
      * @param location : Vector position of the location, use field map
      */
-    public void face(Vector location) {
+    public void face(Vector location) throws InterruptedException {
         double radiansToTurn = Math.atan2(location.getY() - robotPos.getY(), location.getX() - robotPos.getX());
         int theta = (int) MRGyro.convertToDegrees(radiansToTurn);
 
         faceAngle(theta);
     }
 
-    public void face(FieldElement element) {
+    public void face(FieldElement element) throws InterruptedException {
         face(AutonomousData.FIELD_MAP.get(element));
     }
 
@@ -275,7 +275,7 @@ public class MecanumWheelDrive implements RobotHardware {
      * @param degrees : the amount of degrees to turn
      * @param right : if true, we turn right; if false, we turn left
      */
-    public void turn(int degrees, boolean right) {
+    public void turn(int degrees, boolean right) throws InterruptedException {
         gyro.zero();
         encoderSetup();
 
@@ -285,8 +285,8 @@ public class MecanumWheelDrive implements RobotHardware {
         double prop; // proportion of angle completed
 
         while (currAngle < degrees && autoRunning()) {
-            prop = (double) currAngle / degrees;
-            pow = startPow * Math.pow(prop - 1, 2);
+            prop = (double) (degrees - currAngle) / 90;/*currAngle / degrees;*/
+            pow = startPow * prop + 0.1;/*Math.pow(prop - 1, 2);*/
 
             // Apply power to motors and update currAngle
             if (right)
@@ -301,20 +301,7 @@ public class MecanumWheelDrive implements RobotHardware {
         updateAngleFromIMU();
     }
 
-    // Positional Updating Methods
-    public void updatePosFromEncoders() {
-        int tempRobotAngle = robotAngle > 180 ? -(360 - (int) Math.round(robotAngle)) : (int) Math.round(robotAngle);
-        double theta = MRGyro.convertToRadians(tempRobotAngle);
-        double dist = (leftFrontEncoder.linDistance() + leftBackEncoder.linDistance() + rightFrontEncoder.linDistance() + rightBackEncoder.linDistance()) / 4; // Distance travelled according to encoders
-        setRobotPos(robotPos.sum(new Vector(dist * Math.cos(theta), dist * Math.sin(theta))));
-        leftBackEncoder.reset();
-        rightBackEncoder.reset();
-        leftFrontEncoder.reset();
-        rightFrontEncoder.reset();
-    }
-
-
-    public void faceAngle(int theta) {
+    public void faceAngle(int theta) throws InterruptedException {
         updateAngleFromIMU();
 
         // Determine what angle to turn
@@ -353,9 +340,11 @@ public class MecanumWheelDrive implements RobotHardware {
         setRobotPos(diagonal ? newVec.scale(Math.sqrt(2)) : newVec);
         resetEncoders();
     }
-    public void updateAngleFromIMU() {
-        autonomous.sleep(200);
+    public void updateAngleFromIMU() throws InterruptedException {
+        Thread.sleep(200);
         setRobotAngle((360 + initialRobotAngle - (imu.getHeading() - initialIMUHeading)) % 360);
+        autonomous.telemetry.addData("Angle", robotAngle);
+        autonomous.telemetry.update();
     }
 
 

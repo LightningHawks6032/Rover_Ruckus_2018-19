@@ -31,7 +31,7 @@ public class StatesBot_Hardware {
     private final int ROBOT_CENTER_X = 225;
 
     // Range Sensor Distance from Robot Center (inches)
-    public final int RANGE_SENSOR_DISPLACEMENT = 7;
+    public final int RANGE_SENSOR_DISPLACEMENT = 2;
 
 
     public StatesBot_Hardware(HardwareMap hardwareMap, Gamepad driveGamepad, Gamepad manipsGamepad, boolean calibrateSensors) {
@@ -61,7 +61,7 @@ public class StatesBot_Hardware {
         mineralDetector = new GoldAlignDetector(ROBOT_CENTER_X, 160, 300, true, false);
         navTargetDetector = new NavTargetDetector(hardwareMap, CAMERA_FORWARD_POSITION, CAMERA_LEFT_POSITION);
         rangeSensor = hardwareMap.get(ModernRoboticsI2cRangeSensor.class, "rs");
-        rangeSensor.setI2cAddress(I2cAddr.create8bit(0x1c));
+        rangeSensor.setI2cAddress(I2cAddr.create8bit(0x10)); // previously used 8bit
     }
 
     public void initHardware() {
@@ -69,6 +69,5 @@ public class StatesBot_Hardware {
         drivetrain.initHardware();
         intake.initHardware();
         outtake.initHardware();
-        //markerArm.setPosition(MARKER_ARM_UP);
     }
 }

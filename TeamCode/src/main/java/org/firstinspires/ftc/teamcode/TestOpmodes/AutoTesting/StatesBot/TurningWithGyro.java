@@ -19,40 +19,73 @@ public class TurningWithGyro extends LinearOpMode {
         hardware.initHardware();
         drivetrain = hardware.drivetrain;
         waitForStart();
-        turn(90, true, 1);
         turn(90, true, 2);
-        turn(20, true, 1);
+        turnDegreesLeft(90, true);
         turn(20, true, 2);
-        turn(20, true, 3);
+        turnDegreesLeft(20, true);
     }
 
     public void turn(int degrees, boolean right, int polynomialDegree) {
-        hardware.drivetrain.gyro.zero();
-        hardware.drivetrain.encoderSetup();
+        drivetrain.gyro.zero();
+        drivetrain.encoderSetup();
 
-        int currAngle = Math.abs(hardware.drivetrain.gyro.getAngle()); // Use getAngle() because it returns angle robot has turned from origin
+        int currAngle = Math.abs(drivetrain.gyro.getAngle()); // Use getAngle() because it returns angle robot has turned from origin
         double startPow = 1;
         double pow; // power applied to motors
         double prop; // proportion of angle completed
         int powSign = polynomialDegree % 2 == 0 ? 1 : -1;
 
         telemetry.addData("Degrees to turn", degrees);
+        telemetry.addData("Polynomial Degree", polynomialDegree);
         telemetry.update();
 
         while (currAngle < degrees) {
             prop = (double) currAngle / degrees;
-            pow = powSign * startPow * Math.pow(prop - 1, polynomialDegree);
+            pow = powSign * startPow * Math.pow(prop - 1, polynomialDegree) + 0.1;
 
             // Apply power to motors and update currAngle
             if (right)
-                hardware.drivetrain.setPowers(pow, -pow, pow, -pow);
+                drivetrain.setPowers(pow, -pow, pow, -pow);
             else
-                hardware.drivetrain.setPowers(-pow, pow, -pow, pow);
-            currAngle = Math.abs(hardware.drivetrain.gyro.getAngle());
+                drivetrain.setPowers(-pow, pow, -pow, pow);
+            currAngle = Math.abs(drivetrain.gyro.getAngle());
         }
-        hardware.drivetrain.setPowers(0, 0, 0, 0);
+        drivetrain.setPowers(0, 0, 0, 0);
 
-        telemetry.addData("Angle Turned", hardware.drivetrain.gyro.getAngle());
+        telemetry.addData("Angle Turned", drivetrain.gyro.getAngle());
         telemetry.update();
+
+        sleep(10000);
+    }
+
+    public void turnDegreesLeft(int degrees, boolean right) {
+        drivetrain.gyro.zero();
+        drivetrain.encoderSetup();
+
+        int currAngle = Math.abs(drivetrain.gyro.getAngle()); // Use getAngle() because it returns angle robot has turned from origin
+        double startPow = 1;
+        double pow; // power applied to motors
+        double prop; // proportion of angle completed
+
+        telemetry.addData("Degrees to turn w/ degrees left", degrees);
+        telemetry.update();
+
+        while (currAngle < degrees) {
+            prop = (double) (degrees - currAngle) / 90;
+            pow = startPow * prop;
+
+            // Apply power to motors and update currAngle
+            if (right)
+                drivetrain.setPowers(pow, -pow, pow, -pow);
+            else
+                drivetrain.setPowers(-pow, pow, -pow, pow);
+            currAngle = Math.abs(drivetrain.gyro.getAngle());
+        }
+        drivetrain.setPowers(0, 0, 0, 0);
+
+        telemetry.addData("Angle Turned", drivetrain.gyro.getAngle());
+        telemetry.update();
+
+        sleep(10000);
     }
 }

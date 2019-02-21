@@ -9,12 +9,12 @@ import org.firstinspires.ftc.teamcode.Hardware.QualBot_Hardware;
 import org.firstinspires.ftc.teamcode.Hardware.StatesBot_Hardware;
 import org.firstinspires.ftc.teamcode.StatesRobot.Auto;
 
-@Autonomous(name="Red Depot Side", group= AutonomousData.OFFICIAL_GROUP)
-public class RedDepotSide extends LinearOpMode {
+@Autonomous(name="Blue Depot Side", group= AutonomousData.OFFICIAL_GROUP)
+public class BlueDepotSide extends LinearOpMode {
     private StatesBot_Hardware hardware;
     private Auto auto;
-    private final int QUADRANT = 4;
-    private final int ALLIANCE = AutonomousData.RED_ALLIANCE;
+    private final int QUADRANT = 2;
+    private final int ALLIANCE = AutonomousData.BLUE_ALLIANCE;
 
     public void runOpMode() throws InterruptedException {
         hardware = new StatesBot_Hardware(hardwareMap, gamepad1, gamepad2, true);
@@ -38,9 +38,9 @@ public class RedDepotSide extends LinearOpMode {
 
         hardware.drivetrain.driveDistance(1, 6, 0.6);
         hardware.drivetrain.updatePosAfterDrive(1);
-        hardware.drivetrain.goTo(AutonomousData.FIELD_MAP.get(FieldElement.FRONT_OF_FRONT_CRATERS), 0.6);
-        hardware.drivetrain.faceAngle(90);
-        hardware.drivetrain.faceAngle(90);
+        hardware.drivetrain.goTo(AutonomousData.FIELD_MAP.get(FieldElement.FRONT_OF_BACK_SPACE), 0.6);
+        hardware.drivetrain.faceAngle(-90);
+        hardware.drivetrain.faceAngle(-90);
         hardware.intake.extendHorizontalSlide(0.7);
 
     }

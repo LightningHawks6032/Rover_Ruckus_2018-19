@@ -145,28 +145,41 @@ public class StatesBot_Intake {
         slideEncoder.runWithout();
 
     }
+    public void retractHorizontalSlide() {
+        slideEncoder.runToPosition();
+        slideEncoder.setEncoderTarget(0);
+        horizontalSlide.setPower(-1);
+        while (horizontalSlide.isBusy() && autoRunning()) {
+            // WAIT - Motor is busy
+        }
+        horizontalSlide.setPower(0);
+        slideEncoder.runWithout();
+    }
 
-    public void flipOut() throws InterruptedException {
+    public void flipOut(boolean sleep) throws InterruptedException {
         leftFlipper.setPosition(LEFT_FLIPPER_OUT_VAL);
         rightFlipper.setPosition(RIGHT_FLIPPER_OUT_VAL);
-        Thread.sleep(700);
+        if (sleep) Thread.sleep(700);
     }
-    public void flipIn() throws InterruptedException {
+    public void flipIn(boolean sleep) throws InterruptedException {
         leftFlipper.setPosition(LEFT_FLIPPER_IN_VAL);
         rightFlipper.setPosition(RIGHT_FLIPPER_IN_VAL);
-        Thread.sleep(700);
+        if (sleep) Thread.sleep(700);
     }
 
     // Harvesting in autonomous
     public void harvest() {
         harvester.setPower(HARVESTER_POWER);
     }
-    public void release(boolean minerals, double seconds) throws InterruptedException {
+    public void releaseForTime(boolean minerals, double seconds) throws InterruptedException {
         harvester.setPower(minerals ? -HARVESTER_POWER : -HARVESTER_POWER * 0.6);
         Thread.sleep((long) seconds * 1000);
-        stopHarvesting();
+        stopHarvester();
     }
-    public void stopHarvesting() {
+    public void release() {
+        harvester.setPower(-HARVESTER_POWER);
+    }
+    public void stopHarvester() {
         harvester.setPower(0);
     }
 
