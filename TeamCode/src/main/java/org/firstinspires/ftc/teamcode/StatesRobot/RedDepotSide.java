@@ -33,7 +33,7 @@ public class RedDepotSide extends LinearOpMode {
 
         hardware.intake.extendHorizontalSlide(1);
         hardware.intake.flipOut();
-        //sleep(700);
+        sleep(700);
         hardware.intake.release(false, 1.0);
         auto.setStartPosition(QUADRANT);
 

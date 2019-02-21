@@ -82,7 +82,7 @@ public class MecanumWheelDrive implements RobotHardware {
         encoderSetup();
     }
 
-    private void encoderSetup() {
+    public void encoderSetup() {
         leftFrontEncoder.setup();
         rightFrontEncoder.setup();
         leftBackEncoder.setup();
@@ -286,7 +286,7 @@ public class MecanumWheelDrive implements RobotHardware {
 
         while (currAngle < degrees && autoRunning()) {
             prop = (double) currAngle / degrees;
-            pow = -startPow * Math.pow(prop - 1, 3);
+            pow = startPow * Math.pow(prop - 1, 2);
 
             // Apply power to motors and update currAngle
             if (right)

@@ -121,9 +121,8 @@ public class StatesBot_Intake {
 
     }
 
+    /** AUTONOMOUS FUNCTIONS **/
 
-
-    //Auto functions
     public void extendHorizontalSlide(double fractionOfFull) {
         slideEncoder.runToPosition();
         slideEncoder.setEncoderTarget((int) (fractionOfFull * HORIZONTAL_SLIDE_MAX));
@@ -134,14 +133,28 @@ public class StatesBot_Intake {
         horizontalSlide.setPower(0);
         slideEncoder.runWithout();
     }
-    public void flipOut() {
-        leftFlipper.setPosition(LEFT_FLIPPER_OUT_VAL);
-        rightFlipper.setPosition(RIGHT_FLIPPER_OUT_VAL);
+    public void runSlideTo(double distance) {
+        double currDist = slideEncoder.linDistance();
+        slideEncoder.runToPosition();
+        slideEncoder.setTarget(distance);
+        horizontalSlide.setPower(currDist > distance ? -1 : 1);
+        while (horizontalSlide.isBusy() && autoRunning()) {
+            // WAIT - Motor is busy
+        }
+        horizontalSlide.setPower(0);
+        slideEncoder.runWithout();
+
     }
 
-    public void flipIn() {
+    public void flipOut() throws InterruptedException {
+        leftFlipper.setPosition(LEFT_FLIPPER_OUT_VAL);
+        rightFlipper.setPosition(RIGHT_FLIPPER_OUT_VAL);
+        Thread.sleep(700);
+    }
+    public void flipIn() throws InterruptedException {
         leftFlipper.setPosition(LEFT_FLIPPER_IN_VAL);
         rightFlipper.setPosition(RIGHT_FLIPPER_IN_VAL);
+        Thread.sleep(700);
     }
 
     // Harvesting in autonomous
