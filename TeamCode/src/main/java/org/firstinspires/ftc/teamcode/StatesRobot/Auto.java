@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.StatesRobot;
 
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
@@ -278,12 +279,31 @@ public class Auto {
     public void scoreInLander(int quadrant) throws InterruptedException {
         hardware.intake.release();
         hardware.drivetrain.faceAngle(startTheta(quadrant));
-        //backupToLander(5);
         hardware.drivetrain.driveDistance(-1, 3, 0.6);
         hardware.intake.stopHarvester();
         hardware.outtake.verticalSlideUp();
         hardware.outtake.dump();
         hardware.outtake.verticalSlideDown();
+        hardware.drivetrain.driveDistance(1, 6, 0.6);
+        hardware.drivetrain.updatePosAfterDrive(1);
+    }
+
+    public void parkInCraterFromLander(int alliance, boolean ourCrater) throws InterruptedException {
+        FieldElement navTarget; // Nav Target robot should drive towards
+        int thetaFace; // Angle the robot should face after reaching crater to extend horizontal slide
+        if (alliance == AutonomousData.RED_ALLIANCE) {
+            navTarget = ourCrater ? FieldElement.FRONT_OF_RED_FOOTPRINT : FieldElement.FRONT_OF_FRONT_CRATERS;
+            thetaFace = ourCrater ? 180 : 90;
+        }
+        else {
+            navTarget = ourCrater ? FieldElement.FRONT_OF_BLUE_ROVER : FieldElement.FRONT_OF_BACK_SPACE;
+            thetaFace = ourCrater ? 0 : -90;
+        }
+
+        hardware.drivetrain.goTo(fieldMap.get(navTarget), 0.6);
+        hardware.drivetrain.faceAngle(thetaFace);
+        hardware.drivetrain.faceAngle(thetaFace);
+        hardware.intake.extendHorizontalSlide(0.7);
     }
 
     /**

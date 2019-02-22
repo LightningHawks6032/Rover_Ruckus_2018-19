@@ -35,13 +35,7 @@ public class BlueDepotSide extends LinearOpMode {
         auto.releaseMarkerWithSlide();
         auto.sampleWithSlide(goldPos, QUADRANT, false);
         auto.scoreInLander(QUADRANT);
-
-        hardware.drivetrain.driveDistance(1, 6, 0.6);
-        hardware.drivetrain.updatePosAfterDrive(1);
-        hardware.drivetrain.goTo(AutonomousData.FIELD_MAP.get(FieldElement.FRONT_OF_BACK_SPACE), 0.6);
-        hardware.drivetrain.faceAngle(-90);
-        hardware.drivetrain.faceAngle(-90);
-        hardware.intake.extendHorizontalSlide(0.7);
+        auto.parkInCraterFromLander(ALLIANCE, false);
 
     }
 }
