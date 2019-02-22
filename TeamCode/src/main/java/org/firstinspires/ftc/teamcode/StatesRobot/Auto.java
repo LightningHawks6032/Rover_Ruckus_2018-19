@@ -60,7 +60,7 @@ public class Auto {
 
     // Sets up the starting position of the robot after it has landed and oriented itself on field
     public void setStartPosition(int quadrant) throws InterruptedException {
-        hardware.drivetrain.faceAngle(startTheta(quadrant));
+        //hardware.drivetrain.faceAngle(startTheta(quadrant));
 
         double distFromLander = hardware.rangeSensor.getDistance(DistanceUnit.INCH);
         double defaultOffset = 15;
@@ -145,12 +145,23 @@ public class Auto {
         //hardware.outtake.verticalSlideDown();
     }
 
-    public void lowerAndExtend() {
+    /**
+     * Lowers vertical slide while extending the horizontal slide. If vertical slide is not fully extended by end, the method lowers the rest of the slide.
+     * @param hsTarget : The encoder or linear distance target for the horizontal slide
+     * @param linDistance : true if the hsTarget represents a linear distance, false if it represents encoder ticks
+     */
+    public void lowerAndExtend(double hsTarget, boolean linDistance) {
         StatesBot_Intake i = hardware.intake;
         StatesBot_Outtake o = hardware.outtake;
         i.slideEncoder.runToPosition();
-        i.slideEncoder.setEncoderTarget(i.HORIZONTAL_SLIDE_MAX);
-        i.horizontalSlide.setPower(1);
+        if (linDistance) {
+            i.slideEncoder.setTarget(hsTarget);
+            i.horizontalSlide.setPower(i.slideEncoder.linDistance() > hsTarget ? -1 : 1);
+        }
+        else {
+            i.slideEncoder.setEncoderTarget((int) hsTarget);
+            i.horizontalSlide.setPower(i.slideEncoder.getEncoderCount() > hsTarget ? -1 : 1);
+        }
         while (i.horizontalSlide.isBusy() && autoRunning()) {
             // WAIT - Motor is busy
             int vertEncoder = (o.leftVertEncoder.getEncoderCount() + o.rightVertEncoder.getEncoderCount()) / 2;
@@ -172,9 +183,10 @@ public class Auto {
      * @param goldPos : the position of the gold mineral determined while the robot is hanging at beginning of autonomous
      * @param quadrant : the quadrant where the mineral sampling happens (1-4)
      * @param reverse : true if robot back is to lander, false if robot front is to lander
+     * @param intake : true if the robot should intake the gold mineral (depot side), false otherwise (crater side)
      * @throws InterruptedException
      */
-    public void sampleWithSlide(int goldPos, int quadrant, boolean reverse) throws InterruptedException {
+    public void sampleWithSlide(int goldPos, int quadrant, boolean reverse, boolean intake) throws InterruptedException {
         // Generates minerals to choose from
         FieldElement[] minerals = samplingField(quadrant, reverse);
 
@@ -191,11 +203,14 @@ public class Auto {
         }
 
         distFromMineral = fieldMap.get(chosenMineral).distanceFrom(startPos) - 10;
-        hardware.intake.runSlideTo(0.3 * distFromMineral);
+        if (intake) hardware.intake.runSlideTo(0.3 * distFromMineral);
         hardware.drivetrain.face(fieldMap.get(chosenMineral));
         hardware.intake.flipOut(true);
-        hardware.intake.harvest();
-        hardware.intake.runSlideTo(1.1 * distFromMineral);
+        if (intake) hardware.intake.harvest();
+        if (intake)
+            hardware.intake.runSlideTo(distFromMineral);
+        else
+            lowerAndExtend( 0.7 * distFromMineral, true);
         hardware.intake.stopHarvester();
         hardware.intake.flipIn(false);
         hardware.intake.retractHorizontalSlide();
@@ -269,8 +284,11 @@ public class Auto {
         return minerals;
     }
 
-    public void releaseMarkerWithSlide() throws InterruptedException {
-        lowerAndExtend();
+    public void releaseMarkerWithSlide(boolean craterSide) throws InterruptedException {
+        if (craterSide)
+            hardware.intake.extendHorizontalSlide(1);
+        else
+            lowerAndExtend(hardware.intake.HORIZONTAL_SLIDE_MAX, false);
         hardware.intake.flipOut(true);
         hardware.intake.releaseForTime(false, 1.0);
         hardware.intake.flipIn(false);
@@ -284,11 +302,12 @@ public class Auto {
         hardware.outtake.verticalSlideUp();
         hardware.outtake.dump();
         hardware.outtake.verticalSlideDown();
-        hardware.drivetrain.driveDistance(1, 6, 0.6);
-        hardware.drivetrain.updatePosAfterDrive(1);
     }
 
     public void parkInCraterFromLander(int alliance, boolean ourCrater) throws InterruptedException {
+        hardware.drivetrain.driveDistance(1, 6, 0.6);
+        hardware.drivetrain.updatePosAfterDrive(1);
+
         FieldElement navTarget; // Nav Target robot should drive towards
         int thetaFace; // Angle the robot should face after reaching crater to extend horizontal slide
         if (alliance == AutonomousData.RED_ALLIANCE) {

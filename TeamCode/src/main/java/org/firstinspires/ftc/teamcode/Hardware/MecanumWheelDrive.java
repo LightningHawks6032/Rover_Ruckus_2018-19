@@ -253,6 +253,16 @@ public class MecanumWheelDrive implements RobotHardware {
         updatePosAfterDrive(1);
         updateAngleFromIMU();
     }
+    public void goToBackwards(Vector location, double pow) throws InterruptedException {
+        double radiansToTurn = Math.atan2(location.getY() - robotPos.getY(), location.getX() - robotPos.getX());
+        int theta = (int) MRGyro.convertToDegrees(radiansToTurn);
+
+        if (theta <= 0) faceAngle(180 + theta);
+        else faceAngle(360 - (180 + theta));
+        driveDistance(-1, location.distanceFrom(robotPos), pow); // Drive to location
+        updatePosAfterDrive(-1);
+        updateAngleFromIMU();
+    }
 
     /**
      * Robot turns to face certain location on field
@@ -286,7 +296,8 @@ public class MecanumWheelDrive implements RobotHardware {
 
         while (currAngle < degrees && autoRunning()) {
             prop = (double) (degrees - currAngle) / 90;/*currAngle / degrees;*/
-            pow = startPow * prop + 0.1;/*Math.pow(prop - 1, 2);*/
+            pow = startPow * Math.pow(prop, 1.5/*1*/) + 0.1;/*Math.pow(prop - 1, 2);*/
+            if (pow > 1) pow = 1;
 
             // Apply power to motors and update currAngle
             if (right)
