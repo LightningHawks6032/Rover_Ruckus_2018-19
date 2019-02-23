@@ -34,10 +34,11 @@ public class BlueCraterSideSampleFirst extends LinearOpMode {
         auto.sampleWithSlide(goldPos, QUADRANT, false, false);
 
         auto.releaseMarkerWithSlide(QUADRANT);
-        hardware.intake.retractHorizontalSlide();
         hardware.drivetrain.goToBackwards(new Vector(AutonomousData.FIELD_MAP.SQUARE_LENGTH, AutonomousData.FIELD_MAP.SQUARE_LENGTH), 0.6);
         hardware.drivetrain.faceAngle(45);
         hardware.intake.runSlideTo(0.63*hardware.drivetrain.robotPos.distanceFrom(AutonomousData.FIELD_MAP.get(FieldElement.BLUE_CRATER_CENTER_EDGE)));
+
+        // Attempting a cycle
         hardware.intake.flipOut(true);
         hardware.intake.harvest();
         hardware.drivetrain.driveDistance(1, 6, 0.9);

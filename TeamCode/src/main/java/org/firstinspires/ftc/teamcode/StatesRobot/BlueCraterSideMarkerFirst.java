@@ -33,7 +33,6 @@ public class BlueCraterSideMarkerFirst extends LinearOpMode {
         telemetry.update();
 
         auto.releaseMarkerWithSlide(QUADRANT);
-        hardware.intake.retractHorizontalSlide();
         hardware.drivetrain.goToBackwards(new Vector(0.8 * AutonomousData.FIELD_MAP.SQUARE_LENGTH, 0.8 * AutonomousData.FIELD_MAP.SQUARE_LENGTH), 0.6);
 
 

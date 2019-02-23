@@ -180,11 +180,12 @@ public class Auto {
     }
 
     /**
-     * Lowers vertical slide while extending the horizontal slide. If vertical slide is not fully extended by end, the method lowers the rest of the slide.
-     * @param hsTarget : The encoder or linear distance target for the horizontal slide
+     * Moves vertical slide while moving the horizontal slide. If vertical slide is not fully extended/retracted by end, moves the rest of the slide.
+     * @param vertUp : true if the vertical slide should go up to its max, false if it should go down to its min
+     * @param hsTarget : the encoder or linear distance target for the horizontal slide
      * @param linDistance : true if the hsTarget represents a linear distance, false if it represents encoder ticks
      */
-    public void vertAndExtend(boolean vertUp, double hsTarget, boolean linDistance) {
+    private void vertAndExtend(boolean vertUp, double hsTarget, boolean linDistance) {
         StatesBot_Intake i = hardware.intake;
         StatesBot_Outtake o = hardware.outtake;
         i.slideEncoder.runToPosition();
@@ -301,18 +302,17 @@ public class Auto {
     public void releaseMarkerWithSlide(int quadrant) throws InterruptedException {
         // If starting on crater side, we have to drive to get closer to depot; otherwise, simply extend while lowering vertical slide
         if (quadrant % 2 == 1) {
-            hardware.outtake.verticalSlideDown();
+            //hardware.outtake.verticalSlideDown();
             hardware.drivetrain.goTo(AutonomousData.FIELD_MAP.get(quadrant == 1 ? FieldElement.FRONT_OF_BLUE_ROVER : FieldElement.FRONT_OF_RED_FOOTPRINT), 0.6);
             hardware.drivetrain.faceAngle(quadrant == 1 ? 170 : -170);
             hardware.drivetrain.driveDistance(1, 5, 0.6);
             hardware.drivetrain.updatePosAfterDrive(1);
-            hardware.intake.extendHorizontalSlide(1);
-        } else {
-            vertAndExtend(false, hardware.intake.HORIZONTAL_SLIDE_MAX, false);
         }
+        vertAndExtend(false, hardware.intake.HORIZONTAL_SLIDE_MAX, false);
         hardware.intake.flipOut(true);
         hardware.intake.releaseForTime(false, 1.0); // could be minimized?
         hardware.intake.flipIn(false);
+        if (quadrant % 2 == 1) hardware.intake.retractHorizontalSlide();
     }
 
     public void scoreInLander(int quadrant) throws InterruptedException {
@@ -327,7 +327,7 @@ public class Auto {
         } else {
             hardware.outtake.verticalSlideUp();
         }
-        
+
         hardware.outtake.dump();
         hardware.outtake.verticalSlideDown();
     }
