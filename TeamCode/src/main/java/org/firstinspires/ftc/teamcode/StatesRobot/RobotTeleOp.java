@@ -37,6 +37,27 @@ public class RobotTeleOp extends OpMode {
         telemetry.update();
     }
 
+    // Booleans to manage dumping for tele-op with drivetrain controller
+    private boolean dumperIn = true; // Should the flipper be flipping inward? (i.e. was the last command to flip inward?)
+    private boolean togglePressed = false; // Is the toggle button currently pressed?
+    private boolean toggleLastPressed = false; // Was the toggle button pressed last iteration of loop()?
+    private void manageDriverControlledDumper() {
+        // Use x to toggle between flipper in and flipper out
+        togglePressed = gamepad1.right_bumper;
+        if (togglePressed && !toggleLastPressed) // Only change flipper if toggle button wasn't pressed last iteration of loop()
+            dumperIn = !dumperIn;
+        toggleLastPressed = togglePressed; // toggleLastPressed updated for the next iteration of loop()
+
+        // Manage flip servo
+        if (dumperIn) {
+            hardware.outtake.leftDumper.setPosition(hardware.outtake.LEFT_DUMPER_IN);
+            hardware.outtake.rightDumper.setPosition(hardware.outtake.RIGHT_DUMPER_IN);
+        } else {
+            hardware.outtake.leftDumper.setPosition(hardware.outtake.LEFT_DUMPER_OUT);
+            hardware.outtake.rightDumper.setPosition(hardware.outtake.RIGHT_DUMPER_OUT);
+        }
+    }
+
     private void manageSlideLimiting() {
         if (gamepad1.dpad_down && gamepad1.x)
             slideLimitingOn = false;

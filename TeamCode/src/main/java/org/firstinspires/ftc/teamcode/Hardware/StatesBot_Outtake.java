@@ -64,7 +64,7 @@ public class StatesBot_Outtake implements RobotHardware {
 
     public void manageTeleOp(boolean slideLimiting) {
         manageLifting(slideLimiting);
-        manageDumping();
+        //manageDumping();
     }
 
     // Manage vertical slide
@@ -95,7 +95,8 @@ public class StatesBot_Outtake implements RobotHardware {
 
     }
 
-    private void manageDumping() {
+    // Changed to driver controller
+    /*private void manageDumping() {
         if (gamepad.dpad_down) {
             leftDumper.setPosition(LEFT_DUMPER_IN);
             rightDumper.setPosition(RIGHT_DUMPER_IN);
@@ -104,7 +105,7 @@ public class StatesBot_Outtake implements RobotHardware {
             leftDumper.setPosition(LEFT_DUMPER_OUT);
             rightDumper.setPosition(RIGHT_DUMPER_OUT);
         }
-    }
+    }*/
 
     // Vertical slide is brought up/down
     public void verticalSlideUp() {

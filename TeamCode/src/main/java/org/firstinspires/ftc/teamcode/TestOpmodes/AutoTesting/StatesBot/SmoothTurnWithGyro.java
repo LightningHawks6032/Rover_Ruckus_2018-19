@@ -35,7 +35,7 @@ public class SmoothTurnWithGyro extends LinearOpMode {
         while (hardware.drivetrain.robotPos.getY() < targetPos.getY()) {
             double leftPow = 1;
             double rightPow = 1;
-            double angleOffset = targetAngle - hardware.drivetrain.robotAngle;
+            double angleOffset = targetAngle - hardware.drivetrain.gyro.getAngle();
             double powRatio = 1- (Math.abs(angleOffset) / 360);
             if (hardware.drivetrain.robotPos.getX() >= leftLimit && angleOffset > 2) {
                 leftPow = rightPow * powRatio;
