@@ -131,6 +131,40 @@ public class Auto {
         }
     }
 
+    /**
+     * Create an array of the minerals, represented as FieldElements, in a particular sampling field.
+     * @param quadrant : the quadrant where the sampling field is happens (1-4)
+     * @param reverse : true if robot back is to lander, false if robot front is to lander
+     * @return the array of minerals, from left to right from the POV of the robot.
+     */
+    private FieldElement[] samplingField(int quadrant, boolean reverse) {
+        FieldElement[] minerals = new FieldElement[3];
+        switch (quadrant) {
+            case 1:
+                minerals[0] = !reverse ? FieldElement.BLUE_CRATER_LEFT_MINERAL : FieldElement.BLUE_CRATER_RIGHT_MINERAL;
+                minerals[1] = FieldElement.BLUE_CRATER_MIDDLE_MINERAL;
+                minerals[2] = reverse ? FieldElement.BLUE_CRATER_LEFT_MINERAL : FieldElement.BLUE_CRATER_RIGHT_MINERAL;
+                break;
+            case 2:
+                minerals[0] = !reverse ? FieldElement.BLUE_DEPOT_LEFT_MINERAL : FieldElement.BLUE_DEPOT_RIGHT_MINERAL;
+                minerals[1] = FieldElement.BLUE_DEPOT_MIDDLE_MINERAL;
+                minerals[2] = reverse ? FieldElement.BLUE_DEPOT_LEFT_MINERAL : FieldElement.BLUE_DEPOT_RIGHT_MINERAL;
+                break;
+            case 3:
+                minerals[0] = !reverse ? FieldElement.RED_CRATER_LEFT_MINERAL : FieldElement.RED_CRATER_RIGHT_MINERAL;
+                minerals[1] = FieldElement.RED_CRATER_MIDDLE_MINERAL;
+                minerals[2] = reverse ? FieldElement.RED_CRATER_LEFT_MINERAL : FieldElement.RED_CRATER_RIGHT_MINERAL;
+                break;
+            case 4:
+                minerals[0] = !reverse ? FieldElement.RED_DEPOT_LEFT_MINERAL : FieldElement.RED_DEPOT_RIGHT_MINERAL;
+                minerals[1] = FieldElement.RED_DEPOT_MIDDLE_MINERAL;
+                minerals[2] = reverse ? FieldElement.RED_DEPOT_LEFT_MINERAL : FieldElement.RED_DEPOT_RIGHT_MINERAL;
+                break;
+        }
+
+        return minerals;
+    }
+
     public void landOnField(int quadrant) throws InterruptedException {
         // Land on field
         hardware.outtake.verticalSlideUp();
@@ -194,9 +228,7 @@ public class Auto {
         // Generates minerals to choose from
         FieldElement[] minerals = samplingField(quadrant, reverse);
 
-        // Go to Gold
-        Vector startPos = hardware.drivetrain.robotPos;
-        double distFromMineral;
+        // Find chosen mineral
         FieldElement chosenMineral = minerals[1]; // default
         if (goldPos == 1) {
             chosenMineral = minerals[0];
@@ -205,16 +237,28 @@ public class Auto {
         } else if (goldPos == 3) {
             chosenMineral = minerals[2];
         }
+        double distFromMineral = fieldMap.get(chosenMineral).distanceFrom(hardware.drivetrain.robotPos) - 10; // -10 accounts for distance of front of horizontal slide from robot center
 
-        distFromMineral = fieldMap.get(chosenMineral).distanceFrom(startPos) - 10;
-        if (intake /*&& quadrant % 2 == 0*/) hardware.intake.runSlideTo(0.3 * distFromMineral);
+        // If we're on depot side, we run our slide to a fraction of the distance for time saving (because this would be after marker scoring)
+        if (intake && quadrant % 2 == 0) {
+            hardware.intake.runSlideTo(0.3 * distFromMineral);
+        }
+        // If we're on crater side, we reset the robot position ot its initial default position (could be changed to use range sensor)
+        else if (intake && quadrant % 2 == 1) {
+            double defaultOffset = 15;
+            hardware.drivetrain.setRobotPos(new Vector(quadrant == 1 || quadrant == 4 ? defaultOffset : -defaultOffset, quadrant < 3 ? defaultOffset : -defaultOffset));
+        }
+
         hardware.drivetrain.face(fieldMap.get(chosenMineral));
         hardware.intake.flipOut(true);
-        if (intake) hardware.intake.harvest();
-        if (intake)
+
+        // If we're intaking, run harvester and run  horizontal slide to the mineral; otherwise, run  horizontal slide less while lowering vertical slide
+        if (intake) {
+            hardware.intake.harvest();
             hardware.intake.runSlideTo(distFromMineral);
-        else
-            vertAndExtend( false, 0.7 * distFromMineral, true);
+        } else {
+            vertAndExtend(false, 0.7 * distFromMineral, true);
+        }
         hardware.intake.stopHarvester();
         hardware.intake.flipIn(false);
         hardware.intake.retractHorizontalSlide();
@@ -254,41 +298,8 @@ public class Auto {
         }
     }
 
-    /**
-     * Create an array of the minerals, represented as FieldElements, in a particular sampling field.
-     * @param quadrant : the quadrant where the sampling field is happens (1-4)
-     * @param reverse : true if robot back is to lander, false if robot front is to lander
-     * @return the array of minerals, from left to right from the POV of the robot.
-     */
-    private FieldElement[] samplingField(int quadrant, boolean reverse) {
-        FieldElement[] minerals = new FieldElement[3];
-        switch (quadrant) {
-            case 1:
-                minerals[0] = !reverse ? FieldElement.BLUE_CRATER_LEFT_MINERAL : FieldElement.BLUE_CRATER_RIGHT_MINERAL;
-                minerals[1] = FieldElement.BLUE_CRATER_MIDDLE_MINERAL;
-                minerals[2] = reverse ? FieldElement.BLUE_CRATER_LEFT_MINERAL : FieldElement.BLUE_CRATER_RIGHT_MINERAL;
-                break;
-            case 2:
-                minerals[0] = !reverse ? FieldElement.BLUE_DEPOT_LEFT_MINERAL : FieldElement.BLUE_DEPOT_RIGHT_MINERAL;
-                minerals[1] = FieldElement.BLUE_DEPOT_MIDDLE_MINERAL;
-                minerals[2] = reverse ? FieldElement.BLUE_DEPOT_LEFT_MINERAL : FieldElement.BLUE_DEPOT_RIGHT_MINERAL;
-                break;
-            case 3:
-                minerals[0] = !reverse ? FieldElement.RED_CRATER_LEFT_MINERAL : FieldElement.RED_CRATER_RIGHT_MINERAL;
-                minerals[1] = FieldElement.RED_CRATER_MIDDLE_MINERAL;
-                minerals[2] = reverse ? FieldElement.RED_CRATER_LEFT_MINERAL : FieldElement.RED_CRATER_RIGHT_MINERAL;
-                break;
-            case 4:
-                minerals[0] = !reverse ? FieldElement.RED_DEPOT_LEFT_MINERAL : FieldElement.RED_DEPOT_RIGHT_MINERAL;
-                minerals[1] = FieldElement.RED_DEPOT_MIDDLE_MINERAL;
-                minerals[2] = reverse ? FieldElement.RED_DEPOT_LEFT_MINERAL : FieldElement.RED_DEPOT_RIGHT_MINERAL;
-                break;
-        }
-
-        return minerals;
-    }
-
     public void releaseMarkerWithSlide(int quadrant) throws InterruptedException {
+        // If starting on crater side, we have to drive to get closer to depot; otherwise, simply extend while lowering vertical slide
         if (quadrant % 2 == 1) {
             hardware.outtake.verticalSlideDown();
             hardware.drivetrain.goTo(AutonomousData.FIELD_MAP.get(quadrant == 1 ? FieldElement.FRONT_OF_BLUE_ROVER : FieldElement.FRONT_OF_RED_FOOTPRINT), 0.6);
@@ -300,7 +311,7 @@ public class Auto {
             vertAndExtend(false, hardware.intake.HORIZONTAL_SLIDE_MAX, false);
         }
         hardware.intake.flipOut(true);
-        hardware.intake.releaseForTime(false, 1.0);
+        hardware.intake.releaseForTime(false, 1.0); // could be minimized?
         hardware.intake.flipIn(false);
     }
 
@@ -311,13 +322,12 @@ public class Auto {
         hardware.intake.stopHarvester();
 
         if (quadrant % 2 == 1) {
-            hardware.drivetrain.turn(20, true);
-            vertAndExtend(true, hardware.intake.HORIZONTAL_SLIDE_MAX, false);
+            hardware.drivetrain.turn(20, true); // if on crater side, we have to turn to get mineral in gold cargo hold
+            vertAndExtend(true, hardware.intake.HORIZONTAL_SLIDE_MAX, false); // extend horizontal slide to get parking points
         } else {
             hardware.outtake.verticalSlideUp();
         }
-
-
+        
         hardware.outtake.dump();
         hardware.outtake.verticalSlideDown();
     }
