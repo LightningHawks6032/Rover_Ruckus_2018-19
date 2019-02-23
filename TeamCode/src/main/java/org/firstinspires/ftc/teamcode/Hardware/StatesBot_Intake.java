@@ -49,6 +49,7 @@ public class StatesBot_Intake {
         harvester.setDirection(DcMotor.Direction.FORWARD);
         horizontalSlide.setDirection(DcMotor.Direction.FORWARD);
         horizontalSlide.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        horizontalSlide.setPower(0);
         slideEncoder.runWith();
         leftFlipper.setPosition(LEFT_FLIPPER_IN_VAL);
         rightFlipper.setPosition(RIGHT_FLIPPER_IN_VAL);
