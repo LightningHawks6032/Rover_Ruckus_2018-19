@@ -150,7 +150,7 @@ public class Auto {
      * @param hsTarget : The encoder or linear distance target for the horizontal slide
      * @param linDistance : true if the hsTarget represents a linear distance, false if it represents encoder ticks
      */
-    public void lowerAndExtend(double hsTarget, boolean linDistance) {
+    public void vertAndExtend(boolean vertUp, double hsTarget, boolean linDistance) {
         StatesBot_Intake i = hardware.intake;
         StatesBot_Outtake o = hardware.outtake;
         i.slideEncoder.runToPosition();
@@ -165,9 +165,12 @@ public class Auto {
         while (i.horizontalSlide.isBusy() && autoRunning()) {
             // WAIT - Motor is busy
             int vertEncoder = (o.leftVertEncoder.getEncoderCount() + o.rightVertEncoder.getEncoderCount()) / 2;
-            if (vertEncoder > o.VERTICAL_SLIDE_MIN) {
+            if (!vertUp && vertEncoder > o.VERTICAL_SLIDE_MIN) {
                 o.leftVertical.setPower(-1);
                 o.rightVertical.setPower(-1);
+            } else if (vertUp && vertEncoder < o.VERTICAL_SLIDE_MAX) {
+                o.leftVertical.setPower(1);
+                o.rightVertical.setPower(1);
             } else {
                 o.leftVertical.setPower(0);
                 o.rightVertical.setPower(0);
@@ -175,7 +178,8 @@ public class Auto {
         }
         i.horizontalSlide.setPower(0);
         i.slideEncoder.runWithout();
-        o.verticalSlideDown(); // if the vertical slide still has not finished retracting
+        if (vertUp) o.verticalSlideUp(); // if the vertical slide still has not finished extending
+        else o.verticalSlideDown(); // if the vertical slide still has not finished retracting
     }
 
     /**
@@ -203,14 +207,14 @@ public class Auto {
         }
 
         distFromMineral = fieldMap.get(chosenMineral).distanceFrom(startPos) - 10;
-        if (intake) hardware.intake.runSlideTo(0.3 * distFromMineral);
+        if (intake /*&& quadrant % 2 == 0*/) hardware.intake.runSlideTo(0.3 * distFromMineral);
         hardware.drivetrain.face(fieldMap.get(chosenMineral));
         hardware.intake.flipOut(true);
         if (intake) hardware.intake.harvest();
         if (intake)
             hardware.intake.runSlideTo(distFromMineral);
         else
-            lowerAndExtend( 0.7 * distFromMineral, true);
+            vertAndExtend( false, 0.7 * distFromMineral, true);
         hardware.intake.stopHarvester();
         hardware.intake.flipIn(false);
         hardware.intake.retractHorizontalSlide();
@@ -284,11 +288,17 @@ public class Auto {
         return minerals;
     }
 
-    public void releaseMarkerWithSlide(boolean craterSide) throws InterruptedException {
-        if (craterSide)
+    public void releaseMarkerWithSlide(int quadrant) throws InterruptedException {
+        if (quadrant % 2 == 1) {
+            hardware.outtake.verticalSlideDown();
+            hardware.drivetrain.goTo(AutonomousData.FIELD_MAP.get(quadrant == 1 ? FieldElement.FRONT_OF_BLUE_ROVER : FieldElement.FRONT_OF_RED_FOOTPRINT), 0.6);
+            hardware.drivetrain.faceAngle(quadrant == 1 ? 170 : -170);
+            hardware.drivetrain.driveDistance(1, 5, 0.6);
+            hardware.drivetrain.updatePosAfterDrive(1);
             hardware.intake.extendHorizontalSlide(1);
-        else
-            lowerAndExtend(hardware.intake.HORIZONTAL_SLIDE_MAX, false);
+        } else {
+            vertAndExtend(false, hardware.intake.HORIZONTAL_SLIDE_MAX, false);
+        }
         hardware.intake.flipOut(true);
         hardware.intake.releaseForTime(false, 1.0);
         hardware.intake.flipIn(false);
@@ -297,9 +307,17 @@ public class Auto {
     public void scoreInLander(int quadrant) throws InterruptedException {
         hardware.intake.release();
         hardware.drivetrain.faceAngle(startTheta(quadrant));
-        hardware.drivetrain.driveDistance(-1, 3, 0.6);
+        hardware.drivetrain.driveDistance(-1, 5, 0.7);
         hardware.intake.stopHarvester();
-        hardware.outtake.verticalSlideUp();
+
+        if (quadrant % 2 == 1) {
+            hardware.drivetrain.turn(20, true);
+            vertAndExtend(true, hardware.intake.HORIZONTAL_SLIDE_MAX, false);
+        } else {
+            hardware.outtake.verticalSlideUp();
+        }
+
+
         hardware.outtake.dump();
         hardware.outtake.verticalSlideDown();
     }

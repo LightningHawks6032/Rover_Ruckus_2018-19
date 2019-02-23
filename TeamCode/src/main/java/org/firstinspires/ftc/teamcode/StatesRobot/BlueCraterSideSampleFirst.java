@@ -8,8 +8,8 @@ import org.firstinspires.ftc.teamcode.FieldMapping.FieldElement;
 import org.firstinspires.ftc.teamcode.FieldMapping.Vector;
 import org.firstinspires.ftc.teamcode.Hardware.StatesBot_Hardware;
 
-@Autonomous(name="Blue Crater Side", group= AutonomousData.OFFICIAL_GROUP)
-public class BlueCraterSide extends LinearOpMode {
+@Autonomous(name="Blue Crater Side Sample First", group= AutonomousData.OFFICIAL_GROUP)
+public class BlueCraterSideSampleFirst extends LinearOpMode {
     private StatesBot_Hardware hardware;
     private Auto auto;
     private final int QUADRANT = 1;
@@ -33,14 +33,7 @@ public class BlueCraterSide extends LinearOpMode {
         telemetry.update();
         auto.sampleWithSlide(goldPos, QUADRANT, false, false);
 
-        //hardware.drivetrain.faceAngle(45);
-        hardware.drivetrain.driveDistance(1, 6, 0.6);
-        hardware.drivetrain.updatePosAfterDrive(1);
-        //hardware.drivetrain.goTo(AutonomousData.FIELD_MAP.get(FieldElement.FRONT_OF_BLUE_ROVER).sum(new Vector(-AutonomousData.FIELD_MAP.HALF_SQUARE_LENGTH, 0)), 0.65);
-        hardware.drivetrain.goTo(AutonomousData.FIELD_MAP.get(FieldElement.FRONT_OF_BLUE_ROVER), 0.6);
-        hardware.drivetrain.faceAngle(170);
-        hardware.drivetrain.driveDistance(1, 5, 0.6);
-        auto.releaseMarkerWithSlide(true);
+        auto.releaseMarkerWithSlide(QUADRANT);
         hardware.intake.retractHorizontalSlide();
         hardware.drivetrain.goToBackwards(new Vector(AutonomousData.FIELD_MAP.SQUARE_LENGTH, AutonomousData.FIELD_MAP.SQUARE_LENGTH), 0.6);
         hardware.drivetrain.faceAngle(45);
