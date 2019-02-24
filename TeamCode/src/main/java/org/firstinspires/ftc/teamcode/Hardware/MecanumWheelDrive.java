@@ -296,7 +296,7 @@ public class MecanumWheelDrive implements RobotHardware {
 
         while (currAngle < degrees && autoRunning()) {
             prop = (double) (degrees - currAngle) / 90;/*currAngle / degrees;*/
-            pow = startPow * Math.pow(prop, 1.5/*1*/) + 0.1;/*Math.pow(prop - 1, 2);*/
+            pow = startPow * Math.pow(prop, 1.8/*1.5*/) + 0.1;/*Math.pow(prop - 1, 2);*/
             if (pow > 1) pow = 1;
 
             // Apply power to motors and update currAngle

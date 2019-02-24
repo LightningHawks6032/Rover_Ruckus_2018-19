@@ -5,16 +5,15 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.AutonomousData;
 import org.firstinspires.ftc.teamcode.FieldMapping.FieldElement;
-import org.firstinspires.ftc.teamcode.Hardware.QualBot_Hardware;
+import org.firstinspires.ftc.teamcode.FieldMapping.Vector;
 import org.firstinspires.ftc.teamcode.Hardware.StatesBot_Hardware;
-import org.firstinspires.ftc.teamcode.StatesRobot.Auto;
 
-@Autonomous(name="Red Depot Side", group= AutonomousData.OFFICIAL_GROUP)
-public class RedDepotSide extends LinearOpMode {
+@Autonomous(name="Blue Crater Side Double Sample", group= AutonomousData.OFFICIAL_GROUP)
+public class BlueCraterSideDoubleSample extends LinearOpMode {
     private StatesBot_Hardware hardware;
     private Auto auto;
-    private final int QUADRANT = 4;
-    private final int ALLIANCE = AutonomousData.RED_ALLIANCE;
+    private final int QUADRANT = 1;
+    private final int ALLIANCE = AutonomousData.BLUE_ALLIANCE;
 
     public void runOpMode() throws InterruptedException {
         hardware = new StatesBot_Hardware(hardwareMap, gamepad1, gamepad2, true);
@@ -32,10 +31,10 @@ public class RedDepotSide extends LinearOpMode {
         auto.setStartPosition(QUADRANT);
         telemetry.addData("Robot Pos", hardware.drivetrain.robotPos.toString());
         telemetry.update();
-        auto.releaseMarkerWithSlide(QUADRANT);
-        auto.sampleWithSlide(goldPos, QUADRANT, true);
-        auto.scoreInLander(QUADRANT);
-        auto.parkInCraterFromLander(ALLIANCE, false);
 
+        auto.sampleWithSlide(goldPos, QUADRANT, false);
+        auto.releaseMarkerWithSlide(QUADRANT);
+        auto.doubleSampleWithSlide(goldPos, QUADRANT + 1, false);
+        //hardware.drivetrain.goToBackwards(new Vector(0.8*AutonomousData.FIELD_MAP.SQUARE_LENGTH, 0.8*AutonomousData.FIELD_MAP.SQUARE_LENGTH), 0.7); // 0.6, 0.8 worked
     }
 }

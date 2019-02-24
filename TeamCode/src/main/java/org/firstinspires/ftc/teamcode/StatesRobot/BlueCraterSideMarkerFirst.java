@@ -33,10 +33,12 @@ public class BlueCraterSideMarkerFirst extends LinearOpMode {
         telemetry.update();
 
         auto.releaseMarkerWithSlide(QUADRANT);
-        hardware.drivetrain.goToBackwards(new Vector(0.8 * AutonomousData.FIELD_MAP.SQUARE_LENGTH, 0.8 * AutonomousData.FIELD_MAP.SQUARE_LENGTH), 0.6);
+        hardware.intake.retractHorizontalSlide();
+        // goes to starting loc but slightly closer to silver cargo side
+        hardware.drivetrain.goToBackwards(new Vector(0.8*AutonomousData.FIELD_MAP.SQUARE_LENGTH, 0.8*AutonomousData.FIELD_MAP.SQUARE_LENGTH), 0.7); // 0.6, 0.8 worked
 
 
-        auto.sampleWithSlide(goldPos, QUADRANT, false, true);
+        auto.sampleWithSlide(goldPos, QUADRANT, true);
         auto.scoreInLander(QUADRANT);
     }
 }

@@ -33,7 +33,7 @@ public class BlueDepotSide extends LinearOpMode {
         telemetry.addData("Robot Pos", hardware.drivetrain.robotPos.toString());
         telemetry.update();
         auto.releaseMarkerWithSlide(QUADRANT);
-        auto.sampleWithSlide(goldPos, QUADRANT, false, true);
+        auto.sampleWithSlide(goldPos, QUADRANT, true);
         auto.scoreInLander(QUADRANT);
         auto.parkInCraterFromLander(ALLIANCE, false);
 
