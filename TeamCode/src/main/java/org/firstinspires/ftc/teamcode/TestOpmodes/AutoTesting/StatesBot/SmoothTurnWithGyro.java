@@ -21,6 +21,8 @@ public class SmoothTurnWithGyro extends LinearOpMode {
         auto = new Auto(this, hardware);
         hardware.initHardware();
 
+        /*
+
         Vector zero = new Vector(0,0);
         hardware.drivetrain.setRobotPos(zero);
 
@@ -29,9 +31,24 @@ public class SmoothTurnWithGyro extends LinearOpMode {
         double leftLimit = initPos.getX() + 21;
         double rightLimit = initPos.getX() + 39;
         double targetAngle = 45;
+        */
+
+        hardware.drivetrain.gyro.zero();
+        hardware.drivetrain.encoderSetup();
+
+        int currentAngle = Math.abs(hardware.drivetrain.gyro.getAngle());
+        int targetAngle = 45;
+        double leftPow = 0.5;
+        double rightPow = 0.5;
+
+        // amount between base power and full power
+        double remainingPow = 1 - leftPow;
+        int percentFromCompletion = 0;
 
         waitForStart();
         auto.setStartTime(System.currentTimeMillis());
+
+        /*
         while (hardware.drivetrain.robotPos.getY() < targetPos.getY()) {
             double leftPow = 1;
             double rightPow = 1;
@@ -42,5 +59,20 @@ public class SmoothTurnWithGyro extends LinearOpMode {
             }
             hardware.drivetrain.setPowers(leftPow, rightPow, leftPow, rightPow);
         }
+
+        */
+
+        // apply extra power to side on outside of turn
+        // applied power should be proportional to percentage of turn yet to be completed
+        // time/distance taken for turn should be related to leftPow
+
+        while (currentAngle != targetAngle){
+            percentFromCompletion = 1 - currentAngle/targetAngle;
+            rightPow = leftPow + remainingPow*percentFromCompletion;
+
+            hardware.drivetrain.setPowers(leftPow, rightPow, leftPow, rightPow);
+            currentAngle = Math.abs(hardware.drivetrain.gyro.getAngle());
+        }
+        hardware.drivetrain.setPowers(0,0,0,0);
     }
 }
