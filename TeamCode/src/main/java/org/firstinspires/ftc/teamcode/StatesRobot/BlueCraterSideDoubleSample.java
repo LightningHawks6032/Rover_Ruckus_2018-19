@@ -35,7 +35,7 @@ public class BlueCraterSideDoubleSample extends LinearOpMode {
         auto.sampleWithSlide(goldPos, QUADRANT, false);
         auto.releaseMarkerWithSlide(QUADRANT);
         hardware.intake.retractHorizontalSlide();
-        auto.doubleSampleWithSlide(goldPos, QUADRANT + 1, false);
+        auto.doubleSampleWithSlide(goldPos, ALLIANCE, false);
         auto.parkInCraterFromDoubleSample(ALLIANCE);
     }
 }

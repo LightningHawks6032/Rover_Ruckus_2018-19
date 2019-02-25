@@ -263,8 +263,8 @@ public class Auto {
         hardware.intake.retractHorizontalSlide();
     }
 
-    public void doubleSampleWithSlide(int goldPos, int quadrant, boolean intake) throws InterruptedException {
-        FieldElement[] minerals = samplingField(quadrant);
+    public void doubleSampleWithSlide(int goldPos, int alliance, boolean intake) throws InterruptedException {
+        /*FieldElement[] minerals = samplingField(quadrant);
 
         // Find chosen mineral
         FieldElement chosenMineral = minerals[1]; // default
@@ -274,12 +274,13 @@ public class Auto {
             chosenMineral = minerals[1];
         } else if (goldPos == 3) {
             chosenMineral = minerals[2];
-        }
+        }*/
 
         hardware.drivetrain.driveDistance(1, 8, 0.8);
         hardware.drivetrain.updatePosAfterDrive(1);
-        hardware.drivetrain.faceAngle(-135);
-        hardware.drivetrain.faceAngle(-135);
+        int thetaFace = alliance == AutonomousData.BLUE_ALLIANCE ? -135 : 45;
+        hardware.drivetrain.faceAngle(thetaFace);
+        hardware.drivetrain.faceAngle(thetaFace);
 
         if (goldPos == 3) {
             hardware.intake.flipOut(true);
