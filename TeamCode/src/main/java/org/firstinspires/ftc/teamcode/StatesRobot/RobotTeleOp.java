@@ -21,6 +21,7 @@ public class RobotTeleOp extends OpMode {
         hardware.drivetrain.manageTeleOp();
         hardware.intake.manageTeleOp(slideLimitingOn);
         hardware.outtake.manageTeleOp(slideLimitingOn);
+        manageDriverControlledDumper();
         manageSlideLimiting();
         debug();
     }

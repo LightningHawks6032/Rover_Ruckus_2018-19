@@ -275,15 +275,30 @@ public class Auto {
         } else if (goldPos == 3) {
             chosenMineral = minerals[2];
         }
-        double distFromMineral = fieldMap.get(chosenMineral).distanceFrom(hardware.drivetrain.robotPos) - 10; // -10 accounts for distance of front of horizontal slide from robot center
 
         hardware.drivetrain.driveDistance(1, 8, 0.8);
         hardware.drivetrain.updatePosAfterDrive(1);
         hardware.drivetrain.faceAngle(-135);
-        hardware.intake.runSlideTo(distFromMineral * 0.6);
-        hardware.intake.flipOut(true);
-        hardware.intake.runSlideTo(distFromMineral * 0.9);
-        hardware.intake.flipIn(true);
+        hardware.drivetrain.faceAngle(-135);
+
+        if (goldPos == 3) {
+            hardware.intake.flipOut(true);
+            hardware.intake.extendHorizontalSlide(0.3);
+            hardware.intake.flipIn(true);
+        } else if (goldPos == 2) {
+            hardware.intake.extendHorizontalSlide(0.3);
+            hardware.intake.flipOut(true);
+            hardware.intake.extendHorizontalSlide(0.6);
+            hardware.intake.flipIn(true);
+        } else if (goldPos == 1) {
+            hardware.drivetrain.driveDistance(1, 4, 0.6);
+            hardware.intake.extendHorizontalSlide(0.7);
+            hardware.intake.flipOut(true);
+            hardware.intake.extendHorizontalSlide(1);
+            hardware.intake.flipIn(true);
+            hardware.drivetrain.driveDistance(-1, 4, 0.6);
+        }
+
         hardware.intake.retractHorizontalSlide();
     }
 
@@ -338,6 +353,14 @@ public class Auto {
         hardware.drivetrain.goTo(fieldMap.get(navTarget), 0.6);
         hardware.drivetrain.faceAngle(thetaFace);
         hardware.drivetrain.faceAngle(thetaFace);
+        hardware.intake.extendHorizontalSlide(0.7);
+    }
+
+    public void parkInCraterFromDoubleSample(int alliance) throws InterruptedException {
+        int thetaFace = alliance == AutonomousData.BLUE_ALLIANCE ? 0 : 180;
+        hardware.drivetrain.faceAngle(thetaFace);
+        hardware.drivetrain.faceAngle(thetaFace);
+        hardware.drivetrain.driveDistance(1, AutonomousData.FIELD_MAP.HALF_SQUARE_LENGTH, 0.8);
         hardware.intake.extendHorizontalSlide(0.7);
     }
 

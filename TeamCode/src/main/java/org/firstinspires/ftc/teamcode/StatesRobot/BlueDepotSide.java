@@ -22,6 +22,8 @@ public class BlueDepotSide extends LinearOpMode {
         hardware.initHardware();
 
         auto.setupMineralDetector(hardwareMap);
+        telemetry.addLine("Autonomous Ready");
+        telemetry.update();
         waitForStart();
         auto.setStartTime(System.currentTimeMillis());
 

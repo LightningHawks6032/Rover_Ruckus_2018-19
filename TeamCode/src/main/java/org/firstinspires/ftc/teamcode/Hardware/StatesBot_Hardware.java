@@ -61,7 +61,7 @@ public class StatesBot_Hardware {
         mineralDetector = new GoldAlignDetector(ROBOT_CENTER_X, 160, 300, true, false);
         navTargetDetector = new NavTargetDetector(hardwareMap, CAMERA_FORWARD_POSITION, CAMERA_LEFT_POSITION);
         rangeSensor = hardwareMap.get(ModernRoboticsI2cRangeSensor.class, "rs");
-        rangeSensor.setI2cAddress(I2cAddr.create8bit(0x10)); // previously used 8bit
+        rangeSensor.setI2cAddress(I2cAddr.create8bit(0x1c)); // previously used 8bit
     }
 
     public void initHardware() {
