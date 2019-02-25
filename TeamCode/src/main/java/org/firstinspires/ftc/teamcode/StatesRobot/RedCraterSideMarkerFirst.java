@@ -8,12 +8,12 @@ import org.firstinspires.ftc.teamcode.FieldMapping.FieldElement;
 import org.firstinspires.ftc.teamcode.FieldMapping.Vector;
 import org.firstinspires.ftc.teamcode.Hardware.StatesBot_Hardware;
 
-@Autonomous(name="Blue Crater Side Sample First", group= AutonomousData.OFFICIAL_GROUP)
-public class BlueCraterSideSampleFirst extends LinearOpMode {
+@Autonomous(name="Red Crater Side Marker First", group= AutonomousData.OFFICIAL_GROUP)
+public class RedCraterSideMarkerFirst extends LinearOpMode {
     private StatesBot_Hardware hardware;
     private Auto auto;
-    private final int QUADRANT = 1;
-    private final int ALLIANCE = AutonomousData.BLUE_ALLIANCE;
+    private final int QUADRANT = 3;
+    private final int ALLIANCE = AutonomousData.RED_ALLIANCE;
 
     public void runOpMode() throws InterruptedException {
         hardware = new StatesBot_Hardware(hardwareMap, gamepad1, gamepad2, true);
@@ -31,19 +31,14 @@ public class BlueCraterSideSampleFirst extends LinearOpMode {
         auto.setStartPosition(QUADRANT);
         telemetry.addData("Robot Pos", hardware.drivetrain.robotPos.toString());
         telemetry.update();
-        auto.sampleWithSlide(goldPos, QUADRANT, false);
 
         auto.releaseMarkerWithSlide(QUADRANT);
         hardware.intake.retractHorizontalSlide();
-        auto.backToStartingPosition(ALLIANCE);
-        hardware.intake.extendHorizontalSlide(0.8);
+        // goes to starting loc but slightly closer to silver cargo side
+        hardware.drivetrain.goToBackwards(new Vector(-0.8*AutonomousData.FIELD_MAP.SQUARE_LENGTH, -0.8*AutonomousData.FIELD_MAP.SQUARE_LENGTH), 0.7); // 0.6, 0.8 worked
 
-        // Attempting a cycle
-        /*hardware.intake.flipOut(true);
-        hardware.intake.harvest();
-        hardware.drivetrain.driveDistance(1, 6, 0.9);
-        hardware.intake.stopHarvester();
-        hardware.intake.flipIn(true);
-        hardware.intake.retractHorizontalSlide();*/
+
+        auto.sampleWithSlide(goldPos, QUADRANT, true);
+        auto.scoreInLander(QUADRANT);
     }
 }

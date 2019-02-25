@@ -8,12 +8,12 @@ import org.firstinspires.ftc.teamcode.FieldMapping.FieldElement;
 import org.firstinspires.ftc.teamcode.FieldMapping.Vector;
 import org.firstinspires.ftc.teamcode.Hardware.StatesBot_Hardware;
 
-@Autonomous(name="Blue Crater Side Sample First", group= AutonomousData.OFFICIAL_GROUP)
-public class BlueCraterSideSampleFirst extends LinearOpMode {
+@Autonomous(name="Red Crater Side Sample First", group= AutonomousData.OFFICIAL_GROUP)
+public class RedCraterSideSampleFirst extends LinearOpMode {
     private StatesBot_Hardware hardware;
     private Auto auto;
-    private final int QUADRANT = 1;
-    private final int ALLIANCE = AutonomousData.BLUE_ALLIANCE;
+    private final int QUADRANT = 3;
+    private final int ALLIANCE = AutonomousData.RED_ALLIANCE;
 
     public void runOpMode() throws InterruptedException {
         hardware = new StatesBot_Hardware(hardwareMap, gamepad1, gamepad2, true);

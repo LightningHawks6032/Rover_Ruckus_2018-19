@@ -365,6 +365,14 @@ public class Auto {
         hardware.intake.extendHorizontalSlide(0.7);
     }
 
+    public void backToStartingPosition(int alliance) throws InterruptedException {
+        double coordinate = AutonomousData.FIELD_MAP.SQUARE_LENGTH;
+        if (alliance == AutonomousData.RED_ALLIANCE) coordinate = -coordinate;
+        hardware.drivetrain.goToBackwards(new Vector(coordinate, coordinate), 0.7);
+        hardware.drivetrain.faceAngle(startTheta(alliance == AutonomousData.BLUE_ALLIANCE ? 1 : 3));
+        hardware.intake.extendHorizontalSlide(0.8);
+    }
+
     /**
      * Backs up to the lander using the range sensor
      * @param distance : distance, in inches, the back of the robot should be from the lander wall
