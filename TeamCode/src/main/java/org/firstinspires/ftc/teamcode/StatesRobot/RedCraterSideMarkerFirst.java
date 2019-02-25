@@ -34,10 +34,7 @@ public class RedCraterSideMarkerFirst extends LinearOpMode {
 
         auto.releaseMarkerWithSlide(QUADRANT);
         hardware.intake.retractHorizontalSlide();
-        // goes to starting loc but slightly closer to silver cargo side
-        hardware.drivetrain.goToBackwards(new Vector(-0.8*AutonomousData.FIELD_MAP.SQUARE_LENGTH, -0.8*AutonomousData.FIELD_MAP.SQUARE_LENGTH), 0.7); // 0.6, 0.8 worked
-
-
+        auto.backToStartingPosition(ALLIANCE);
         auto.sampleWithSlide(goldPos, QUADRANT, true);
         auto.scoreInLander(QUADRANT);
     }

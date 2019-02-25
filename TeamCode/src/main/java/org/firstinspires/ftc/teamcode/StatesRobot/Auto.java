@@ -366,11 +366,11 @@ public class Auto {
     }
 
     public void backToStartingPosition(int alliance) throws InterruptedException {
-        double coordinate = AutonomousData.FIELD_MAP.SQUARE_LENGTH;
+        double coordinate = 0.8*AutonomousData.FIELD_MAP.SQUARE_LENGTH;
         if (alliance == AutonomousData.RED_ALLIANCE) coordinate = -coordinate;
         hardware.drivetrain.goToBackwards(new Vector(coordinate, coordinate), 0.7);
         hardware.drivetrain.faceAngle(startTheta(alliance == AutonomousData.BLUE_ALLIANCE ? 1 : 3));
-        hardware.intake.extendHorizontalSlide(0.8);
+        setStartPosition(alliance == AutonomousData.BLUE_ALLIANCE ? 1 : 3);
     }
 
     /**
