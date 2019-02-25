@@ -60,15 +60,15 @@ public class Auto {
 
     // Sets up the starting position of the robot after it has landed and oriented itself on field
     public void setStartPosition(int quadrant) throws InterruptedException {
-        //hardware.drivetrain.faceAngle(startTheta(quadrant));
-
-        double distFromLander = hardware.rangeSensor.getDistance(DistanceUnit.INCH);
         double defaultOffset = 15;
-        if ((int) distFromLander == 0) {
+        if ((int) hardware.rangeSensor.getDistance(DistanceUnit.INCH) == 0) { // if range sensor is not working
             hardware.drivetrain.setRobotPos(new Vector(quadrant == 1 || quadrant == 4 ? defaultOffset : -defaultOffset, quadrant < 3 ? defaultOffset : -defaultOffset));
             hardware.drivetrain.updateAngleFromIMU();
             return;
         }
+
+        hardware.drivetrain.faceAngle(startTheta(quadrant)); // used to be commented out
+        double distFromLander = hardware.rangeSensor.getDistance(DistanceUnit.INCH);
         double coordinateOffset = (distFromLander + hardware.RANGE_SENSOR_DISPLACEMENT) / Math.sqrt(2);
 
         // Set lander position and robot position
