@@ -66,7 +66,7 @@ public class SmoothTurnWithGyro extends LinearOpMode {
         // applied power should be proportional to percentage of turn yet to be completed
         // time/distance taken for turn should be related to leftPow
 
-        while (currentAngle != targetAngle){
+        while (currentAngle <= targetAngle){
             percentFromCompletion = 1 - currentAngle/targetAngle;
             rightPow = leftPow + remainingPow*percentFromCompletion;
 
