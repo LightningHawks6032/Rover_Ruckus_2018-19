@@ -29,7 +29,7 @@ public class MecanumWheelDrive implements RobotHardware {
     private double initialRobotAngle; // Manually-set robot angle when the robot first hits the floor
 
     private double wheelDiameter = 4.4;
-    private double boost = 0.75;
+    private double boost = 0.5;
 
     // AUTO BASED VARIABLES
     private LinearOpMode autonomous = null; // stays null unless used in an auto

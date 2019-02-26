@@ -79,10 +79,10 @@ public class StatesBot_Outtake implements RobotHardware {
             autoExtend = false;
             leftVertical.setPower(pow);
             rightVertical.setPower(pow);
-        } else if (gamepad.right_trigger > 0 && (encoderVal < HANG_ENCODER_VAL - 20 || encoderVal > HANG_ENCODER_VAL + 20)) {
+        } else if (gamepad.right_trigger > 0 && (encoderVal < HANG_ENCODER_VAL - 30 || encoderVal > HANG_ENCODER_VAL + 30)) {
             autoRetract = false;
             autoExtend = false;
-            double hangPow = encoderVal < HANG_ENCODER_VAL ? 1 : -1;
+            double hangPow = encoderVal < HANG_ENCODER_VAL ? 0.5 : -0.5;
             leftVertical.setPower(hangPow);
             rightVertical.setPower(hangPow);
         } else if (autoRetract && encoderVal > VERTICAL_SLIDE_MIN) {
@@ -94,6 +94,8 @@ public class StatesBot_Outtake implements RobotHardware {
         } else {
             leftVertical.setPower(0);
             rightVertical.setPower(0);
+            autoRetract = false;
+            autoExtend = false;
         }
 
         if (gamepad.left_bumper) {
