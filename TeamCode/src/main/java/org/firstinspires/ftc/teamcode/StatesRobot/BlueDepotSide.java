@@ -37,7 +37,7 @@ public class BlueDepotSide extends LinearOpMode {
         auto.releaseMarkerWithSlide(QUADRANT);
         auto.sampleWithSlide(goldPos, QUADRANT, true);
         auto.scoreInLander(QUADRANT);
-        auto.parkInCraterFromLander(ALLIANCE, false);
+        auto.parkInCraterFromLander(ALLIANCE, true);
 
     }
 }
