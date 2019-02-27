@@ -8,8 +8,8 @@ import org.firstinspires.ftc.teamcode.FieldMapping.FieldElement;
 import org.firstinspires.ftc.teamcode.FieldMapping.Vector;
 import org.firstinspires.ftc.teamcode.Hardware.StatesBot_Hardware;
 
-@Autonomous(name="Red Crater Side Marker First", group= AutonomousData.OFFICIAL_GROUP)
-public class RedCraterSideMarkerFirst extends LinearOpMode {
+@Autonomous(name="Red Crater Side Marker First With Scoring", group= AutonomousData.OFFICIAL_GROUP)
+public class RedCraterSideMarkerFirstScoring extends LinearOpMode {
     private StatesBot_Hardware hardware;
     private Auto auto;
     private final int QUADRANT = 3;
@@ -36,7 +36,6 @@ public class RedCraterSideMarkerFirst extends LinearOpMode {
         hardware.intake.retractHorizontalSlide();
         auto.backToStartingPosition(ALLIANCE);
         auto.sampleWithSlide(goldPos, QUADRANT, true);
-        hardware.drivetrain.faceAngle(auto.startTheta(QUADRANT));
-        hardware.intake.extendHorizontalSlide(0.7);
+        auto.scoreInLander(QUADRANT);
     }
 }

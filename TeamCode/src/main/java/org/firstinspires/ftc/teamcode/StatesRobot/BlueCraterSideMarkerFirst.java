@@ -36,6 +36,7 @@ public class BlueCraterSideMarkerFirst extends LinearOpMode {
         hardware.intake.retractHorizontalSlide();
         auto.backToStartingPosition(ALLIANCE);
         auto.sampleWithSlide(goldPos, QUADRANT, true);
-        auto.scoreInLander(QUADRANT);
+        hardware.drivetrain.faceAngle(auto.startTheta(QUADRANT));
+        hardware.intake.extendHorizontalSlide(0.7);
     }
 }

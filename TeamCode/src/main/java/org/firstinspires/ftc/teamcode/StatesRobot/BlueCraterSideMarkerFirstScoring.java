@@ -8,12 +8,12 @@ import org.firstinspires.ftc.teamcode.FieldMapping.FieldElement;
 import org.firstinspires.ftc.teamcode.FieldMapping.Vector;
 import org.firstinspires.ftc.teamcode.Hardware.StatesBot_Hardware;
 
-@Autonomous(name="Red Crater Side Marker First", group= AutonomousData.OFFICIAL_GROUP)
-public class RedCraterSideMarkerFirst extends LinearOpMode {
+@Autonomous(name="Blue Crater Side Marker First With Scoring", group= AutonomousData.OFFICIAL_GROUP)
+public class BlueCraterSideMarkerFirstScoring extends LinearOpMode {
     private StatesBot_Hardware hardware;
     private Auto auto;
-    private final int QUADRANT = 3;
-    private final int ALLIANCE = AutonomousData.RED_ALLIANCE;
+    private final int QUADRANT = 1;
+    private final int ALLIANCE = AutonomousData.BLUE_ALLIANCE;
 
     public void runOpMode() throws InterruptedException {
         hardware = new StatesBot_Hardware(hardwareMap, gamepad1, gamepad2, true);
@@ -36,7 +36,6 @@ public class RedCraterSideMarkerFirst extends LinearOpMode {
         hardware.intake.retractHorizontalSlide();
         auto.backToStartingPosition(ALLIANCE);
         auto.sampleWithSlide(goldPos, QUADRANT, true);
-        hardware.drivetrain.faceAngle(auto.startTheta(QUADRANT));
-        hardware.intake.extendHorizontalSlide(0.7);
+        auto.scoreInLander(QUADRANT);
     }
 }
