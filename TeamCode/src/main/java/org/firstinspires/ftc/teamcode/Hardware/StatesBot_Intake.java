@@ -115,6 +115,7 @@ public class StatesBot_Intake {
             horizontalSlide.setPower(-1);
         } else {
             horizontalSlide.setPower(0);
+            autoRetract = false;
         }
 
         if (gamepad.dpad_down)
