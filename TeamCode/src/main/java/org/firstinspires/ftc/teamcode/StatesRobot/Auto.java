@@ -250,7 +250,7 @@ public class Auto {
         // If we're intaking, run harvester and run  horizontal slide to the mineral; otherwise, run  horizontal slide less while lowering vertical slide
         if (intake) {
             hardware.intake.harvest();
-            hardware.intake.runSlideTo(distFromMineral);
+            hardware.intake.runSlideTo(quadrant % 2 == 1 ? 0.8 * distFromMineral : distFromMineral);
         } else {
             vertAndExtend(false, 0.7 * distFromMineral, true);
         }
@@ -302,8 +302,8 @@ public class Auto {
         // If starting on crater side, we have to drive to get closer to depot; otherwise, simply extend while lowering vertical slide
         if (quadrant % 2 == 1) {
             //hardware.outtake.verticalSlideDown();
-            hardware.drivetrain.goTo(AutonomousData.FIELD_MAP.get(quadrant == 1 ? FieldElement.FRONT_OF_BLUE_ROVER : FieldElement.FRONT_OF_RED_FOOTPRINT), 1.0); // 0.6, 0.8 worked
-            hardware.drivetrain.faceAngle(quadrant == 1 ? 170 : -10);
+            hardware.drivetrain.goToLerp(AutonomousData.FIELD_MAP.get(quadrant == 1 ? FieldElement.FRONT_OF_BLUE_ROVER : FieldElement.FRONT_OF_RED_FOOTPRINT), 1.2); // 0.6, 0.8 worked
+            hardware.drivetrain.faceAngle(quadrant == 1 ? 165 : -15);
             hardware.drivetrain.driveDistance(1, 5, 0.8); // 0.6, 0.8 worked
             hardware.drivetrain.updatePosAfterDrive(1);
         }
@@ -362,7 +362,7 @@ public class Auto {
 
     public void backToStartingPosition(int alliance) throws InterruptedException {
         double coordinate = 0.8*AutonomousData.FIELD_MAP.SQUARE_LENGTH;
-        hardware.drivetrain.goToBackwards(new Vector(alliance == AutonomousData.RED_ALLIANCE ? -coordinate : coordinate, alliance == AutonomousData.RED_ALLIANCE ? -coordinate : coordinate), 0.7);
+        hardware.drivetrain.goToBackwardsLerp(new Vector(alliance == AutonomousData.RED_ALLIANCE ? -coordinate : coordinate, alliance == AutonomousData.RED_ALLIANCE ? -coordinate : coordinate), 1.2);
         hardware.drivetrain.faceAngle(startTheta(alliance == AutonomousData.BLUE_ALLIANCE ? 1 : 3));
         setStartPosition(alliance == AutonomousData.BLUE_ALLIANCE ? 1 : 3);
     }

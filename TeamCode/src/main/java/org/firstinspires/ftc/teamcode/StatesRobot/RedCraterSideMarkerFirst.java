@@ -37,6 +37,6 @@ public class RedCraterSideMarkerFirst extends LinearOpMode {
         auto.backToStartingPosition(ALLIANCE);
         auto.sampleWithSlide(goldPos, QUADRANT, true);
         hardware.intake.flipIn(true);
-        hardware.intake.extendHorizontalSlide(1);
+        hardware.drivetrain.faceAngle(auto.startTheta(QUADRANT));
     }
 }

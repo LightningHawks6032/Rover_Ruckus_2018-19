@@ -198,7 +198,23 @@ public class MecanumWheelDrive implements RobotHardware {
         resetEncoders();
         runEncodersToPosition();
 
-        boolean lerp = distance > 30;
+        leftFrontEncoder.setTarget(direction * distance);
+        rightFrontEncoder.setTarget(direction * distance);
+        leftBackEncoder.setTarget(direction * distance);
+        rightBackEncoder.setTarget(direction * distance);
+
+        setPowers(direction * pow, direction * pow, direction * pow, direction * pow);
+        while (leftFront.isBusy() && rightFront.isBusy() && leftBack.isBusy() && rightBack.isBusy() && autoRunning()) {
+            // WAIT - Motors are busy
+        }
+
+        setPowers(0, 0, 0, 0);
+        runWithoutEncoders();
+    }
+
+    public void lerpDriveDistance(int direction, double distance, double pow) throws InterruptedException {
+        resetEncoders();
+        runEncodersToPosition();
         leftFrontEncoder.setTarget(direction * distance);
         rightFrontEncoder.setTarget(direction * distance);
         leftBackEncoder.setTarget(direction * distance);
@@ -210,7 +226,7 @@ public class MecanumWheelDrive implements RobotHardware {
             // WAIT - Motors are busy
             double encoderDistance = getAverageDist();
             double prop = encoderDistance / distance;
-            double newPow = lerp ? -(pow - 0.1) * Math.pow(prop - 1, 1) + 0.1 : pow;
+            double newPow = -(pow - 0.1) * Math.pow(prop - 1, 1) + 0.1;
             setPowers(direction * newPow, direction * newPow, direction * newPow, direction * newPow);
         }
 
@@ -266,6 +282,22 @@ public class MecanumWheelDrive implements RobotHardware {
         else faceAngle(-(360 - (180 + theta)));
         driveDistance(-1, location.distanceFrom(robotPos), pow); // Drive to location
         updatePosAfterDrive(-1);
+        updateAngleFromIMU();
+    }
+    public void goToBackwardsLerp(Vector location, double pow) throws InterruptedException {
+        double radiansToTurn = Math.atan2(location.getY() - robotPos.getY(), location.getX() - robotPos.getX());
+        int theta = (int) MRGyro.convertToDegrees(radiansToTurn);
+
+        if (theta <= 0) faceAngle(180 + theta);
+        else faceAngle(-(360 - (180 + theta)));
+        lerpDriveDistance(-1, location.distanceFrom(robotPos), pow); // Drive to location
+        updatePosAfterDrive(-1);
+        updateAngleFromIMU();
+    }
+    public void goToLerp(Vector location, double pow) throws InterruptedException {
+        face(location); // Turn to face location
+        lerpDriveDistance(1, location.distanceFrom(robotPos), pow); // Drive to location
+        updatePosAfterDrive(1);
         updateAngleFromIMU();
     }
 
