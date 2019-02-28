@@ -174,7 +174,7 @@ public class Auto {
         hardware.drivetrain.setInitialRobotAngle(startAngle(quadrant));
 
         // Move away from lander
-        hardware.drivetrain.driveDistance(1, 8, 0.6);
+        hardware.drivetrain.driveDistance(1, 8, 0.8);
         hardware.drivetrain.updateAngleFromIMU(); // added
         //hardware.outtake.verticalSlideDown();
     }
@@ -250,7 +250,7 @@ public class Auto {
         // If we're intaking, run harvester and run  horizontal slide to the mineral; otherwise, run  horizontal slide less while lowering vertical slide
         if (intake) {
             hardware.intake.harvest();
-            hardware.intake.runSlideTo(quadrant % 2 == 1 ? 0.8 * distFromMineral : distFromMineral);
+            hardware.intake.runSlideTo(quadrant % 2 == 1 ? 0.6 * distFromMineral : distFromMineral);
         } else {
             vertAndExtend(false, 0.7 * distFromMineral, true);
         }
@@ -287,12 +287,12 @@ public class Auto {
             hardware.intake.extendHorizontalSlide(0.6);
             hardware.intake.flipIn(true);
         } else if (goldPos == 1) {
-            hardware.drivetrain.driveDistance(1, 4, 0.6);
+            hardware.drivetrain.driveDistance(1, 4, 0.8);
             hardware.intake.extendHorizontalSlide(0.7);
             hardware.intake.flipOut(true);
             hardware.intake.extendHorizontalSlide(1);
             hardware.intake.flipIn(true);
-            hardware.drivetrain.driveDistance(-1, 4, 0.6);
+            hardware.drivetrain.driveDistance(-1, 4, 0.8);
         }
 
         hardware.intake.retractHorizontalSlide();
@@ -304,7 +304,7 @@ public class Auto {
             //hardware.outtake.verticalSlideDown();
             hardware.drivetrain.goToLerp(AutonomousData.FIELD_MAP.get(quadrant == 1 ? FieldElement.FRONT_OF_BLUE_ROVER : FieldElement.FRONT_OF_RED_FOOTPRINT), 1.2); // 0.6, 0.8 worked
             hardware.drivetrain.faceAngle(quadrant == 1 ? 165 : -15);
-            hardware.drivetrain.driveDistance(1, 5, 0.8); // 0.6, 0.8 worked
+            hardware.drivetrain.driveDistance(1, 5, 1.0); // 0.6, 0.8 worked
             hardware.drivetrain.updatePosAfterDrive(1);
         }
         vertAndExtend(false, hardware.intake.HORIZONTAL_SLIDE_MAX, false);
@@ -353,11 +353,11 @@ public class Auto {
     }
 
     public void parkInCraterFromDoubleSample(int alliance) throws InterruptedException {
-        int thetaFace = alliance == AutonomousData.BLUE_ALLIANCE ? 0 : 180;
+        int thetaFace = alliance == AutonomousData.BLUE_ALLIANCE ? 10 : -170;
         hardware.drivetrain.faceAngle(thetaFace);
         hardware.drivetrain.faceAngle(thetaFace);
-        hardware.drivetrain.driveDistance(1, AutonomousData.FIELD_MAP.HALF_SQUARE_LENGTH, 0.8);
-        hardware.intake.extendHorizontalSlide(0.7);
+        //hardware.drivetrain.driveDistance(1, AutonomousData.FIELD_MAP.HALF_SQUARE_LENGTH, 1);
+        hardware.intake.extendHorizontalSlide(1);
     }
 
     public void backToStartingPosition(int alliance) throws InterruptedException {
