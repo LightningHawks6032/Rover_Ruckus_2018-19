@@ -31,7 +31,7 @@ public class StatesBot_Hardware {
     private final int ROBOT_CENTER_X = 225;
 
     // Range Sensor Distance from Robot Center (inches)
-    public final int RANGE_SENSOR_DISPLACEMENT = 2;
+    public final int RANGE_SENSOR_DISPLACEMENT = 3;
 
 
     public StatesBot_Hardware(HardwareMap hardwareMap, Gamepad driveGamepad, Gamepad manipsGamepad, boolean calibrateSensors) {

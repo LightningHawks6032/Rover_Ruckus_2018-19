@@ -194,9 +194,11 @@ public class MecanumWheelDrive implements RobotHardware {
      * @param pow : constant power at which the robot drives
      */
     public void driveDistance(int direction, double distance, double pow) throws InterruptedException {
+        //updateAngleFromIMU(); // used to be at end of method
         resetEncoders();
         runEncodersToPosition();
 
+        boolean lerp = distance > 30;
         leftFrontEncoder.setTarget(direction * distance);
         rightFrontEncoder.setTarget(direction * distance);
         leftBackEncoder.setTarget(direction * distance);
@@ -206,11 +208,14 @@ public class MecanumWheelDrive implements RobotHardware {
 
         while (leftFront.isBusy() && rightFront.isBusy() && leftBack.isBusy() && rightBack.isBusy() && autoRunning()) {
             // WAIT - Motors are busy
+            double encoderDistance = getAverageDist();
+            double prop = encoderDistance / distance;
+            double newPow = lerp ? -(pow - 0.1) * Math.pow(prop - 1, 1) + 0.1 : pow;
+            setPowers(direction * newPow, direction * newPow, direction * newPow, direction * newPow);
         }
 
         setPowers(0, 0, 0, 0);
         runWithoutEncoders();
-        updateAngleFromIMU();
     }
 
     /**
@@ -237,7 +242,7 @@ public class MecanumWheelDrive implements RobotHardware {
         setPowers(0, 0, 0, 0);
 
         runWithoutEncoders();
-        updateAngleFromIMU();
+        //updateAngleFromIMU();
     }
 
     public void strafeForTime(double pow, double seconds) throws InterruptedException {
@@ -258,7 +263,7 @@ public class MecanumWheelDrive implements RobotHardware {
         int theta = (int) MRGyro.convertToDegrees(radiansToTurn);
 
         if (theta <= 0) faceAngle(180 + theta);
-        else faceAngle(360 - (180 + theta));
+        else faceAngle(-(360 - (180 + theta)));
         driveDistance(-1, location.distanceFrom(robotPos), pow); // Drive to location
         updatePosAfterDrive(-1);
         updateAngleFromIMU();

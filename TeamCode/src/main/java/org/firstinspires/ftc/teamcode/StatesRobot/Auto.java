@@ -60,7 +60,7 @@ public class Auto {
 
     // Sets up the starting position of the robot after it has landed and oriented itself on field
     public void setStartPosition(int quadrant) throws InterruptedException {
-        double defaultOffset = 15;
+        double defaultOffset = 17; // originally 15
         if ((int) hardware.rangeSensor.getDistance(DistanceUnit.INCH) == 0) { // if range sensor is not working
             hardware.drivetrain.setRobotPos(new Vector(quadrant == 1 || quadrant == 4 ? defaultOffset : -defaultOffset, quadrant < 3 ? defaultOffset : -defaultOffset));
             hardware.drivetrain.updateAngleFromIMU();
@@ -175,6 +175,7 @@ public class Auto {
 
         // Move away from lander
         hardware.drivetrain.driveDistance(1, 8, 0.6);
+        hardware.drivetrain.updateAngleFromIMU(); // added
         //hardware.outtake.verticalSlideDown();
     }
 
@@ -242,11 +243,6 @@ public class Auto {
         if (intake && quadrant % 2 == 0) {
             hardware.intake.runSlideTo(0.3 * distFromMineral);
         }
-        // If we're on crater side, we reset the robot position ot its initial default position (could be changed to use range sensor)
-        else if (intake && quadrant % 2 == 1) {
-            //double defaultOffset = 18;
-            //hardware.drivetrain.setRobotPos(new Vector(quadrant == 1 || quadrant == 4 ? defaultOffset : -defaultOffset, quadrant < 3 ? defaultOffset : -defaultOffset));
-        }
 
         hardware.drivetrain.face(fieldMap.get(chosenMineral));
         hardware.intake.flipOut(true);
@@ -260,7 +256,6 @@ public class Auto {
         }
         hardware.intake.stopHarvester();
         hardware.intake.flipIn(false);
-        hardware.intake.retractHorizontalSlide();
     }
 
     public void doubleSampleWithSlide(int goldPos, int alliance, boolean intake) throws InterruptedException {
@@ -308,8 +303,8 @@ public class Auto {
         if (quadrant % 2 == 1) {
             //hardware.outtake.verticalSlideDown();
             hardware.drivetrain.goTo(AutonomousData.FIELD_MAP.get(quadrant == 1 ? FieldElement.FRONT_OF_BLUE_ROVER : FieldElement.FRONT_OF_RED_FOOTPRINT), 1.0); // 0.6, 0.8 worked
-            hardware.drivetrain.faceAngle(quadrant == 1 ? 170 : -170);
-            hardware.drivetrain.driveDistance(1, 5, 1.0); // 0.6, 0.8 worked
+            hardware.drivetrain.faceAngle(quadrant == 1 ? 170 : -10);
+            hardware.drivetrain.driveDistance(1, 5, 0.8); // 0.6, 0.8 worked
             hardware.drivetrain.updatePosAfterDrive(1);
         }
         vertAndExtend(false, hardware.intake.HORIZONTAL_SLIDE_MAX, false);
@@ -367,8 +362,7 @@ public class Auto {
 
     public void backToStartingPosition(int alliance) throws InterruptedException {
         double coordinate = 0.8*AutonomousData.FIELD_MAP.SQUARE_LENGTH;
-        if (alliance == AutonomousData.RED_ALLIANCE) coordinate = -coordinate;
-        hardware.drivetrain.goToBackwards(new Vector(coordinate, coordinate), 0.7);
+        hardware.drivetrain.goToBackwards(new Vector(alliance == AutonomousData.RED_ALLIANCE ? -coordinate : coordinate, alliance == AutonomousData.RED_ALLIANCE ? -coordinate : coordinate), 0.7);
         hardware.drivetrain.faceAngle(startTheta(alliance == AutonomousData.BLUE_ALLIANCE ? 1 : 3));
         setStartPosition(alliance == AutonomousData.BLUE_ALLIANCE ? 1 : 3);
     }

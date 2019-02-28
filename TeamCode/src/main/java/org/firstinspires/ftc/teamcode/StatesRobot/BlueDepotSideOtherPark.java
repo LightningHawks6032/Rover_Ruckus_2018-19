@@ -36,6 +36,7 @@ public class BlueDepotSideOtherPark extends LinearOpMode {
         telemetry.update();
         auto.releaseMarkerWithSlide(QUADRANT);
         auto.sampleWithSlide(goldPos, QUADRANT, true);
+        hardware.intake.retractHorizontalSlide();
         auto.scoreInLander(QUADRANT);
         auto.parkInCraterFromLander(ALLIANCE, false);
 

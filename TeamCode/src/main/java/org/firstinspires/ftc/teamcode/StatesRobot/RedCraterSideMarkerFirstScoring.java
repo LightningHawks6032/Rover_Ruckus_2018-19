@@ -36,6 +36,7 @@ public class RedCraterSideMarkerFirstScoring extends LinearOpMode {
         hardware.intake.retractHorizontalSlide();
         auto.backToStartingPosition(ALLIANCE);
         auto.sampleWithSlide(goldPos, QUADRANT, true);
+        hardware.intake.retractHorizontalSlide();
         auto.scoreInLander(QUADRANT);
     }
 }

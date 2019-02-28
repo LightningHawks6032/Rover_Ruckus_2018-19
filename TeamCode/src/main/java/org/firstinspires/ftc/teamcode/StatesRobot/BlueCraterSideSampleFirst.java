@@ -32,6 +32,7 @@ public class BlueCraterSideSampleFirst extends LinearOpMode {
         telemetry.addData("Robot Pos", hardware.drivetrain.robotPos.toString());
         telemetry.update();
         auto.sampleWithSlide(goldPos, QUADRANT, false);
+        hardware.intake.retractHorizontalSlide();
 
         auto.releaseMarkerWithSlide(QUADRANT);
         hardware.intake.retractHorizontalSlide();

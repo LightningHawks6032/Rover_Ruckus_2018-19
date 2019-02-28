@@ -33,6 +33,7 @@ public class BlueCraterSideDoubleSample extends LinearOpMode {
         telemetry.update();
 
         auto.sampleWithSlide(goldPos, QUADRANT, false);
+        hardware.intake.retractHorizontalSlide();
         auto.releaseMarkerWithSlide(QUADRANT);
         hardware.intake.retractHorizontalSlide();
         auto.doubleSampleWithSlide(goldPos, ALLIANCE, false);

@@ -114,7 +114,7 @@ public class GoldAlignDetector extends DogeCVDetector {
         double alignXMax = alignX + (alignSize / 2); // Max X pos in pixels
         double xPos, yPos; // Current Gold X & Y Pos
 
-        //boolean rectWithinBounds = leftSideBottom ? bestRect.y < yBounds : bestRect.y > yBounds;
+        // After finding bestRect, ensure it is within y bounds
         if (bestRect != null) {
             if (leftSideBottom ? bestRect.y < yBounds : bestRect.y > yBounds) {
                 // Show chosen result
@@ -139,7 +139,7 @@ public class GoldAlignDetector extends DogeCVDetector {
             aligned = false;
         }
         if (debugAlignment) {
-            //Draw debug alignment info
+            // Draw debug alignment info
             if (isFound()) {
                 Imgproc.line(displayMat,new Point(goldXPos, getAdjustedSize().height), new Point(goldXPos, getAdjustedSize().height - 30),new Scalar(255,255,0), 2);
             }
