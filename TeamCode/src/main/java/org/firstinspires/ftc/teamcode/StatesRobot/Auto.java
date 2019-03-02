@@ -271,7 +271,7 @@ public class Auto {
             chosenMineral = minerals[2];
         }*/
 
-        hardware.drivetrain.driveDistance(1, 8, 0.8);
+        hardware.drivetrain.driveDistance(1, 8, 1.0); // was 8 inch
         hardware.drivetrain.updatePosAfterDrive(1);
         int thetaFace = alliance == AutonomousData.BLUE_ALLIANCE ? -135 : 45;
         hardware.drivetrain.faceAngle(thetaFace);
@@ -282,9 +282,9 @@ public class Auto {
             hardware.intake.extendHorizontalSlide(0.3);
             hardware.intake.flipIn(true);
         } else if (goldPos == 2) {
-            hardware.intake.extendHorizontalSlide(0.3);
+            hardware.intake.extendHorizontalSlide(0.4);
             hardware.intake.flipOut(true);
-            hardware.intake.extendHorizontalSlide(0.6);
+            hardware.intake.extendHorizontalSlide(0.7);
             hardware.intake.flipIn(true);
         } else if (goldPos == 1) {
             hardware.drivetrain.driveDistance(1, 4, 0.8);
@@ -303,8 +303,8 @@ public class Auto {
         if (quadrant % 2 == 1) {
             //hardware.outtake.verticalSlideDown();
             hardware.drivetrain.goToLerp(AutonomousData.FIELD_MAP.get(quadrant == 1 ? FieldElement.FRONT_OF_BLUE_ROVER : FieldElement.FRONT_OF_RED_FOOTPRINT), 1.2); // 0.6, 0.8 worked
-            hardware.drivetrain.faceAngle(quadrant == 1 ? 165 : -15);
-            hardware.drivetrain.driveDistance(1, 5, 1.0); // 0.6, 0.8 worked
+            hardware.drivetrain.faceAngle(quadrant == 1 ? 170 : -10);
+            hardware.drivetrain.driveDistance(1, 6, 1.0); // was 5 inch
             hardware.drivetrain.updatePosAfterDrive(1);
         }
         vertAndExtend(false, hardware.intake.HORIZONTAL_SLIDE_MAX, false);
@@ -315,13 +315,13 @@ public class Auto {
 
     public void scoreInLander(int quadrant) throws InterruptedException {
         hardware.intake.release();
-        hardware.drivetrain.faceAngle(startTheta(quadrant));
+        if (quadrant % 2 != 1) hardware.drivetrain.faceAngle(startTheta(quadrant));
         hardware.drivetrain.driveDistance(-1, 5, 0.7);
         hardware.intake.stopHarvester();
 
         if (quadrant % 2 == 1) {
-            hardware.drivetrain.turn(30, true); // if on crater side, we have to turn to get mineral in gold cargo hold
-            hardware.drivetrain.driveDistance(-1, 3, 1.0);
+            //hardware.drivetrain.turn(30, true); // if on crater side, we have to turn to get mineral in gold cargo hold
+            //hardware.drivetrain.driveDistance(-1, 3, 1.0);
             vertAndExtend(true, hardware.intake.HORIZONTAL_SLIDE_MAX, false); // extend horizontal slide to get parking points
         } else {
             hardware.outtake.verticalSlideUp();
@@ -361,10 +361,11 @@ public class Auto {
     }
 
     public void backToStartingPosition(int alliance) throws InterruptedException {
+        hardware.drivetrain.driveDistance(-1, 6, 1.0); // was 5 inch
+        hardware.drivetrain.updatePosAfterDrive(-1);
         double coordinate = 0.8*AutonomousData.FIELD_MAP.SQUARE_LENGTH;
         hardware.drivetrain.goToBackwardsLerp(new Vector(alliance == AutonomousData.RED_ALLIANCE ? -coordinate : coordinate, alliance == AutonomousData.RED_ALLIANCE ? -coordinate : coordinate), 1.2);
         hardware.drivetrain.faceAngle(startTheta(alliance == AutonomousData.BLUE_ALLIANCE ? 1 : 3));
-        setStartPosition(alliance == AutonomousData.BLUE_ALLIANCE ? 1 : 3);
     }
 
     /**

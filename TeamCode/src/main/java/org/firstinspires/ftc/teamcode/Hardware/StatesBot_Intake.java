@@ -136,6 +136,10 @@ public class StatesBot_Intake {
         slideEncoder.runWithout();
     }
     public void runSlideTo(double distance) {
+        // Recently added to prevent distance from larger than max extension
+        if (distance > HORIZONTAL_SLIDE_MAX / slideEncoder.ticksPerRev() * slideEncoder.getWheelCircumference())
+            distance = HORIZONTAL_SLIDE_MAX / slideEncoder.ticksPerRev() * slideEncoder.getWheelCircumference();
+
         double currDist = slideEncoder.linDistance();
         slideEncoder.runToPosition();
         slideEncoder.setTarget(distance);

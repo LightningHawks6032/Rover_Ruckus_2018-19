@@ -37,7 +37,7 @@ public class BlueCraterSideSampleFirst extends LinearOpMode {
         auto.releaseMarkerWithSlide(QUADRANT);
         hardware.intake.retractHorizontalSlide();
         auto.backToStartingPosition(ALLIANCE);
-        hardware.intake.extendHorizontalSlide(0.8);
+        hardware.intake.extendHorizontalSlide(1.0);
 
         // Attempting a cycle
         /*hardware.intake.flipOut(true);
