@@ -58,7 +58,7 @@ public class StatesBot_Hardware {
                 manipsGamepad
         );
 
-        mineralDetector = new GoldAlignDetector(ROBOT_CENTER_X, 160, 300, true, false);
+        mineralDetector = new GoldAlignDetector(ROBOT_CENTER_X, 160, 200, true, false); // was 300
         navTargetDetector = new NavTargetDetector(hardwareMap, CAMERA_FORWARD_POSITION, CAMERA_LEFT_POSITION);
         rangeSensor = hardwareMap.get(ModernRoboticsI2cRangeSensor.class, "rs");
         rangeSensor.setI2cAddress(I2cAddr.create8bit(0x1c)); // previously used 8bit

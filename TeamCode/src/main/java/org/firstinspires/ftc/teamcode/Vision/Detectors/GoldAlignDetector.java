@@ -194,7 +194,7 @@ public class GoldAlignDetector extends DogeCVDetector {
             else if ((leftSideBottom && robotCenterX > getXPosition()) || (!leftSideBottom && robotCenterX < getXPosition()))
                 return 1;
         }
-        return 2;
+        return 3;
     }
 
     public void setupDetector(HardwareMap hwMap, int cameraIndex) {
