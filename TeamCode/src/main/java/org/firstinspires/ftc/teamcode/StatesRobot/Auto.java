@@ -401,7 +401,7 @@ public class Auto {
     }
 
     // Used to break all while loops when an opmode stops
-    private boolean autoRunning() {
+    public boolean autoRunning() {
         return System.currentTimeMillis() - startTime <= AutonomousData.TIME_LIMIT && !autonomous.isStopRequested();
     }
 }

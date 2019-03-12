@@ -11,15 +11,19 @@ import org.firstinspires.ftc.teamcode.StatesRobot.Auto;
 @Autonomous(name="Smooth Turn Test", group= AutonomousData.TEST_GROUP)
 
 public class SmoothTurnWithGyro extends LinearOpMode {
+
     private StatesBot_Hardware hardware;
     private Auto auto;
 
-
+    private int PERCENT_LIMIT = 50;
 
     public void runOpMode() throws InterruptedException {
         hardware = new StatesBot_Hardware(hardwareMap, gamepad1, gamepad2, true);
         auto = new Auto(this, hardware);
         hardware.initHardware();
+
+        waitForStart();
+        auto.setStartTime(System.currentTimeMillis());
 
         /*
 
@@ -37,13 +41,16 @@ public class SmoothTurnWithGyro extends LinearOpMode {
         hardware.drivetrain.encoderSetup();
 
         int currentAngle = Math.abs(hardware.drivetrain.gyro.getAngle());
-        int targetAngle = 45;
-        double leftPow = 0.5;
-        double rightPow = 0.5;
+        int targetAngle = 90;
+        double leftPow = 1;
+        double rightPow = 1;
 
         // amount between base power and full power
         double remainingPow = 1 - leftPow;
-        int percentFromCompletion = 0;
+        int percentFromCompletion = 100;
+        int percentCompleted = 0;
+        int modFromCompletion = PERCENT_LIMIT;
+        double powMod;
 
         waitForStart();
         auto.setStartTime(System.currentTimeMillis());
@@ -66,13 +73,20 @@ public class SmoothTurnWithGyro extends LinearOpMode {
         // applied power should be proportional to percentage of turn yet to be completed
         // time/distance taken for turn should be related to leftPow
 
-        while (currentAngle <= targetAngle){
-            percentFromCompletion = 1 - currentAngle/targetAngle;
-            rightPow = leftPow + remainingPow*percentFromCompletion;
+        while (currentAngle <= targetAngle && auto.autoRunning()){
+            percentCompleted = currentAngle/targetAngle;
+            percentFromCompletion = 1 - percentCompleted;
 
-            hardware.drivetrain.setPowers(leftPow, rightPow, leftPow, rightPow);
+            if(percentFromCompletion > PERCENT_LIMIT) modFromCompletion = PERCENT_LIMIT;
+
+            powMod = percentFromCompletion+0.1;
+
+            leftPow = rightPow*modFromCompletion+0.1;
+
+            hardware.drivetrain.setPowers(leftPow * powMod, rightPow * powMod, leftPow *powMod, rightPow * powMod);
             currentAngle = Math.abs(hardware.drivetrain.gyro.getAngle());
         }
         hardware.drivetrain.setPowers(0,0,0,0);
     }
+
 }
