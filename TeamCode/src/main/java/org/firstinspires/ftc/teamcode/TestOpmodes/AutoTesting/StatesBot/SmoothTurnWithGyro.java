@@ -15,7 +15,8 @@ public class SmoothTurnWithGyro extends LinearOpMode {
     private StatesBot_Hardware hardware;
     private Auto auto;
 
-    private int PERCENT_LIMIT = 50;
+    private double PERCENT_LIMIT = 0.6;
+    private double PERCENT_MIN = 0.3;
 
     public void runOpMode() throws InterruptedException {
         hardware = new StatesBot_Hardware(hardwareMap, gamepad1, gamepad2, true);
@@ -41,15 +42,15 @@ public class SmoothTurnWithGyro extends LinearOpMode {
         hardware.drivetrain.encoderSetup();
 
         int currentAngle = Math.abs(hardware.drivetrain.gyro.getAngle());
-        int targetAngle = 90;
+        int targetAngle = 45;
         double leftPow = 1;
         double rightPow = 1;
 
         // amount between base power and full power
         double remainingPow = 1 - leftPow;
-        int percentFromCompletion = 100;
-        int percentCompleted = 0;
-        int modFromCompletion = PERCENT_LIMIT;
+        double percentFromCompletion = 100;
+        double percentCompleted = 0;
+        double modFromCompletion = PERCENT_LIMIT;
         double powMod;
 
         waitForStart();
@@ -73,18 +74,27 @@ public class SmoothTurnWithGyro extends LinearOpMode {
         // applied power should be proportional to percentage of turn yet to be completed
         // time/distance taken for turn should be related to leftPow
 
-        while (currentAngle <= targetAngle && auto.autoRunning()){
+        while (currentAngle < targetAngle && auto.autoRunning()){
             percentCompleted = currentAngle/targetAngle;
             percentFromCompletion = 1 - percentCompleted;
 
-            if(percentFromCompletion > PERCENT_LIMIT) modFromCompletion = PERCENT_LIMIT;
+            modFromCompletion = percentCompleted;
+            if(modFromCompletion > PERCENT_LIMIT) modFromCompletion = PERCENT_LIMIT;
+            if(modFromCompletion < PERCENT_LIMIT) modFromCompletion = PERCENT_MIN;
 
-            powMod = percentFromCompletion+0.1;
 
-            leftPow = rightPow*modFromCompletion+0.1;
+            powMod = (percentFromCompletion+0.01)*0.7;
+
+            leftPow = rightPow*modFromCompletion;
+
+            //if(hardware.drivetrain.leftFrontEncoder.getEncoderCount() > )
 
             hardware.drivetrain.setPowers(leftPow * powMod, rightPow * powMod, leftPow *powMod, rightPow * powMod);
             currentAngle = Math.abs(hardware.drivetrain.gyro.getAngle());
+
+            telemetry.addData("Pow Ratio: ", rightPow/leftPow);
+            telemetry.addData("currentAngle: ", currentAngle);
+            telemetry.update();
         }
         hardware.drivetrain.setPowers(0,0,0,0);
     }
